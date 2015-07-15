@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="SlabGeometryControl"
+                   namespace="Alvasoft.DataWriter.NHibernateImpl.Entity">
+  <class name="StandartSizeEntity" table="StandartSize">
+    <id name="Id">
+      <generator class="native" />
+    </id>
+    <property name="Width" />
+    <property name="Height" />    
+    <property name="Length" />    
+  </class>
+</hibernate-mapping>

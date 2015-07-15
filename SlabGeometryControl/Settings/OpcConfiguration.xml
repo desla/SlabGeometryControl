@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <host>localhost</host>
+  <server>имя сервера</server>
+  <sensors>
+    <sensor>
+      <name>Top0</name>
+      <!--Список тегов-->
+    </sensor>
+  </sensors>  
+</configuration>

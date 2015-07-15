@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>  
+  <sensors>
+    <sensor>
+      <name>Top0</name>
+      <!--Список тегов-->
+    </sensor>
+    <sensor>
+      <name>Bottom0</name>
+      <!--Список тегов-->
+    </sensor>
+  </sensors>  
+</configuration>

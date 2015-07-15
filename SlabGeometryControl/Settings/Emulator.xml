@@ -1,0 +1,67 @@
+﻿<emulator>
+  <!--Предел дребезжания в миллиметрах-->
+  <rattle>2,0</rattle>
+  <!--Смещение от центра рамки-->
+  <shift>200</shift>
+  <ingot>
+    <!--Параметры слитка-->
+    <length>1000</length>
+    <width>1000</width>
+    <height>1000</height>
+    <!--Предел шероховатости в миллиметрах-->
+    <seedines>0,2</seedines>
+    <sides>
+      <side>
+        <type>TOP</type>
+        <!--Прогиб поверхности по центру-->
+        <sag>0</sag>
+      </side>
+      <side>
+        <type>BOTTOM</type>
+        <sag>0</sag>
+      </side>
+      <side>
+        <type>LEFT</type>
+        <sag>0</sag>
+      </side>
+      <side>
+        <type>RIGHT</type>
+        <sag>0</sag>
+      </side>
+    </sides>
+  </ingot>
+  <sensors>
+    <sensor>
+      <name>Top0</name>
+      <remove>1000</remove>
+      <shift>0</shift>
+      <horizont>2000</horizont>
+      <side>Top</side>
+    </sensor>    
+    <sensor>
+      <name>Bottom0</name>
+      <remove>1000</remove>
+      <shift>0</shift>
+      <horizont>2000</horizont>
+      <side>Bottom</side>
+    </sensor>
+    <sensor>
+      <name>Left0</name>
+      <remove>1000</remove>
+      <shift>0</shift>
+      <horizont>2000</horizont>
+      <side>Left</side>
+    </sensor>
+    <sensor>
+      <name>Right0</name>
+      <remove>1000</remove>
+      <shift>0</shift>
+      <horizont>2000</horizont>
+      <side>Right</side>
+    </sensor>
+    <sensor>
+      <name>Position</name>
+      <side>Position</side>
+    </sensor>
+  </sensors>
+</emulator>

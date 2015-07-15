@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="SlabGeometryControl"
+                   namespace="Alvasoft.DataWriter.NHibernateImpl.Entity">
+  <class name="DimentionValueEntity" table="DimentionValue">
+    <id name="Id">
+      <generator class="native" />
+    </id>
+    <property name="SlabId" />
+    <property name="DimentionId" />
+    <property name="Value" />    
+  </class>
+</hibernate-mapping>
