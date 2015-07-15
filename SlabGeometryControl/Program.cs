@@ -19,6 +19,7 @@ namespace Alvasoft
                 ServerPort = 9876
             };
 
+
             using (var controller = new GCSService(netConfiguration)) {
                 controller.OpenService();
 
