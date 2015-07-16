@@ -100,7 +100,7 @@
             };
 
             ServiceName = DEFAULT_SERVICE_NAME;
-            ServiceBinding = new NetTcpBinding();
+            ServiceBinding = new NetTcpBinding(SecurityMode.None);            
         }
 
         /// <summary>
@@ -160,7 +160,7 @@
             if (!IsListening()) {
                 var connectionString = MakeConnectionString();
                 var address = new Uri(connectionString);
-                CurrentService = new ServiceHost(this);
+                CurrentService = new ServiceHost(this);                
                 CurrentService.AddServiceEndpoint(ContractType, ServiceBinding, address);
                 CurrentService.Open();
                 LogInfo("Сервис запущен.");

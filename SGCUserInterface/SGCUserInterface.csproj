@@ -36,7 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AlvasoftWcfClient">
-      <HintPath>..\..\Wcf\AlvasoftWcf\AlvasoftWcfServer\bin\Debug\AlvasoftWcfClient.dll</HintPath>
+      <HintPath>..\Wcf\AlvasoftWcf\AlvasoftWcfClient\bin\Debug\AlvasoftWcfClient.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -53,6 +53,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CurrentInformation.cs" />
     <Compile Include="CurrentValuesForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,7 +79,18 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ModifiedMaskEnum.cs" />
+    <Compile Include="Pictures.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Pictures.resx</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
+    <Compile Include="ProgressShower.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ProgressShower.Designer.cs">
+      <DependentUpon>ProgressShower.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegulationsForm.cs">
       <SubType>Form</SubType>
@@ -92,6 +104,7 @@
     <Compile Include="SensorsForm.Designer.cs">
       <DependentUpon>SensorsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SlabsList.cs" />
     <Compile Include="SlabVisualizationForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -104,6 +117,7 @@
     <Compile Include="StandartSizeForm.Designer.cs">
       <DependentUpon>StandartSizeForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SystemInformation.cs" />
     <EmbeddedResource Include="CurrentValuesForm.resx">
       <DependentUpon>CurrentValuesForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -115,6 +129,13 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pictures.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Pictures.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProgressShower.resx">
+      <DependentUpon>ProgressShower.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -154,6 +175,9 @@
       <Project>{9E4FFC36-EBD7-4EE8-ADC6-8ADE568E6FF7}</Project>
       <Name>SlabGCApi</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\87.GIF" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

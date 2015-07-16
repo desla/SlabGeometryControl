@@ -28,16 +28,16 @@
         private void InitializeComponent()
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Mask = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Dimention = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.StandartSize = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Min = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Max = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -49,7 +49,7 @@
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
             this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -65,6 +65,46 @@
             this.dataGridView1.Size = new System.Drawing.Size(705, 387);
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
+            // 
+            // Id
+            // 
+            this.Id.HeaderText = "Id";
+            this.Id.Name = "Id";
+            this.Id.Visible = false;
+            // 
+            // Mask
+            // 
+            this.Mask.HeaderText = "Mask";
+            this.Mask.Name = "Mask";
+            this.Mask.Visible = false;
+            // 
+            // Dimention
+            // 
+            this.Dimention.FillWeight = 91.57822F;
+            this.Dimention.HeaderText = "Параметр слитка";
+            this.Dimention.Name = "Dimention";
+            this.Dimention.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Dimention.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // StandartSize
+            // 
+            this.StandartSize.FillWeight = 60F;
+            this.StandartSize.HeaderText = "Типо-размер";
+            this.StandartSize.Name = "StandartSize";
+            this.StandartSize.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.StandartSize.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // Min
+            // 
+            this.Min.FillWeight = 40F;
+            this.Min.HeaderText = "Минимально допустимое значение";
+            this.Min.Name = "Min";
+            // 
+            // Max
+            // 
+            this.Max.FillWeight = 40F;
+            this.Max.HeaderText = "Максимально допустимое значение";
+            this.Max.Name = "Max";
             // 
             // button4
             // 
@@ -113,46 +153,6 @@
             this.button1.Text = "Добавить";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // Id
-            // 
-            this.Id.HeaderText = "Id";
-            this.Id.Name = "Id";
-            this.Id.Visible = false;
-            // 
-            // Mask
-            // 
-            this.Mask.HeaderText = "Mask";
-            this.Mask.Name = "Mask";
-            this.Mask.Visible = false;
-            // 
-            // Dimention
-            // 
-            this.Dimention.FillWeight = 91.57822F;
-            this.Dimention.HeaderText = "Параметр слитка";
-            this.Dimention.Name = "Dimention";
-            this.Dimention.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Dimention.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // StandartSize
-            // 
-            this.StandartSize.FillWeight = 60F;
-            this.StandartSize.HeaderText = "Типо-размер";
-            this.StandartSize.Name = "StandartSize";
-            this.StandartSize.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.StandartSize.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // Min
-            // 
-            this.Min.FillWeight = 40F;
-            this.Min.HeaderText = "Минимально допустимое значение";
-            this.Min.Name = "Min";
-            // 
-            // Max
-            // 
-            this.Max.FillWeight = 40F;
-            this.Max.HeaderText = "Максимально допустимое значение";
-            this.Max.Name = "Max";
             // 
             // RegulationsForm
             // 

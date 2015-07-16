@@ -96,7 +96,7 @@ namespace Alvasoft.DataProvider.Impl.Emulator
                 for (var j = 0; j < sensors.Length; ++j) {
                     valueContainer.AddSensorValue(j, values[j][i].Value, nowTime);
                 }
-                //Thread.Sleep(30000 / values[0].Length);                
+                Thread.Sleep(15000 / values[0].Length);                
                 position = i;
             }
 

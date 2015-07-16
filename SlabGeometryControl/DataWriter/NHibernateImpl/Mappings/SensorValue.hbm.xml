@@ -6,8 +6,8 @@
     <id name="Id">
       <generator class="native" />
     </id>
-    <property name="SensorId" />
+    <property name="SensorId" index="IDX_SensorValue_SensorId_Time" />
     <property name="Value" />
-    <property name="Time" />    
+    <property name="Time" index="IDX_SensorValue_SensorId_Time" />    
   </class>
 </hibernate-mapping>

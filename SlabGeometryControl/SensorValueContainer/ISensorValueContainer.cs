@@ -20,7 +20,7 @@ namespace Alvasoft.SensorValueContainer
         /// </summary>
         /// <param name="aTime">Время.</param>
         /// <returns>Значения датчиков.</returns>
-        ISensorValueInfo[] GetNotReviewedValues(long aTime);
+        ISensorValueInfo[] GetAllValues(long aTime);
 
         /// <summary>
         /// Возвращает значения датчиков по номеру датчика.

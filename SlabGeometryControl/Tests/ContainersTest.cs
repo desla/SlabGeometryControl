@@ -43,10 +43,10 @@ namespace Alvasoft.Tests
 
             Assert.AreEqual(listener.CallCount, collection.Count);
 
-            Assert.AreEqual(container.GetNotReviewedValues(49).Length, 50);
-            Assert.AreEqual(container.GetNotReviewedValues(99).Length, 0);
-            Assert.AreEqual(container.GetNotReviewedValues(-1).Length, 100);
-            Assert.AreEqual(container.GetNotReviewedValues(0).Length, 99);
+            Assert.AreEqual(container.GetAllValues(49).Length, 50);
+            Assert.AreEqual(container.GetAllValues(99).Length, 0);
+            Assert.AreEqual(container.GetAllValues(-1).Length, 100);
+            Assert.AreEqual(container.GetAllValues(0).Length, 99);
 
             container.UnsunbscribeContainerListener(listener);
             container.AddSensorValue(100, 100, 100);
@@ -55,7 +55,7 @@ namespace Alvasoft.Tests
             Assert.IsTrue(!container.IsEmpty());
             container.Clear();
             Assert.IsTrue(container.IsEmpty());
-            Assert.AreEqual(container.GetNotReviewedValues(-1).Length, 0);
+            Assert.AreEqual(container.GetAllValues(-1).Length, 0);
         }
 
         [Test]

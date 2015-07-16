@@ -18,9 +18,15 @@ namespace SGCUserInterface
     {
         private SGCClientImpl client = null;
         private DateTime lastScanTime = DateTime.Now;        
-        private Random rnd = new Random(14121989);
-        private Timer updateInformationTimer = null;
-        private Dictionary<int, string> dimentionTitles = null; 
+        private Random rnd = new Random(14121989);        
+        private Dictionary<int, string> dimentionTitles = null;
+
+        private BackgroundWorker informationLoader = null;
+        private SystemInformation information = new SystemInformation();
+
+        private BackgroundWorker slabsListLoader = null;
+        private SlabsList slabsList = new SlabsList();
+        //private Timer updateInformationTimer = null;
 
         public MainForm()
         {
@@ -32,59 +38,26 @@ namespace SGCUserInterface
             dateTimeFrom.Value = DateTime.Now.Date;
             dateTimeTo.Value = DateTime.Now.Date.AddDays(1);
 
+            informationLoader = new BackgroundWorker();
+            informationLoader.DoWork += InformationLoading;
+            informationLoader.RunWorkerCompleted += InformationLoadingCompleat;            
+
+            slabsListLoader = new BackgroundWorker();
+            slabsListLoader.DoWork += SlabsListLoading;
+            slabsListLoader.RunWorkerCompleted += SlabsListLoadingCompleat;            
+
             ConnectToService();
-            updateInformationTimer = new Timer();
-            updateInformationTimer.Tick += InformationUpdate;
-            updateInformationTimer.Interval = 2000;
-            updateInformationTimer.Start();
         }
 
-        public void OnConnected(IClient aClient, long aSessionId)
+        private void SlabsListLoadingCompleat(object sender, RunWorkerCompletedEventArgs e)
         {
-            toolStripStatusLabel1.Text = @"Подключено. Сессия: " + aSessionId;            
-        }
-
-        public void OnDisconnected(IClient aClient, long aSessionId)
-        {
-            toolStripStatusLabel1.Text = @"Отключено.";                
-        }
-
-        private void InformationUpdate(object sender, EventArgs eventArgs)
-        {
-            try {                
-                if (client != null && client.IsConnected) {
-                    ControllerConnectionUpdate();
-                    SGCStateUpdate();
-                    SensorsCountUpdate();
-                    SlabsListUpdate();
-                }
-                else {                        
-                    label2.Text = @"-";
-                    label4.Text = @"-";
-                    label10.Text = @"-";
-                    label8.Text = @"-";
-                    toolStripStatusLabel1.Text = @"Подключение отсутствует";
-                }                
-            }
-            catch (Exception ex) {                
-                updateInformationTimer.Stop();
-                MessageBox.Show(@"Ошибка при обновлении информации: " + ex.Message);
-            }
-        }
-
-        private void SlabsListUpdate()
-        {
-            var from = dateTimeFrom.Value.ToLocalTime().ToBinary();
-            var to = dateTimeTo.Value.ToLocalTime().ToBinary();            
-            var slabs = client.GetSlabInfosByTimeInterval(from, to);
-            if (slabs != null) {
-                foreach (var slabInfo in slabs) {
-                    Application.DoEvents();
-                    var slabNumberFilter = textBox1.Text.Trim();                        
-                    if (string.IsNullOrEmpty(slabNumberFilter) || 
-                        slabNumberFilter.Equals(slabInfo.Number)) {
+            if (slabsList.Slabs != null) {
+                var slabs = slabsList.Slabs;
+                for (var i = 0; i < slabs.Length; ++i) {
+                    var slabInfo = slabs[i];
+                    var slabFilter = slabNumberFilter.Text.Trim();
+                    if (string.IsNullOrEmpty(slabFilter) || slabFilter.Equals(slabInfo.Number)) {
                         if (!IsContainSlabInfo(slabInfo.Id)) {
-                            Application.DoEvents();
                             string[] row = {
                                 slabInfo.Id.ToString(),
                                 "#######", //slabInfo.Number,
@@ -92,13 +65,78 @@ namespace SGCUserInterface
                                 DateTime.FromBinary(slabInfo.StartScanTime).ToString(),
                                 "Соответствие"
                             };
-
-                            dataGridView1.Rows.Add(row);
+                            try {
+                                dataGridView1.Rows.Add(row);
+                            }
+                            catch {
+                            }
                         }
-                    }                        
+                    }
                 }
+            }
+            else {
+                try {
+                    dataGridView1.Rows.Clear();
+                    dataGridView2.Rows.Clear();
+                }
+                catch {
+                }
+            }
+
+            if (client != null && client.IsConnected) {
+                slabsListLoader.RunWorkerAsync();
             }            
         }
+
+        private void SlabsListLoading(object sender, DoWorkEventArgs e)
+        {
+            try {
+                var from = dateTimeFrom.Value.ToLocalTime().ToBinary();
+                var to = dateTimeTo.Value.ToLocalTime().ToBinary();
+                slabsList.Slabs = client.GetSlabInfosByTimeInterval(from, to);
+            }
+            catch (Exception ex) {
+                MessageBox.Show(@"Ошибка при обновлении информации: " + ex.Message);
+                client.Disconnect();
+            }
+        }
+
+        private void InformationLoadingCompleat(object sender, RunWorkerCompletedEventArgs e)
+        {
+            ControllerConnectionUpdate();
+            SensorsCountUpdate();
+            SGCStateUpdate();
+
+            if (client != null && client.IsConnected) {
+                informationLoader.RunWorkerAsync();
+            }            
+        }
+
+        private void InformationLoading(object sender, DoWorkEventArgs e)
+        {
+            try {
+                information.ControllerConnectionState = client.GetConnectionState();
+                information.SGCState = client.GetSGCSystemState();
+                information.SensorsCount = client.GetSensorsCount();
+            }
+            catch (Exception ex) {                
+            }
+        }
+
+        public void OnConnected(IClient aClient, long aSessionId)
+        {
+            toolStripStatusLabel1.Text = @"Подключено. Сессия: " + aSessionId;
+            slabsListLoader.RunWorkerAsync();
+            informationLoader.RunWorkerAsync();
+        }
+
+        public void OnDisconnected(IClient aClient, long aSessionId)
+        {            
+            information.ControllerConnectionState = ControllerConnectionState.DISCONNECTED;
+            information.SGCState = SGCSystemState.WAITING;
+            information.SensorsCount = 0;
+            slabsList.Slabs = null;            
+        }        
 
         private bool IsContainSlabInfo(int aSlabId)
         {
@@ -113,7 +151,7 @@ namespace SGCUserInterface
 
         private void ControllerConnectionUpdate()
         {
-            if (client.GetConnectionState() == ControllerConnectionState.CONNECTED) {
+            if (information.ControllerConnectionState == ControllerConnectionState.CONNECTED) {
                 label2.Text = @"Подерживается";
                 label2.ForeColor = Color.Green;
             }
@@ -125,12 +163,12 @@ namespace SGCUserInterface
 
         private void SensorsCountUpdate()
         {
-            label8.Text = client.GetSensorsCount().ToString();
+            label8.Text = information.SensorsCount.ToString();
         }
 
         private void SGCStateUpdate()
         {
-            if (client.GetSGCSystemState() == SGCSystemState.WAITING) {
+            if (information.SGCState == SGCSystemState.WAITING) {
                 label4.Text = @"Ожидание слитка";
                 label4.ForeColor = Color.Brown;
                 lastScanTime = DateTime.Now;
@@ -175,7 +213,7 @@ namespace SGCUserInterface
         private bool ConnectToService()
         {
             var configuration = new NetConfigurationImpl {
-                ServerHost = "localhost",
+                ServerHost = "192.168.1.66",
                 ServerPort = 9876
             };
 

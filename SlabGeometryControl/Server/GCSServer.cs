@@ -144,13 +144,14 @@ namespace Alvasoft.Server
             try {                
                 var currentSystemState = aDataProvider.GetCurrentSystemState();
                 if (IsEndOfScanning(currentSystemState)) {                    
-                    endSlabScanTime = DateTime.Now.ToBinary();                    
+                    endSlabScanTime = DateTime.Now.ToBinary();
+                    StoreSensorValues();
                     var slabId = GetNewSlabId();                    
                     var slabModel = slabBuilder.BuildSlabModel();
                     dimentionCalculator.CalculateDimentions(slabModel);                    
                     var dimentionValues = dimentionValueContainer.GetDimentionValues();
                     dimentionValueWriter.WriteDimentionValues(slabId, dimentionValues);                    
-                }
+                }   
                 else { // начало сканирования.
                     startSlabScanTime = DateTime.Now.ToBinary();
                 }
@@ -169,18 +170,17 @@ namespace Alvasoft.Server
 
         public void OnDataReceived(ISensorValueContainer aContainer)
         {
+            logger.Info("Уведомление о поступлении данных с датчиков в контейнер.");            
+        }
+
+        private void StoreSensorValues()
+        {
             logger.Info("Уведомление о поступлении данных с датчиков в контейнер.");
             try {
-                var sensorValues = aContainer.GetNotReviewedValues(lastSavedSensorValueTime);
+                var sensorValues = sensorValueContainer.GetAllValues(0);
                 if (sensorValues != null && sensorValues.Length > 0) {
-                    logger.Info("Данных для сохранения: " + sensorValues.Length);
-                    for (var i = 0; i < sensorValues.Length; ++i) {
-                        sensorValueWriter.WriteSensorValueInfo(sensorValues[i]);
-                        var sensorValueTime = sensorValues[i].GetTime();
-                        if (lastSavedSensorValueTime < sensorValueTime) {
-                            lastSavedSensorValueTime = sensorValueTime;
-                        }
-                    }
+                    logger.Info("Данных для сохранения: " + sensorValues.Length);                    
+                    sensorValueWriter.WriteSensorValueInfos(sensorValues);                    
                     logger.Info("Данные успешно сохранены в базу.");
                 }
             }

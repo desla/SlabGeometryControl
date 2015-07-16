@@ -36,10 +36,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AlvasoftWcfClient">
-      <HintPath>..\..\Wcf\AlvasoftWcf\AlvasoftWcfClient\bin\Debug\AlvasoftWcfClient.dll</HintPath>
+      <HintPath>..\Wcf\AlvasoftWcf\AlvasoftWcfServer\bin\Debug\AlvasoftWcfClient.dll</HintPath>
     </Reference>
     <Reference Include="AlvasoftWcfServer">
-      <HintPath>..\..\Wcf\AlvasoftWcf\AlvasoftWcfServer\bin\Debug\AlvasoftWcfServer.dll</HintPath>
+      <HintPath>..\Wcf\AlvasoftWcf\AlvasoftWcfServer\bin\Debug\AlvasoftWcfServer.dll</HintPath>
     </Reference>
     <Reference Include="Iesi.Collections">
       <HintPath>Usings\Iesi.Collections.dll</HintPath>

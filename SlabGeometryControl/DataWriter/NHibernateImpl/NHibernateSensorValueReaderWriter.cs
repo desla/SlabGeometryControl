@@ -47,6 +47,26 @@ namespace Alvasoft.DataWriter.NHibernateImpl
             }
         }
 
+        public void WriteSensorValueInfos(ISensorValueInfo[] aValues)
+        {
+            try {
+                if (aValues != null) {                    
+                    using (var session = NHibernateHelper.OpenSession()) {
+                        using (var t = session.BeginTransaction()) {
+                            foreach (var sensorValue in aValues) {
+                                var sensorValueEntity = new SensorValueEntity(sensorValue);
+                                session.Save(sensorValueEntity);
+                            }                            
+                            t.Commit();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex) {
+                logger.Error("Ошибка при сохранении SensorValue: " + ex.Message);
+            }
+        }
+
         /// <summary>
         /// Для тестов сохранения значений.
         /// </summary>

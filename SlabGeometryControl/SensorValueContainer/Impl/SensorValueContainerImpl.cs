@@ -10,8 +10,7 @@ namespace Alvasoft.SensorValueContainer.Impl
     {
         private static readonly ILog logger = LogManager.GetLogger("SensorValueContainerImpl");
 
-        private Dictionary<int, List<ISensorValueInfo>> container = new Dictionary<int,List<ISensorValueInfo>>();
-        private List<ISensorValueInfo> notReviewedValues = new List<ISensorValueInfo>(); 
+        private Dictionary<int, List<ISensorValueInfo>> container = new Dictionary<int,List<ISensorValueInfo>>();        
         private List<ISensorValueContainerListener> listeners = new List<ISensorValueContainerListener>();
         private object accessLock = new object();
 
@@ -24,19 +23,19 @@ namespace Alvasoft.SensorValueContainer.Impl
                     container[aSensorId] = new List<ISensorValueInfo>();
                 }
                 container[aSensorId].Add(sensorValue);
-                notReviewedValues.Add(sensorValue);
             }
 
             AlertListeners();
         }
 
-        public ISensorValueInfo[] GetNotReviewedValues(long aTime)
-        {
-            logger.Debug("Запрос значений после указанного времени.");
+        public ISensorValueInfo[] GetAllValues(long aTime)
+        {            
             var sensorValueList = new List<ISensorValueInfo>();
             lock (accessLock) {
-                sensorValueList.AddRange(notReviewedValues.Where(v => v.GetTime() >= aTime));
-                notReviewedValues.Clear();
+                foreach (var sensorId in container.Keys) {
+                    var values = container[sensorId];
+                    sensorValueList.AddRange(values);
+                }
             }
 
             return sensorValueList.ToArray();

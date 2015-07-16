@@ -86,7 +86,7 @@
             };
 
             ServiceName = DEFAULT_SERVICE_NAME;
-            ServiceBinding = new NetTcpBinding();
+            ServiceBinding = new NetTcpBinding(SecurityMode.None);            
         }
 
         /// <summary>
@@ -156,7 +156,7 @@
         /// Проверяет соединение и бросает исключение, если соединение отсутствует.
         /// </summary>
         protected void CheckConnection()
-        {
+        {            
             if (!IsConnected) {
                 throw new NotConnectedException();
             }
@@ -219,7 +219,7 @@
         /// </summary>
         /// <returns>True - если подключение есть, false - иначе.</returns>
         private bool IsNetConnected()
-        {
+        {            
             return channelFactory != null && channelFactory.State == CommunicationState.Opened;
         }
     }
