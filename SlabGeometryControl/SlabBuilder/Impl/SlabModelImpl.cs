@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Alvasoft.SlabGeometryControl;
 using Alvasoft.Utils.Mathematic3D;
+using NHibernate.Mapping;
 
 namespace Alvasoft.SlabBuilder.Impl
 {
@@ -351,6 +355,60 @@ namespace Alvasoft.SlabBuilder.Impl
                     Z = aZ
                 };
             }
+        }
+
+        public SlabPoint[] ToPoints()
+        {
+            var points = new List<SlabPoint>();
+            for (var i = 0; i < TopLines.Length; ++i) {
+                for (var j = 0; j < TopLines[i].Length; ++j) {
+                    var linePoint = TopLines[i][j];
+                    var point = new SlabPoint {
+                        X = linePoint.X, 
+                        Y = linePoint.Y, 
+                        Z = linePoint.Z
+                    };
+                    points.Add(point);
+                }                
+            }
+
+            for (var i = 0; i < BottomLines.Length; ++i) {
+                for (var j = 0; j < BottomLines[i].Length; ++j) {
+                    var linePoint = BottomLines[i][j];
+                    var point = new SlabPoint {
+                        X = linePoint.X,
+                        Y = linePoint.Y,
+                        Z = linePoint.Z
+                    };
+                    points.Add(point);
+                }
+            }
+
+            for (var i = 0; i < LeftLines.Length; ++i) {
+                for (var j = 0; j < LeftLines[i].Length; ++j) {
+                    var linePoint = LeftLines[i][j];
+                    var point = new SlabPoint {
+                        X = linePoint.X,
+                        Y = linePoint.Y,
+                        Z = linePoint.Z
+                    };
+                    points.Add(point);
+                }
+            }
+
+            for (var i = 0; i < RightLines.Length; ++i) {
+                for (var j = 0; j < RightLines[i].Length; ++j) {
+                    var linePoint = RightLines[i][j];
+                    var point = new SlabPoint {
+                        X = linePoint.X,
+                        Y = linePoint.Y,
+                        Z = linePoint.Z
+                    };
+                    points.Add(point);
+                }
+            }
+
+            return points.ToArray();
         }
 
         private int GetLowerBoundPoint(Point3D[] aMassive, double aZ)

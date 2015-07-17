@@ -44,7 +44,7 @@ namespace Alvasoft.SensorValueContainer.Impl
         public ISensorValueInfo[] GetSensorValuesBySensorId(int aSensorId)
         {
             if (!container.ContainsKey(aSensorId)) {
-                throw new ArgumentException("Данных для датчика с таким идентификатором не найдено.");
+                throw new ArgumentException("Данных для датчика с таким идентификатором не найдено.");                
             }
 
             return container[aSensorId].ToArray();

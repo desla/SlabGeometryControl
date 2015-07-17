@@ -16,13 +16,25 @@ namespace SGCUserInterface
         private SGCClientImpl client = null;
         private int slabId = -1;
         private Random rnd = new Random(14121989);
-        private PointF[][] points = null;
+        private PointF[][] points = null;        
         private BackgroundWorker loader = new BackgroundWorker();
         private ProgressShower progressShower = null;
+
+        private SlabPoint[] slabPoints = null;
+        private double zoom;
+        private double digreeX = 0;
+        private double digreeY = 0;
+        private double digreeZ = 0;
+        private PointF center;
+        private PointF mouceDown;
 
         public SlabVisualizationForm(int aSlabId, SGCClientImpl aClient)
         {
             InitializeComponent();
+            tabControl1.MouseWheel += pictureBox1_MouseWheel;
+            zoom = pictureBox1.Width / 1.5;
+            center = new PointF((float)(this.pictureBox1.Width / 2.0),
+                (float)(pictureBox1.Height / 2.0));
 
             client = aClient;
             slabId = aSlabId;
@@ -30,8 +42,8 @@ namespace SGCUserInterface
             loader.DoWork += LoadSensorsValues;
             loader.RunWorkerCompleted += LoadCompleted;
             loader.ProgressChanged += LoadProgressChanged;
-            loader.WorkerReportsProgress = true;
-        }
+            loader.WorkerReportsProgress = true;            
+        }        
 
         private void LoadProgressChanged(object sender, ProgressChangedEventArgs e)
         {
@@ -41,18 +53,9 @@ namespace SGCUserInterface
         }
 
         private void LoadCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {            
-            var pane = plotsView.GraphPane;
-            for (var i = 0; i < points.Length; ++i) {
-                if (points[i] != null) {
-                    for (var j = 0; j < points[i].Length; ++j) {
-                        pane.CurveList[i].AddPoint(points[i][j].X / 1000, points[i][j].Y);
-                    }
-                }                
-            }
-
-            plotsView.AxisChange();
-            plotsView.Invalidate();
+        {
+            ShowPlots();
+            ShowModel();
 
             if (progressShower != null) {
                 progressShower.Dispose();
@@ -62,6 +65,103 @@ namespace SGCUserInterface
             for (var i = 0; i < this.Controls.Count; ++i) {                
                 Controls[i].Show();
             }
+        }
+
+        private void ShowModel()
+        {
+            if (slabPoints == null) {
+                return;
+            }
+                        
+            var bitmap = new Bitmap(pictureBox1.Width, pictureBox1.Height);                
+            var camera = new Math3D.Camera {
+                Position = new Math3D.Point3D(0, 0, 2000)
+            };
+            var pointsF = new PointF[slabPoints.Length];
+            var points = new Math3D.Point3D[slabPoints.Length];
+            var neightbours = new bool[slabPoints.Length];
+            for (var i = 0; i < pointsF.Length; ++i) {
+                points[i] = new Math3D.Point3D {
+                    X = slabPoints[i].X, Y = slabPoints[i].Y, Z = slabPoints[i].Z
+                };
+                points[i] = Math3D.RotateX(points[i], digreeX);
+                points[i] = Math3D.RotateY(points[i], digreeY);
+                points[i] = Math3D.RotateZ(points[i], digreeZ);
+                pointsF[i] = Math3D.Convert3DTo2D(points[i], camera, zoom, center);
+                if (i > 0) {
+                    if (GetDistance(points[i], points[i - 1]) < 100) {
+                        neightbours[i] = true;
+                    }
+                }
+            }
+            var g = Graphics.FromImage(bitmap);
+            DrawSystem(g, camera, center);
+            for (var i = 1; i < pointsF.Length; ++i) {
+                if (neightbours[i]) {
+                    g.DrawLine(
+                        new Pen(Color.Red), 
+                        pointsF[i].X, 
+                        pointsF[i].Y, 
+                        pointsF[i - 1].X, 
+                        pointsF[i - 1].Y);
+                }                
+                //g.FillEllipse(
+                //    new SolidBrush(Color.Red),
+                //    pointsF[i].X,
+                //    pointsF[i].Y,
+                //    (float)1.1,
+                //    (float)1.1);
+            }
+            g.Dispose();
+            pictureBox1.Image = bitmap;        
+        }
+
+        private double GetDistance(Math3D.Point3D aA, Math3D.Point3D aB)
+        {
+            return Math.Sqrt(
+                (aA.X - aB.X) * (aA.X - aB.X) +
+                (aA.Y - aB.Y) * (aA.Y - aB.Y) +
+                (aA.Z - aB.Z) * (aA.Z - aB.Z));
+        }
+
+        private void DrawSystem(Graphics aGraphic, Math3D.Camera aCamera, PointF aCenter)
+        {
+            var points3D = new Math3D.Point3D[] {
+                new Math3D.Point3D(0, 0, 0),
+                new Math3D.Point3D(200, 0, 0),
+                new Math3D.Point3D(0, 200, 0),
+                new Math3D.Point3D(0, 0, 200)
+            };
+
+            var points2D = new PointF[points3D.Length];
+            for (var i = 0; i < points3D.Length; ++i) {
+                points3D[i] = Math3D.RotateX(points3D[i], digreeX);
+                points3D[i] = Math3D.RotateY(points3D[i], digreeY);
+                points3D[i] = Math3D.RotateZ(points3D[i], digreeZ);
+
+                points2D[i] = Math3D.Convert3DTo2D(points3D[i], aCamera, zoom, aCenter);
+            }
+
+            for (var i = 1; i <= 3; ++i) {
+                aGraphic.DrawLine(new Pen(Color.Blue),
+                    points2D[0].X, points2D[0].Y,
+                    points2D[i].X, points2D[i].Y);
+            }
+        }
+
+        private void ShowPlots()
+        {
+            var pane = plotsView.GraphPane;
+            for (var i = 0; i < points.Length; ++i) {
+                if (points[i] != null) {
+                    for (var j = 0; j < points[i].Length; ++j) {
+                        pane.CurveList[i].AddPoint(points[i][j].X / 1000, points[i][j].Y);
+                    }
+                }
+            }
+
+            plotsView.AxisChange();
+            plotsView.Invalidate();
         }
 
         private void LoadSensorsValues(object sender, DoWorkEventArgs e)
@@ -82,6 +182,8 @@ namespace SGCUserInterface
                     }
                     loader.ReportProgress((i+1) * sensorPercens);
                 }
+
+                slabPoints = client.GetSlabPointsBySlabId(slabId);
             }
         }
 
@@ -167,6 +269,50 @@ namespace SGCUserInterface
             menuStrip.Items[7].Text = @"Установить масштаб по умолчанию…";
             menuStrip.Items.RemoveAt(5);
             menuStrip.Items.RemoveAt(5);
-        }        
+        }
+        
+        private void pictureBox1_MouseWheel(object sender, MouseEventArgs e)
+        {            
+            if (tabControl1.SelectedTab == slabModelPage) {
+                zoom += e.Delta;
+                ShowModel();                
+            }            
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            digreeX += 5;
+            ShowModel();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            digreeX -= 5;
+            ShowModel();
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            digreeY += 5;
+            ShowModel();
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            digreeY -= 5;
+            ShowModel();
+        }
+
+        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+        {            
+            mouceDown = new PointF(e.X, e.Y);
+        }
+
+        private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
+        {            
+            center.X += e.X - mouceDown.X;
+            center.Y += e.Y - mouceDown.Y;
+            ShowModel();
+        }
     }
 }

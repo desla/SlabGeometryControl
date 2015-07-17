@@ -45,12 +45,15 @@ namespace Alvasoft.Server
         private ISensorValueContainer sensorValueContainer;
         private IDimentionValueContainer dimentionValueContainer;
 
-        private NHibernateSensorValueWriter sensorValueWriter;
+        private NHibernateSensorValueWriter sensorValueReaderWriter;
         private NHibernateDimentionValueWriter dimentionValueWriter;
         private NHibernateSlabInfoWriter slabWriter;
-        private ISlabInfoReader slabReader = null;
+        private ISlabInfoReader slabReader;
         private NHibernateStandartSizeReaderWriter standartSizeReaderWriter;
         private NHibernateRegulationReaderWriter regulationsReaderWriter;
+
+        private SlabBuilderImpl userSlabBuilder;
+        private ISensorValueContainer userSensorValueContainer;
 
         private long startSlabScanTime;
         private long endSlabScanTime;
@@ -64,7 +67,7 @@ namespace Alvasoft.Server
 
             dimentionConfiguration = new NHibernateDimentionConfigurationImpl();
             dataProviderConfiguration = new XmlDataProviderConfigurationImpl("Settings/OpcConfiguration.xml");
-            sensorConfiguration = new XmlSensorConfigurationImpl("Settings/SensorConfiguration.xml");
+            sensorConfiguration = new XmlSensorConfigurationImpl("Settings/SensorConfiguration.xml");            
 
             //dataProvider = new OpcDataProviderImpl();            
             dataProvider = new EmulatorDataProvider();
@@ -75,7 +78,7 @@ namespace Alvasoft.Server
             standartSizeReaderWriter = new NHibernateStandartSizeReaderWriter();
             regulationsReaderWriter = new NHibernateRegulationReaderWriter();
 
-            sensorValueWriter = new NHibernateSensorValueWriter();
+            sensorValueReaderWriter = new NHibernateSensorValueWriter();
             dimentionValueWriter = new NHibernateDimentionValueWriter();            
             slabWriter = new NHibernateSlabInfoWriter();
             slabReader = slabWriter as ISlabInfoReader;
@@ -94,17 +97,25 @@ namespace Alvasoft.Server
             dimentionCalculator.SetDimentionConfiguration(dimentionConfiguration);
             dimentionCalculator.SetDimentionValueContainer(dimentionValueContainer);
 
+            // Для построения точек при запросе пользователя.
+            userSensorValueContainer = new SensorValueContainerImpl();            
+            userSlabBuilder = new SlabBuilderImpl();
+            userSlabBuilder.SetSensorValueContainer(userSensorValueContainer);
+            userSlabBuilder.SetSensorConfiguration(sensorConfiguration);
+            userSlabBuilder.SetCalibrator(dataProvider);
+
             dimentionConfiguration.Initialize();
             standartSizeReaderWriter.Initialize();
             regulationsReaderWriter.Initialize();
             dataProviderConfiguration.Initialize();
             sensorConfiguration.Initialize();
-            sensorValueWriter.Initialize();
+            sensorValueReaderWriter.Initialize();
             slabWriter.Initialize();
             dimentionValueWriter.Initialize();
             dimentionCalculator.Initialize();
             slabBuilder.Initialize();
             dataProvider.Initialize();
+            userSlabBuilder.Initialize();
 
             logger.Info("Инициализация завершена.");
         }
@@ -119,8 +130,9 @@ namespace Alvasoft.Server
                 sensorValueContainer.UnsunbscribeContainerListener(this);
                 dataProvider.Uninitialize();
                 slabBuilder.Uninitialize();
+                userSlabBuilder.Uninitialize();
                 dimentionCalculator.Uninitialize();
-                sensorValueWriter.Uninitialize();
+                sensorValueReaderWriter.Uninitialize();
                 sensorConfiguration.Uninitialize();
                 slabWriter.Uninitialize();
                 dataProviderConfiguration.Uninitialize();
@@ -180,7 +192,7 @@ namespace Alvasoft.Server
                 var sensorValues = sensorValueContainer.GetAllValues(0);
                 if (sensorValues != null && sensorValues.Length > 0) {
                     logger.Info("Данных для сохранения: " + sensorValues.Length);                    
-                    sensorValueWriter.WriteSensorValueInfos(sensorValues);                    
+                    sensorValueReaderWriter.WriteSensorValueInfos(sensorValues);                    
                     logger.Info("Данные успешно сохранены в базу.");
                 }
             }
@@ -377,13 +389,33 @@ namespace Alvasoft.Server
 
         public SlabPoint[] GetSlabPointsBySlabId(int aSlabId)
         {
-            throw new NotImplementedException();
+            try {
+                var sensorsCount = sensorConfiguration.GetSensorInfoCount();
+                for (var i = 0; i < sensorsCount; ++i) {
+                    var sensor = sensorConfiguration.ReadSensorInfoByIndex(i);
+                    var sensorId = sensor.GetId();
+                    var sensorValues = GetSensorValuesBySlabId(aSlabId, sensorId);
+                    for (var j = 0; j < sensorValues.Length; ++j) {
+                        userSensorValueContainer
+                            .AddSensorValue(sensorId, sensorValues[j].Value, sensorValues[j].Time);
+                    }
+                }
+
+                var slab = userSlabBuilder.BuildSlabModel();
+                return slab.ToPoints();
+            }
+            catch {
+                return null;
+            }
+            finally {
+                userSensorValueContainer.Clear();
+            }
         }
 
         public SensorValue[] GetSensorValuesBySlabId(int aSlabId, int aSensorId)
         {
             var slab = slabReader.GetSlabInfo(aSlabId);
-            var sensorValues = sensorValueWriter
+            var sensorValues = sensorValueReaderWriter
                 .ReadSensorValueInfo(aSensorId, slab.GetStartScanTime(), slab.GetEndScanTime());
             var results = new List<SensorValue>();
             if (sensorValues != null) {

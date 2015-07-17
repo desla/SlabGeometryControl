@@ -121,6 +121,7 @@
             this.Controls.Add(this.plotsView);
             this.Controls.Add(this.dataGridView1);            
             this.Text = "Контроль текущих показаний системы";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.CurrentValuesForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.statusStrip1.ResumeLayout(false);

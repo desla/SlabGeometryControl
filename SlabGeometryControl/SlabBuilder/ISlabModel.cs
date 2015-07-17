@@ -1,4 +1,5 @@
-﻿using Alvasoft.Utils.Mathematic3D;
+﻿using Alvasoft.SlabGeometryControl;
+using Alvasoft.Utils.Mathematic3D;
 
 namespace Alvasoft.SlabBuilder
 {
@@ -37,5 +38,11 @@ namespace Alvasoft.SlabBuilder
         Point3D GetBottomSidePoint(double aX, double aZ);
         Point3D GetLeftSidePoint(double aY, double aZ);
         Point3D GetRightSidePoint(double aY, double aZ);
+
+        /// <summary>
+        /// Возвращает все точки слитка, согласно датчикам.
+        /// </summary>
+        /// <returns>Точки слитка.</returns>
+        SlabPoint[] ToPoints();
     }
 }

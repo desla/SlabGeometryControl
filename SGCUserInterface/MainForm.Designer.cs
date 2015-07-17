@@ -527,6 +527,7 @@ namespace SGCUserInterface
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.Text = "Система контроля геометрии слитков (с) АльваСофт 2015";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Form1_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
