@@ -7,5 +7,7 @@
         ISlabInfo GetSlabInfo(int aSlabId);
 
         ISlabInfo[] GetSlabInfoByTimeInterval(long aFrom, long aTo);
+
+        void UpdateStandartSizeId(int aSlabId, int aStandartSizeId);
     }
 }

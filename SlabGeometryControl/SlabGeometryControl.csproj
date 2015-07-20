@@ -89,7 +89,7 @@
     <Compile Include="DataWriter\NHibernateImpl\Entity\SlabInfoEntity.cs" />
     <Compile Include="DataWriter\NHibernateImpl\Entity\StandartSizeEntity.cs" />
     <Compile Include="DataWriter\NHibernateImpl\NHibernateDimentionValueWriter.cs" />
-    <Compile Include="DataWriter\NHibernateImpl\NHibernateSlabInfoStorage.cs" />
+    <Compile Include="DataWriter\NHibernateImpl\NHibernateSlabInfoWriter.cs" />
     <Compile Include="DataWriter\NHibernateImpl\NHibernateStandartSizeReaderWriter.cs" />
     <Compile Include="DataWriter\NHibernateImpl\NHibernateRegulationReaderWriter.cs" />
     <Compile Include="DataWriter\RegulationImpl.cs" />

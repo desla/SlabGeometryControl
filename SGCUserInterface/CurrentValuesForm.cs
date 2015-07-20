@@ -53,19 +53,18 @@ namespace SGCUserInterface
                         Color.FromArgb(rnd.Next(255), rnd.Next(255), rnd.Next(255)), 
                         SymbolType.None);
                 }
-            }
+                loader = new BackgroundWorker();
+                loader.DoWork += InformationLoad;
+                loader.RunWorkerCompleted += InformationLoadCompleat;
+                loader.ProgressChanged += ProgressChanged;
+                loader.WorkerReportsProgress = true;
+                loader.WorkerSupportsCancellation = true;
+                loader.RunWorkerAsync();
 
-            loader = new BackgroundWorker();
-            loader.DoWork += InformationLoad;
-            loader.RunWorkerCompleted += InformationLoadCompleat;
-            loader.ProgressChanged += ProgressChanged;
-            loader.WorkerReportsProgress = true;
-            loader.WorkerSupportsCancellation = true;
-            loader.RunWorkerAsync();
-
-            loaderStarter.Tick += StartLoader;
-            loaderStarter.Interval = 300;
-            loaderStarter.Start();
+                loaderStarter.Tick += StartLoader;
+                loaderStarter.Interval = 300;
+                loaderStarter.Start();
+            }            
         }
 
         private void MakeGraphPane()

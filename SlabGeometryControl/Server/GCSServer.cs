@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Alvasoft.DataProvider;
 using Alvasoft.DataProvider.Impl;
 using Alvasoft.DataEnums;
@@ -60,6 +61,8 @@ namespace Alvasoft.Server
 
         private long lastSavedSensorValueTime = long.MinValue;
         private SystemState lastSystemState = SystemState.WAITING;
+
+        private StandartSize[] standartSizes = null;
 
         protected override void DoInitialize()
         {
@@ -162,7 +165,8 @@ namespace Alvasoft.Server
                     var slabModel = slabBuilder.BuildSlabModel();
                     dimentionCalculator.CalculateDimentions(slabModel);                    
                     var dimentionValues = dimentionValueContainer.GetDimentionValues();
-                    dimentionValueWriter.WriteDimentionValues(slabId, dimentionValues);                    
+                    dimentionValueWriter.WriteDimentionValues(slabId, dimentionValues);
+                    UpdateStandartSizeId(slabId, DetermineStandartSize(dimentionValues));
                 }   
                 else { // начало сканирования.
                     startSlabScanTime = DateTime.Now.ToBinary();
@@ -178,7 +182,55 @@ namespace Alvasoft.Server
                 sensorValueContainer.Clear();
                 dimentionValueContainer.Clear();
             }
-        }        
+        }
+
+        private int DetermineStandartSize(IDimentionValue[] aDimentions)
+        {
+            if (aDimentions == null) {
+                return -1;
+            }
+
+            if (standartSizes == null) {
+                standartSizes = GetStandartSizes();
+            }
+
+            var length = -1.0;
+            var width = -1.0; 
+            var height = -1.0;
+            var mask = 0;
+            for (var i = 0; i < aDimentions.Length; ++i) {
+                if (aDimentions[i].GetDimentionId() == 3) { // длина
+                    length = aDimentions[i].GetValue();
+                    mask |= 1;
+                } else
+                if (aDimentions[i].GetDimentionId() == 1) { // ширина
+                    width = aDimentions[i].GetValue();
+                    mask |= 2;
+                } else
+                if (aDimentions[i].GetDimentionId() == 2) { // высота
+                    height = aDimentions[i].GetValue();
+                    mask |= 4;
+                }                
+            }
+
+            if (mask != 7) {
+                return -1;
+            }
+
+            var difference = double.MaxValue;
+            var standartSizeId = -1;
+            for (var i = 0; i < standartSizes.Length; ++i) {
+                var currentDifference = Math.Abs(length - standartSizes[i].Length) +
+                                        Math.Abs(width - standartSizes[i].Width) +
+                                        Math.Abs(height - standartSizes[i].Height);
+                if (currentDifference < difference) {
+                    difference = currentDifference;
+                    standartSizeId = standartSizes[i].Id;
+                }
+            }
+
+            return standartSizeId;
+        }
 
         public void OnDataReceived(ISensorValueContainer aContainer)
         {
@@ -209,6 +261,11 @@ namespace Alvasoft.Server
         public int GetNewSlabId()
         {
             return slabWriter.StoreNewSlab(startSlabScanTime, endSlabScanTime);
+        }
+
+        public void UpdateStandartSizeId(int aSlabId, int aStandartSizeId)
+        {
+            slabWriter.UpdateStandartSizeId(aSlabId, aStandartSizeId);
         }
 
         // ----------------- Реализация API --------------------------
@@ -432,11 +489,12 @@ namespace Alvasoft.Server
 
         public int AddStandartSize(StandartSize aStandartSize)
         {
+            standartSizes = null;
             var standartSize = new StandartSizeImpl {
                 Width = aStandartSize.Width,
                 Height = aStandartSize.Height,
                 Length = aStandartSize.Length
-            };
+            };            
 
             return standartSizeReaderWriter.AddStandartSize(standartSize);
         }
@@ -444,6 +502,7 @@ namespace Alvasoft.Server
         public bool RemoveStandartSize(int aStandartSizeId)
         {
             try {
+                standartSizes = null;
                 standartSizeReaderWriter.RemoveStandartSize(aStandartSizeId);
                 return true;
             }
@@ -454,6 +513,7 @@ namespace Alvasoft.Server
 
         public void EditStandartSize(StandartSize aStandartSize)
         {
+            standartSizes = null;
             var standartSize = new StandartSizeImpl {
                 Id = aStandartSize.Id,
                 Width = aStandartSize.Width,

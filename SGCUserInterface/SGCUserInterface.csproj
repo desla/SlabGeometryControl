@@ -53,6 +53,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutForm.Designer.cs">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="CurrentInformation.cs" />
     <Compile Include="CurrentValuesForm.cs">
       <SubType>Form</SubType>
@@ -119,6 +125,9 @@
       <DependentUpon>StandartSizeForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemInformation.cs" />
+    <EmbeddedResource Include="AboutForm.resx">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CurrentValuesForm.resx">
       <DependentUpon>CurrentValuesForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -179,6 +188,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\87.GIF" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\alvasoft.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

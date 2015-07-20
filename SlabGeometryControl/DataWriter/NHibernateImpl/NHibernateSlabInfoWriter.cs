@@ -18,8 +18,7 @@ namespace Alvasoft.DataWriter.NHibernateImpl
 
         public int StoreNewSlab(long aStartScanTime, long aEndScanTime)
         {
-            try {
-                logger.Info("StoreNewSlab_1");
+            try {                
                 var slabEntity = new SlabInfoEntity {
                     StartScanTime = aStartScanTime,
                     EndScanTime = aEndScanTime
@@ -29,8 +28,7 @@ namespace Alvasoft.DataWriter.NHibernateImpl
                         session.Save(slabEntity);
                         t.Commit();
                     }
-                }                
-                logger.Info("SlabId = " + slabEntity.Id);
+                }                                
                 return slabEntity.Id;
             }
             catch (Exception ex) {
@@ -120,6 +118,30 @@ namespace Alvasoft.DataWriter.NHibernateImpl
             catch (Exception ex) {
                 logger.Error("Ошибка при чтении SlabInfo: " + ex.Message);
                 return null;
+            }
+        }
+
+        public void UpdateStandartSizeId(int aSlabId, int aStandartSizeId)
+        {
+            try {
+                var slabInfo = GetSlabInfo(aSlabId);
+                var slabEntity = new SlabInfoEntity() {
+                    Id = slabInfo.GetId(),
+                    Number = slabInfo.GetNumber(),
+                    EndScanTime = slabInfo.GetEndScanTime(),
+                    StartScanTime = slabInfo.GetStartScanTime(),
+                    StandartSizeId = aStandartSizeId
+                };
+
+                using (var session = NHibernateHelper.OpenSession()) {
+                    using (var transaction = session.BeginTransaction()) {                        
+                        session.Update(slabEntity);                    
+                        transaction.Commit();
+                    }                    
+                }
+            }
+            catch (Exception ex) {
+                logger.Error("Ошибка при обновлении StandartSizeId: " + ex.Message);                
             }
         }
     }

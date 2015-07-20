@@ -32,9 +32,12 @@ namespace SGCUserInterface
         {
             InitializeComponent();
             tabControl1.MouseWheel += pictureBox1_MouseWheel;
-            zoom = pictureBox1.Width / 1.5;
-            center = new PointF((float)(this.pictureBox1.Width / 2.0),
-                (float)(pictureBox1.Height / 2.0));
+            button1.Text = "\u2190";
+            button3.Text = "\u2192";
+            button4.Text = "\u2193";
+            button2.Text = "\u2191";
+
+            zoom = pictureBox1.Width / 1.5;            
 
             client = aClient;
             slabId = aSlabId;
@@ -168,13 +171,12 @@ namespace SGCUserInterface
         {
             var sensors = e.Argument as SensorInfo[];
             if (sensors != null) {
-                var sensorPercens = 100 / sensors.Length;
+                var sensorPercens = 90 / sensors.Length;
                 for (var i = 0; i < sensors.Length; ++i) {
                     var sensorValues = client.GetSensorValuesBySlabId(slabId, sensors[i].Id);                    
                     if (sensorValues != null && sensorValues.Length > 0) {
                         points[i] = new PointF[sensorValues.Length];
-                        var startTime = DateTime.FromBinary(sensorValues[0].Time);
-                        var piePercents = 10*sensorPercens/sensorValues.Length;
+                        var startTime = DateTime.FromBinary(sensorValues[0].Time);                        
                         for (var j = 0; j < sensorValues.Length; ++j) {
                             var time = DateTime.FromBinary(sensorValues[j].Time).Subtract(startTime);
                             points[i][j] = new PointF((float) time.TotalMilliseconds, (float) sensorValues[j].Value);                            
@@ -182,8 +184,8 @@ namespace SGCUserInterface
                     }
                     loader.ReportProgress((i+1) * sensorPercens);
                 }
-
                 slabPoints = client.GetSlabPointsBySlabId(slabId);
+                loader.ReportProgress(100);
             }
         }
 
@@ -313,6 +315,12 @@ namespace SGCUserInterface
             center.X += e.X - mouceDown.X;
             center.Y += e.Y - mouceDown.Y;
             ShowModel();
+        }
+
+        private void pictureBox1_SizeChanged(object sender, EventArgs e)
+        {
+            center = new PointF((float)(this.pictureBox1.Width / 2.0),
+                (float)(pictureBox1.Height / 2.0));
         }
     }
 }

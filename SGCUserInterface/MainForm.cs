@@ -46,7 +46,7 @@ namespace SGCUserInterface
             slabsListLoader.DoWork += SlabsListLoading;
             slabsListLoader.RunWorkerCompleted += SlabsListLoadingCompleat;            
 
-            ConnectToService();
+            //ConnectToService();
         }
 
         private void SlabsListLoadingCompleat(object sender, RunWorkerCompletedEventArgs e)
@@ -56,12 +56,14 @@ namespace SGCUserInterface
                 for (var i = 0; i < slabs.Length; ++i) {
                     var slabInfo = slabs[i];
                     var slabFilter = slabNumberFilter.Text.Trim();
-                    if (string.IsNullOrEmpty(slabFilter) || slabFilter.Equals(slabInfo.Number)) {
-                        if (!IsContainSlabInfo(slabInfo.Id)) {
+                    if (string.IsNullOrEmpty(slabFilter) || 
+                        slabFilter.Equals(slabInfo.Number)) {
+                        var rowIndex = GetRowIndex(slabInfo.Id);
+                        if (rowIndex == -1) {
                             string[] row = {
                                 slabInfo.Id.ToString(),
-                                "#######", //slabInfo.Number,
-                                slabInfo.StandartSizeId.ToString(),
+                                "---------", //slabInfo.Number,
+                                GetStandartSizeById(slabInfo.StandartSizeId),
                                 DateTime.FromBinary(slabInfo.StartScanTime).ToString(),
                                 "Соответствие"
                             };
@@ -70,6 +72,9 @@ namespace SGCUserInterface
                             }
                             catch {
                             }
+                        }
+                        else {
+                            CheckToStandartSizeUpdated(rowIndex, slabInfo);
                         }
                     }
                 }
@@ -88,12 +93,41 @@ namespace SGCUserInterface
             }            
         }
 
+        private void CheckToStandartSizeUpdated(int aRowIndex, SlabInfo aSlabInfo)
+        {
+            if (aRowIndex < 0 || aSlabInfo == null) {
+                return;
+            }
+
+            var row = dataGridView1.Rows[aRowIndex];
+            var standartSizeText = GetStandartSizeById(aSlabInfo.StandartSizeId);
+            if (!Equals(row.Cells["StandartSize"].Value, standartSizeText)) {
+                row.Cells["StandartSize"].Value = standartSizeText;
+            }
+        }
+
+        private string GetStandartSizeById(int aStandartSizeId)
+        {
+            if (slabsList.StandartSizes != null) {
+                for (var i = 0; i < slabsList.StandartSizes.Length; ++i) {
+                    if (aStandartSizeId == slabsList.StandartSizes[i].Id) {
+                        return slabsList.StandartSizes[i].ToString();
+                    }
+                }
+            }
+
+            return "не определен";
+        }
+
         private void SlabsListLoading(object sender, DoWorkEventArgs e)
         {
             try {
                 var from = dateTimeFrom.Value.ToLocalTime().ToBinary();
                 var to = dateTimeTo.Value.ToLocalTime().ToBinary();
                 slabsList.Slabs = client.GetSlabInfosByTimeInterval(from, to);
+                if (slabsList.StandartSizes == null) {
+                    slabsList.StandartSizes = client.GetStandartSizes();
+                }
             }
             catch (Exception ex) {
                 MessageBox.Show(@"Ошибка при обновлении информации: " + ex.Message);
@@ -138,15 +172,15 @@ namespace SGCUserInterface
             slabsList.Slabs = null;            
         }        
 
-        private bool IsContainSlabInfo(int aSlabId)
+        private int GetRowIndex(int aSlabId)
         {
             for (var i = 0; i < dataGridView1.RowCount; ++i) {
                 if (Convert.ToInt32(dataGridView1.Rows[i].Cells["Id"].Value) == aSlabId) {
-                    return true;
+                    return i;
                 }
             }
 
-            return false;
+            return -1;
         }
 
         private void ControllerConnectionUpdate()
@@ -264,6 +298,7 @@ namespace SGCUserInterface
         private void типоразмерыToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new StandartSizeForm(client).ShowDialog();
+            slabsList.StandartSizes = null;
         }
 
         private void измеренияСлиткаToolStripMenuItem_Click(object sender, EventArgs e)
@@ -313,6 +348,20 @@ namespace SGCUserInterface
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             dataGridView1.Rows.Clear();
+        }
+
+        private void выходToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (client != null && client.IsConnected) {
+                client.Disconnect();
+            }
+
+            this.Close();
+        }
+
+        private void оПрограммеToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            new AboutForm().ShowDialog();
         }
     }
 }
