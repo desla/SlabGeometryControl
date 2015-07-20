@@ -7,5 +7,7 @@ namespace SGCUserInterface
         public SlabInfo[] Slabs { get; set; }
 
         public StandartSize[] StandartSizes { get; set; }
+
+        public Regulation[] Regulations { get; set; }        
     }
 }

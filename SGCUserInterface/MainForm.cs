@@ -24,9 +24,10 @@ namespace SGCUserInterface
         private BackgroundWorker informationLoader = null;
         private SystemInformation information = new SystemInformation();
 
+        private Timer slabListLoaderActivator = null;
         private BackgroundWorker slabsListLoader = null;
         private SlabsList slabsList = new SlabsList();
-        //private Timer updateInformationTimer = null;
+        private SGCSystemState lastState = SGCSystemState.WAITING;        
 
         public MainForm()
         {
@@ -35,8 +36,7 @@ namespace SGCUserInterface
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            dateTimeFrom.Value = DateTime.Now.Date;
-            dateTimeTo.Value = DateTime.Now.Date.AddDays(1);
+            dateTimeFrom.Value = DateTime.Now.Date;            
 
             informationLoader = new BackgroundWorker();
             informationLoader.DoWork += InformationLoading;
@@ -44,37 +44,55 @@ namespace SGCUserInterface
 
             slabsListLoader = new BackgroundWorker();
             slabsListLoader.DoWork += SlabsListLoading;
-            slabsListLoader.RunWorkerCompleted += SlabsListLoadingCompleat;            
+            slabsListLoader.RunWorkerCompleted += SlabsListLoadingCompleat;  
+          
+            slabListLoaderActivator = new Timer();
+            slabListLoaderActivator.Tick += ActivateLoader;
+            slabListLoaderActivator.Interval = 2000;            
 
+            AddLogInfo("GUI", "Успешная инициализация.");
             //ConnectToService();
+        }
+
+        private void ActivateLoader(object sender, EventArgs e)
+        {
+            if (client != null && client.IsConnected) {
+                slabsListLoader.RunWorkerAsync();
+            }
+            slabListLoaderActivator.Stop();
         }
 
         private void SlabsListLoadingCompleat(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (slabsList.Slabs != null) {
+            if (slabsList.Slabs != null && !IsNeedToClearDataGridView()) {
                 var slabs = slabsList.Slabs;
                 for (var i = 0; i < slabs.Length; ++i) {
+                    Application.DoEvents();
                     var slabInfo = slabs[i];
                     var slabFilter = slabNumberFilter.Text.Trim();
                     if (string.IsNullOrEmpty(slabFilter) || 
                         slabFilter.Equals(slabInfo.Number)) {
-                        var rowIndex = GetRowIndex(slabInfo.Id);
+                        var rowIndex = GetRowIndex(slabInfo.Id);                        
                         if (rowIndex == -1) {
+                            var isAccepted = CheckRegulationsAccepted(slabInfo);
                             string[] row = {
                                 slabInfo.Id.ToString(),
-                                "---------", //slabInfo.Number,
+                                "########", //slabInfo.Number,
                                 GetStandartSizeById(slabInfo.StandartSizeId),
                                 DateTime.FromBinary(slabInfo.StartScanTime).ToString(),
-                                "Соответствие"
+                                isAccepted ? "Соответствует" : "Не соответствует"
                             };
                             try {
-                                dataGridView1.Rows.Add(row);
+                                var newRowIndex = dataGridView1.Rows.Add(row);
+                                if (!isAccepted) {
+                                    dataGridView1.Rows[newRowIndex].DefaultCellStyle.BackColor = Color.Khaki;
+                                }
                             }
                             catch {
                             }
                         }
                         else {
-                            CheckToStandartSizeUpdated(rowIndex, slabInfo);
+                            CheckStandartSizeUpdated(rowIndex, slabInfo);
                         }
                     }
                 }
@@ -88,12 +106,50 @@ namespace SGCUserInterface
                 }
             }
 
-            if (client != null && client.IsConnected) {
-                slabsListLoader.RunWorkerAsync();
-            }            
+            slabListLoaderActivator.Start();
+            //if (client != null && client.IsConnected) {
+            //    slabsListLoader.RunWorkerAsync();
+            //}            
         }
 
-        private void CheckToStandartSizeUpdated(int aRowIndex, SlabInfo aSlabInfo)
+        private bool IsNeedToClearDataGridView()
+        {
+            if (dataGridView1.RowCount > 0) {
+                var from = dateTimeFrom.Value;
+                var to = dateTimeFrom.Value.AddDays(1);
+                var value = DateTime.Parse(dataGridView1.Rows[0].Cells["ScanTime"].Value.ToString());
+                if (value < from || value > to) {                    
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private bool CheckRegulationsAccepted(SlabInfo aSlabInfo)
+        {            
+            if (slabsList.Regulations != null && aSlabInfo != null) {
+                var dimentionResults = client.GetDimentionResultsBySlabId(aSlabInfo.Id);
+                if (dimentionResults != null) {
+                    for (var i = 0; i < slabsList.Regulations.Length; ++i) {
+                        var regulation = slabsList.Regulations[i];
+                        for (var j = 0; j < dimentionResults.Length; ++j) {
+                            var dimentionResult = dimentionResults[j];
+                            if (dimentionResult.DimentionId == regulation.DimentionId) {
+                                if (dimentionResult.Value < regulation.MinValue ||
+                                    dimentionResult.Value > regulation.MaxValue) {
+                                    return false;
+                                }
+                            } // if
+                        } // for
+                    } // for
+                } // if                
+            } // if
+
+            return true;
+        }
+
+        private void CheckStandartSizeUpdated(int aRowIndex, SlabInfo aSlabInfo)
         {
             if (aRowIndex < 0 || aSlabInfo == null) {
                 return;
@@ -102,7 +158,7 @@ namespace SGCUserInterface
             var row = dataGridView1.Rows[aRowIndex];
             var standartSizeText = GetStandartSizeById(aSlabInfo.StandartSizeId);
             if (!Equals(row.Cells["StandartSize"].Value, standartSizeText)) {
-                row.Cells["StandartSize"].Value = standartSizeText;
+                row.Cells["StandartSize"].Value = standartSizeText;                
             }
         }
 
@@ -123,14 +179,18 @@ namespace SGCUserInterface
         {
             try {
                 var from = dateTimeFrom.Value.ToLocalTime().ToBinary();
-                var to = dateTimeTo.Value.ToLocalTime().ToBinary();
+                var to = dateTimeFrom.Value.AddDays(1).ToLocalTime().ToBinary();
                 slabsList.Slabs = client.GetSlabInfosByTimeInterval(from, to);
                 if (slabsList.StandartSizes == null) {
                     slabsList.StandartSizes = client.GetStandartSizes();
                 }
+                if (slabsList.Regulations == null) {
+                    slabsList.Regulations = client.GetRegulations();
+                }
             }
             catch (Exception ex) {
                 MessageBox.Show(@"Ошибка при обновлении информации: " + ex.Message);
+                AddLogInfo("GUI", "Ошибка при обновлении информации.");
                 client.Disconnect();
             }
         }
@@ -160,6 +220,7 @@ namespace SGCUserInterface
         public void OnConnected(IClient aClient, long aSessionId)
         {
             toolStripStatusLabel1.Text = @"Подключено. Сессия: " + aSessionId;
+            AddLogInfo("Server", "Успешное подключение к серверу. Сессия: " + aSessionId + ".");
             slabsListLoader.RunWorkerAsync();
             informationLoader.RunWorkerAsync();
         }
@@ -203,17 +264,25 @@ namespace SGCUserInterface
         private void SGCStateUpdate()
         {
             if (information.SGCState == SGCSystemState.WAITING) {
+                if (lastState == SGCSystemState.SCANNING) {
+                    AddLogInfo("Server", "Сканирование закончено.");
+                }
                 label4.Text = @"Ожидание слитка";
                 label4.ForeColor = Color.Brown;
                 lastScanTime = DateTime.Now;
                 label10.Text = @"0:0 (мм:сс)";
             }
             else {
+                if (lastState == SGCSystemState.WAITING) {
+                    AddLogInfo("Server", "Новое сканирование начато.");
+                }
                 label4.Text = @"Идет сканирование";
                 label4.ForeColor = Color.Blue;
                 var timeDifference = DateTime.Now - lastScanTime;
-                label10.Text = timeDifference.Minutes + @":" + timeDifference.Seconds + @" (мм:сс)";
+                label10.Text = timeDifference.Minutes + @":" + timeDifference.Seconds + @" (мм:сс)";                
             }
+
+            lastState = information.SGCState;
         }
 
         private void подключитьсяToolStripMenuItem_Click(object sender, EventArgs e)
@@ -242,6 +311,7 @@ namespace SGCUserInterface
 
             подключитьсяToolStripMenuItem.Enabled = true;
             отключитьсяToolStripMenuItem.Enabled = false;
+            AddLogInfo("GUI", "Отключение от сервера.");
         }
 
         private bool ConnectToService()
@@ -266,7 +336,8 @@ namespace SGCUserInterface
                 return true;
             }
             catch (Exception ex) {
-                MessageBox.Show(@"Ошибка при подключении к сервису: " + ex.Message);                
+                MessageBox.Show(@"Ошибка при подключении к сервису: " + ex.Message);
+                AddLogInfo("GUI", "Ошибка подключения к серверу.");
                 return false;
             }
         }
@@ -314,6 +385,7 @@ namespace SGCUserInterface
         private void правилаToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new RegulationsForm(client).ShowDialog();
+            slabsList.Regulations = null;
         }
 
         private void теукщиеПоказанияToolStripMenuItem_Click(object sender, EventArgs e)
@@ -323,11 +395,13 @@ namespace SGCUserInterface
 
         private void button3_Click(object sender, EventArgs e)
         {
+            AddLogInfo("GUI", "Просмотр текущих показаний датчиков.");
             new CurrentValuesForm(client).ShowDialog();
         }
 
         private void просмотрToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            AddLogInfo("GUI", "Просмотр данных слитка.");
             var rowIndex = -1;
             if (dataGridView1.SelectedCells.Count > 0) {
                 rowIndex = dataGridView1.SelectedCells[0].RowIndex;
@@ -338,16 +412,6 @@ namespace SGCUserInterface
                 var slabId = Convert.ToInt32(row.Cells["Id"].Value);
                 new Thread(() => new SlabVisualizationForm(slabId, client).ShowDialog()).Start();
             }
-        }
-
-        private void dateTimeTo_ValueChanged(object sender, EventArgs e)
-        {
-            dataGridView1.Rows.Clear();
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            dataGridView1.Rows.Clear();
         }
 
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
@@ -363,5 +427,16 @@ namespace SGCUserInterface
         {
             new AboutForm().ShowDialog();
         }
+
+        private void AddLogInfo(string aHandle, string aMessage)
+        {
+            var time = DateTime.Now;
+            richTextBox1.AppendText(time + " [" + aHandle + "] " + aMessage + "\n");
+        }
+
+        private void просмотрВыбранногоСлиткаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            просмотрToolStripMenuItem_Click(sender, e);
+        }        
     }
 }

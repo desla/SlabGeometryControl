@@ -33,11 +33,6 @@ namespace SGCUserInterface
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StandartSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.просмотрToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -60,8 +55,6 @@ namespace SGCUserInterface
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.dateTimeTo = new System.Windows.Forms.DateTimePicker();
             this.dateTimeFrom = new System.Windows.Forms.DateTimePicker();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.slabNumberFilter = new System.Windows.Forms.TextBox();
@@ -76,6 +69,11 @@ namespace SGCUserInterface
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StandartSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ScanTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Accepted = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -118,8 +116,8 @@ namespace SGCUserInterface
             this.Id,
             this.Column1,
             this.StandartSize,
-            this.Column3,
-            this.Column4});
+            this.ScanTime,
+            this.Accepted});
             this.dataGridView1.ContextMenuStrip = this.contextMenuStrip1;
             this.dataGridView1.Location = new System.Drawing.Point(0, 27);
             this.dataGridView1.MultiSelect = false;
@@ -129,37 +127,6 @@ namespace SGCUserInterface
             this.dataGridView1.Size = new System.Drawing.Size(628, 378);
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEnter);
-            // 
-            // Id
-            // 
-            this.Id.HeaderText = "Идентификатор слитка";
-            this.Id.Name = "Id";
-            this.Id.ReadOnly = true;
-            this.Id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Номер слитка";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            // 
-            // StandartSize
-            // 
-            this.StandartSize.HeaderText = "Типо-размер";
-            this.StandartSize.Name = "StandartSize";
-            this.StandartSize.ReadOnly = true;
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "Дата замера";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "Годность";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
             // 
             // contextMenuStrip1
             // 
@@ -213,6 +180,7 @@ namespace SGCUserInterface
             this.просмотрВыбранногоСлиткаToolStripMenuItem.Name = "просмотрВыбранногоСлиткаToolStripMenuItem";
             this.просмотрВыбранногоСлиткаToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
             this.просмотрВыбранногоСлиткаToolStripMenuItem.Text = "Просмотр выбранного слитка";
+            this.просмотрВыбранногоСлиткаToolStripMenuItem.Click += new System.EventHandler(this.просмотрВыбранногоСлиткаToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
@@ -335,36 +303,13 @@ namespace SGCUserInterface
             // groupBox2
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Controls.Add(this.dateTimeTo);
             this.groupBox2.Controls.Add(this.dateTimeFrom);
             this.groupBox2.Location = new System.Drawing.Point(0, 411);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(251, 54);
+            this.groupBox2.Size = new System.Drawing.Size(192, 54);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Фильтр слитков по дате";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label7.Location = new System.Drawing.Point(117, 15);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(17, 24);
-            this.label7.TabIndex = 2;
-            this.label7.Text = "-";
-            // 
-            // dateTimeTo
-            // 
-            this.dateTimeTo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimeTo.ImeMode = System.Windows.Forms.ImeMode.Alpha;
-            this.dateTimeTo.Location = new System.Drawing.Point(140, 21);
-            this.dateTimeTo.Name = "dateTimeTo";
-            this.dateTimeTo.Size = new System.Drawing.Size(99, 20);
-            this.dateTimeTo.TabIndex = 1;
-            this.dateTimeTo.Value = new System.DateTime(2015, 5, 22, 0, 0, 0, 0);
-            this.dateTimeTo.ValueChanged += new System.EventHandler(this.dateTimeTo_ValueChanged);
             // 
             // dateTimeFrom
             // 
@@ -372,10 +317,9 @@ namespace SGCUserInterface
             this.dateTimeFrom.ImeMode = System.Windows.Forms.ImeMode.Alpha;
             this.dateTimeFrom.Location = new System.Drawing.Point(12, 21);
             this.dateTimeFrom.Name = "dateTimeFrom";
-            this.dateTimeFrom.Size = new System.Drawing.Size(99, 20);
+            this.dateTimeFrom.Size = new System.Drawing.Size(166, 20);
             this.dateTimeFrom.TabIndex = 0;
             this.dateTimeFrom.Value = new System.DateTime(2015, 5, 22, 0, 0, 0, 0);
-            this.dateTimeFrom.ValueChanged += new System.EventHandler(this.dateTimeTo_ValueChanged);
             // 
             // groupBox3
             // 
@@ -391,11 +335,11 @@ namespace SGCUserInterface
             // slabNumberFilter
             // 
             this.slabNumberFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.slabNumberFilter.Enabled = false;
             this.slabNumberFilter.Location = new System.Drawing.Point(8, 21);
             this.slabNumberFilter.Name = "slabNumberFilter";
             this.slabNumberFilter.Size = new System.Drawing.Size(251, 20);
             this.slabNumberFilter.TabIndex = 0;
-            this.slabNumberFilter.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // groupBox1
             // 
@@ -513,6 +457,37 @@ namespace SGCUserInterface
             this.richTextBox1.TabIndex = 7;
             this.richTextBox1.Text = "";
             // 
+            // Id
+            // 
+            this.Id.HeaderText = "Идентификатор слитка";
+            this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
+            this.Id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Номер слитка";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
+            // StandartSize
+            // 
+            this.StandartSize.HeaderText = "Типо-размер";
+            this.StandartSize.Name = "StandartSize";
+            this.StandartSize.ReadOnly = true;
+            // 
+            // ScanTime
+            // 
+            this.ScanTime.HeaderText = "Дата замера";
+            this.ScanTime.Name = "ScanTime";
+            this.ScanTime.ReadOnly = true;
+            // 
+            // Accepted
+            // 
+            this.Accepted.HeaderText = "Годность";
+            this.Accepted.Name = "Accepted";
+            this.Accepted.ReadOnly = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -539,7 +514,6 @@ namespace SGCUserInterface
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -563,8 +537,6 @@ namespace SGCUserInterface
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.DateTimePicker dateTimeTo;
         private System.Windows.Forms.DateTimePicker dateTimeFrom;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.TextBox slabNumberFilter;
@@ -595,8 +567,8 @@ namespace SGCUserInterface
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn StandartSize;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ScanTime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Accepted;
     }
 }
 
