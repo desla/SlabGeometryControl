@@ -37,12 +37,8 @@ namespace Alvasoft.SlabBuilder
         Point3D GetTopSidePoint(double aX, double aZ);
         Point3D GetBottomSidePoint(double aX, double aZ);
         Point3D GetLeftSidePoint(double aY, double aZ);
-        Point3D GetRightSidePoint(double aY, double aZ);
+        Point3D GetRightSidePoint(double aY, double aZ);        
 
-        /// <summary>
-        /// Возвращает все точки слитка, согласно датчикам.
-        /// </summary>
-        /// <returns>Точки слитка.</returns>
-        SlabPoint[] ToPoints();
+        SlabModel3D ToSlabModel();
     }
 }

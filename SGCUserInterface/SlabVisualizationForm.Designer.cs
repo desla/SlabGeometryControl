@@ -32,15 +32,15 @@
             this.plotsPage = new System.Windows.Forms.TabPage();
             this.plotsView = new ZedGraph.ZedGraphControl();
             this.slabModelPage = new System.Windows.Forms.TabPage();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.dimensionsCheckBox = new System.Windows.Forms.CheckBox();
+            this.gridSurfaceCheckBox = new System.Windows.Forms.CheckBox();
+            this.modelPanel = new Tao.Platform.Windows.SimpleOpenGlControl();
+            this.sensorValuesCheckBox = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.plotsPage.SuspendLayout();
             this.slabModelPage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -60,7 +60,7 @@
             this.plotsPage.Location = new System.Drawing.Point(4, 22);
             this.plotsPage.Name = "plotsPage";
             this.plotsPage.Padding = new System.Windows.Forms.Padding(3);
-            this.plotsPage.Size = new System.Drawing.Size(899, 544);
+            this.plotsPage.Size = new System.Drawing.Size(696, 399);
             this.plotsPage.TabIndex = 0;
             this.plotsPage.Text = "Показания датчиков";
             this.plotsPage.UseVisualStyleBackColor = true;
@@ -77,17 +77,14 @@
             this.plotsView.ScrollMinX = 0D;
             this.plotsView.ScrollMinY = 0D;
             this.plotsView.ScrollMinY2 = 0D;
-            this.plotsView.Size = new System.Drawing.Size(893, 538);
+            this.plotsView.Size = new System.Drawing.Size(690, 393);
             this.plotsView.TabIndex = 0;
             this.plotsView.ContextMenuBuilder += new ZedGraph.ZedGraphControl.ContextMenuBuilderEventHandler(this.plotsView_ContextMenuBuilder);
             // 
             // slabModelPage
             // 
-            this.slabModelPage.Controls.Add(this.button2);
-            this.slabModelPage.Controls.Add(this.button3);
-            this.slabModelPage.Controls.Add(this.button1);
-            this.slabModelPage.Controls.Add(this.button4);
-            this.slabModelPage.Controls.Add(this.pictureBox1);
+            this.slabModelPage.Controls.Add(this.panel1);
+            this.slabModelPage.Controls.Add(this.modelPanel);
             this.slabModelPage.Location = new System.Drawing.Point(4, 22);
             this.slabModelPage.Name = "slabModelPage";
             this.slabModelPage.Padding = new System.Windows.Forms.Padding(3);
@@ -96,67 +93,75 @@
             this.slabModelPage.Text = "3-D модель слитка";
             this.slabModelPage.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // panel1
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button2.Location = new System.Drawing.Point(611, 20);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(30, 30);
-            this.button2.TabIndex = 11;
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.sensorValuesCheckBox);
+            this.panel1.Controls.Add(this.dimensionsCheckBox);
+            this.panel1.Controls.Add(this.gridSurfaceCheckBox);
+            this.panel1.Location = new System.Drawing.Point(8, 6);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(140, 241);
+            this.panel1.TabIndex = 1;
             // 
-            // button3
+            // dimensionsCheckBox
             // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button3.Location = new System.Drawing.Point(645, 56);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(30, 30);
-            this.button3.TabIndex = 10;
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click_1);
+            this.dimensionsCheckBox.AutoSize = true;
+            this.dimensionsCheckBox.Checked = true;
+            this.dimensionsCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.dimensionsCheckBox.Location = new System.Drawing.Point(7, 32);
+            this.dimensionsCheckBox.Name = "dimensionsCheckBox";
+            this.dimensionsCheckBox.Size = new System.Drawing.Size(113, 17);
+            this.dimensionsCheckBox.TabIndex = 1;
+            this.dimensionsCheckBox.Text = "Габариты слитка";
+            this.dimensionsCheckBox.UseVisualStyleBackColor = true;
+            this.dimensionsCheckBox.CheckedChanged += new System.EventHandler(this.dimensionsCheckBox_CheckedChanged);
             // 
-            // button1
+            // gridSurfaceCheckBox
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.Location = new System.Drawing.Point(577, 56);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(30, 30);
-            this.button1.TabIndex = 9;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.gridSurfaceCheckBox.AutoSize = true;
+            this.gridSurfaceCheckBox.Checked = true;
+            this.gridSurfaceCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.gridSurfaceCheckBox.Location = new System.Drawing.Point(7, 9);
+            this.gridSurfaceCheckBox.Name = "gridSurfaceCheckBox";
+            this.gridSurfaceCheckBox.Size = new System.Drawing.Size(123, 17);
+            this.gridSurfaceCheckBox.TabIndex = 0;
+            this.gridSurfaceCheckBox.Text = "Сетка поверхности";
+            this.gridSurfaceCheckBox.UseVisualStyleBackColor = true;
+            this.gridSurfaceCheckBox.CheckedChanged += new System.EventHandler(this.gridSurfaceCheckBox_CheckedChanged);
             // 
-            // button4
+            // modelPanel
             // 
-            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button4.Location = new System.Drawing.Point(611, 92);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(30, 30);
-            this.button4.TabIndex = 8;
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.modelPanel.AccumBits = ((byte)(0));
+            this.modelPanel.AutoCheckErrors = false;
+            this.modelPanel.AutoFinish = false;
+            this.modelPanel.AutoMakeCurrent = true;
+            this.modelPanel.AutoSwapBuffers = true;
+            this.modelPanel.BackColor = System.Drawing.Color.Black;
+            this.modelPanel.ColorBits = ((byte)(32));
+            this.modelPanel.DepthBits = ((byte)(16));
+            this.modelPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.modelPanel.Location = new System.Drawing.Point(3, 3);
+            this.modelPanel.Name = "modelPanel";
+            this.modelPanel.Size = new System.Drawing.Size(690, 393);
+            this.modelPanel.StencilBits = ((byte)(0));
+            this.modelPanel.TabIndex = 0;
+            this.modelPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.modelPanel_MouseDown);
+            this.modelPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.modelPanel_MouseMove);
             // 
-            // pictureBox1
+            // sensorValuesCheckBox
             // 
-            this.pictureBox1.BackColor = System.Drawing.Color.White;
-            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Location = new System.Drawing.Point(3, 3);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(690, 393);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.SizeChanged += new System.EventHandler(this.pictureBox1_SizeChanged);
-            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
-            this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
+            this.sensorValuesCheckBox.AutoSize = true;
+            this.sensorValuesCheckBox.Checked = true;
+            this.sensorValuesCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.sensorValuesCheckBox.Location = new System.Drawing.Point(7, 55);
+            this.sensorValuesCheckBox.Name = "sensorValuesCheckBox";
+            this.sensorValuesCheckBox.Size = new System.Drawing.Size(131, 17);
+            this.sensorValuesCheckBox.TabIndex = 2;
+            this.sensorValuesCheckBox.Text = "Показания датчиков";
+            this.sensorValuesCheckBox.UseVisualStyleBackColor = true;
+            this.sensorValuesCheckBox.CheckedChanged += new System.EventHandler(this.sensorValuesCheckBox_CheckedChanged);
             // 
             // SlabVisualizationForm
             // 
@@ -173,7 +178,8 @@
             this.tabControl1.ResumeLayout(false);
             this.plotsPage.ResumeLayout(false);
             this.slabModelPage.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -184,10 +190,10 @@
         private System.Windows.Forms.TabPage plotsPage;
         private ZedGraph.ZedGraphControl plotsView;
         private System.Windows.Forms.TabPage slabModelPage;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button4;
+        private Tao.Platform.Windows.SimpleOpenGlControl modelPanel;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.CheckBox gridSurfaceCheckBox;
+        private System.Windows.Forms.CheckBox dimensionsCheckBox;
+        private System.Windows.Forms.CheckBox sensorValuesCheckBox;
     }
 }

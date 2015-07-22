@@ -6,6 +6,24 @@
     public interface IDataProviderConfiguration
     {
         /// <summary>
+        /// Возвращает адрес opc-сервера.
+        /// </summary>
+        /// <returns>адрес opc-сервера.</returns>
+        string GetHost();
+
+        /// <summary>
+        /// Возвращает имя орс-сервера.
+        /// </summary>
+        /// <returns>имя орс-сервера.</returns>
+        string GetServer();
+
+        /// <summary>
+        /// Возвращает описание конторльного блока OPC.
+        /// </summary>
+        /// <returns>Описание контрольного блока OPC.</returns>
+        IOpcControlBlock GetControlBlock();
+
+        /// <summary>
         /// Возвращает количество описаний датчиков OPC.
         /// </summary>
         /// <returns>Количество описаний датчиков OPC.</returns>
@@ -23,6 +41,13 @@
         /// <param name="aId">Идентификатор датчика.</param>
         /// <returns>Описание OPC-датчика.</returns>
         IOpcSensorInfo ReadOpcSensorInfoById(int aId);
+
+        /// <summary>
+        /// Возвращает описание OPC-датчика по его индеку датчика.
+        /// </summary>
+        /// <param name="aIndex">Индекс датчика.</param>
+        /// <returns>Описание OPC-датчика.</returns>
+        IOpcSensorInfo ReadOpcSensorInfoByIndex(int aIndex);
 
         /// <summary>
         /// Возвращает описание OPC-датчика по имени датчика.

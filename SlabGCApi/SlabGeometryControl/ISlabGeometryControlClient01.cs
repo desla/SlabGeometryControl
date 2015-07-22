@@ -119,7 +119,7 @@
         /// <param name="aSlabId">Идентификатор слитка.</param>
         /// <returns>Все точки поверхности слитка.</returns>
         [OperationContract]
-        SlabPoint[] GetSlabPointsBySlabId(long aSessionId, int aSlabId);
+        SlabModel3D GetSlabModel3DBySlabId(long aSessionId, int aSlabId);
 
         /// <summary>
         /// Возвращает показания датчика при замере слитка.

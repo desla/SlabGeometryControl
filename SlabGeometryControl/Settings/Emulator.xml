@@ -5,7 +5,7 @@
   <shift>200</shift>
   <ingot>
     <!--Параметры слитка-->
-    <length>1000</length>
+    <length>3000</length>
     <width>1000</width>
     <height>1000</height>
     <!--Предел шероховатости в миллиметрах-->

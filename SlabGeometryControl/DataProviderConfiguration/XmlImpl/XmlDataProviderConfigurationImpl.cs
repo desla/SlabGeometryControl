@@ -13,12 +13,18 @@ namespace Alvasoft.DataProviderConfiguration.XmlImpl
     {
         private static readonly ILog logger = LogManager.GetLogger("XmlDataProviderConfigurationImpl");
 
+        private const string OPC_HOST = "host";
+        private const string OPC_SERVER = "server";
         private const string OPC_SENSORS = "sensors";
         private const string OPC_SENSOR = "sensor";
         private const string SENSOR_NAME = "name";
+        private const string CONTROL = "control";
         
         private string xmlFileName = "Settings/OpcConfiguration.xml";
         private List<IOpcSensorInfo> opcSensorInfos = new List<IOpcSensorInfo>();
+        private IOpcControlBlock controlBlock = null;
+        private string serverHost;
+        private string serverName;
         private List<IDataProviderConfigurationListener> listeners 
             = new List<IDataProviderConfigurationListener>();
         
@@ -27,6 +33,21 @@ namespace Alvasoft.DataProviderConfiguration.XmlImpl
             if (!string.IsNullOrEmpty(aFileName)) {
                 xmlFileName = aFileName;
             }
+        }
+
+        public string GetHost()
+        {
+            return serverHost;
+        }
+
+        public string GetServer()
+        {
+            return serverName;
+        }
+
+        public IOpcControlBlock GetControlBlock()
+        {
+            return controlBlock;
         }
 
         public int GetOpcSensorInfoCount()
@@ -56,6 +77,11 @@ namespace Alvasoft.DataProviderConfiguration.XmlImpl
         public IOpcSensorInfo ReadOpcSensorInfoById(int aId)
         {
             return opcSensorInfos.FirstOrDefault(s => s.GetId() == aId);
+        }
+
+        public IOpcSensorInfo ReadOpcSensorInfoByIndex(int aIndex)
+        {
+            return opcSensorInfos[aIndex];
         }
 
         public IOpcSensorInfo ReadOpcSensorInfoByName(string aSensorName)
@@ -117,8 +143,15 @@ namespace Alvasoft.DataProviderConfiguration.XmlImpl
             for (var i = 0; i < items.Count; ++i) {
                 var item = items[i];
                 switch (item.Name) {
-                    //case OPC_HOST:
-                    //case OPC_SERVER:
+                    case OPC_HOST:
+                        serverHost = item.InnerText;
+                        break;
+                    case OPC_SERVER:
+                        serverName = item.InnerText;
+                        break;
+                    case CONTROL:
+                        LoadControlBlock(item);
+                        break;
                     case OPC_SENSORS:
                         LoadOpcSensors(item);
                         break;
@@ -126,6 +159,18 @@ namespace Alvasoft.DataProviderConfiguration.XmlImpl
             }
 
             logger.Info("Загрузка конфигурации из Xml завершена.");
+        }
+
+        private void LoadControlBlock(XmlNode aNode)
+        {
+            controlBlock = new OpcControlBlockImpl();
+            var items = aNode.ChildNodes;
+            for (var i = 0; i < items.Count; ++i) {
+                var item = items[i];
+                switch (item.Name) {
+                    //
+                }
+            }            
         }
 
         private void LoadOpcSensors(XmlNode aNode)

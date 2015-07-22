@@ -78,10 +78,10 @@ namespace Alvasoft.SlabGeometryControl
             return ServerInstance.GetSensorValueBySensorId(GetSessionId(), aSensorId);
         }
 
-        public SlabPoint[] GetSlabPointsBySlabId(int aSlabId)
+        public SlabModel3D GetSlabModel3DBySlabId(int aSlabId)
         {
             CheckConnection();
-            return ServerInstance.GetSlabPointsBySlabId(GetSessionId(), aSlabId);
+            return ServerInstance.GetSlabModel3DBySlabId(GetSessionId(), aSlabId);
         }
 
         public SensorValue[] GetSensorValuesBySlabId(int aSlabId, int aSensorId)

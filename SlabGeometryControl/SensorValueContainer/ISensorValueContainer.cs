@@ -16,11 +16,10 @@ namespace Alvasoft.SensorValueContainer
         void AddSensorValue(int aSensorId, double aValue, long aTime);
 
         /// <summary>
-        /// Возвращает значения датчиков, собранные в накопителе после указанонго времени.
-        /// </summary>
-        /// <param name="aTime">Время.</param>
+        /// Возвращает значения датчиков.
+        /// </summary>        
         /// <returns>Значения датчиков.</returns>
-        ISensorValueInfo[] GetAllValues(long aTime);
+        ISensorValueInfo[] GetAllValues();
 
         /// <summary>
         /// Возвращает значения датчиков по номеру датчика.

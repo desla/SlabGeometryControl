@@ -170,12 +170,12 @@ namespace Alvasoft.Server
             }            
         }
 
-        public SlabPoint[] GetSlabPointsBySlabId(long aSessionId, int aSlabId)
+        public SlabModel3D GetSlabModel3DBySlabId(long aSessionId, int aSlabId)
         {
             try {
                 logger.Debug("Сессия: " + aSessionId + " " +
                              "Запрос GetSlabPointsBySlabId(" + aSlabId + ")");
-                return gcsServer.GetSlabPointsBySlabId(aSlabId);
+                return gcsServer.GetSlabModel3DBySlabId(aSlabId);
             }
             catch (Exception ex) {
                 logger.Error("Сессия: " + aSessionId + " Ошибка: " + ex.Message);

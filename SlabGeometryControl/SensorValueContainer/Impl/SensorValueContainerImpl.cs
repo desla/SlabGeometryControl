@@ -28,7 +28,7 @@ namespace Alvasoft.SensorValueContainer.Impl
             AlertListeners();
         }
 
-        public ISensorValueInfo[] GetAllValues(long aTime)
+        public ISensorValueInfo[] GetAllValues()
         {            
             var sensorValueList = new List<ISensorValueInfo>();
             lock (accessLock) {

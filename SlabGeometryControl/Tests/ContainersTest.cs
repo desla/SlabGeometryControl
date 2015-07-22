@@ -25,38 +25,38 @@ namespace Alvasoft.Tests
             }
         }
 
-        [Test]
-        public void SensorValueContainerTest()
-        {
-            var container = new SensorValueContainerImpl();
-            var listener = new SensorValueContainerListener();
-            container.SunbscribeContainerListener(listener);
+        //[Test]
+        //public void SensorValueContainerTest()
+        //{
+        //    var container = new SensorValueContainerImpl();
+        //    var listener = new SensorValueContainerListener();
+        //    container.SunbscribeContainerListener(listener);
 
-            var collection = new List<ISensorValueInfo>();
-            for (var i = 0; i < 100; ++i) {
-                collection.Add(new SensorValueInfoImpl(i, i, i));
-            }
+        //    var collection = new List<ISensorValueInfo>();
+        //    for (var i = 0; i < 100; ++i) {
+        //        collection.Add(new SensorValueInfoImpl(i, i, i));
+        //    }
 
-            foreach (var item in collection) {
-                container.AddSensorValue(item.GetSensorId(), item.GetValue(), item.GetTime());
-            }
+        //    foreach (var item in collection) {
+        //        container.AddSensorValue(item.GetSensorId(), item.GetValue(), item.GetTime());
+        //    }
 
-            Assert.AreEqual(listener.CallCount, collection.Count);
+        //    Assert.AreEqual(listener.CallCount, collection.Count);
 
-            Assert.AreEqual(container.GetAllValues(49).Length, 50);
-            Assert.AreEqual(container.GetAllValues(99).Length, 0);
-            Assert.AreEqual(container.GetAllValues(-1).Length, 100);
-            Assert.AreEqual(container.GetAllValues(0).Length, 99);
+        //    Assert.AreEqual(container.GetAllValues(49).Length, 50);
+        //    Assert.AreEqual(container.GetAllValues(99).Length, 0);
+        //    Assert.AreEqual(container.GetAllValues(-1).Length, 100);
+        //    Assert.AreEqual(container.GetAllValues(0).Length, 99);
 
-            container.UnsunbscribeContainerListener(listener);
-            container.AddSensorValue(100, 100, 100);
-            Assert.AreEqual(listener.CallCount, 100);
+        //    container.UnsunbscribeContainerListener(listener);
+        //    container.AddSensorValue(100, 100, 100);
+        //    Assert.AreEqual(listener.CallCount, 100);
 
-            Assert.IsTrue(!container.IsEmpty());
-            container.Clear();
-            Assert.IsTrue(container.IsEmpty());
-            Assert.AreEqual(container.GetAllValues(-1).Length, 0);
-        }
+        //    Assert.IsTrue(!container.IsEmpty());
+        //    container.Clear();
+        //    Assert.IsTrue(container.IsEmpty());
+        //    Assert.AreEqual(container.GetAllValues(-1).Length, 0);
+        //}
 
         [Test]
         public void DimentionValueContainerTest()

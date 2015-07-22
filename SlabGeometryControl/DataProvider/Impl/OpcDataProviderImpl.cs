@@ -1,4 +1,6 @@
-﻿using Alvasoft.DataProviderConfiguration;
+﻿using System;
+using System.Collections.Generic;
+using Alvasoft.DataProviderConfiguration;
 using Alvasoft.DataEnums;
 using Alvasoft.SensorConfiguration;
 using Alvasoft.SensorValueContainer;
@@ -13,6 +15,11 @@ namespace Alvasoft.DataProvider.Impl
         IDataProviderConfigurationListener,
         ISensorConfigurationListener
     {
+        private ISensorValueContainer valueContainer;
+        private IDataProviderConfiguration opcConfiguration;
+        private ISensorConfiguration sensorConfiguration;
+        private List<IDataProviderListener> listeners = new List<IDataProviderListener>();
+
         public SystemState GetCurrentSystemState()
         {
             return SystemState.WAITING;
@@ -20,27 +27,43 @@ namespace Alvasoft.DataProvider.Impl
 
         public void SetSensorValueContainer(ISensorValueContainer aSensorValueContainer)
         {
-            //throw new System.NotImplementedException();
+            if (aSensorValueContainer == null) {
+                throw new ArgumentNullException("aSensorValueContainer");
+            }
+
+            valueContainer = aSensorValueContainer;
         }
 
         public void SetDataProviderConfiguration(IDataProviderConfiguration aDataProviderConfiguration)
         {
-            //throw new System.NotImplementedException();
+            if (aDataProviderConfiguration == null) {
+                throw new ArgumentNullException("aDataProviderConfiguration");
+            }
+
+            opcConfiguration = aDataProviderConfiguration;
         }
 
         public void SetSensorConfiguration(ISensorConfiguration aSensorConfiguration)
         {
-            //throw new System.NotImplementedException();
+            if (aSensorConfiguration == null) {
+                throw new ArgumentNullException("aSensorConfiguration");
+            }
+
+            sensorConfiguration = aSensorConfiguration;
         }
 
         public void SubscribeDataProviderListener(IDataProviderListener aListener)
         {
-            //throw new System.NotImplementedException();
+            if (aListener != null) {
+                listeners.Add(aListener);
+            }
         }
 
         public void UnsubscribeDataProviderListener(IDataProviderListener aListener)
         {
-            //throw new System.NotImplementedException();
+            if (aListener != null && listeners.Contains(aListener)) {
+                listeners.Remove(aListener);
+            }
         }
 
         public bool IsConnected()
@@ -53,7 +76,7 @@ namespace Alvasoft.DataProvider.Impl
             return false;
         }
 
-        public double GetSensorValue(int aSensorId)
+        public double GetSensorCurrentValue(int aSensorId)
         {
             throw new System.NotImplementedException();
         }

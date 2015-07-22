@@ -2,6 +2,9 @@
 <configuration>
   <host>localhost</host>
   <server>имя сервера</server>
+  <control>
+    
+  </control>
   <sensors>
     <sensor>
       <name>Top0</name>

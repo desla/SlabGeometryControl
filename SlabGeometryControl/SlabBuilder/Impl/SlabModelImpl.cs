@@ -357,10 +357,15 @@ namespace Alvasoft.SlabBuilder.Impl
             }
         }
 
-        public SlabPoint[] ToPoints()
+        public SlabModel3D ToSlabModel()
         {
-            var points = new List<SlabPoint>();
+            var model = new SlabModel3D();
+            model.TopLines = new SlabPoint[TopLines.Length][];
+            model.BottomLines = new SlabPoint[BottomLines.Length][];
+            model.LeftLines = new SlabPoint[LeftLines.Length][];
+            model.RightLines = new SlabPoint[RightLines.Length][];
             for (var i = 0; i < TopLines.Length; ++i) {
+                var line = new List<SlabPoint>();
                 for (var j = 0; j < TopLines[i].Length; ++j) {
                     var linePoint = TopLines[i][j];
                     var point = new SlabPoint {
@@ -368,11 +373,13 @@ namespace Alvasoft.SlabBuilder.Impl
                         Y = linePoint.Y, 
                         Z = linePoint.Z
                     };
-                    points.Add(point);
-                }                
+                    line.Add(point);
+                }
+                model.TopLines[i] = line.ToArray();
             }
 
             for (var i = 0; i < BottomLines.Length; ++i) {
+                var line = new List<SlabPoint>();
                 for (var j = 0; j < BottomLines[i].Length; ++j) {
                     var linePoint = BottomLines[i][j];
                     var point = new SlabPoint {
@@ -380,11 +387,13 @@ namespace Alvasoft.SlabBuilder.Impl
                         Y = linePoint.Y,
                         Z = linePoint.Z
                     };
-                    points.Add(point);
+                    line.Add(point);
                 }
+                model.BottomLines[i] = line.ToArray();
             }
 
             for (var i = 0; i < LeftLines.Length; ++i) {
+                var line = new List<SlabPoint>();
                 for (var j = 0; j < LeftLines[i].Length; ++j) {
                     var linePoint = LeftLines[i][j];
                     var point = new SlabPoint {
@@ -392,11 +401,13 @@ namespace Alvasoft.SlabBuilder.Impl
                         Y = linePoint.Y,
                         Z = linePoint.Z
                     };
-                    points.Add(point);
+                    line.Add(point);
                 }
+                model.LeftLines[i] = line.ToArray();
             }
 
             for (var i = 0; i < RightLines.Length; ++i) {
+                var line = new List<SlabPoint>();
                 for (var j = 0; j < RightLines[i].Length; ++j) {
                     var linePoint = RightLines[i][j];
                     var point = new SlabPoint {
@@ -404,11 +415,12 @@ namespace Alvasoft.SlabBuilder.Impl
                         Y = linePoint.Y,
                         Z = linePoint.Z
                     };
-                    points.Add(point);
+                    line.Add(point);
                 }
+                model.RightLines[i] = line.ToArray();
             }
 
-            return points.ToArray();
+            return model;
         }
 
         private int GetLowerBoundPoint(Point3D[] aMassive, double aZ)

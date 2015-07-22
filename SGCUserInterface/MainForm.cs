@@ -21,6 +21,7 @@ namespace SGCUserInterface
         private Random rnd = new Random(14121989);        
         private Dictionary<int, string> dimentionTitles = null;
 
+        private Timer informationLoaderActivator = null;
         private BackgroundWorker informationLoader = null;
         private SystemInformation information = new SystemInformation();
 
@@ -46,20 +47,37 @@ namespace SGCUserInterface
             slabsListLoader.DoWork += SlabsListLoading;
             slabsListLoader.RunWorkerCompleted += SlabsListLoadingCompleat;  
           
+            informationLoaderActivator = new Timer();
+            informationLoaderActivator.Tick += ActivateInformationLoader;
+            informationLoaderActivator.Interval = 1000;
+
             slabListLoaderActivator = new Timer();
-            slabListLoaderActivator.Tick += ActivateLoader;
+            slabListLoaderActivator.Tick += ActivateSlabsListLoader;
             slabListLoaderActivator.Interval = 2000;            
+
 
             AddLogInfo("GUI", "Успешная инициализация.");
             //ConnectToService();
         }
 
-        private void ActivateLoader(object sender, EventArgs e)
+        private void ActivateInformationLoader(object sender, EventArgs e)
         {
-            if (client != null && client.IsConnected) {
-                slabsListLoader.RunWorkerAsync();
-            }
-            slabListLoaderActivator.Stop();
+            if (!informationLoader.IsBusy) {
+                if (client != null && client.IsConnected) {
+                    informationLoader.RunWorkerAsync();
+                }
+            }            
+            //informationLoaderActivator.Stop();
+        }
+
+        private void ActivateSlabsListLoader(object sender, EventArgs e)
+        {
+            if (!slabsListLoader.IsBusy) {
+                if (client != null && client.IsConnected) {
+                    slabsListLoader.RunWorkerAsync();
+                }
+            }            
+            //slabListLoaderActivator.Stop();
         }
 
         private void SlabsListLoadingCompleat(object sender, RunWorkerCompletedEventArgs e)
@@ -107,9 +125,6 @@ namespace SGCUserInterface
             }
 
             slabListLoaderActivator.Start();
-            //if (client != null && client.IsConnected) {
-            //    slabsListLoader.RunWorkerAsync();
-            //}            
         }
 
         private bool IsNeedToClearDataGridView()
@@ -189,8 +204,7 @@ namespace SGCUserInterface
                 }
             }
             catch (Exception ex) {
-                MessageBox.Show(@"Ошибка при обновлении информации: " + ex.Message);
-                AddLogInfo("GUI", "Ошибка при обновлении информации.");
+                MessageBox.Show(@"Ошибка при обновлении информации: " + ex.Message);                
                 client.Disconnect();
             }
         }
@@ -200,10 +214,8 @@ namespace SGCUserInterface
             ControllerConnectionUpdate();
             SensorsCountUpdate();
             SGCStateUpdate();
-
-            if (client != null && client.IsConnected) {
-                informationLoader.RunWorkerAsync();
-            }            
+            
+            informationLoaderActivator.Start();
         }
 
         private void InformationLoading(object sender, DoWorkEventArgs e)
@@ -221,8 +233,10 @@ namespace SGCUserInterface
         {
             toolStripStatusLabel1.Text = @"Подключено. Сессия: " + aSessionId;
             AddLogInfo("Server", "Успешное подключение к серверу. Сессия: " + aSessionId + ".");
-            slabsListLoader.RunWorkerAsync();
-            informationLoader.RunWorkerAsync();
+            //slabsListLoader.RunWorkerAsync();
+            //informationLoader.RunWorkerAsync();
+            slabListLoaderActivator.Start();
+            informationLoaderActivator.Start();
         }
 
         public void OnDisconnected(IClient aClient, long aSessionId)
@@ -309,6 +323,8 @@ namespace SGCUserInterface
                 client = null;                
             }
 
+            dataGridView1.Rows.Clear();
+            dataGridView2.Rows.Clear();
             подключитьсяToolStripMenuItem.Enabled = true;
             отключитьсяToolStripMenuItem.Enabled = false;
             AddLogInfo("GUI", "Отключение от сервера.");
@@ -317,7 +333,7 @@ namespace SGCUserInterface
         private bool ConnectToService()
         {
             var configuration = new NetConfigurationImpl {
-                ServerHost = "192.168.1.66",
+                ServerHost = "localhost",
                 ServerPort = 9876
             };
 

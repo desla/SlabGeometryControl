@@ -66,6 +66,6 @@ namespace Alvasoft.DataProvider
         /// </summary>
         /// <param name="aSensorId">Идентификатор датчика.</param>
         /// <returns>Показание датчика.</returns>
-        double GetSensorValue(int aSensorId);
+        double GetSensorCurrentValue(int aSensorId);
     }
 }

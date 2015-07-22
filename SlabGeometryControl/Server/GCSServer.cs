@@ -27,8 +27,8 @@ using SensorValue = Alvasoft.SlabGeometryControl.SensorValue;
 
 namespace Alvasoft.Server
 {
-    public class GCSServer
-        : InitializableImpl,
+    public class GCSServer :
+        InitializableImpl,
         IDataProviderListener,
         ISensorValueContainerListener,
         ISlabInfoWriter        
@@ -239,9 +239,9 @@ namespace Alvasoft.Server
 
         private void StoreSensorValues()
         {
-            logger.Info("Уведомление о поступлении данных с датчиков в контейнер.");
+            logger.Info("Сохранение данных с датчиков.");
             try {
-                var sensorValues = sensorValueContainer.GetAllValues(0);
+                var sensorValues = sensorValueContainer.GetAllValues();
                 if (sensorValues != null && sensorValues.Length > 0) {
                     logger.Info("Данных для сохранения: " + sensorValues.Length);                    
                     sensorValueReaderWriter.WriteSensorValueInfos(sensorValues);                    
@@ -439,12 +439,12 @@ namespace Alvasoft.Server
         public SensorValue GetSensorValueBySensorId(int aSensorId)
         {
             return new SensorValue {
-                Value = dataProvider.GetSensorValue(aSensorId),
+                Value = dataProvider.GetSensorCurrentValue(aSensorId),
                 Time = DateTime.Now.ToBinary()
             };
         }
 
-        public SlabPoint[] GetSlabPointsBySlabId(int aSlabId)
+        public SlabModel3D GetSlabModel3DBySlabId(int aSlabId)
         {
             try {
                 var sensorsCount = sensorConfiguration.GetSensorInfoCount();
@@ -459,7 +459,7 @@ namespace Alvasoft.Server
                 }
 
                 var slab = userSlabBuilder.BuildSlabModel();
-                return slab.ToPoints();
+                return slab.ToSlabModel();
             }
             catch {
                 return null;

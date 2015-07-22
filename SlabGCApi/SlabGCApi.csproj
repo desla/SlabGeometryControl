@@ -62,6 +62,7 @@
     <Compile Include="SlabGeometryControl\SGCClientImpl.cs" />
     <Compile Include="SlabGeometryControl\SGCSystemState.cs" />
     <Compile Include="SlabGeometryControl\SlabInfo.cs" />
+    <Compile Include="SlabGeometryControl\SlabModel3D.cs" />
     <Compile Include="SlabGeometryControl\SlabPoint.cs" />
     <Compile Include="SlabGeometryControl\StandartSize.cs" />
     <Compile Include="SlabGeometryControl\Копия ISlabGeometryControlClient01.cs" />
