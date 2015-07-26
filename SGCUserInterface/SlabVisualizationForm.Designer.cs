@@ -33,10 +33,12 @@
             this.plotsView = new ZedGraph.ZedGraphControl();
             this.slabModelPage = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.smoothCheckedBox = new System.Windows.Forms.CheckBox();
+            this.sensorValuesCheckBox = new System.Windows.Forms.CheckBox();
             this.dimensionsCheckBox = new System.Windows.Forms.CheckBox();
             this.gridSurfaceCheckBox = new System.Windows.Forms.CheckBox();
             this.modelPanel = new Tao.Platform.Windows.SimpleOpenGlControl();
-            this.sensorValuesCheckBox = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.plotsPage.SuspendLayout();
             this.slabModelPage.SuspendLayout();
@@ -95,15 +97,44 @@
             // 
             // panel1
             // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.smoothCheckedBox);
             this.panel1.Controls.Add(this.sensorValuesCheckBox);
             this.panel1.Controls.Add(this.dimensionsCheckBox);
             this.panel1.Controls.Add(this.gridSurfaceCheckBox);
-            this.panel1.Location = new System.Drawing.Point(8, 6);
+            this.panel1.Location = new System.Drawing.Point(548, 6);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(140, 241);
+            this.panel1.Size = new System.Drawing.Size(140, 126);
             this.panel1.TabIndex = 1;
+            // 
+            // smoothCheckedBox
+            // 
+            this.smoothCheckedBox.AutoSize = true;
+            this.smoothCheckedBox.Checked = true;
+            this.smoothCheckedBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.smoothCheckedBox.Location = new System.Drawing.Point(7, 104);
+            this.smoothCheckedBox.Name = "smoothCheckedBox";
+            this.smoothCheckedBox.Size = new System.Drawing.Size(94, 17);
+            this.smoothCheckedBox.TabIndex = 3;
+            this.smoothCheckedBox.Text = "Сглаживание";
+            this.smoothCheckedBox.UseVisualStyleBackColor = true;
+            this.smoothCheckedBox.CheckedChanged += new System.EventHandler(this.smoothCheckedBox_CheckedChanged);
+            // 
+            // sensorValuesCheckBox
+            // 
+            this.sensorValuesCheckBox.AutoSize = true;
+            this.sensorValuesCheckBox.Checked = true;
+            this.sensorValuesCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.sensorValuesCheckBox.Location = new System.Drawing.Point(7, 55);
+            this.sensorValuesCheckBox.Name = "sensorValuesCheckBox";
+            this.sensorValuesCheckBox.Size = new System.Drawing.Size(131, 17);
+            this.sensorValuesCheckBox.TabIndex = 2;
+            this.sensorValuesCheckBox.Text = "Показания датчиков";
+            this.sensorValuesCheckBox.UseVisualStyleBackColor = true;
+            this.sensorValuesCheckBox.CheckedChanged += new System.EventHandler(this.sensorValuesCheckBox_CheckedChanged);
             // 
             // dimensionsCheckBox
             // 
@@ -150,18 +181,14 @@
             this.modelPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.modelPanel_MouseDown);
             this.modelPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.modelPanel_MouseMove);
             // 
-            // sensorValuesCheckBox
+            // label1
             // 
-            this.sensorValuesCheckBox.AutoSize = true;
-            this.sensorValuesCheckBox.Checked = true;
-            this.sensorValuesCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.sensorValuesCheckBox.Location = new System.Drawing.Point(7, 55);
-            this.sensorValuesCheckBox.Name = "sensorValuesCheckBox";
-            this.sensorValuesCheckBox.Size = new System.Drawing.Size(131, 17);
-            this.sensorValuesCheckBox.TabIndex = 2;
-            this.sensorValuesCheckBox.Text = "Показания датчиков";
-            this.sensorValuesCheckBox.UseVisualStyleBackColor = true;
-            this.sensorValuesCheckBox.CheckedChanged += new System.EventHandler(this.sensorValuesCheckBox_CheckedChanged);
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(4, 80);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(127, 13);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "____________________";
             // 
             // SlabVisualizationForm
             // 
@@ -174,6 +201,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Данные слитка";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SlabVisualizationForm_FormClosing);
             this.Load += new System.EventHandler(this.SlabVisualizationForm_Load);
             this.tabControl1.ResumeLayout(false);
             this.plotsPage.ResumeLayout(false);
@@ -195,5 +223,7 @@
         private System.Windows.Forms.CheckBox gridSurfaceCheckBox;
         private System.Windows.Forms.CheckBox dimensionsCheckBox;
         private System.Windows.Forms.CheckBox sensorValuesCheckBox;
+        private System.Windows.Forms.CheckBox smoothCheckedBox;
+        private System.Windows.Forms.Label label1;
     }
 }

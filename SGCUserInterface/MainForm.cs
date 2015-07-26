@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using Alvasoft.Wcf.Client;
@@ -38,7 +35,6 @@ namespace SGCUserInterface
         private void Form1_Load(object sender, EventArgs e)
         {
             dateTimeFrom.Value = DateTime.Now.Date;            
-
             informationLoader = new BackgroundWorker();
             informationLoader.DoWork += InformationLoading;
             informationLoader.RunWorkerCompleted += InformationLoadingCompleat;            
@@ -333,7 +329,7 @@ namespace SGCUserInterface
         private bool ConnectToService()
         {
             var configuration = new NetConfigurationImpl {
-                ServerHost = "localhost",
+                ServerHost = "192.168.1.66",
                 ServerPort = 9876
             };
 
@@ -406,6 +402,7 @@ namespace SGCUserInterface
 
         private void теукщиеПоказанияToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            AddLogInfo("GUI", "Просмотр текущих показаний датчиков.");
             new CurrentValuesForm(client).ShowDialog();
         }
 
@@ -426,9 +423,10 @@ namespace SGCUserInterface
             if (rowIndex != -1) {
                 var row = dataGridView1.Rows[rowIndex];
                 var slabId = Convert.ToInt32(row.Cells["Id"].Value);
-                new Thread(() => new SlabVisualizationForm(slabId, client).ShowDialog()).Start();
+                ThreadPool.QueueUserWorkItem(state => 
+                    new SlabVisualizationForm(slabId, client).ShowDialog());                
             }
-        }
+        }        
 
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
         {

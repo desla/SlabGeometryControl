@@ -42,6 +42,11 @@ namespace SGCUserInterface
         private int lastAngleX = 0;
         private int lastAngleY = 0;
 
+        private Dictionary<string, int> objectsList = new Dictionary<string, int>();
+        private const string KEY_SURFACE = "surface";
+        private const string KEY_SENSOR_VALUES = "sensorValues";
+        private const string KEY_SLAB_DIMENTIONS = "slabDimentions";
+
         public SlabVisualizationForm(int aSlabId, SGCClientImpl aClient)
         {
             InitializeComponent();            
@@ -63,7 +68,9 @@ namespace SGCUserInterface
         }
 
         private void LoadCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {            
+        {
+            InitializeGlObjects();
+
             ShowPlots();
             ShowModel();
 
@@ -75,7 +82,14 @@ namespace SGCUserInterface
             for (var i = 0; i < this.Controls.Count; ++i) {                
                 Controls[i].Show();
             }
-        }        
+        }
+
+        private void InitializeGlObjects()
+        {
+            InitGridSurface();
+            InitSensorValues();
+            InitSlabDimentions();
+        }
 
         private void LoadSensorsValues(object sender, DoWorkEventArgs e)
         {
@@ -141,14 +155,21 @@ namespace SGCUserInterface
             // настройка проекции 
             Gl.glMatrixMode(Gl.GL_PROJECTION);
             Gl.glLoadIdentity();
-            Glu.gluPerspective(45, (float) modelPanel.Width / modelPanel.Height, 0.1, 100000);
+            Glu.gluPerspective(45, (float) modelPanel.Width / modelPanel.Height, 10, 100000);
 
             Gl.glMatrixMode(Gl.GL_MODELVIEW);
             Gl.glLoadIdentity();
 
             // настройка параметров OpenGL для визуализации 
             Gl.glEnable(Gl.GL_DEPTH_TEST);
-            Gl.glEnable(Gl.GL_COLOR_MATERIAL);            
+            Gl.glEnable(Gl.GL_COLOR_MATERIAL);
+
+            Gl.glEnable(Gl.GL_MULTISAMPLE_ARB);
+            Gl.glEnable(Gl.GL_LINE_SMOOTH);
+            Gl.glEnable(Gl.GL_BLEND);
+            Gl.glHint(Gl.GL_MULTISAMPLE_FILTER_HINT_NV, Gl.GL_NEAREST);
+            Gl.glHint(Gl.GL_LINE_SMOOTH_HINT, Gl.GL_NEAREST);
+            Gl.glBlendFunc(Gl.GL_SRC_ALPHA, Gl.GL_ONE_MINUS_SRC_ALPHA);
         }        
 
         private void InitPlotsPanel()
@@ -231,17 +252,17 @@ namespace SGCUserInterface
             Gl.glRotated(angleY, 0, 1, 0);
             Gl.glRotated(angleZ, 0, 0, 1);
             {
-                if (sensorValuesCheckBox.Checked) {
-                    DrawSensorValues();
+                if (gridSurfaceCheckBox.Checked && objectsList.ContainsKey(KEY_SURFACE)) {
+                    Gl.glCallList(objectsList[KEY_SURFACE]);
+                }
+                
+                if (sensorValuesCheckBox.Checked && objectsList.ContainsKey(KEY_SENSOR_VALUES)) {
+                    Gl.glCallList(objectsList[KEY_SENSOR_VALUES]);
                 }
 
-                if (dimensionsCheckBox.Checked) {
-                    DrawSlabDimensions();
+                if (dimensionsCheckBox.Checked && objectsList.ContainsKey(KEY_SLAB_DIMENTIONS)) {
+                    Gl.glCallList(objectsList[KEY_SLAB_DIMENTIONS]);
                 }
-
-                if (gridSurfaceCheckBox.Checked) {
-                    DrawGridSurface();
-                }                
             }
             Gl.glPopMatrix();
             Gl.glFlush();
@@ -307,40 +328,56 @@ namespace SGCUserInterface
 
         // Вспомогательные функции для отрисовки 3д модели.
 
-        private void DrawGridSurface()
+        private void InitGridSurface()
         {
-            var linesCount = 20;
-            var distanceBetwenLines = 400;
-            var depthY = -1500;
+            var strongLinesCount = 15;
+            var slimLinesCount = 2;
+            var distanceBetwenStrongLines = 500;
+            var depthY = -2000;
 
-            var color = Color.Red;
-            Gl.glColor3f(color.R, color.G, color.B);
+            var surfaceNumber = Gl.glGenLists(1);
+            objectsList[KEY_SURFACE] = surfaceNumber;
+            Gl.glNewList(surfaceNumber, Gl.GL_COMPILE);
+            var color = Color.Gray;
+            Gl.glLineWidth(1f);                        
+            Gl.glColor3d(
+                Convert.ToDouble(color.R) / 255,
+                Convert.ToDouble(color.G) / 255,
+                Convert.ToDouble(color.B) / 255);
             Gl.glBegin(Gl.GL_LINES);
-            {                
-                var startPosition = distanceBetwenLines*linesCount/2;                
-                for (var i = 0; i <= linesCount; ++i) {
-                    Gl.glVertex3i(-startPosition, depthY, startPosition - distanceBetwenLines * i);
-                    Gl.glVertex3i(startPosition, depthY, startPosition - distanceBetwenLines * i);
-                    Gl.glVertex3i(startPosition - distanceBetwenLines * i, depthY, startPosition);
-                    Gl.glVertex3i(startPosition - distanceBetwenLines * i, depthY, -startPosition);
-                }                                
-            }
-            Gl.glEnd();
-            color = Color.Blue;
-            Gl.glColor3f(color.R, color.G, color.B);
-            Gl.glBegin(Gl.GL_LINE_STRIP);
             {
-                Gl.glVertex3i(0, depthY + 100, 0);
-                Gl.glVertex3i(100, depthY + 100, 0);
-                Gl.glVertex3i(0, depthY + 100, 0);
-                Gl.glVertex3i(0, depthY + 200, 0);
-                Gl.glVertex3i(0, depthY + 100, 0);
-                Gl.glVertex3i(0, depthY + 100, 100);
+                var startPosition = distanceBetwenStrongLines * strongLinesCount / 2;
+                for (var i = 0; i <= strongLinesCount; ++i) {
+                    Gl.glVertex3f(-startPosition, depthY, -startPosition + distanceBetwenStrongLines * i);
+                    Gl.glVertex3f(startPosition, depthY, -startPosition + distanceBetwenStrongLines * i);
+                    Gl.glVertex3f(startPosition - distanceBetwenStrongLines * i, depthY, -startPosition);
+                    Gl.glVertex3f(startPosition - distanceBetwenStrongLines * i, depthY, startPosition);
+                }
             }
             Gl.glEnd();
+            color = Color.LightGray;
+            Gl.glColor3d(
+                Convert.ToDouble(color.R) / 255,
+                Convert.ToDouble(color.G) / 255,
+                Convert.ToDouble(color.B) / 255);
+            Gl.glBegin(Gl.GL_LINES);
+            {
+                var startPosition = distanceBetwenStrongLines * strongLinesCount / 2;
+                var distance = distanceBetwenStrongLines / (slimLinesCount + 1);
+                for (var i = 0; i < strongLinesCount; ++i) {
+                    for (var j = 1; j <= slimLinesCount; ++j) {
+                        Gl.glVertex3f(-startPosition, depthY, -startPosition + distanceBetwenStrongLines * i + distance * j);
+                        Gl.glVertex3f(startPosition, depthY, -startPosition + distanceBetwenStrongLines * i + distance * j);
+                        Gl.glVertex3f(-startPosition + distanceBetwenStrongLines * i + distance * j, depthY, -startPosition);
+                        Gl.glVertex3f(-startPosition + distanceBetwenStrongLines * i + distance * j, depthY, startPosition);
+                    }
+                }
+            }
+            Gl.glEnd();
+            Gl.glEndList();
         }
 
-        private void DrawSlabDimensions()
+        private void InitSlabDimentions()
         {
             if (slabModel == null) {
                 return;
@@ -354,57 +391,70 @@ namespace SGCUserInterface
             var p6 = slabModel.RightLines[slabModel.RightLines.Length / 2].Last();
             var p7 = slabModel.BottomLines[slabModel.BottomLines.Length / 2].Last();
             var p8 = slabModel.LeftLines[slabModel.LeftLines.Length / 2].Last();
-            var move = p5.Z/2;
+            var moveTo = p5.Z/2;
 
+            var slabDimentionsNumber = Gl.glGenLists(1);
+            objectsList[KEY_SLAB_DIMENTIONS] = slabDimentionsNumber;
+            Gl.glNewList(slabDimentionsNumber, Gl.GL_COMPILE);
             var color = Color.Blue;
             Gl.glColor3d(
                 Convert.ToDouble(color.R) / 255,
                 Convert.ToDouble(color.G) / 255,
                 Convert.ToDouble(color.B) / 255);
+            Gl.glLineWidth(2f);
+            Gl.glEnable(Gl.GL_LINE_STIPPLE);
+            Gl.glLineStipple(1, 0x00FF);
             Gl.glBegin(Gl.GL_LINE_STRIP);
             {                
-                Gl.glVertex3d(p4.X, p1.Y, p1.Z - move);
-                Gl.glVertex3d(p2.X, p1.Y, p1.Z - move);
-                Gl.glVertex3d(p2.X, p3.Y, p1.Z - move);
-                Gl.glVertex3d(p4.X, p3.Y, p1.Z - move);
-                Gl.glVertex3d(p4.X, p1.Y, p1.Z - move);
-                Gl.glVertex3d(p8.X, p5.Y, p5.Z - move);
-                Gl.glVertex3d(p6.X, p5.Y, p5.Z - move);
-                Gl.glVertex3d(p6.X, p7.Y, p5.Z - move);
-                Gl.glVertex3d(p8.X, p7.Y, p5.Z - move);
-                Gl.glVertex3d(p8.X, p5.Y, p5.Z - move);
+                Gl.glVertex3d(p4.X, p1.Y, p1.Z - moveTo);
+                Gl.glVertex3d(p2.X, p1.Y, p1.Z - moveTo);
+                Gl.glVertex3d(p2.X, p3.Y, p1.Z - moveTo);
+                Gl.glVertex3d(p4.X, p3.Y, p1.Z - moveTo);
+                Gl.glVertex3d(p4.X, p1.Y, p1.Z - moveTo);
+                Gl.glVertex3d(p8.X, p5.Y, p5.Z - moveTo);
+                Gl.glVertex3d(p6.X, p5.Y, p5.Z - moveTo);
+                Gl.glVertex3d(p6.X, p7.Y, p5.Z - moveTo);
+                Gl.glVertex3d(p8.X, p7.Y, p5.Z - moveTo);
+                Gl.glVertex3d(p8.X, p5.Y, p5.Z - moveTo);
             }
             Gl.glEnd();
             Gl.glBegin(Gl.GL_LINES);
             {
-                Gl.glVertex3d(p2.X, p1.Y, p1.Z - move);
-                Gl.glVertex3d(p6.X, p5.Y, p5.Z - move);
-                Gl.glVertex3d(p2.X, p3.Y, p1.Z - move);
-                Gl.glVertex3d(p6.X, p7.Y, p5.Z - move);
-                Gl.glVertex3d(p4.X, p3.Y, p1.Z - move);
-                Gl.glVertex3d(p8.X, p7.Y, p5.Z - move);
+                Gl.glVertex3d(p2.X, p1.Y, p1.Z - moveTo);
+                Gl.glVertex3d(p6.X, p5.Y, p5.Z - moveTo);
+                Gl.glVertex3d(p2.X, p3.Y, p1.Z - moveTo);
+                Gl.glVertex3d(p6.X, p7.Y, p5.Z - moveTo);
+                Gl.glVertex3d(p4.X, p3.Y, p1.Z - moveTo);
+                Gl.glVertex3d(p8.X, p7.Y, p5.Z - moveTo);
             }
             Gl.glEnd();
+            Gl.glDisable(Gl.GL_LINE_STIPPLE);
+            Gl.glEndList();
         }
 
-        private void DrawSensorValues()
+        private void InitSensorValues()
         {
             if (slabModel == null) {
                 return;
             }
 
-            var move = slabModel.TopLines[slabModel.TopLines.Length/2].Last().Z / 2;
+            var moveTo = slabModel.TopLines[slabModel.TopLines.Length/2].Last().Z / 2;
+
+            var sensorValuesNumber = Gl.glGenLists(1);
+            objectsList[KEY_SENSOR_VALUES] = sensorValuesNumber;
+            Gl.glNewList(sensorValuesNumber, Gl.GL_COMPILE);
             var color = Color.Brown;
             Gl.glColor3d(
                 Convert.ToDouble(color.R) / 255,
                 Convert.ToDouble(color.G) / 255,
                 Convert.ToDouble(color.B) / 255);
+            Gl.glLineWidth(2f);
             Gl.glBegin(Gl.GL_LINE_STRIP);
             {
                 for (var i = 0; i < slabModel.TopLines.Length; ++i) {
                     for (var j = 0; j < slabModel.TopLines[i].Length; ++j) {
                         var point = slabModel.TopLines[i][j];
-                        Gl.glVertex3d(point.X, point.Y, point.Z - move);
+                        Gl.glVertex3d(point.X, point.Y, point.Z - moveTo);
                     }
                 }
             }
@@ -414,7 +464,7 @@ namespace SGCUserInterface
                 for (var i = 0; i < slabModel.BottomLines.Length; ++i) {
                     for (var j = 0; j < slabModel.BottomLines[i].Length; ++j) {
                         var point = slabModel.BottomLines[i][j];
-                        Gl.glVertex3d(point.X, point.Y, point.Z - move);
+                        Gl.glVertex3d(point.X, point.Y, point.Z - moveTo);
                     }
                 }
             }
@@ -424,7 +474,7 @@ namespace SGCUserInterface
                 for (var i = 0; i < slabModel.LeftLines.Length; ++i) {
                     for (var j = 0; j < slabModel.LeftLines[i].Length; ++j) {
                         var point = slabModel.LeftLines[i][j];
-                        Gl.glVertex3d(point.X, point.Y, point.Z - move);
+                        Gl.glVertex3d(point.X, point.Y, point.Z - moveTo);
                     }
                 }
             }
@@ -434,11 +484,41 @@ namespace SGCUserInterface
                 for (var i = 0; i < slabModel.RightLines.Length; ++i) {
                     for (var j = 0; j < slabModel.RightLines[i].Length; ++j) {
                         var point = slabModel.RightLines[i][j];
-                        Gl.glVertex3d(point.X, point.Y, point.Z - move);
+                        Gl.glVertex3d(point.X, point.Y, point.Z - moveTo);
                     }
                 }
             }
             Gl.glEnd();
+            Gl.glEndList();
+        }
+
+        private void smoothCheckedBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (smoothCheckedBox.Checked) {
+                Gl.glEnable(Gl.GL_MULTISAMPLE_ARB);                
+                Gl.glEnable(Gl.GL_LINE_SMOOTH);                                                
+                Gl.glEnable(Gl.GL_BLEND);                                
+            }
+            else {
+                Gl.glDisable(Gl.GL_MULTISAMPLE_ARB);
+                Gl.glDisable(Gl.GL_LINE_SMOOTH);
+                Gl.glDisable(Gl.GL_BLEND);
+            }
+
+            ShowModel();
+        }
+
+        private void SlabVisualizationForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (objectsList.ContainsKey(KEY_SURFACE)) {
+                Gl.glDeleteLists(objectsList[KEY_SURFACE], 1);
+            }            
+            if (objectsList.ContainsKey(KEY_SENSOR_VALUES)) {
+                Gl.glDeleteLists(objectsList[KEY_SENSOR_VALUES], 1);
+            }
+            if (objectsList.ContainsKey(KEY_SLAB_DIMENTIONS)) {
+                Gl.glDeleteLists(objectsList[KEY_SLAB_DIMENTIONS], 1);
+            }
         }
     }
 }
