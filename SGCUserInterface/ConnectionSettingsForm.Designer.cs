@@ -162,6 +162,7 @@
             this.Name = "ConnectionSettingsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Настройки подключения";
+            this.Load += new System.EventHandler(this.ConnectionSettingsForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

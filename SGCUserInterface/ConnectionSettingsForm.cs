@@ -24,8 +24,8 @@ namespace SGCUserInterface
                 return;
             }
 
-            var addres = "http://{0}:{1}/{2}";
-            linkLabel1.Text = string.Format(addres, textBox1.Text, numericUpDown1.Value, client.ServiceName);            
+            var addres = "http://{0}:8080/{1}";
+            linkLabel1.Text = string.Format(addres, textBox1.Text, client.ServiceName);            
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -54,6 +54,11 @@ namespace SGCUserInterface
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(linkLabel1.Text);
+        }
+
+        private void ConnectionSettingsForm_Load(object sender, EventArgs e)
+        {
+
         }        
     }
 }

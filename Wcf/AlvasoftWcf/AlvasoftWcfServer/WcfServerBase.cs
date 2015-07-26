@@ -1,4 +1,6 @@
-﻿namespace Alvasoft.Wcf.Server
+﻿using System.ServiceModel.Description;
+
+namespace Alvasoft.Wcf.Server
 {
     using System;
     using System.Linq;
@@ -160,8 +162,13 @@
             if (!IsListening()) {
                 var connectionString = MakeConnectionString();
                 var address = new Uri(connectionString);
-                CurrentService = new ServiceHost(this);                
+                var baseHttpConnectionString = MakeBaseHttpConnectionString();
+                var httpAddres = new Uri(baseHttpConnectionString);
+                CurrentService = new ServiceHost(this, httpAddres);                                      
                 CurrentService.AddServiceEndpoint(ContractType, ServiceBinding, address);
+                CurrentService.Description.Behaviors.Add(
+                    new ServiceMetadataBehavior { HttpGetEnabled = true }
+                );
                 CurrentService.Open();
                 LogInfo("Сервис запущен.");
             }
@@ -309,6 +316,16 @@
                                                 NetConfig.ServerPort,
                                                 ServiceName);
             return connectionString;            
+        }
+
+        private string MakeBaseHttpConnectionString()
+        {
+            var sourceString = "http://{0}:{1}/{2}";
+            var connectionString = string.Format(sourceString,                                                
+                                                NetConfig.ServerHost,
+                                                8080,
+                                                ServiceName);
+            return connectionString;
         }
 
         /// <summary>

@@ -10,7 +10,7 @@ namespace Alvasoft.SlabGeometryControl
 
         public SGCClientImpl(INetConfiguration aConfig) : base(aConfig)
         {
-            ServiceName = "Alvasoft_SlabGeometryControlSystem";
+            ServiceName = "Alvasoft_SlabGeometryControlSystem";            
         }
 
         public ControllerConnectionState GetConnectionState()
