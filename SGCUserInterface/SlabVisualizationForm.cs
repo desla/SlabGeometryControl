@@ -139,20 +139,14 @@ namespace SGCUserInterface
         {
             modelPanel.MouseWheel += modelPanel_MouseWheel;
             modelPanel.InitializeContexts();
-            // инициализация Glut             
             if (!isGlutInited) {
                 Glut.glutInit();
-                Glut.glutInitDisplayMode(Glut.GLUT_RGB | Glut.GLUT_DOUBLE | Glut.GLUT_DEPTH);
+                Glut.glutInitDisplayMode(Glut.GLUT_RGBA | Glut.GLUT_DOUBLE | Glut.GLUT_DEPTH);
                 isGlutInited = true;
             }            
 
-            // отчитка окна 
             Gl.glClearColor(255, 255, 255, 1);
-
-            // установка порта вывода в соответствии с размерами элемента anT 
             Gl.glViewport(0, 0, modelPanel.Width, modelPanel.Height);
-
-            // настройка проекции 
             Gl.glMatrixMode(Gl.GL_PROJECTION);
             Gl.glLoadIdentity();
             Glu.gluPerspective(45, (float) modelPanel.Width / modelPanel.Height, 10, 100000);
@@ -160,15 +154,12 @@ namespace SGCUserInterface
             Gl.glMatrixMode(Gl.GL_MODELVIEW);
             Gl.glLoadIdentity();
 
-            // настройка параметров OpenGL для визуализации 
-            Gl.glEnable(Gl.GL_DEPTH_TEST);
-            Gl.glEnable(Gl.GL_COLOR_MATERIAL);
-
+            //Gl.glEnable(Gl.GL_DEPTH_TEST);
             Gl.glEnable(Gl.GL_MULTISAMPLE_ARB);
             Gl.glEnable(Gl.GL_LINE_SMOOTH);
             Gl.glEnable(Gl.GL_BLEND);
-            Gl.glHint(Gl.GL_MULTISAMPLE_FILTER_HINT_NV, Gl.GL_NEAREST);
-            Gl.glHint(Gl.GL_LINE_SMOOTH_HINT, Gl.GL_NEAREST);
+            Gl.glHint(Gl.GL_MULTISAMPLE_FILTER_HINT_NV, Gl.GL_FASTEST);
+            Gl.glHint(Gl.GL_LINE_SMOOTH_HINT, Gl.GL_FASTEST);
             Gl.glBlendFunc(Gl.GL_SRC_ALPHA, Gl.GL_ONE_MINUS_SRC_ALPHA);
         }        
 

@@ -33,6 +33,11 @@ namespace SGCUserInterface
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StandartSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ScanTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Accepted = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.просмотрToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -69,11 +74,8 @@ namespace SGCUserInterface
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StandartSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ScanTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Accepted = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.подключениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.настройкиПодключенияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -128,6 +130,37 @@ namespace SGCUserInterface
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEnter);
             // 
+            // Id
+            // 
+            this.Id.HeaderText = "Идентификатор слитка";
+            this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
+            this.Id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Номер слитка";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
+            // StandartSize
+            // 
+            this.StandartSize.HeaderText = "Типо-размер";
+            this.StandartSize.Name = "StandartSize";
+            this.StandartSize.ReadOnly = true;
+            // 
+            // ScanTime
+            // 
+            this.ScanTime.HeaderText = "Дата замера";
+            this.ScanTime.Name = "ScanTime";
+            this.ScanTime.ReadOnly = true;
+            // 
+            // Accepted
+            // 
+            this.Accepted.HeaderText = "Годность";
+            this.Accepted.Name = "Accepted";
+            this.Accepted.ReadOnly = true;
+            // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -147,6 +180,7 @@ namespace SGCUserInterface
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.менюToolStripMenuItem,
             this.настройкиToolStripMenuItem,
+            this.подключениеToolStripMenuItem,
             this.оПрограммеToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -457,36 +491,20 @@ namespace SGCUserInterface
             this.richTextBox1.TabIndex = 7;
             this.richTextBox1.Text = "";
             // 
-            // Id
+            // подключениеToolStripMenuItem
             // 
-            this.Id.HeaderText = "Идентификатор слитка";
-            this.Id.Name = "Id";
-            this.Id.ReadOnly = true;
-            this.Id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.подключениеToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.настройкиПодключенияToolStripMenuItem});
+            this.подключениеToolStripMenuItem.Name = "подключениеToolStripMenuItem";
+            this.подключениеToolStripMenuItem.Size = new System.Drawing.Size(90, 20);
+            this.подключениеToolStripMenuItem.Text = "Подключение";
             // 
-            // Column1
+            // настройкиПодключенияToolStripMenuItem
             // 
-            this.Column1.HeaderText = "Номер слитка";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            // 
-            // StandartSize
-            // 
-            this.StandartSize.HeaderText = "Типо-размер";
-            this.StandartSize.Name = "StandartSize";
-            this.StandartSize.ReadOnly = true;
-            // 
-            // ScanTime
-            // 
-            this.ScanTime.HeaderText = "Дата замера";
-            this.ScanTime.Name = "ScanTime";
-            this.ScanTime.ReadOnly = true;
-            // 
-            // Accepted
-            // 
-            this.Accepted.HeaderText = "Годность";
-            this.Accepted.Name = "Accepted";
-            this.Accepted.ReadOnly = true;
+            this.настройкиПодключенияToolStripMenuItem.Name = "настройкиПодключенияToolStripMenuItem";
+            this.настройкиПодключенияToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.настройкиПодключенияToolStripMenuItem.Text = "Настройки подключения";
+            this.настройкиПодключенияToolStripMenuItem.Click += new System.EventHandler(this.настройкиПодключенияToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -569,6 +587,8 @@ namespace SGCUserInterface
         private System.Windows.Forms.DataGridViewTextBoxColumn StandartSize;
         private System.Windows.Forms.DataGridViewTextBoxColumn ScanTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn Accepted;
+        private System.Windows.Forms.ToolStripMenuItem подключениеToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem настройкиПодключенияToolStripMenuItem;
     }
 }
 

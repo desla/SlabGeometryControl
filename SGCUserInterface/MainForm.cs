@@ -53,6 +53,7 @@ namespace SGCUserInterface
 
 
             AddLogInfo("GUI", "Успешная инициализация.");
+            MakeClientInstance();
             //ConnectToService();
         }
 
@@ -328,14 +329,8 @@ namespace SGCUserInterface
 
         private bool ConnectToService()
         {
-            var configuration = new NetConfigurationImpl {
-                ServerHost = "192.168.1.66",
-                ServerPort = 9876
-            };
-
             try {
-                client = new SGCClientImpl(configuration);
-                client.ConnectionActionsListener = this;
+                MakeClientInstance();
                 client.Connect();
 
                 dimentionTitles = new Dictionary<int, string>();
@@ -352,6 +347,17 @@ namespace SGCUserInterface
                 AddLogInfo("GUI", "Ошибка подключения к серверу.");
                 return false;
             }
+        }
+
+        private void MakeClientInstance()
+        {
+            var configuration = new NetConfigurationImpl {
+                ServerHost = Connection.Default["host"].ToString(),
+                ServerPort = Convert.ToInt32(Connection.Default["port"])
+            };
+
+            client = new SGCClientImpl(configuration);
+            client.ConnectionActionsListener = this;
         }
 
         private void dataGridView1_CellEnter(object sender, DataGridViewCellEventArgs e)
@@ -451,6 +457,11 @@ namespace SGCUserInterface
         private void просмотрВыбранногоСлиткаToolStripMenuItem_Click(object sender, EventArgs e)
         {
             просмотрToolStripMenuItem_Click(sender, e);
+        }
+
+        private void настройкиПодключенияToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new ConnectionSettingsForm(client).ShowDialog();
         }        
     }
 }

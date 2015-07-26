@@ -9,7 +9,8 @@ namespace Alvasoft.SlabGeometryControl
         private static readonly ILog logger = LogManager.GetLogger("Server");
 
         public SGCClientImpl(INetConfiguration aConfig) : base(aConfig)
-        {            
+        {
+            ServiceName = "Alvasoft_SlabGeometryControlSystem";
         }
 
         public ControllerConnectionState GetConnectionState()
