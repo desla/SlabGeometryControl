@@ -89,12 +89,6 @@
     <Compile Include="CurrentValuesForm.Designer.cs">
       <DependentUpon>CurrentValuesForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="DimentionForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DimentionForm.Designer.cs">
-      <DependentUpon>DimentionForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="EditOpcTagsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -156,9 +150,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CurrentValuesForm.resx">
       <DependentUpon>CurrentValuesForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DimentionForm.resx">
-      <DependentUpon>DimentionForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditOpcTagsForm.resx">
       <DependentUpon>EditOpcTagsForm.cs</DependentUpon>

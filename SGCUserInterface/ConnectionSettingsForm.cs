@@ -2,30 +2,26 @@
 using System.Diagnostics;
 using System.Windows.Forms;
 using Alvasoft.SlabGeometryControl;
+using Alvasoft.Wcf.NetConfiguration;
 
 namespace SGCUserInterface
 {
     public partial class ConnectionSettingsForm : Form
     {
-        private SGCClientImpl client;
-
-        public ConnectionSettingsForm(SGCClientImpl aClient)
+        public ConnectionSettingsForm()
         {
             InitializeComponent();
 
-            client = aClient;
             textBox1.Text = Connection.Default["host"].ToString();
             numericUpDown1.Value = Convert.ToInt32(Connection.Default["port"]);
         }        
 
         private void UpdateLinkText()
-        {
-            if (client == null) {
-                return;
-            }
+        {            
+            var serviceName = SGCClientImpl.CurrentServiceName;
 
             var addres = "http://{0}:8080/{1}";
-            linkLabel1.Text = string.Format(addres, textBox1.Text, client.ServiceName);            
+            linkLabel1.Text = string.Format(addres, textBox1.Text, serviceName);            
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)

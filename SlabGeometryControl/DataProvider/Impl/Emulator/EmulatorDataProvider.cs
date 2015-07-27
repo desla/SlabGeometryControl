@@ -50,7 +50,7 @@ namespace Alvasoft.DataProvider.Impl.Emulator
         /// <summary>
         /// Величина подпрыгивания слитка посередине.
         /// </summary>
-        private double bounced = 0;
+        private double bounced = 100;
         /// <summary>
         /// Определяет смещение центра слитка относительно центра рамки.
         /// </summary>

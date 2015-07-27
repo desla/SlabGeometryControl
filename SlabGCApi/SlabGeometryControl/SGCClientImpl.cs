@@ -1,4 +1,5 @@
-﻿using Alvasoft.Wcf.Client;
+﻿using System;
+using Alvasoft.Wcf.Client;
 using Alvasoft.Wcf.NetConfiguration;
 using log4net;
 
@@ -8,9 +9,11 @@ namespace Alvasoft.SlabGeometryControl
     {
         private static readonly ILog logger = LogManager.GetLogger("Server");
 
+        public const string CurrentServiceName = "Alvasoft_SlabGeometryControlSystem";
+
         public SGCClientImpl(INetConfiguration aConfig) : base(aConfig)
         {
-            ServiceName = "Alvasoft_SlabGeometryControlSystem";            
+            ServiceName = CurrentServiceName;            
         }
 
         public ControllerConnectionState GetConnectionState()

@@ -110,6 +110,8 @@ namespace SGCUserInterface
                     loader.RunWorkerAsync();
                 }
             }
+
+            loaderStarter.Stop();
         }
 
         private void ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -123,7 +125,8 @@ namespace SGCUserInterface
         {
             try {
                 UpdateSensorValues();
-                UpdatePlots();                
+                UpdatePlots();      
+                loaderStarter.Start();
             }
             catch (Exception ex) {
                 MessageBox.Show(@"Ошибка при обновлении инфомрации: " + ex.Message);
@@ -132,38 +135,49 @@ namespace SGCUserInterface
 
         private void InformationLoad(object sender, DoWorkEventArgs e)
         {
-            if (client != null && client.IsConnected) {
-                var sensors = information.Sensors;
-                var sensorPercents = 100/sensors.Length;
-                for (var i = 0; i < sensors.Length; ++i) {
-                    var sensor = sensors[i];
-                    var sensorValue = client.GetSensorValueBySensorId(sensor.Id);
-                    if (sensorValue != null) {
-                        information.Values[i] = sensorValue.Value;
-                        loader.ReportProgress(i * sensorPercents);
-                    }                    
+            try {
+                if (client != null && client.IsConnected) {
+                    var sensors = information.Sensors;
+                    var sensorPercents = 100/sensors.Length;
+                    for (var i = 0; i < sensors.Length; ++i) {
+                        var sensor = sensors[i];
+                        var sensorValue = client.GetSensorValueBySensorId(sensor.Id);
+                        if (sensorValue != null) {
+                            information.Values[i] = sensorValue.Value;
+                            loader.ReportProgress(i*sensorPercents);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex) {
+                information.Values = null;
+                if (client != null) {
+                    client.Disconnect();
                 }
             }
         }
 
         private void UpdateSensorValues()
         {
-            for (var i = 0; i < information.Sensors.Length; ++i) {
-                var row = dataGridView1.Rows[i];
-                row.Cells["Value"].Value = information.Values[i];
-            }            
+            if (information.Values != null) {
+                for (var i = 0; i < information.Sensors.Length; ++i) {
+                    var row = dataGridView1.Rows[i];
+                    row.Cells["Value"].Value = information.Values[i];
+                }
+            }
         }
 
         private void UpdatePlots()
-        {
-            var pane = plotsView.GraphPane;
-            for (var i = 0; i < information.Sensors.Length; ++i) {                
-                pane.CurveList[i].AddPoint(currentTime, information.Values[i]);                
-            }            
-
-            currentTime++;
-            plotsView.AxisChange();
-            plotsView.Invalidate();            
+        {            
+            if (information.Values != null) {
+                var pane = plotsView.GraphPane;
+                for (var i = 0; i < information.Sensors.Length; ++i) {
+                    pane.CurveList[i].AddPoint(currentTime, information.Values[i]);
+                }
+                currentTime++;
+                plotsView.AxisChange();
+                plotsView.Invalidate();            
+            }                                    
         }
 
         private void plotsView_ContextMenuBuilder(ZedGraphControl sender, ContextMenuStrip menuStrip, Point mousePt, ZedGraphControl.ContextMenuObjectState objState)

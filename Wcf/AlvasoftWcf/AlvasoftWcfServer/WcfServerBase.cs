@@ -161,14 +161,9 @@ namespace Alvasoft.Wcf.Server
             LogInfo("Запуск сервиса...");
             if (!IsListening()) {
                 var connectionString = MakeConnectionString();
-                var address = new Uri(connectionString);
-                var baseHttpConnectionString = MakeBaseHttpConnectionString();
-                var httpAddres = new Uri(baseHttpConnectionString);
-                CurrentService = new ServiceHost(this, httpAddres);                                      
-                CurrentService.AddServiceEndpoint(ContractType, ServiceBinding, address);
-                CurrentService.Description.Behaviors.Add(
-                    new ServiceMetadataBehavior { HttpGetEnabled = true }
-                );
+                var address = new Uri(connectionString);                
+                CurrentService = new ServiceHost(this);                                      
+                CurrentService.AddServiceEndpoint(ContractType, ServiceBinding, address);                
                 CurrentService.Open();
                 LogInfo("Сервис запущен.");
             }
