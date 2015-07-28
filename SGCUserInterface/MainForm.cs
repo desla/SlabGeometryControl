@@ -21,11 +21,15 @@ namespace SGCUserInterface
         private Timer informationLoaderActivator = null;
         private BackgroundWorker informationLoader = null;
         private SystemInformation information = new SystemInformation();
+        private bool isInformationProcessingCompleat = true;
+        private object isInformationProcessingCompleatLocker = new object();
 
         private Timer slabListLoaderActivator = null;
         private BackgroundWorker slabsListLoader = null;
         private SlabsList slabsList = new SlabsList();
         private SGCSystemState lastState = SGCSystemState.WAITING;
+        private bool isSlabListProcessingCompleat = true;
+        private object isSlabListProcessingCompleatLocker = new object();
 
         private BackgroundWorker connectorWorker = null;
 
@@ -80,8 +84,12 @@ namespace SGCUserInterface
                 подключитьсяToolStripMenuItem.Enabled = false;
                 toolStripStatusLabel1.Text = @"Подключено. Сессия: " + client.GetSessionId();
                 AddLogInfo("Server", "Успешное подключение к серверу. Сессия: " + client.GetSessionId() + ".");
+                informationLoaderActivator.Start();
+                slabListLoaderActivator.Start();
             }
             else {
+                informationLoaderActivator.Stop();
+                slabListLoaderActivator.Stop();
                 отключитьсяToolStripMenuItem.Enabled = false;
                 подключитьсяToolStripMenuItem.Enabled = true;
                 toolStripStatusLabel1.Text = @"Отключено от сервиса.";
@@ -92,31 +100,35 @@ namespace SGCUserInterface
 
         private void ActivateInformationLoader(object sender, EventArgs e)
         {
-            if (!informationLoader.IsBusy) {
+            if (!informationLoader.IsBusy && isInformationProcessingCompleat) {
                 if (client != null && client.IsConnected) {
                     informationLoader.RunWorkerAsync();
                 }
-            }    
-        
-            informationLoaderActivator.Stop();
+            }
         }
 
         private void ActivateSlabsListLoader(object sender, EventArgs e)
         {
-            if (!slabsListLoader.IsBusy) {
+            if (!slabsListLoader.IsBusy && isSlabListProcessingCompleat) {
                 if (client != null && client.IsConnected) {
                     slabsListLoader.RunWorkerAsync();
                 }
-            }            
-
-            slabListLoaderActivator.Stop();
+            }
         }
 
         private void SlabsListLoadingCompleat(object sender, RunWorkerCompletedEventArgs e)
         {
-            lock (slabsList) {
+            lock (isSlabListProcessingCompleatLocker) {
+                if (!isSlabListProcessingCompleat) {
+                    return;
+                }
+
+                isSlabListProcessingCompleat = false;
+            }            
+            
+            lock (slabsList) {                
                 if (slabsList.Slabs != null && !IsNeedToClearDataGridView()) {
-                    var slabs = slabsList.Slabs;
+                    var slabs = slabsList.Slabs;                    
                     for (var i = 0; i < slabs.Length; ++i) {
                         if (client != null) {
                             Application.DoEvents();
@@ -137,7 +149,7 @@ namespace SGCUserInterface
                                     try {
                                         var newRowIndex = dataGridView1.Rows.Add(row);
                                         if (!isAccepted) {
-                                            dataGridView1.Rows[newRowIndex].DefaultCellStyle.BackColor = Color.Khaki;
+                                            dataGridView1.Rows[newRowIndex].DefaultCellStyle.BackColor = Color.LightGray;
                                         }
                                     }
                                     catch {
@@ -152,13 +164,15 @@ namespace SGCUserInterface
                             ClearFormInformation();
                         }
                     }
-
-                    slabListLoaderActivator.Start();
                 }
                 else {                    
                     ClearFormInformation();
                 }
-            }            
+            }
+
+            lock (isSlabListProcessingCompleatLocker) {
+                isSlabListProcessingCompleat = true;
+            }
         }
 
         private bool IsNeedToClearDataGridView()
@@ -229,7 +243,7 @@ namespace SGCUserInterface
             try {
                 var from = dateTimeFrom.Value.ToLocalTime().ToBinary();
                 var to = dateTimeFrom.Value.AddDays(1).ToLocalTime().ToBinary();
-                slabsList.Slabs = client.GetSlabInfosByTimeInterval(from, to);
+                slabsList.Slabs = client.GetSlabInfosByTimeInterval(from, to);                
                 if (slabsList.StandartSizes == null) {
                     slabsList.StandartSizes = client.GetStandartSizes();
                 }
@@ -251,11 +265,21 @@ namespace SGCUserInterface
 
         private void InformationLoadingCompleat(object sender, RunWorkerCompletedEventArgs e)
         {
+            lock (isInformationProcessingCompleatLocker) {
+                if (!isInformationProcessingCompleat) {
+                    return;
+                }
+
+                isInformationProcessingCompleat = false;
+            }
+
             ControllerConnectionUpdate();
             SensorsCountUpdate();
             SGCStateUpdate();
 
-            informationLoaderActivator.Start();
+            lock (isInformationProcessingCompleatLocker) {
+                isInformationProcessingCompleat = true;
+            }
         }
 
         private void InformationLoading(object sender, DoWorkEventArgs e)
@@ -335,15 +359,11 @@ namespace SGCUserInterface
         {
             connectorWorker.RunWorkerAsync(true);
             AddLogInfo("GUI", "Подключение к сервису...");
-            подключитьсяToolStripMenuItem.Enabled = false;
-            informationLoaderActivator.Start();
-            slabListLoaderActivator.Start();
+            подключитьсяToolStripMenuItem.Enabled = false;            
         }
 
         private void отключитьсяToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            informationLoaderActivator.Stop();
-            slabListLoaderActivator.Stop();
+        {            
             AddLogInfo("GUI", "Отключение от сервиса...");
             отключитьсяToolStripMenuItem.Enabled = false;            
             connectorWorker.RunWorkerAsync(false);            

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Alvasoft.SlabGeometryControl;
+using SGCUserInterface.SlabVisualizationFormPrimitivs;
 using Tao.FreeGlut;
 using Tao.OpenGl;
 using ZedGraph;
@@ -32,8 +33,8 @@ namespace SGCUserInterface
         private int translateX = 0;
         private int translateY = 0;
         private int translateZ = -10000;
-        private int angleX = 0;
-        private int angleY = 0;
+        private int angleX = 15;
+        private int angleY = 70;
         private int angleZ = 0;        
         private int deltaX = 0;
         private int deltaY = 0;
@@ -42,22 +43,31 @@ namespace SGCUserInterface
         private int lastAngleX = 0;
         private int lastAngleY = 0;
 
+        private List<DimentionGraphicPrimitiveBase> dimentions = new List<DimentionGraphicPrimitiveBase>();
+        private int greenDimentionsCount = 0;
+        private int redDimentionsCount = 0;
+
         private Dictionary<string, int> objectsList = new Dictionary<string, int>();
         private const string KEY_SURFACE = "surface";
         private const string KEY_SENSOR_VALUES = "sensorValues";
         private const string KEY_SLAB_DIMENTIONS = "slabDimentions";
 
+        private DimentionControl dimentionControl;
+
         public SlabVisualizationForm(int aSlabId, SGCClientImpl aClient)
         {
-            InitializeComponent();            
-            
+            InitializeComponent();
+
+            dimentionControl = new DimentionControl();
+            dimentionControl.Parent = modelPanel;            
+
             client = aClient;
             slabId = aSlabId;
 
             loader.DoWork += LoadSensorsValues;
             loader.RunWorkerCompleted += LoadCompleted;
             loader.ProgressChanged += LoadProgressChanged;
-            loader.WorkerReportsProgress = true;            
+            loader.WorkerReportsProgress = true;                      
         }        
 
         private void LoadProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -69,8 +79,10 @@ namespace SGCUserInterface
 
         private void LoadCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            MoveModelToZeroPoint();
+            
+            InitializeDimentionsGlObjects();
             InitializeGlObjects();
-
             ShowPlots();
             ShowModel();
 
@@ -81,6 +93,75 @@ namespace SGCUserInterface
 
             for (var i = 0; i < this.Controls.Count; ++i) {                
                 Controls[i].Show();
+            }
+        }
+
+        private void InitializeDimentionsGlObjects()
+        {
+            var height = new HeightDimention {
+                IsVisible = true,
+                SlabModel = slabModel,
+                Color = NextGreenColor(),
+                CheckBox = heightCheckBox
+            };            
+
+            var width = new WidthDimention {
+                Color = NextGreenColor(), 
+                SlabModel = slabModel, 
+                IsVisible = true,
+                CheckBox = widthCheckBox
+            };
+
+            var length = new LengthDimention {
+                Color = NextGreenColor(),
+                SlabModel = slabModel,
+                IsVisible = true,
+                CheckBox = lengthCheckBox
+            };
+
+            heightCheckBox.CheckedChanged += commonDimentions_CheckedChanged;
+            widthCheckBox.CheckedChanged += commonDimentions_CheckedChanged;
+            lengthCheckBox.CheckedChanged += commonDimentions_CheckedChanged;
+
+            dimentions.Add(height);
+            dimentions.Add(width);
+            dimentions.Add(length);
+        }
+
+        private Color NextGreenColor()
+        {
+            return Color.FromArgb(Color.Green.R, Color.Green.G - greenDimentionsCount++, Color.Green.B);
+        }
+
+        private Color NextRedColor()
+        {
+            return Color.FromArgb(Color.Red.R - redDimentionsCount++, Color.Red.G, Color.Red.B);
+        }
+
+        private void MoveModelToZeroPoint()
+        {
+            if (slabModel != null) {
+                var moveTo = slabModel.TopLines[slabModel.TopLines.Length/2].Last().Z/2;
+                for (var i = 0; i < slabModel.TopLines.Length; ++i) {
+                    for (var j = 0; j < slabModel.TopLines[i].Length; ++j) {
+                        slabModel.TopLines[i][j].Z -= moveTo;
+                    }
+                }
+                for (var i = 0; i < slabModel.BottomLines.Length; ++i) {
+                    for (var j = 0; j < slabModel.BottomLines[i].Length; ++j) {
+                        slabModel.BottomLines[i][j].Z -= moveTo;
+                    }
+                }
+                for (var i = 0; i < slabModel.LeftLines.Length; ++i) {
+                    for (var j = 0; j < slabModel.LeftLines[i].Length; ++j) {
+                        slabModel.LeftLines[i][j].Z -= moveTo;
+                    }
+                }
+                for (var i = 0; i < slabModel.RightLines.Length; ++i) {
+                    for (var j = 0; j < slabModel.RightLines[i].Length; ++j) {
+                        slabModel.RightLines[i][j].Z -= moveTo;
+                    }
+                }
             }
         }
 
@@ -236,7 +317,7 @@ namespace SGCUserInterface
         private void ShowModel()
         {
             Gl.glPushMatrix();
-
+            Text = angleX + " " + angleY + " " + angleZ;
             Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
             Gl.glTranslated(translateX, translateY, translateZ);
             Gl.glRotated(angleX, 1, 0, 0);
@@ -253,6 +334,10 @@ namespace SGCUserInterface
 
                 if (dimensionsCheckBox.Checked && objectsList.ContainsKey(KEY_SLAB_DIMENTIONS)) {
                     Gl.glCallList(objectsList[KEY_SLAB_DIMENTIONS]);
+                }
+
+                foreach (var dimention in dimentions) {
+                    dimention.DrawDimention(smoothCheckedBox.Checked);
                 }
             }
             Gl.glPopMatrix();
@@ -293,7 +378,35 @@ namespace SGCUserInterface
                 angleX = lastAngleX + (e.Y - deltaY) / 10;
                 angleY = lastAngleY + (e.X - deltaX) / 10;
                 ShowModel();
-            }            
+            }
+
+            CheckIsDimentionsSelected(e.X, e.Y);            
+        }
+
+        private void CheckIsDimentionsSelected(int aX, int aY)
+        {
+            var pixel = new byte[4];
+            Gl.glReadPixels(aX, modelPanel.Height - aY, 1, 1, Gl.GL_BGRA, Gl.GL_UNSIGNED_BYTE, pixel);
+            var currentColor = Color.FromArgb(pixel[0], pixel[1], pixel[2]);
+            var isFindDimention = false;
+            foreach (var dimention in dimentions) {
+                if (dimention.Color == currentColor) {
+                    ShowDimentionControl(aX, aY, dimention);
+                    isFindDimention = true;
+                    break;
+                }
+            }
+
+            if (!isFindDimention) {
+                dimentionControl.Hide();
+            }
+        }
+
+        private void ShowDimentionControl(int aX, int aY, DimentionGraphicPrimitiveBase aDimention)
+        {
+            dimentionControl.Top = aY;
+            dimentionControl.Left = aX;
+            dimentionControl.Show();
         }
 
         private void modelPanel_MouseWheel(object sender, MouseEventArgs e)
@@ -381,8 +494,7 @@ namespace SGCUserInterface
             var p5 = slabModel.TopLines[slabModel.TopLines.Length / 2].Last();
             var p6 = slabModel.RightLines[slabModel.RightLines.Length / 2].Last();
             var p7 = slabModel.BottomLines[slabModel.BottomLines.Length / 2].Last();
-            var p8 = slabModel.LeftLines[slabModel.LeftLines.Length / 2].Last();
-            var moveTo = p5.Z/2;
+            var p8 = slabModel.LeftLines[slabModel.LeftLines.Length / 2].Last();            
 
             var slabDimentionsNumber = Gl.glGenLists(1);
             objectsList[KEY_SLAB_DIMENTIONS] = slabDimentionsNumber;
@@ -397,26 +509,26 @@ namespace SGCUserInterface
             Gl.glLineStipple(1, 0x00FF);
             Gl.glBegin(Gl.GL_LINE_STRIP);
             {                
-                Gl.glVertex3d(p4.X, p1.Y, p1.Z - moveTo);
-                Gl.glVertex3d(p2.X, p1.Y, p1.Z - moveTo);
-                Gl.glVertex3d(p2.X, p3.Y, p1.Z - moveTo);
-                Gl.glVertex3d(p4.X, p3.Y, p1.Z - moveTo);
-                Gl.glVertex3d(p4.X, p1.Y, p1.Z - moveTo);
-                Gl.glVertex3d(p8.X, p5.Y, p5.Z - moveTo);
-                Gl.glVertex3d(p6.X, p5.Y, p5.Z - moveTo);
-                Gl.glVertex3d(p6.X, p7.Y, p5.Z - moveTo);
-                Gl.glVertex3d(p8.X, p7.Y, p5.Z - moveTo);
-                Gl.glVertex3d(p8.X, p5.Y, p5.Z - moveTo);
+                Gl.glVertex3d(p4.X, p1.Y, p1.Z);
+                Gl.glVertex3d(p2.X, p1.Y, p1.Z);
+                Gl.glVertex3d(p2.X, p3.Y, p1.Z);
+                Gl.glVertex3d(p4.X, p3.Y, p1.Z);
+                Gl.glVertex3d(p4.X, p1.Y, p1.Z);
+                Gl.glVertex3d(p8.X, p5.Y, p5.Z);
+                Gl.glVertex3d(p6.X, p5.Y, p5.Z);
+                Gl.glVertex3d(p6.X, p7.Y, p5.Z);
+                Gl.glVertex3d(p8.X, p7.Y, p5.Z);
+                Gl.glVertex3d(p8.X, p5.Y, p5.Z);
             }
             Gl.glEnd();
             Gl.glBegin(Gl.GL_LINES);
             {
-                Gl.glVertex3d(p2.X, p1.Y, p1.Z - moveTo);
-                Gl.glVertex3d(p6.X, p5.Y, p5.Z - moveTo);
-                Gl.glVertex3d(p2.X, p3.Y, p1.Z - moveTo);
-                Gl.glVertex3d(p6.X, p7.Y, p5.Z - moveTo);
-                Gl.glVertex3d(p4.X, p3.Y, p1.Z - moveTo);
-                Gl.glVertex3d(p8.X, p7.Y, p5.Z - moveTo);
+                Gl.glVertex3d(p2.X, p1.Y, p1.Z);
+                Gl.glVertex3d(p6.X, p5.Y, p5.Z);
+                Gl.glVertex3d(p2.X, p3.Y, p1.Z);
+                Gl.glVertex3d(p6.X, p7.Y, p5.Z);
+                Gl.glVertex3d(p4.X, p3.Y, p1.Z);
+                Gl.glVertex3d(p8.X, p7.Y, p5.Z);
             }
             Gl.glEnd();
             Gl.glDisable(Gl.GL_LINE_STIPPLE);
@@ -427,9 +539,7 @@ namespace SGCUserInterface
         {
             if (slabModel == null) {
                 return;
-            }
-
-            var moveTo = slabModel.TopLines[slabModel.TopLines.Length/2].Last().Z / 2;
+            }            
 
             var sensorValuesNumber = Gl.glGenLists(1);
             objectsList[KEY_SENSOR_VALUES] = sensorValuesNumber;
@@ -445,7 +555,7 @@ namespace SGCUserInterface
                 for (var i = 0; i < slabModel.TopLines.Length; ++i) {
                     for (var j = 0; j < slabModel.TopLines[i].Length; ++j) {
                         var point = slabModel.TopLines[i][j];
-                        Gl.glVertex3d(point.X, point.Y, point.Z - moveTo);
+                        Gl.glVertex3d(point.X, point.Y, point.Z);
                     }
                 }
             }
@@ -455,7 +565,7 @@ namespace SGCUserInterface
                 for (var i = 0; i < slabModel.BottomLines.Length; ++i) {
                     for (var j = 0; j < slabModel.BottomLines[i].Length; ++j) {
                         var point = slabModel.BottomLines[i][j];
-                        Gl.glVertex3d(point.X, point.Y, point.Z - moveTo);
+                        Gl.glVertex3d(point.X, point.Y, point.Z);
                     }
                 }
             }
@@ -465,7 +575,7 @@ namespace SGCUserInterface
                 for (var i = 0; i < slabModel.LeftLines.Length; ++i) {
                     for (var j = 0; j < slabModel.LeftLines[i].Length; ++j) {
                         var point = slabModel.LeftLines[i][j];
-                        Gl.glVertex3d(point.X, point.Y, point.Z - moveTo);
+                        Gl.glVertex3d(point.X, point.Y, point.Z);
                     }
                 }
             }
@@ -475,7 +585,7 @@ namespace SGCUserInterface
                 for (var i = 0; i < slabModel.RightLines.Length; ++i) {
                     for (var j = 0; j < slabModel.RightLines[i].Length; ++j) {
                         var point = slabModel.RightLines[i][j];
-                        Gl.glVertex3d(point.X, point.Y, point.Z - moveTo);
+                        Gl.glVertex3d(point.X, point.Y, point.Z);
                     }
                 }
             }
@@ -510,6 +620,25 @@ namespace SGCUserInterface
             if (objectsList.ContainsKey(KEY_SLAB_DIMENTIONS)) {
                 Gl.glDeleteLists(objectsList[KEY_SLAB_DIMENTIONS], 1);
             }
+        }
+
+        private void allDimentionsCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (allDimentionsCheckBox.Checked) {
+                heightCheckBox.Checked = true;
+                widthCheckBox.Checked = true;
+                lengthCheckBox.Checked = true;
+            }
+            else {
+                heightCheckBox.Checked = false;
+                widthCheckBox.Checked = false;
+                lengthCheckBox.Checked = false;
+            }
+        }
+
+        private void commonDimentions_CheckedChanged(object sender, EventArgs e)
+        {
+            ShowModel();
         }
     }
 }

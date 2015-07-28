@@ -33,12 +33,17 @@
             this.plotsView = new ZedGraph.ZedGraphControl();
             this.slabModelPage = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.allDimentionsCheckBox = new System.Windows.Forms.CheckBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.smoothCheckedBox = new System.Windows.Forms.CheckBox();
             this.sensorValuesCheckBox = new System.Windows.Forms.CheckBox();
             this.dimensionsCheckBox = new System.Windows.Forms.CheckBox();
             this.gridSurfaceCheckBox = new System.Windows.Forms.CheckBox();
             this.modelPanel = new Tao.Platform.Windows.SimpleOpenGlControl();
-            this.label1 = new System.Windows.Forms.Label();
+            this.heightCheckBox = new System.Windows.Forms.CheckBox();
+            this.widthCheckBox = new System.Windows.Forms.CheckBox();
+            this.lengthCheckBox = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.plotsPage.SuspendLayout();
             this.slabModelPage.SuspendLayout();
@@ -100,6 +105,11 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.lengthCheckBox);
+            this.panel1.Controls.Add(this.widthCheckBox);
+            this.panel1.Controls.Add(this.heightCheckBox);
+            this.panel1.Controls.Add(this.allDimentionsCheckBox);
+            this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.smoothCheckedBox);
             this.panel1.Controls.Add(this.sensorValuesCheckBox);
@@ -107,15 +117,46 @@
             this.panel1.Controls.Add(this.gridSurfaceCheckBox);
             this.panel1.Location = new System.Drawing.Point(548, 6);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(140, 126);
+            this.panel1.Size = new System.Drawing.Size(140, 330);
             this.panel1.TabIndex = 1;
+            // 
+            // allDimentionsCheckBox
+            // 
+            this.allDimentionsCheckBox.AutoSize = true;
+            this.allDimentionsCheckBox.Checked = true;
+            this.allDimentionsCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.allDimentionsCheckBox.Location = new System.Drawing.Point(7, 127);
+            this.allDimentionsCheckBox.Name = "allDimentionsCheckBox";
+            this.allDimentionsCheckBox.Size = new System.Drawing.Size(104, 17);
+            this.allDimentionsCheckBox.TabIndex = 8;
+            this.allDimentionsCheckBox.Text = "Все измерения";
+            this.allDimentionsCheckBox.UseVisualStyleBackColor = true;
+            this.allDimentionsCheckBox.CheckedChanged += new System.EventHandler(this.allDimentionsCheckBox_CheckedChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(4, 111);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(127, 13);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "____________________";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(4, 75);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(127, 13);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "____________________";
             // 
             // smoothCheckedBox
             // 
             this.smoothCheckedBox.AutoSize = true;
             this.smoothCheckedBox.Checked = true;
             this.smoothCheckedBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.smoothCheckedBox.Location = new System.Drawing.Point(7, 104);
+            this.smoothCheckedBox.Location = new System.Drawing.Point(7, 91);
             this.smoothCheckedBox.Name = "smoothCheckedBox";
             this.smoothCheckedBox.Size = new System.Drawing.Size(94, 17);
             this.smoothCheckedBox.TabIndex = 3;
@@ -181,14 +222,41 @@
             this.modelPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.modelPanel_MouseDown);
             this.modelPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.modelPanel_MouseMove);
             // 
-            // label1
+            // heightCheckBox
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(4, 80);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(127, 13);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "____________________";
+            this.heightCheckBox.AutoSize = true;
+            this.heightCheckBox.Checked = true;
+            this.heightCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.heightCheckBox.Location = new System.Drawing.Point(7, 150);
+            this.heightCheckBox.Name = "heightCheckBox";
+            this.heightCheckBox.Size = new System.Drawing.Size(102, 17);
+            this.heightCheckBox.TabIndex = 9;
+            this.heightCheckBox.Text = "Высота слитка";
+            this.heightCheckBox.UseVisualStyleBackColor = true;            
+            // 
+            // widthCheckBox
+            // 
+            this.widthCheckBox.AutoSize = true;
+            this.widthCheckBox.Checked = true;
+            this.widthCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.widthCheckBox.Location = new System.Drawing.Point(7, 165);
+            this.widthCheckBox.Name = "widthCheckBox";
+            this.widthCheckBox.Size = new System.Drawing.Size(103, 17);
+            this.widthCheckBox.TabIndex = 10;
+            this.widthCheckBox.Text = "Ширина слитка";
+            this.widthCheckBox.UseVisualStyleBackColor = true;            
+            // 
+            // lengthCheckBox
+            // 
+            this.lengthCheckBox.AutoSize = true;
+            this.lengthCheckBox.Checked = true;
+            this.lengthCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.lengthCheckBox.Location = new System.Drawing.Point(7, 180);
+            this.lengthCheckBox.Name = "lengthCheckBox";
+            this.lengthCheckBox.Size = new System.Drawing.Size(103, 17);
+            this.lengthCheckBox.TabIndex = 11;
+            this.lengthCheckBox.Text = "Ширина слитка";
+            this.lengthCheckBox.UseVisualStyleBackColor = true;            
             // 
             // SlabVisualizationForm
             // 
@@ -225,5 +293,10 @@
         private System.Windows.Forms.CheckBox sensorValuesCheckBox;
         private System.Windows.Forms.CheckBox smoothCheckedBox;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox allDimentionsCheckBox;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.CheckBox heightCheckBox;
+        private System.Windows.Forms.CheckBox widthCheckBox;
+        private System.Windows.Forms.CheckBox lengthCheckBox;
     }
 }

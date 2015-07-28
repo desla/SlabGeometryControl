@@ -110,8 +110,6 @@ namespace SGCUserInterface
                     loader.RunWorkerAsync();
                 }
             }
-
-            loaderStarter.Stop();
         }
 
         private void ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -125,8 +123,7 @@ namespace SGCUserInterface
         {
             try {
                 UpdateSensorValues();
-                UpdatePlots();      
-                loaderStarter.Start();
+                UpdatePlots();                      
             }
             catch (Exception ex) {
                 MessageBox.Show(@"Ошибка при обновлении инфомрации: " + ex.Message);
@@ -190,6 +187,11 @@ namespace SGCUserInterface
             menuStrip.Items[7].Text = @"Установить масштаб по умолчаню";
             menuStrip.Items.RemoveAt(5);
             menuStrip.Items.RemoveAt(5);
+        }
+
+        private void CurrentValuesForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            loaderStarter.Stop();
         }
     }
 }

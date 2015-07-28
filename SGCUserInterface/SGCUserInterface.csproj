@@ -135,6 +135,16 @@
     <Compile Include="SlabVisualizationForm.Designer.cs">
       <DependentUpon>SlabVisualizationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SlabVisualizationFormPrimitivs\DimentionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SlabVisualizationFormPrimitivs\DimentionControl.Designer.cs">
+      <DependentUpon>DimentionControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SlabVisualizationFormPrimitivs\HeightDimention.cs" />
+    <Compile Include="SlabVisualizationFormPrimitivs\DimentionGraphicPrimitiveBase.cs" />
+    <Compile Include="SlabVisualizationFormPrimitivs\LengthDimention.cs" />
+    <Compile Include="SlabVisualizationFormPrimitivs\WidthDimention.cs" />
     <Compile Include="StandartSizeForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -182,6 +192,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SlabVisualizationForm.resx">
       <DependentUpon>SlabVisualizationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SlabVisualizationFormPrimitivs\DimentionControl.resx">
+      <DependentUpon>DimentionControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StandartSizeForm.resx">
       <DependentUpon>StandartSizeForm.cs</DependentUpon>

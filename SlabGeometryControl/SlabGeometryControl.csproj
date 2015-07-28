@@ -178,6 +178,7 @@
     <EmbeddedResource Include="DataWriter\NHibernateImpl\Mappings\Regulation.hbm.xml" />
     <Content Include="Settings\Emulator.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Settings\hibernate.cfg.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
