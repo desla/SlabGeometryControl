@@ -19,7 +19,8 @@ namespace SGCUserInterface
         private static bool isGlutInited = false;
 
         private SGCClientImpl client = null;
-        private int slabId = -1;                        
+        private int slabId = -1;
+        private int standartSizeId = -1;
         private BackgroundWorker loader = new BackgroundWorker();
         private ProgressShower progressShower = null;        
 
@@ -53,16 +54,23 @@ namespace SGCUserInterface
         private const string KEY_SLAB_DIMENTIONS = "slabDimentions";
 
         private DimentionControl dimentionControl;
+        private Dimention[] systemDimentions;
+        private DimentionResult[] slabDimentionsResults;
+        private Regulation[] regulations;
 
-        public SlabVisualizationForm(int aSlabId, SGCClientImpl aClient)
+        private bool isErrorLoading = false;
+
+        public SlabVisualizationForm(int aSlabId, int aStandartSizeId, SGCClientImpl aClient)
         {
             InitializeComponent();
 
             dimentionControl = new DimentionControl();
+            dimentionControl.Hide();
             dimentionControl.Parent = modelPanel;            
 
             client = aClient;
             slabId = aSlabId;
+            standartSizeId = aStandartSizeId;
 
             loader.DoWork += LoadSensorsValues;
             loader.RunWorkerCompleted += LoadCompleted;
@@ -79,12 +87,13 @@ namespace SGCUserInterface
 
         private void LoadCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            MoveModelToZeroPoint();
-            
-            InitializeDimentionsGlObjects();
-            InitializeGlObjects();
-            ShowPlots();
-            ShowModel();
+            if (!isErrorLoading) {
+                MoveModelToZeroPoint();
+                InitializeDimentionsGlObjects();
+                InitializeGlObjects();
+                ShowPlots();
+                ShowModel();
+            }            
 
             if (progressShower != null) {
                 progressShower.Dispose();
@@ -98,26 +107,40 @@ namespace SGCUserInterface
 
         private void InitializeDimentionsGlObjects()
         {
-            var height = new HeightDimention {
-                IsVisible = true,
-                SlabModel = slabModel,
-                Color = NextGreenColor(),
-                CheckBox = heightCheckBox
-            };            
+            var height = new HeightDimention();
+            height.IsVisible = true;
+            height.SlabModel = slabModel;
+            //height.Color = NextGreenColor();
+            height.CheckBox = heightCheckBox;
+            height.Dimention = systemDimentions.FirstOrDefault(d => d.Name.Equals("height"));
+            if (height.Dimention != null) {
+                height.Result = slabDimentionsResults
+                    .FirstOrDefault(r => r.DimentionId == height.Dimention.Id);
+            }
+            height.Color = SelectColorByDimentionResult(height.Result);
 
-            var width = new WidthDimention {
-                Color = NextGreenColor(), 
-                SlabModel = slabModel, 
-                IsVisible = true,
-                CheckBox = widthCheckBox
-            };
+            var width = new WidthDimention();            
+            width.SlabModel = slabModel;
+            width.IsVisible = true;
+            width.CheckBox = widthCheckBox;
+            width.Dimention = systemDimentions.FirstOrDefault(d => d.Name.Equals("width"));
+            if (width.Dimention != null) {
+                width.Result = slabDimentionsResults
+                    .FirstOrDefault(r => r.DimentionId == width.Dimention.Id);
+            }
+            width.Color = SelectColorByDimentionResult(width.Result);
 
-            var length = new LengthDimention {
-                Color = NextGreenColor(),
-                SlabModel = slabModel,
-                IsVisible = true,
-                CheckBox = lengthCheckBox
-            };
+            var length = new LengthDimention();
+            length.Color = NextGreenColor();
+            length.SlabModel = slabModel;
+            length.IsVisible = true;
+            length.CheckBox = lengthCheckBox;
+            length.Dimention = systemDimentions.FirstOrDefault(d => d.Name.Equals("length"));
+            if (length.Dimention != null) {
+                length.Result = slabDimentionsResults
+                    .FirstOrDefault(r => r.DimentionId == length.Dimention.Id);
+            }
+            length.Color = SelectColorByDimentionResult(length.Result);
 
             heightCheckBox.CheckedChanged += commonDimentions_CheckedChanged;
             widthCheckBox.CheckedChanged += commonDimentions_CheckedChanged;
@@ -128,14 +151,44 @@ namespace SGCUserInterface
             dimentions.Add(length);
         }
 
-        private Color NextGreenColor()
+        private Color SelectColorByDimentionResult(DimentionResult aResult)
         {
-            return Color.FromArgb(Color.Green.R, Color.Green.G - greenDimentionsCount++, Color.Green.B);
+            if (aResult == null || IsResultSatisfyRegulations(aResult)) {
+                return NextGreenColor();
+            }
+            else {
+                return NextRedColor();
+            }
+        }
+
+        private bool IsResultSatisfyRegulations(DimentionResult aResult)
+        {
+            if (aResult == null) {
+                return true;
+            }
+
+            var regulation =
+                regulations.FirstOrDefault(
+                    r => r.DimentionId == aResult.DimentionId && r.StandartSizeId == standartSizeId);
+            if (regulation == null) {
+                return true;
+            }
+            var value = aResult.Value;
+            return value >= regulation.MinValue && value <= regulation.MaxValue;
+        }
+
+        private Color NextGreenColor()
+        {            
+            var color = Color.FromArgb(255, Color.Green.R, Color.Green.G - greenDimentionsCount, Color.Green.B);
+            greenDimentionsCount++;
+            return color;
         }
 
         private Color NextRedColor()
         {
-            return Color.FromArgb(Color.Red.R - redDimentionsCount++, Color.Red.G, Color.Red.B);
+            var color = Color.FromArgb(255, Color.Red.R - redDimentionsCount, Color.Red.G, Color.Red.B);
+            redDimentionsCount++;
+            return color;
         }
 
         private void MoveModelToZeroPoint()
@@ -175,27 +228,39 @@ namespace SGCUserInterface
         private void LoadSensorsValues(object sender, DoWorkEventArgs e)
         {
             if (client == null || !client.IsConnected) {
+                isErrorLoading = true;
                 return;
             }
 
-            sensors = client.GetSensorInfos();
-            if (sensors != null) {
-                var sensorPercens = 90 / sensors.Length;
-                points = new PointF[sensors.Length][];
-                for (var i = 0; i < sensors.Length; ++i) {
-                    var sensorValues = client.GetSensorValuesBySlabId(slabId, sensors[i].Id);                    
-                    if (sensorValues != null && sensorValues.Length > 0) {
-                        points[i] = new PointF[sensorValues.Length];
-                        var startTime = DateTime.FromBinary(sensorValues[0].Time);
-                        for (var j = 0; j < sensorValues.Length; ++j) {
-                            var time = DateTime.FromBinary(sensorValues[j].Time).Subtract(startTime);
-                            points[i][j] = new PointF((float) time.TotalMilliseconds, (float) sensorValues[j].Value);                            
-                        }                        
+            try {
+                sensors = client.GetSensorInfos();
+                if (sensors != null) {
+                    var sensorPercens = 90/sensors.Length;
+                    points = new PointF[sensors.Length][];
+                    for (var i = 0; i < sensors.Length; ++i) {
+                        var sensorValues = client.GetSensorValuesBySlabId(slabId, sensors[i].Id);
+                        if (sensorValues != null && sensorValues.Length > 0) {
+                            points[i] = new PointF[sensorValues.Length];
+                            var startTime = DateTime.FromBinary(sensorValues[0].Time);
+                            for (var j = 0; j < sensorValues.Length; ++j) {
+                                var time = DateTime.FromBinary(sensorValues[j].Time).Subtract(startTime);
+                                points[i][j] = new PointF((float) time.TotalMilliseconds, (float) sensorValues[j].Value);
+                            }
+                        }
+                        loader.ReportProgress((i + 1)*sensorPercens);
                     }
-                    loader.ReportProgress((i+1) * sensorPercens);
+                    slabModel = client.GetSlabModel3DBySlabId(slabId);
+                    loader.ReportProgress(95);
+                    systemDimentions = client.GetDimentions();
+                    slabDimentionsResults = client.GetDimentionResultsBySlabId(slabId);
+                    regulations = client.GetRegulations();                    
+                    loader.ReportProgress(100);
                 }
-                slabModel = client.GetSlabModel3DBySlabId(slabId);
-                loader.ReportProgress(100);
+                isErrorLoading = false;
+            }
+            catch (Exception ex) {
+                MessageBox.Show(@"Ошибка при загрузке данных слитка.");
+                isErrorLoading = true;
             }
         }
 
@@ -380,33 +445,45 @@ namespace SGCUserInterface
                 ShowModel();
             }
 
-            CheckIsDimentionsSelected(e.X, e.Y);            
+            var dimention = SelectedDimention(e.X, e.Y);
+            if (dimention != null) {
+                ShowDimentionControl(e.X, e.Y, dimention);
+            }
+            else {
+                HideDimentionControl();
+            }
         }
 
-        private void CheckIsDimentionsSelected(int aX, int aY)
+        private void HideDimentionControl()
+        {
+            dimentionControl.Hide();
+        }
+
+        private DimentionGraphicPrimitiveBase SelectedDimention(int aX, int aY)
         {
             var pixel = new byte[4];
             Gl.glReadPixels(aX, modelPanel.Height - aY, 1, 1, Gl.GL_BGRA, Gl.GL_UNSIGNED_BYTE, pixel);
-            var currentColor = Color.FromArgb(pixel[0], pixel[1], pixel[2]);
-            var isFindDimention = false;
-            foreach (var dimention in dimentions) {
-                if (dimention.Color == currentColor) {
-                    ShowDimentionControl(aX, aY, dimention);
-                    isFindDimention = true;
-                    break;
-                }
-            }
-
-            if (!isFindDimention) {
-                dimentionControl.Hide();
-            }
+            var currentColor = Color.FromArgb(pixel[3], pixel[2], pixel[1], pixel[0]);            
+            return dimentions.FirstOrDefault(dimention => dimention.Color == currentColor);
         }
 
         private void ShowDimentionControl(int aX, int aY, DimentionGraphicPrimitiveBase aDimention)
         {
             dimentionControl.Top = aY;
             dimentionControl.Left = aX;
+            dimentionControl.SetDimentionPrimitive(aDimention);
+            dimentionControl.SetRegulation(GetRegulationOrDefault(aDimention));
             dimentionControl.Show();
+        }
+
+        private Regulation GetRegulationOrDefault(DimentionGraphicPrimitiveBase aDimention)
+        {
+            if (aDimention == null) {
+                return null;
+            }
+
+            return regulations.FirstOrDefault(r => r.DimentionId == aDimention.Dimention.Id &&
+                                                   r.StandartSizeId == standartSizeId);
         }
 
         private void modelPanel_MouseWheel(object sender, MouseEventArgs e)

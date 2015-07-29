@@ -144,7 +144,8 @@ namespace SGCUserInterface
                                         "########", //slabInfo.Number,
                                         GetStandartSizeById(slabInfo.StandartSizeId),
                                         DateTime.FromBinary(slabInfo.StartScanTime).ToString(),
-                                        isAccepted ? "Соответствует" : "Не соответствует"
+                                        isAccepted ? "Соответствует" : "Не соответствует",
+                                        slabInfo.StandartSizeId.ToString()
                                     };
                                     try {
                                         var newRowIndex = dataGridView1.Rows.Add(row);
@@ -221,7 +222,8 @@ namespace SGCUserInterface
             var row = dataGridView1.Rows[aRowIndex];
             var standartSizeText = GetStandartSizeById(aSlabInfo.StandartSizeId);
             if (!Equals(row.Cells["StandartSize"].Value, standartSizeText)) {
-                row.Cells["StandartSize"].Value = standartSizeText;                
+                row.Cells["StandartSize"].Value = standartSizeText;
+                row.Cells["standartSizeId"].Value = aSlabInfo.StandartSizeId;
             }
         }
 
@@ -479,8 +481,9 @@ namespace SGCUserInterface
             if (rowIndex != -1) {
                 var row = dataGridView1.Rows[rowIndex];
                 var slabId = Convert.ToInt32(row.Cells["Id"].Value);
+                var standartSizeId = Convert.ToInt32(row.Cells["standartSizeId"].Value);
                 ThreadPool.QueueUserWorkItem(state => 
-                    new SlabVisualizationForm(slabId, client).ShowDialog());                
+                    new SlabVisualizationForm(slabId, standartSizeId, client).ShowDialog());                
             }
         }        
 
