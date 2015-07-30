@@ -24,7 +24,7 @@ namespace Alvasoft.DimentionCalculator.Impl.Algorithms
             var topPoint = aSlabModel.GetTopSidePoint(positionX, positionZ);
             var bottomPoint = aSlabModel.GetBottomSidePoint(positionX, positionZ);
 
-            return topPoint.Y - bottomPoint.Y;
+            return Math.Round(topPoint.Y - bottomPoint.Y, 4);
         }
     }
 }

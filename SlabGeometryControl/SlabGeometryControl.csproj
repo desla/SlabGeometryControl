@@ -99,8 +99,11 @@
     <Compile Include="DataWriter\SlabInfoImpl.cs" />
     <Compile Include="DataWriter\StandartSizeImpl.cs" />
     <Compile Include="DimentionCalculator\Impl\Algorithms\HeightAlgorithm.cs" />
-    <Compile Include="DimentionCalculator\Impl\Algorithms\LengthAlgorithms.cs" />
+    <Compile Include="DimentionCalculator\Impl\Algorithms\LateralCurvatureRightAlgorithm.cs" />
+    <Compile Include="DimentionCalculator\Impl\Algorithms\LengthAlgorithm.cs" />
     <Compile Include="DimentionCalculator\Impl\Algorithms\WidthAlgorithm.cs" />
+    <Compile Include="DimentionCalculator\Impl\Algorithms\LateralCurvatureLeftAlgorithm.cs" />
+    <Compile Include="DimentionCalculator\Impl\Algorithms\LongitudinalCurvatureTopAlgorithm.cs" />
     <Compile Include="DimentionCalculator\Impl\DimentionValueImpl.cs" />
     <Compile Include="DimentionConfiguration\DimentionInfoImpl.cs" />
     <Compile Include="DimentionConfiguration\NHibernateImpl\Entity\DimentionInfoEntity.cs" />

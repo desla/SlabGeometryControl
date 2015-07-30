@@ -24,7 +24,7 @@ namespace Alvasoft.DimentionCalculator.Impl.Algorithms
             var leftPoint = aSlabModel.GetLeftSidePoint(positionY, positionZ);
             var rightPoint = aSlabModel.GetRightSidePoint(positionY, positionZ);
 
-            return rightPoint.X - leftPoint.X;
+            return Math.Round(rightPoint.X - leftPoint.X, 4);
         }
     }
 }

@@ -51,10 +51,12 @@ namespace Alvasoft.DimentionCalculator.Impl
         protected override void DoInitialize()
         {            
             logger.Info("Инициализация...");
-            algorithms.Add(new HeightAlgorithm());
-            algorithms.Add(new WidthAlgorithm());
-            algorithms.Add(new LengthAlgorithms());
-            //algorithms.Add(new ...);
+            algorithms.Add(new HeightAlgorithm()); // высота
+            algorithms.Add(new WidthAlgorithm()); // ширина
+            algorithms.Add(new LengthAlgorithm()); // длина
+            algorithms.Add(new LateralCurvatureRightAlgorithm()); // поперечная кривизна справа
+            algorithms.Add(new LateralCurvatureLeftAlgorithm()); // поперечная кривизна слева
+            algorithms.Add(new LongitudinalCurvatureTopAlgorithm()); // продольная кривизна сверху
             logger.Info("Инициализация завершена.");
         }
 

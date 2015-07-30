@@ -108,48 +108,45 @@ namespace SGCUserInterface
         private void InitializeDimentionsGlObjects()
         {
             var height = new HeightDimention();
-            height.IsVisible = true;
-            height.SlabModel = slabModel;
-            //height.Color = NextGreenColor();
-            height.CheckBox = heightCheckBox;
-            height.Dimention = systemDimentions.FirstOrDefault(d => d.Name.Equals("height"));
-            if (height.Dimention != null) {
-                height.Result = slabDimentionsResults
-                    .FirstOrDefault(r => r.DimentionId == height.Dimention.Id);
-            }
-            height.Color = SelectColorByDimentionResult(height.Result);
+            InitDimentinPrimitive(height, heightCheckBox);            
 
-            var width = new WidthDimention();            
-            width.SlabModel = slabModel;
-            width.IsVisible = true;
-            width.CheckBox = widthCheckBox;
-            width.Dimention = systemDimentions.FirstOrDefault(d => d.Name.Equals("width"));
-            if (width.Dimention != null) {
-                width.Result = slabDimentionsResults
-                    .FirstOrDefault(r => r.DimentionId == width.Dimention.Id);
-            }
-            width.Color = SelectColorByDimentionResult(width.Result);
+            var width = new WidthDimention();
+            InitDimentinPrimitive(width, widthCheckBox);
+            
+            var length = new LengthDimention();            
+            InitDimentinPrimitive(length, lengthCheckBox);
 
-            var length = new LengthDimention();
-            length.Color = NextGreenColor();
-            length.SlabModel = slabModel;
-            length.IsVisible = true;
-            length.CheckBox = lengthCheckBox;
-            length.Dimention = systemDimentions.FirstOrDefault(d => d.Name.Equals("length"));
-            if (length.Dimention != null) {
-                length.Result = slabDimentionsResults
-                    .FirstOrDefault(r => r.DimentionId == length.Dimention.Id);
-            }
-            length.Color = SelectColorByDimentionResult(length.Result);
+            var lateralRight = new LateralCurvatureRightDimention();
+            InitDimentinPrimitive(lateralRight, lateralRightCheckBox);
 
-            heightCheckBox.CheckedChanged += commonDimentions_CheckedChanged;
-            widthCheckBox.CheckedChanged += commonDimentions_CheckedChanged;
-            lengthCheckBox.CheckedChanged += commonDimentions_CheckedChanged;
+            var lateralLeft = new LateralCurvatureLeftDimention();
+            InitDimentinPrimitive(lateralLeft, lateralLeftCheckBox);
+
+            var longitudinalTop = new LongitudinalCurvatureTopDimention();
+            InitDimentinPrimitive(longitudinalTop, longitudinalTopCheckBox);
 
             dimentions.Add(height);
             dimentions.Add(width);
             dimentions.Add(length);
+            dimentions.Add(lateralRight);
+            dimentions.Add(lateralLeft);
+            dimentions.Add(longitudinalTop);
         }
+
+        private void InitDimentinPrimitive(DimentionGraphicPrimitiveBase aDimention, CheckBox aCheckBox)
+        {
+            aDimention.SlabModel = slabModel;
+            aDimention.IsVisible = true;
+            aDimention.CheckBox = aCheckBox;
+            aDimention.Dimention = systemDimentions.FirstOrDefault(d => d.Name.Equals(aDimention.GetDimentionName()));
+            if (aDimention.Dimention != null) {
+                aDimention.Result = slabDimentionsResults
+                    .FirstOrDefault(r => r.DimentionId == aDimention.Dimention.Id);
+            }
+            aDimention.Color = SelectColorByDimentionResult(aDimention.Result);
+            aCheckBox.CheckedChanged += commonDimentions_CheckedChanged;
+        }
+
 
         private Color SelectColorByDimentionResult(DimentionResult aResult)
         {
@@ -701,20 +698,54 @@ namespace SGCUserInterface
 
         private void allDimentionsCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (allDimentionsCheckBox.Checked) {
-                heightCheckBox.Checked = true;
-                widthCheckBox.Checked = true;
-                lengthCheckBox.Checked = true;
-            }
-            else {
-                heightCheckBox.Checked = false;
-                widthCheckBox.Checked = false;
-                lengthCheckBox.Checked = false;
-            }
+            var value = allDimentionsCheckBox.Checked;
+            
+            heightCheckBox.Checked = value;
+            widthCheckBox.Checked = value;
+            lengthCheckBox.Checked = value;
+            lateralLeftCheckBox.Checked = value;
+            lateralRightCheckBox.Checked = value;
+            longitudinalTopCheckBox.Checked = value;
         }
 
         private void commonDimentions_CheckedChanged(object sender, EventArgs e)
         {
+            ShowModel();
+        }
+
+        private void frontSideButton_Click(object sender, EventArgs e)
+        {
+            angleY = 0;
+            angleX = 0;
+            translateX = 0;
+            translateY = 0;
+            ShowModel();            
+        }
+
+        private void topSideButton_Click(object sender, EventArgs e)
+        {
+            angleY = 90;
+            angleX = 90;
+            translateX = 0;
+            translateY = 0;
+            ShowModel();
+        }
+
+        private void leftSideButton_Click(object sender, EventArgs e)
+        {
+            angleY = 90;
+            angleX = 0;
+            translateX = 0;
+            translateY = 0;
+            ShowModel();
+        }
+
+        private void angleSideButton_Click(object sender, EventArgs e)
+        {
+            angleX = 45;
+            angleY = 45;
+            translateX = 0;
+            translateY = 0;
             ShowModel();
         }
     }

@@ -143,8 +143,11 @@
     </Compile>
     <Compile Include="SlabVisualizationFormPrimitivs\HeightDimention.cs" />
     <Compile Include="SlabVisualizationFormPrimitivs\DimentionGraphicPrimitiveBase.cs" />
+    <Compile Include="SlabVisualizationFormPrimitivs\LateralCurvatureRightDimention.cs" />
     <Compile Include="SlabVisualizationFormPrimitivs\LengthDimention.cs" />
     <Compile Include="SlabVisualizationFormPrimitivs\WidthDimention.cs" />
+    <Compile Include="SlabVisualizationFormPrimitivs\LateralCurvatureLeftDimention.cs" />
+    <Compile Include="SlabVisualizationFormPrimitivs\LongitudinalCurvatureTopDimention.cs" />
     <Compile Include="StandartSizeForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -225,6 +228,24 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\alvasoft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\kub_icon_front.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\kub_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\kub_icon_algle.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\kub_icon_front.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\kub_icon_left.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\kub_icon_top.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

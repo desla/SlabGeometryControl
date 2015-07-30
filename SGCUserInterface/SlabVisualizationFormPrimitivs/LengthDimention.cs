@@ -18,6 +18,11 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs
             DrawSphere(aIsSmoothEnable);
         }
 
+        public override string GetDimentionName()
+        {
+            return "length";
+        }
+
         private void DrawSphere(bool aIsSmoothEnable)
         {
             Gl.glPushMatrix();

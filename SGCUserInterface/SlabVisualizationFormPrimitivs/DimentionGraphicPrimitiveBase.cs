@@ -38,6 +38,8 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs
 
         public abstract void DrawDimention(bool aIsSmoothEnable);
 
+        public abstract string GetDimentionName();
+
         private void CheckBoxCheckChanged(object sender, EventArgs e)
         {
             IsVisible = checkBox.Checked;

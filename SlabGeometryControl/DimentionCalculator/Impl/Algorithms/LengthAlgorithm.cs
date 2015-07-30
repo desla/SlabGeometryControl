@@ -3,7 +3,7 @@ using Alvasoft.SlabBuilder;
 
 namespace Alvasoft.DimentionCalculator.Impl.Algorithms
 {
-    public class LengthAlgorithms : IDimentionAlgorithm
+    public class LengthAlgorithm : IDimentionAlgorithm
     {
         public string GetName()
         {
@@ -16,7 +16,7 @@ namespace Alvasoft.DimentionCalculator.Impl.Algorithms
                 throw new ArgumentNullException("aSlabModel");
             }
 
-            return aSlabModel.GetLengthLimit();
+            return Math.Round(aSlabModel.GetLengthLimit(), 4);
         }
     }
 }
