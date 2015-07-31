@@ -56,11 +56,8 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs
             p0.Z = SlabModel.RightLines[0].Last().Z;
             p1.X = p0.X;
             p1.Y = p0.Y;
-            p1.Z = p0.Z + 500;
-            Gl.glLineWidth(1f);            
-            Gl.glColor3d(Convert.ToDouble(calloutColor.R) / 255,
-                         Convert.ToDouble(calloutColor.G) / 255,
-                         Convert.ToDouble(calloutColor.B) / 255);
+            p1.Z = p0.Z + 500;            
+            SetCalloutLineType();
             Gl.glBegin(Gl.GL_LINES);
             {
                 Gl.glVertex3d(p0.X, p0.Y, p0.Z);

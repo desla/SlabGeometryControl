@@ -431,23 +431,39 @@ namespace SGCUserInterface
 
         private void modelPanel_MouseMove(object sender, MouseEventArgs e)
         {
+            var isStateChanged = false;
+
             if (e.Button == MouseButtons.Right) {
                 translateX = lastPositionX + (e.X - deltaX) / 1;
                 translateY = lastPositionY - (e.Y - deltaY) / 1;
-                ShowModel();
+                isStateChanged = true;
             }
             else if (e.Button == MouseButtons.Left) {
                 angleX = lastAngleX + (e.Y - deltaY) / 10;
                 angleY = lastAngleY + (e.X - deltaX) / 10;
-                ShowModel();
+                isStateChanged = true;
             }
-
-            var dimention = SelectedDimention(e.X, e.Y);
-            if (dimention != null) {
-                ShowDimentionControl(e.X, e.Y, dimention);
+            
+            var selectedDimention = SelectedDimention(e.X, e.Y);
+            if (selectedDimention != null) {
+                if (!selectedDimention.IsSelected) {
+                    isStateChanged = true;
+                }
+                selectedDimention.IsSelected = true;
+                ShowDimentionControl(e.X, e.Y, selectedDimention);
             }
             else {
                 HideDimentionControl();
+                foreach (var dimention in dimentions) {
+                    if (dimention.IsSelected) {
+                        isStateChanged = true;
+                    }
+                    dimention.IsSelected = false;
+                }
+            }
+
+            if (isStateChanged) {
+                ShowModel();
             }
         }
 

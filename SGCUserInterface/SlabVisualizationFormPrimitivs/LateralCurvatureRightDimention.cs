@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Alvasoft.SlabGeometryControl;
 using Tao.FreeGlut;
 using Tao.OpenGl;
 
@@ -12,6 +13,8 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs
             if (!IsVisible) {
                 return;
             }
+
+            DrawCallout();
             
             DrawSphere(aIsSmoothEnable);
         }
@@ -43,6 +46,25 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs
                 Gl.glEnable(Gl.GL_BLEND);
             }
             Gl.glPopMatrix();
+        }
+
+        private void DrawCallout()
+        {
+            var p0 = new SlabPoint();
+            var p1 = new SlabPoint();
+            p0.X = SlabModel.RightLines[0].First().X + 20;
+            p0.Y = (SlabModel.TopLines[0].First().Y + SlabModel.BottomLines[0][0].Y) / 2;
+            p0.Z = SlabModel.RightLines[0].First().Z;
+            p1.X = p0.X;
+            p1.Y = p0.Y;
+            p1.Z = SlabModel.RightLines[0].Last().Z;
+            SetCalloutLineType();
+            Gl.glBegin(Gl.GL_LINES);
+            {
+                Gl.glVertex3d(p0.X, p0.Y, p0.Z);
+                Gl.glVertex3d(p1.X, p1.Y, p1.Z);
+            }
+            Gl.glEnd();
         }
     }
 }
