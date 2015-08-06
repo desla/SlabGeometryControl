@@ -62,7 +62,7 @@ namespace SGCUserInterface
                 loader.RunWorkerAsync();
 
                 loaderStarter.Tick += StartLoader;
-                loaderStarter.Interval = 300;
+                loaderStarter.Interval = 1;
                 loaderStarter.Start();
             }            
         }

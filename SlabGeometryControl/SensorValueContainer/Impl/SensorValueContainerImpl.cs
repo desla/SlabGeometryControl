@@ -52,10 +52,11 @@ namespace Alvasoft.SensorValueContainer.Impl
 
         public void Clear()
         {
-            logger.Debug("Запрос на очистку накопителя.");
+            logger.Info("Удаление накопленных значений из памяти...");
             foreach (var valuesList in container.Values) {
                 valuesList.Clear();
             }
+            logger.Info("Удаление значений выполнено.");
         }
 
         public bool IsEmpty()

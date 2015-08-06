@@ -7,15 +7,8 @@ namespace Alvasoft.DataProviderConfiguration.XmlImpl
     {
         public int Id { get; set; }
         public string Name { get; set; }
-
-        public int GetId()
-        {
-            return Id;
-        }
-
-        public string GetSensorName()
-        {
-            return Name;
-        }
+        public string EnableTag { get; set; }
+        public string CurrentValueTag { get; set; }
+        public string ValuesListTag { get; set; }
     }
 }

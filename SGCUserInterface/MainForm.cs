@@ -63,7 +63,10 @@ namespace SGCUserInterface
 
             AddLogInfo("GUI", "Успешная инициализация.");
             MakeClientInstance();
-            //ConnectToService();
+
+            if (Convert.ToBoolean(Connection.Default["autoConnect"])) {
+                подключитьсяToolStripMenuItem_Click(sender, e);
+            }
         }
 
         private void ConnectOrDisconnect(object sender, DoWorkEventArgs e)

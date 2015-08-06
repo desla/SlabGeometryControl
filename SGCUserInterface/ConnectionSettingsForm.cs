@@ -14,6 +14,7 @@ namespace SGCUserInterface
 
             textBox1.Text = Connection.Default["host"].ToString();
             numericUpDown1.Value = Convert.ToInt32(Connection.Default["port"]);
+            autoConnectCheckBox.Checked = Convert.ToBoolean(Connection.Default["autoConnect"]);
         }        
 
         private void UpdateLinkText()
@@ -43,6 +44,7 @@ namespace SGCUserInterface
         {
             Connection.Default["host"] = textBox1.Text;
             Connection.Default["port"] = Convert.ToInt32(numericUpDown1.Value);
+            Connection.Default["autoConnect"] = autoConnectCheckBox.Checked;
             Connection.Default.Save();
             this.Close();
         }

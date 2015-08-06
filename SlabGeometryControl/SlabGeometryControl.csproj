@@ -44,6 +44,10 @@
     <Reference Include="Iesi.Collections">
       <HintPath>Usings\Iesi.Collections.dll</HintPath>
     </Reference>
+    <Reference Include="Interop.OPCAutomation">
+      <HintPath>.\Interop.OPCAutomation.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>Usings\log4net.dll</HintPath>
     </Reference>
@@ -53,6 +57,9 @@
     <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Usings\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="OpcTagAccessProvider">
+      <HintPath>..\..\denxc\OpcTagAccessProvider\bin\Debug\OpcTagAccessProvider.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -74,10 +81,15 @@
     <Compile Include="DataProviderConfiguration\XmlImpl\OpcControlBlockImpl.cs" />
     <Compile Include="DataProviderConfiguration\XmlImpl\OpcSensorInfoImpl.cs" />
     <Compile Include="DataProviderConfiguration\XmlImpl\XmlDataProviderConfigurationImpl.cs" />
+    <Compile Include="DataProvider\Impl\ControlBlock.cs" />
+    <Compile Include="DataProvider\Impl\DataProviderActivatorImpl.cs" />
     <Compile Include="DataProvider\Impl\Emulator\EmulatorDataProvider.cs" />
     <Compile Include="DataProvider\Impl\Emulator\Ingot.cs" />
     <Compile Include="DataProvider\Impl\Emulator\Sensor.cs" />
+    <Compile Include="DataProvider\Impl\IActivatorListener.cs" />
+    <Compile Include="DataProvider\Impl\IDataProviderActivator.cs" />
     <Compile Include="DataProvider\Impl\OpcDataProviderImpl.cs" />
+    <Compile Include="DataProvider\Impl\OpcSensor.cs" />
     <Compile Include="DataWriter\IRegulation.cs" />
     <Compile Include="DataWriter\IRegulationsReaderWriter.cs" />
     <Compile Include="DataWriter\ISensorValueReader.cs" />
@@ -195,6 +207,7 @@
     <Content Include="Settings\SensorConfiguration.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Settings\temp.xml" />
     <Content Include="Tests\Files\OpcConfigurationTest.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -213,6 +226,7 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

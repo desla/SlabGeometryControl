@@ -46,5 +46,17 @@ namespace SGCUserInterface {
                 this["port"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool autoConnect {
+            get {
+                return ((bool)(this["autoConnect"]));
+            }
+            set {
+                this["autoConnect"] = value;
+            }
+        }
     }
 }

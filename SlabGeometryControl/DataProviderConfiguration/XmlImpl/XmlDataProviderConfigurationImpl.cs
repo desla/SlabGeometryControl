@@ -19,10 +19,20 @@ namespace Alvasoft.DataProviderConfiguration.XmlImpl
         private const string OPC_SENSOR = "sensor";
         private const string SENSOR_NAME = "name";
         private const string CONTROL = "control";
+        private const string ACTIVATION_TAG = "activation";
+        private const string DATA_SIZE_TAG = "dataSize";
+        private const string START_INDEX_TAG = "startIndex";
+        private const string END_INDEX_TAG = "endIndex";
+        private const string SENSOR_ENABLE = "enable";
+        private const string SENSOR_CURRENT_VALUE = "currentValue";
+        private const string SENSOR_VALUES_LIST = "sensorValuesList";
+        private const string TIMES_TAG = "times";
+        private const string TIME_ACTIVATOR_TAG = "syncDateTimeActivator";
+        private const string TIME_FOR_SYNC_TAG = "dateTimeForSync";
         
         private string xmlFileName = "Settings/OpcConfiguration.xml";
         private List<IOpcSensorInfo> opcSensorInfos = new List<IOpcSensorInfo>();
-        private IOpcControlBlock controlBlock = null;
+        private OpcControlBlockImpl controlBlock = null;
         private string serverHost;
         private string serverName;
         private List<IDataProviderConfigurationListener> listeners 
@@ -61,22 +71,22 @@ namespace Alvasoft.DataProviderConfiguration.XmlImpl
                 throw new ArgumentNullException("aOpcSensorInfo");
             }
 
-            if (opcSensorInfos.Any(s => s.GetId() == aOpcSensorInfo.GetId() ||
-                                        s.GetSensorName().Equals(aOpcSensorInfo.GetSensorName()))) {
+            if (opcSensorInfos.Any(s => s.Id == aOpcSensorInfo.Id ||
+                                        s.Name.Equals(aOpcSensorInfo.Name))) {
                 throw new ArgumentException(
                     "Датчик с таким идентификатором или именем уже есть: "
-                    + aOpcSensorInfo.GetSensorName());
+                    + aOpcSensorInfo.Name);
             }
 
             opcSensorInfos.Add(aOpcSensorInfo);
             foreach (var listener in listeners) {
-                listener.OnSensorCreated(this, aOpcSensorInfo.GetId());
+                listener.OnSensorCreated(this, aOpcSensorInfo.Id);
             }
         }
 
         public IOpcSensorInfo ReadOpcSensorInfoById(int aId)
         {
-            return opcSensorInfos.FirstOrDefault(s => s.GetId() == aId);
+            return opcSensorInfos.FirstOrDefault(s => s.Id == aId);
         }
 
         public IOpcSensorInfo ReadOpcSensorInfoByIndex(int aIndex)
@@ -86,7 +96,7 @@ namespace Alvasoft.DataProviderConfiguration.XmlImpl
 
         public IOpcSensorInfo ReadOpcSensorInfoByName(string aSensorName)
         {
-            return opcSensorInfos.FirstOrDefault(s => s.GetSensorName().Equals(aSensorName));
+            return opcSensorInfos.FirstOrDefault(s => s.Name.Equals(aSensorName));
         }
 
         public void UpdateOpcSensorInfo(IOpcSensorInfo aOpcSensorInfo)
@@ -168,7 +178,27 @@ namespace Alvasoft.DataProviderConfiguration.XmlImpl
             for (var i = 0; i < items.Count; ++i) {
                 var item = items[i];
                 switch (item.Name) {
-                    //
+                    case ACTIVATION_TAG:
+                        controlBlock.ActivationTag = item.InnerText;
+                        break;
+                    case DATA_SIZE_TAG:
+                        controlBlock.DataMaxSizeTag = item.InnerText;
+                        break;
+                    case START_INDEX_TAG:
+                        controlBlock.StartIndexTag = item.InnerText;
+                        break;
+                    case END_INDEX_TAG:
+                        controlBlock.EndIndexTag = item.InnerText;
+                        break;
+                    case TIMES_TAG:
+                        controlBlock.TimesTag = item.InnerText;
+                        break;
+                    case TIME_ACTIVATOR_TAG:
+                        controlBlock.DateTimeSyncActivatorTag = item.InnerText;
+                        break;
+                    case TIME_FOR_SYNC_TAG:
+                        controlBlock.DateTimeForSyncTag = item.InnerText;
+                        break;
                 }
             }            
         }
@@ -198,10 +228,19 @@ namespace Alvasoft.DataProviderConfiguration.XmlImpl
                     case SENSOR_NAME:
                         sensorInfo.Name = item.InnerText;
                         break;
+                    case SENSOR_ENABLE:
+                        sensorInfo.EnableTag = item.InnerText;
+                        break;
+                    case SENSOR_CURRENT_VALUE:
+                        sensorInfo.CurrentValueTag = item.InnerText;
+                        break;
+                    case SENSOR_VALUES_LIST:
+                        sensorInfo.ValuesListTag = item.InnerText;
+                        break;
                 }
             }
 
-            if (opcSensorInfos.Any(s => s.GetSensorName().Equals(sensorInfo.Name))) {
+            if (opcSensorInfos.Any(s => s.Name.Equals(sensorInfo.Name))) {
                 throw new ArgumentException("Датчик с таким именем уже существует: " + sensorInfo.Name);
             }
 

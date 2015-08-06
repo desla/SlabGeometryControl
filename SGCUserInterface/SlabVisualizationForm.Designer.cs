@@ -38,6 +38,9 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.longitudinalTopCheckBox = new System.Windows.Forms.CheckBox();
+            this.lateralLeftCheckBox = new System.Windows.Forms.CheckBox();
+            this.lateralRightCheckBox = new System.Windows.Forms.CheckBox();
             this.lengthCheckBox = new System.Windows.Forms.CheckBox();
             this.widthCheckBox = new System.Windows.Forms.CheckBox();
             this.heightCheckBox = new System.Windows.Forms.CheckBox();
@@ -49,9 +52,6 @@
             this.dimensionsCheckBox = new System.Windows.Forms.CheckBox();
             this.gridSurfaceCheckBox = new System.Windows.Forms.CheckBox();
             this.modelPanel = new Tao.Platform.Windows.SimpleOpenGlControl();
-            this.lateralRightCheckBox = new System.Windows.Forms.CheckBox();
-            this.lateralLeftCheckBox = new System.Windows.Forms.CheckBox();
-            this.longitudinalTopCheckBox = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.plotsPage.SuspendLayout();
             this.slabModelPage.SuspendLayout();
@@ -67,7 +67,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(704, 425);
+            this.tabControl1.Size = new System.Drawing.Size(723, 506);
             this.tabControl1.TabIndex = 0;
             // 
             // plotsPage
@@ -76,7 +76,7 @@
             this.plotsPage.Location = new System.Drawing.Point(4, 22);
             this.plotsPage.Name = "plotsPage";
             this.plotsPage.Padding = new System.Windows.Forms.Padding(3);
-            this.plotsPage.Size = new System.Drawing.Size(696, 399);
+            this.plotsPage.Size = new System.Drawing.Size(715, 480);
             this.plotsPage.TabIndex = 0;
             this.plotsPage.Text = "Показания датчиков";
             this.plotsPage.UseVisualStyleBackColor = true;
@@ -93,7 +93,7 @@
             this.plotsView.ScrollMinX = 0D;
             this.plotsView.ScrollMinY = 0D;
             this.plotsView.ScrollMinY2 = 0D;
-            this.plotsView.Size = new System.Drawing.Size(690, 393);
+            this.plotsView.Size = new System.Drawing.Size(709, 474);
             this.plotsView.TabIndex = 0;
             this.plotsView.ContextMenuBuilder += new ZedGraph.ZedGraphControl.ContextMenuBuilderEventHandler(this.plotsView_ContextMenuBuilder);
             // 
@@ -105,65 +105,77 @@
             this.slabModelPage.Location = new System.Drawing.Point(4, 22);
             this.slabModelPage.Name = "slabModelPage";
             this.slabModelPage.Padding = new System.Windows.Forms.Padding(3);
-            this.slabModelPage.Size = new System.Drawing.Size(696, 399);
+            this.slabModelPage.Size = new System.Drawing.Size(715, 480);
             this.slabModelPage.TabIndex = 1;
             this.slabModelPage.Text = "3-D модель слитка";
             this.slabModelPage.UseVisualStyleBackColor = true;
             // 
             // panel3
             // 
+            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.BackColor = System.Drawing.Color.White;
-            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.button6);
             this.panel3.Controls.Add(this.button5);
             this.panel3.Controls.Add(this.button4);
             this.panel3.Controls.Add(this.button3);
-            this.panel3.Location = new System.Drawing.Point(8, 6);
+            this.panel3.Location = new System.Drawing.Point(509, 283);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(80, 80);
+            this.panel3.Size = new System.Drawing.Size(200, 100);
             this.panel3.TabIndex = 2;
             // 
             // button6
             // 
-            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button6.Location = new System.Drawing.Point(40, 40);
+            this.button6.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.button6.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.button6.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button6.Location = new System.Drawing.Point(100, 50);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(40, 40);
+            this.button6.Size = new System.Drawing.Size(98, 48);
             this.button6.TabIndex = 3;
-            this.button6.Text = "У";
+            this.button6.Text = "УГОЛ";
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.angleSideButton_Click);
             // 
             // button5
             // 
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button5.Location = new System.Drawing.Point(0, 40);
+            this.button5.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.button5.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.button5.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button5.Location = new System.Drawing.Point(0, 50);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(40, 40);
+            this.button5.Size = new System.Drawing.Size(98, 48);
             this.button5.TabIndex = 2;
-            this.button5.Text = "В";
+            this.button5.Text = "СВЕРХУ";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.topSideButton_Click);
             // 
             // button4
             // 
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button4.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.button4.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.button4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button4.Location = new System.Drawing.Point(0, 0);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(40, 40);
+            this.button4.Size = new System.Drawing.Size(98, 48);
             this.button4.TabIndex = 1;
-            this.button4.Text = "Ф";
+            this.button4.Text = "СПЕРЕДИ";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.frontSideButton_Click);
             // 
             // button3
             // 
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button3.Location = new System.Drawing.Point(40, 0);
+            this.button3.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.button3.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.button3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.Location = new System.Drawing.Point(100, 0);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(40, 40);
+            this.button3.Size = new System.Drawing.Size(98, 48);
             this.button3.TabIndex = 0;
-            this.button3.Text = "Л";
+            this.button3.Text = "СЛЕВА";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.leftSideButton_Click);
             // 
@@ -185,10 +197,46 @@
             this.panel1.Controls.Add(this.sensorValuesCheckBox);
             this.panel1.Controls.Add(this.dimensionsCheckBox);
             this.panel1.Controls.Add(this.gridSurfaceCheckBox);
-            this.panel1.Location = new System.Drawing.Point(500, 6);
+            this.panel1.Location = new System.Drawing.Point(509, 6);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(188, 330);
+            this.panel1.Size = new System.Drawing.Size(200, 271);
             this.panel1.TabIndex = 1;
+            // 
+            // longitudinalTopCheckBox
+            // 
+            this.longitudinalTopCheckBox.AutoSize = true;
+            this.longitudinalTopCheckBox.Checked = true;
+            this.longitudinalTopCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.longitudinalTopCheckBox.Location = new System.Drawing.Point(7, 240);
+            this.longitudinalTopCheckBox.Name = "longitudinalTopCheckBox";
+            this.longitudinalTopCheckBox.Size = new System.Drawing.Size(172, 17);
+            this.longitudinalTopCheckBox.TabIndex = 14;
+            this.longitudinalTopCheckBox.Text = "Продольная кривизна (Верх)";
+            this.longitudinalTopCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // lateralLeftCheckBox
+            // 
+            this.lateralLeftCheckBox.AutoSize = true;
+            this.lateralLeftCheckBox.Checked = true;
+            this.lateralLeftCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.lateralLeftCheckBox.Location = new System.Drawing.Point(7, 220);
+            this.lateralLeftCheckBox.Name = "lateralLeftCheckBox";
+            this.lateralLeftCheckBox.Size = new System.Drawing.Size(173, 17);
+            this.lateralLeftCheckBox.TabIndex = 13;
+            this.lateralLeftCheckBox.Text = "Поперечная кривизна (Лево)";
+            this.lateralLeftCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // lateralRightCheckBox
+            // 
+            this.lateralRightCheckBox.AutoSize = true;
+            this.lateralRightCheckBox.Checked = true;
+            this.lateralRightCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.lateralRightCheckBox.Location = new System.Drawing.Point(7, 200);
+            this.lateralRightCheckBox.Name = "lateralRightCheckBox";
+            this.lateralRightCheckBox.Size = new System.Drawing.Size(179, 17);
+            this.lateralRightCheckBox.TabIndex = 12;
+            this.lateralRightCheckBox.Text = "Поперечная кривизна (Право)";
+            this.lateralRightCheckBox.UseVisualStyleBackColor = true;
             // 
             // lengthCheckBox
             // 
@@ -303,9 +351,9 @@
             this.gridSurfaceCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.gridSurfaceCheckBox.Location = new System.Drawing.Point(7, 10);
             this.gridSurfaceCheckBox.Name = "gridSurfaceCheckBox";
-            this.gridSurfaceCheckBox.Size = new System.Drawing.Size(123, 17);
+            this.gridSurfaceCheckBox.Size = new System.Drawing.Size(130, 17);
             this.gridSurfaceCheckBox.TabIndex = 0;
-            this.gridSurfaceCheckBox.Text = "Сетка поверхности";
+            this.gridSurfaceCheckBox.Text = "Координатная сетка";
             this.gridSurfaceCheckBox.UseVisualStyleBackColor = true;
             this.gridSurfaceCheckBox.CheckedChanged += new System.EventHandler(this.gridSurfaceCheckBox_CheckedChanged);
             // 
@@ -322,54 +370,18 @@
             this.modelPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.modelPanel.Location = new System.Drawing.Point(3, 3);
             this.modelPanel.Name = "modelPanel";
-            this.modelPanel.Size = new System.Drawing.Size(690, 393);
+            this.modelPanel.Size = new System.Drawing.Size(709, 474);
             this.modelPanel.StencilBits = ((byte)(0));
             this.modelPanel.TabIndex = 0;
             this.modelPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.modelPanel_MouseDown);
             this.modelPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.modelPanel_MouseMove);
-            // 
-            // lateralRightCheckBox
-            // 
-            this.lateralRightCheckBox.AutoSize = true;
-            this.lateralRightCheckBox.Checked = true;
-            this.lateralRightCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.lateralRightCheckBox.Location = new System.Drawing.Point(7, 200);
-            this.lateralRightCheckBox.Name = "lateralRightCheckBox";
-            this.lateralRightCheckBox.Size = new System.Drawing.Size(179, 17);
-            this.lateralRightCheckBox.TabIndex = 12;
-            this.lateralRightCheckBox.Text = "Поперечная кривизна (Право)";
-            this.lateralRightCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // lateralLeftCheckBox
-            // 
-            this.lateralLeftCheckBox.AutoSize = true;
-            this.lateralLeftCheckBox.Checked = true;
-            this.lateralLeftCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.lateralLeftCheckBox.Location = new System.Drawing.Point(7, 220);
-            this.lateralLeftCheckBox.Name = "lateralLeftCheckBox";
-            this.lateralLeftCheckBox.Size = new System.Drawing.Size(173, 17);
-            this.lateralLeftCheckBox.TabIndex = 13;
-            this.lateralLeftCheckBox.Text = "Поперечная кривизна (Лево)";
-            this.lateralLeftCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // longitudinalTopCheckBox
-            // 
-            this.longitudinalTopCheckBox.AutoSize = true;
-            this.longitudinalTopCheckBox.Checked = true;
-            this.longitudinalTopCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.longitudinalTopCheckBox.Location = new System.Drawing.Point(7, 240);
-            this.longitudinalTopCheckBox.Name = "longitudinalTopCheckBox";
-            this.longitudinalTopCheckBox.Size = new System.Drawing.Size(172, 17);
-            this.longitudinalTopCheckBox.TabIndex = 14;
-            this.longitudinalTopCheckBox.Text = "Продольная кривизна (Верх)";
-            this.longitudinalTopCheckBox.UseVisualStyleBackColor = true;
             // 
             // SlabVisualizationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.HighlightText;
-            this.ClientSize = new System.Drawing.Size(704, 425);
+            this.ClientSize = new System.Drawing.Size(723, 506);
             this.Controls.Add(this.tabControl1);
             this.Name = "SlabVisualizationForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

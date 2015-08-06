@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sensor>
+  <name>Низ_0</name>
+  <type>proximity</type>
+  <side>bottom</side>
+  <shift>0,0</shift>
+</sensor>
+<sensor>
+  <name>Левая_0</name>
+  <type>proximity</type>
+  <side>left</side>
+  <shift>0,0</shift>
+</sensor>
+<sensor>
+  <name>Правая_0</name>
+  <type>proximity</type>
+  <side>right</side>
+  <shift>0,0</shift>
+</sensor>
+<sensor>
+  <name>Положение</name>
+  <type>position</type>
+</sensor>

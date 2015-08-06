@@ -47,7 +47,7 @@ namespace Alvasoft.DataWriter.NHibernateImpl
             }
         }
 
-        public void WriteSensorValueInfos(ISensorValueInfo[] aValues)
+        public void WriteSensorValueInfos(int aSlabId, ISensorValueInfo[] aValues)
         {
             try {
                 if (aValues != null) {                    
@@ -55,6 +55,7 @@ namespace Alvasoft.DataWriter.NHibernateImpl
                         using (var t = session.BeginTransaction()) {
                             foreach (var sensorValue in aValues) {
                                 var sensorValueEntity = new SensorValueEntity(sensorValue);
+                                sensorValueEntity.SlabId = aSlabId;
                                 session.Save(sensorValueEntity);
                             }                            
                             t.Commit();
@@ -109,6 +110,33 @@ namespace Alvasoft.DataWriter.NHibernateImpl
 
                     return results.ToArray();
                 }                
+            }
+            catch (Exception ex) {
+                logger.Error("Ошибка при чтении значения: " + ex.Message);
+                return null;
+            }
+        }
+
+        public ISensorValueInfo[] ReadSensorValueInfo(int aSensorId, int aSlabId)
+        {
+            try {
+                using (var session = NHibernateHelper.OpenSession()) {
+                    var entitys = session.CreateCriteria(typeof(SensorValueEntity))
+                        .Add(Restrictions.Eq("SensorId", aSensorId))
+                        .Add(Restrictions.Eq("SlabId", aSlabId))
+                        .List<SensorValueEntity>();
+                    var results = new List<ISensorValueInfo>();
+
+                    foreach (var entity in entitys) {
+                        results.Add(new SensorValueImpl {
+                            Id = entity.Id,
+                            Value = entity.Value,
+                            Time = entity.Time
+                        });
+                    }
+
+                    return results.ToArray();
+                }
             }
             catch (Exception ex) {
                 logger.Error("Ошибка при чтении значения: " + ex.Message);

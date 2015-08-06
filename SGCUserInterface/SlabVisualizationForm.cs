@@ -87,20 +87,25 @@ namespace SGCUserInterface
 
         private void LoadCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (!isErrorLoading) {
-                MoveModelToZeroPoint();
-                InitializeDimentionsGlObjects();
-                InitializeGlObjects();
-                ShowPlots();
-                ShowModel();
-            }            
+            try {
+                if (!isErrorLoading) {
+                    ShowPlots();
 
-            if (progressShower != null) {
-                progressShower.Dispose();
-                progressShower = null;
+                    MoveModelToZeroPoint();
+                    InitializeDimentionsGlObjects();
+                    InitializeGlObjects();                    
+                    ShowModel();
+                }
+
+                if (progressShower != null) {
+                    progressShower.Dispose();
+                    progressShower = null;
+                }                
+            }
+            catch {
             }
 
-            for (var i = 0; i < this.Controls.Count; ++i) {                
+            for (var i = 0; i < this.Controls.Count; ++i) {
                 Controls[i].Show();
             }
         }
@@ -135,6 +140,10 @@ namespace SGCUserInterface
 
         private void InitDimentinPrimitive(DimentionGraphicPrimitiveBase aDimention, CheckBox aCheckBox)
         {
+            if (slabModel == null) {
+                return;
+            }
+
             aDimention.SlabModel = slabModel;
             aDimention.IsVisible = true;
             aDimention.CheckBox = aCheckBox;
@@ -347,9 +356,15 @@ namespace SGCUserInterface
         {
             DrawPlotsPanel();
 
+            if (points == null) {
+                MessageBox.Show(@"Нет точек для отображения");
+                return;
+            }
+
             var pane = plotsView.GraphPane;
-            for (var i = 0; i < points.Length; ++i) {
+            for (var i = 0; i < points.Length - 1; ++i) {
                 if (points[i] != null) {
+                    Text = "Точек всего: " + points[i].Length;
                     for (var j = 0; j < points[i].Length; ++j) {
                         pane.CurveList[i].AddPoint(points[i][j].X / 1000, points[i][j].Y);
                     }
@@ -524,48 +539,62 @@ namespace SGCUserInterface
 
         private void InitGridSurface()
         {
-            var strongLinesCount = 15;
+            var strongLinesCount = 10;
             var slimLinesCount = 2;
-            var distanceBetwenStrongLines = 500;
+            var distanceBetwenStrongLines = 1000;
             var depthY = -2000;
+            var startPosition = distanceBetwenStrongLines * strongLinesCount / 2;
 
             var surfaceNumber = Gl.glGenLists(1);
             objectsList[KEY_SURFACE] = surfaceNumber;
             Gl.glNewList(surfaceNumber, Gl.GL_COMPILE);
-            var color = Color.Gray;
+            var color = Color.LightGray;
             Gl.glLineWidth(1f);                        
             Gl.glColor3d(
                 Convert.ToDouble(color.R) / 255,
                 Convert.ToDouble(color.G) / 255,
                 Convert.ToDouble(color.B) / 255);
             Gl.glBegin(Gl.GL_LINES);
-            {
-                var startPosition = distanceBetwenStrongLines * strongLinesCount / 2;
-                for (var i = 0; i <= strongLinesCount; ++i) {
+            {                
+                for (var i = 1; i <= strongLinesCount; ++i) {
                     Gl.glVertex3f(-startPosition, depthY, -startPosition + distanceBetwenStrongLines * i);
                     Gl.glVertex3f(startPosition, depthY, -startPosition + distanceBetwenStrongLines * i);
                     Gl.glVertex3f(startPosition - distanceBetwenStrongLines * i, depthY, -startPosition);
                     Gl.glVertex3f(startPosition - distanceBetwenStrongLines * i, depthY, startPosition);
+                                        
+                    Gl.glVertex3f(startPosition - distanceBetwenStrongLines * i, depthY, -startPosition);
+                    Gl.glVertex3f(startPosition - distanceBetwenStrongLines * i, startPosition - depthY, -startPosition);
+                    
+                    Gl.glVertex3f(startPosition, depthY, -startPosition + distanceBetwenStrongLines * i);
+                    Gl.glVertex3f(startPosition, startPosition - depthY, -startPosition + distanceBetwenStrongLines * i);
+
+                    if (i != strongLinesCount) {
+                        Gl.glVertex3f(-startPosition, depthY + distanceBetwenStrongLines * i, -startPosition);
+                        Gl.glVertex3f(startPosition, depthY + distanceBetwenStrongLines * i, -startPosition);
+
+                        Gl.glVertex3f(startPosition, depthY + distanceBetwenStrongLines * i, -startPosition);
+                        Gl.glVertex3f(startPosition, depthY + distanceBetwenStrongLines * i, startPosition);
+                    }                    
                 }
             }
             Gl.glEnd();
-            color = Color.LightGray;
+
+            color = Color.Gray;
+            Gl.glLineWidth(2f);
             Gl.glColor3d(
                 Convert.ToDouble(color.R) / 255,
                 Convert.ToDouble(color.G) / 255,
                 Convert.ToDouble(color.B) / 255);
             Gl.glBegin(Gl.GL_LINES);
             {
-                var startPosition = distanceBetwenStrongLines * strongLinesCount / 2;
-                var distance = distanceBetwenStrongLines / (slimLinesCount + 1);
-                for (var i = 0; i < strongLinesCount; ++i) {
-                    for (var j = 1; j <= slimLinesCount; ++j) {
-                        Gl.glVertex3f(-startPosition, depthY, -startPosition + distanceBetwenStrongLines * i + distance * j);
-                        Gl.glVertex3f(startPosition, depthY, -startPosition + distanceBetwenStrongLines * i + distance * j);
-                        Gl.glVertex3f(-startPosition + distanceBetwenStrongLines * i + distance * j, depthY, -startPosition);
-                        Gl.glVertex3f(-startPosition + distanceBetwenStrongLines * i + distance * j, depthY, startPosition);
-                    }
-                }
+                Gl.glVertex3f(startPosition, depthY, -startPosition);
+                Gl.glVertex3f(-startPosition, depthY, -startPosition);
+
+                Gl.glVertex3f(startPosition, depthY, -startPosition);
+                Gl.glVertex3f(startPosition, depthY, startPosition);
+                
+                Gl.glVertex3f(startPosition, depthY, -startPosition);
+                Gl.glVertex3f(startPosition, startPosition - depthY, -startPosition);                
             }
             Gl.glEnd();
             Gl.glEndList();
@@ -575,30 +604,29 @@ namespace SGCUserInterface
         {
             if (slabModel == null) {
                 return;
-            }
-
-            var p1 = slabModel.TopLines[slabModel.TopLines.Length / 2].First();
-            var p2 = slabModel.RightLines[slabModel.RightLines.Length / 2].First();
-            var p3 = slabModel.BottomLines[slabModel.BottomLines.Length / 2].First();
-            var p4 = slabModel.LeftLines[slabModel.LeftLines.Length / 2].First();
-            var p5 = slabModel.TopLines[slabModel.TopLines.Length / 2].Last();
-            var p6 = slabModel.RightLines[slabModel.RightLines.Length / 2].Last();
-            var p7 = slabModel.BottomLines[slabModel.BottomLines.Length / 2].Last();
-            var p8 = slabModel.LeftLines[slabModel.LeftLines.Length / 2].Last();            
+            }            
+            var p1 = slabModel.TopLines[slabModel.TopLines.Length/2].First();
+            var p2 = slabModel.RightLines[slabModel.RightLines.Length/2].First();
+            var p3 = slabModel.BottomLines[slabModel.BottomLines.Length/2].First();
+            var p4 = slabModel.LeftLines[slabModel.LeftLines.Length/2].First();
+            var p5 = slabModel.TopLines[slabModel.TopLines.Length/2].Last();
+            var p6 = slabModel.RightLines[slabModel.RightLines.Length/2].Last();
+            var p7 = slabModel.BottomLines[slabModel.BottomLines.Length/2].Last();
+            var p8 = slabModel.LeftLines[slabModel.LeftLines.Length/2].Last();
 
             var slabDimentionsNumber = Gl.glGenLists(1);
             objectsList[KEY_SLAB_DIMENTIONS] = slabDimentionsNumber;
             Gl.glNewList(slabDimentionsNumber, Gl.GL_COMPILE);
             var color = Color.Blue;
             Gl.glColor3d(
-                Convert.ToDouble(color.R) / 255,
-                Convert.ToDouble(color.G) / 255,
-                Convert.ToDouble(color.B) / 255);
+                Convert.ToDouble(color.R)/255,
+                Convert.ToDouble(color.G)/255,
+                Convert.ToDouble(color.B)/255);
             Gl.glLineWidth(2f);
             Gl.glEnable(Gl.GL_LINE_STIPPLE);
             Gl.glLineStipple(1, 0x00FF);
             Gl.glBegin(Gl.GL_LINE_STRIP);
-            {                
+            {
                 Gl.glVertex3d(p4.X, p1.Y, p1.Z);
                 Gl.glVertex3d(p2.X, p1.Y, p1.Z);
                 Gl.glVertex3d(p2.X, p3.Y, p1.Z);
@@ -622,7 +650,7 @@ namespace SGCUserInterface
             }
             Gl.glEnd();
             Gl.glDisable(Gl.GL_LINE_STIPPLE);
-            Gl.glEndList();
+            Gl.glEndList();            
         }
 
         private void InitSensorValues()

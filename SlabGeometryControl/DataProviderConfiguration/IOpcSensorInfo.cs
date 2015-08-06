@@ -6,16 +6,14 @@
     /// </summary>
     public interface IOpcSensorInfo
     {
-        /// <summary>
-        /// Возвращает идентификатор орс-датчика.
-        /// </summary>
-        /// <returns>Идентификатор орс-датчика.</returns>
-        int GetId();
+        int Id { get; }
 
-        /// <summary>
-        /// Возвращает имя датчика.
-        /// </summary>
-        /// <returns>Имя датчика.</returns>
-        string GetSensorName();
+        string Name { get; }
+
+        string EnableTag { get; }
+
+        string CurrentValueTag { get; }
+
+        string ValuesListTag { get; }
     }
 }

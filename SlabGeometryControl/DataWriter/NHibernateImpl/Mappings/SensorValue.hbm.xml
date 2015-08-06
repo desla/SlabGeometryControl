@@ -7,6 +7,7 @@
       <generator class="native" />
     </id>
     <property name="SensorId" index="IDX_SensorValue_SensorId_Time" />
+    <property name="SlabId" />
     <property name="Value" />
     <property name="Time" index="IDX_SensorValue_SensorId_Time" />    
   </class>

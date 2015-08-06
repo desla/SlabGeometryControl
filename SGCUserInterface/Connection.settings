@@ -8,5 +8,8 @@
     <Setting Name="port" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">9876</Value>
     </Setting>
+    <Setting Name="autoConnect" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

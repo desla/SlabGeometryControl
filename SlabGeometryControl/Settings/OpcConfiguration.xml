@@ -1,14 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <configuration>
   <host>localhost</host>
-  <server>имя сервера</server>
+  <server>OPC.SimaticNET</server>
   <control>
-    
+    <activation>S7:[S7 connection_1]InLimGlobal</activation>
+    <dataSize>S7:[S7 connection_1]MassiveSize</dataSize>
+    <startIndex>S7:[S7 connection_1]LeftIndexGlobal</startIndex>
+    <endIndex>S7:[S7 connection_1]RightIndexGlobal</endIndex>
+    <times>S7:[S7 connection_1]ValueTimesGlobal</times>
+    <syncDateTimeActivator>S7:[S7 connection_1]IsSyncDT</syncDateTimeActivator>
+    <dateTimeForSync>S7:[S7 connection_1]DTForSync</dateTimeForSync>
   </control>
   <sensors>
     <sensor>
-      <name>Top0</name>
+      <name>Top_0</name>
       <!--Список тегов-->
+      <enable>S7:[S7 connection_1]IsEnableSensorDb11</enable>
+      <currentValue>S7:[S7 connection_1]CurrentValueDb11</currentValue>
+      <sensorValuesList>S7:[S7 connection_1]SensorValuesDb11</sensorValuesList>
     </sensor>
   </sensors>  
 </configuration>

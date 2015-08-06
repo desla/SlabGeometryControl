@@ -6,6 +6,7 @@ namespace Alvasoft.DataWriter.NHibernateImpl.Entity
     {
         public virtual int Id { get; set; }
         public virtual int SensorId { get; set; }
+        public virtual int SlabId { get; set; }
         public virtual double Value { get; set; }
         public virtual long Time { get; set; }
 

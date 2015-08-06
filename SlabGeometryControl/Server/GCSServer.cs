@@ -35,12 +35,14 @@ namespace Alvasoft.Server
     {
         private static readonly ILog logger = LogManager.GetLogger("Server");
 
+        private static readonly TimeSpan minimumScanTime = TimeSpan.FromSeconds(0);
+
         private XmlDataProviderConfigurationImpl dataProviderConfiguration;
         private XmlSensorConfigurationImpl sensorConfiguration;
         private NHibernateDimentionConfigurationImpl dimentionConfiguration;
 
-        //private OpcDataProviderImpl dataProvider;        
-        private EmulatorDataProvider dataProvider;
+        private OpcDataProviderImpl dataProvider;        
+        //private EmulatorDataProvider dataProvider;
         private SlabBuilderImpl slabBuilder;
         private DimentionCalculatorImpl dimentionCalculator;
         private ISensorValueContainer sensorValueContainer;
@@ -56,8 +58,8 @@ namespace Alvasoft.Server
         private SlabBuilderImpl userSlabBuilder;
         private ISensorValueContainer userSensorValueContainer;
 
-        private long startSlabScanTime;
-        private long endSlabScanTime;
+        private DateTime startSlabScanTime;
+        private DateTime endSlabScanTime;
 
         private long lastSavedSensorValueTime = long.MinValue;
         private SystemState lastSystemState = SystemState.WAITING;
@@ -72,8 +74,8 @@ namespace Alvasoft.Server
             dataProviderConfiguration = new XmlDataProviderConfigurationImpl("Settings/OpcConfiguration.xml");
             sensorConfiguration = new XmlSensorConfigurationImpl("Settings/SensorConfiguration.xml");            
 
-            //dataProvider = new OpcDataProviderImpl();            
-            dataProvider = new EmulatorDataProvider();
+            dataProvider = new OpcDataProviderImpl();            
+            //dataProvider = new EmulatorDataProvider();
             slabBuilder = new SlabBuilderImpl();
             dimentionCalculator = new DimentionCalculatorImpl();            
             sensorValueContainer = new SensorValueContainerImpl();
@@ -158,18 +160,23 @@ namespace Alvasoft.Server
 
             try {                
                 var currentSystemState = aDataProvider.GetCurrentSystemState();
-                if (IsEndOfScanning(currentSystemState)) {                    
-                    endSlabScanTime = DateTime.Now.ToBinary();
-                    StoreSensorValues();
-                    var slabId = GetNewSlabId();                    
-                    var slabModel = slabBuilder.BuildSlabModel();
-                    dimentionCalculator.CalculateDimentions(slabModel);                    
-                    var dimentionValues = dimentionValueContainer.GetDimentionValues();
-                    dimentionValueWriter.WriteDimentionValues(slabId, dimentionValues);
-                    UpdateStandartSizeId(slabId, DetermineStandartSize(dimentionValues));
+                if (IsEndOfScanning(currentSystemState)) {
+                    endSlabScanTime = DateTime.Now;
+                    if (endSlabScanTime - startSlabScanTime >= minimumScanTime) {
+                        var slabId = GetNewSlabId();
+                        StoreSensorValues(slabId);                        
+                        var slabModel = slabBuilder.BuildSlabModel();
+                        dimentionCalculator.CalculateDimentions(slabModel);
+                        var dimentionValues = dimentionValueContainer.GetDimentionValues();
+                        dimentionValueWriter.WriteDimentionValues(slabId, dimentionValues);
+                        UpdateStandartSizeId(slabId, DetermineStandartSize(dimentionValues));
+                    }
+                    else {
+                        logger.Info("Ложное срабатывание: сканирование длилось меньше временной отсечки.");
+                    }
                 }   
                 else { // начало сканирования.
-                    startSlabScanTime = DateTime.Now.ToBinary();
+                    startSlabScanTime = DateTime.Now;
                 }
 
                 lastSystemState = currentSystemState;
@@ -237,14 +244,14 @@ namespace Alvasoft.Server
             logger.Info("Уведомление о поступлении данных с датчиков в контейнер.");            
         }
 
-        private void StoreSensorValues()
+        private void StoreSensorValues(int aSlabId)
         {
-            logger.Info("Сохранение данных с датчиков.");
+            logger.Info("Сохранение данных с датчиков для слитка с идентификатором: " + aSlabId);
             try {
                 var sensorValues = sensorValueContainer.GetAllValues();
                 if (sensorValues != null && sensorValues.Length > 0) {
                     logger.Info("Данных для сохранения: " + sensorValues.Length);                    
-                    sensorValueReaderWriter.WriteSensorValueInfos(sensorValues);                    
+                    sensorValueReaderWriter.WriteSensorValueInfos(aSlabId, sensorValues);                    
                     logger.Info("Данные успешно сохранены в базу.");
                 }
             }
@@ -260,7 +267,7 @@ namespace Alvasoft.Server
 
         public int GetNewSlabId()
         {
-            return slabWriter.StoreNewSlab(startSlabScanTime, endSlabScanTime);
+            return slabWriter.StoreNewSlab(startSlabScanTime.ToBinary(), endSlabScanTime.ToBinary());
         }
 
         public void UpdateStandartSizeId(int aSlabId, int aStandartSizeId)
@@ -471,9 +478,10 @@ namespace Alvasoft.Server
 
         public SensorValue[] GetSensorValuesBySlabId(int aSlabId, int aSensorId)
         {
-            var slab = slabReader.GetSlabInfo(aSlabId);
+            //var slab = slabReader.GetSlabInfo(aSlabId);
             var sensorValues = sensorValueReaderWriter
-                .ReadSensorValueInfo(aSensorId, slab.GetStartScanTime(), slab.GetEndScanTime());
+                //.ReadSensorValueInfo(aSensorId, slab.GetStartScanTime(), slab.GetEndScanTime());
+                .ReadSensorValueInfo(aSensorId, aSlabId);
             var results = new List<SensorValue>();
             if (sensorValues != null) {
                 for (var i = 0; i < sensorValues.Length; ++i) {
