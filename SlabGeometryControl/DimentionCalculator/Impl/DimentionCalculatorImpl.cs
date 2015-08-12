@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Alvasoft.DimentionCalculator.Impl.Algorithms;
 using Alvasoft.DimentionConfiguration;
 using Alvasoft.DimentionValueContainer;
@@ -33,10 +34,15 @@ namespace Alvasoft.DimentionCalculator.Impl
             logger.Info("Вычисление параметров слитка...");
 
             foreach (var algorithm in algorithms) {
-                var result = algorithm.CalculateValue(aSlabModel);
-                var dimentionId = GetDimentionId(algorithm);
-                var dimentionValue = new DimentionValueImpl(dimentionId, result);
-                container.AddDimentionValue(dimentionValue);                
+                try {
+                    var result = algorithm.CalculateValue(aSlabModel);
+                    var dimentionId = GetDimentionId(algorithm);
+                    var dimentionValue = new DimentionValueImpl(dimentionId, result);
+                    container.AddDimentionValue(dimentionValue);
+                }
+                catch (Exception ex) {
+                    logger.Info(string.Format("Не удалось вычислить {0} слитка: {1}", algorithm.GetName(), ex.Message));
+                }
             }
 
             logger.Info("Вычисление закончено.");

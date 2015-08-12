@@ -81,6 +81,7 @@
     <Compile Include="DataProviderConfiguration\XmlImpl\OpcControlBlockImpl.cs" />
     <Compile Include="DataProviderConfiguration\XmlImpl\OpcSensorInfoImpl.cs" />
     <Compile Include="DataProviderConfiguration\XmlImpl\XmlDataProviderConfigurationImpl.cs" />
+    <Compile Include="DataProvider\Impl\CalibratorImpl.cs" />
     <Compile Include="DataProvider\Impl\ControlBlock.cs" />
     <Compile Include="DataProvider\Impl\DataProviderActivatorImpl.cs" />
     <Compile Include="DataProvider\Impl\Emulator\EmulatorDataProvider.cs" />
@@ -191,6 +192,9 @@
     <EmbeddedResource Include="DataWriter\NHibernateImpl\Mappings\SlabInfo.hbm.xml" />
     <EmbeddedResource Include="DataWriter\NHibernateImpl\Mappings\StandartSize.hbm.xml" />
     <EmbeddedResource Include="DataWriter\NHibernateImpl\Mappings\Regulation.hbm.xml" />
+    <Content Include="Settings\CalibratorConfiguration.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Settings\Emulator.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>

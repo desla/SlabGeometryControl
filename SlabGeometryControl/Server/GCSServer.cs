@@ -35,13 +35,14 @@ namespace Alvasoft.Server
     {
         private static readonly ILog logger = LogManager.GetLogger("Server");
 
-        private static readonly TimeSpan minimumScanTime = TimeSpan.FromSeconds(0);
+        private static readonly TimeSpan minimumScanTime = TimeSpan.FromSeconds(5);
 
         private XmlDataProviderConfigurationImpl dataProviderConfiguration;
         private XmlSensorConfigurationImpl sensorConfiguration;
         private NHibernateDimentionConfigurationImpl dimentionConfiguration;
 
-        private OpcDataProviderImpl dataProvider;        
+        private OpcDataProviderImpl dataProvider;
+        private CalibratorImpl calibrator;
         //private EmulatorDataProvider dataProvider;
         private SlabBuilderImpl slabBuilder;
         private DimentionCalculatorImpl dimentionCalculator;
@@ -74,7 +75,8 @@ namespace Alvasoft.Server
             dataProviderConfiguration = new XmlDataProviderConfigurationImpl("Settings/OpcConfiguration.xml");
             sensorConfiguration = new XmlSensorConfigurationImpl("Settings/SensorConfiguration.xml");            
 
-            dataProvider = new OpcDataProviderImpl();            
+            dataProvider = new OpcDataProviderImpl();        
+            calibrator = new CalibratorImpl();
             //dataProvider = new EmulatorDataProvider();
             slabBuilder = new SlabBuilderImpl();
             dimentionCalculator = new DimentionCalculatorImpl();            
@@ -95,7 +97,7 @@ namespace Alvasoft.Server
             dataProvider.SetDataProviderConfiguration(dataProviderConfiguration);
             dataProvider.SubscribeDataProviderListener(this);
 
-            slabBuilder.SetCalibrator(dataProvider);
+            slabBuilder.SetCalibrator(calibrator);
             slabBuilder.SetSensorConfiguration(sensorConfiguration);
             slabBuilder.SetSensorValueContainer(sensorValueContainer);            
 
@@ -107,8 +109,8 @@ namespace Alvasoft.Server
             userSlabBuilder = new SlabBuilderImpl();
             userSlabBuilder.SetSensorValueContainer(userSensorValueContainer);
             userSlabBuilder.SetSensorConfiguration(sensorConfiguration);
-            userSlabBuilder.SetCalibrator(dataProvider);
-
+            userSlabBuilder.SetCalibrator(calibrator);
+            
             dimentionConfiguration.Initialize();
             standartSizeReaderWriter.Initialize();
             regulationsReaderWriter.Initialize();
@@ -118,9 +120,10 @@ namespace Alvasoft.Server
             slabWriter.Initialize();
             dimentionValueWriter.Initialize();
             dimentionCalculator.Initialize();
-            slabBuilder.Initialize();
+            calibrator.Initialize();
+            slabBuilder.Initialize();            
+            userSlabBuilder.Initialize();            
             dataProvider.Initialize();
-            userSlabBuilder.Initialize();
 
             logger.Info("Инициализация завершена.");
         }
@@ -598,6 +601,11 @@ namespace Alvasoft.Server
         public void AddOpcSensorTag(int aSensorId, string aTagValue, string aTagName)
         {
             throw new NotImplementedException();
+        }
+
+        public void SerCalibratedValue(int aSensorId, double aCalibratedValue)
+        {
+            calibrator.SetCalibratedValue(aSensorId, aCalibratedValue);
         }
     }
 }

@@ -29,6 +29,7 @@ namespace Alvasoft.DataProviderConfiguration.XmlImpl
         private const string TIMES_TAG = "times";
         private const string TIME_ACTIVATOR_TAG = "syncDateTimeActivator";
         private const string TIME_FOR_SYNC_TAG = "dateTimeForSync";
+        private const string CALIBRATED_VALUE = "calibratedValue";
         
         private string xmlFileName = "Settings/OpcConfiguration.xml";
         private List<IOpcSensorInfo> opcSensorInfos = new List<IOpcSensorInfo>();
@@ -130,7 +131,7 @@ namespace Alvasoft.DataProviderConfiguration.XmlImpl
             logger.Info("Инициализация...");
             var document = new XmlDocument();
             document.Load(xmlFileName);
-            LoadFromXmlNode(document.DocumentElement);
+            LoadFromXmlNode(document.DocumentElement);            
             logger.Info("Инициализация завершена.");
         }
 
@@ -236,7 +237,7 @@ namespace Alvasoft.DataProviderConfiguration.XmlImpl
                         break;
                     case SENSOR_VALUES_LIST:
                         sensorInfo.ValuesListTag = item.InnerText;
-                        break;
+                        break;                    
                 }
             }
 

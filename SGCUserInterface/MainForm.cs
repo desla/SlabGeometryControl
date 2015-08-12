@@ -152,9 +152,7 @@ namespace SGCUserInterface
                                     };
                                     try {
                                         var newRowIndex = dataGridView1.Rows.Add(row);
-                                        if (!isAccepted) {
-                                            dataGridView1.Rows[newRowIndex].DefaultCellStyle.BackColor = Color.LightGray;
-                                        }
+                                        UpdateRegulationAccepted(newRowIndex, slabInfo);
                                     }
                                     catch {
                                     }
@@ -200,15 +198,17 @@ namespace SGCUserInterface
                 if (dimentionResults != null) {
                     for (var i = 0; i < slabsList.Regulations.Length; ++i) {
                         var regulation = slabsList.Regulations[i];
-                        for (var j = 0; j < dimentionResults.Length; ++j) {
-                            var dimentionResult = dimentionResults[j];
-                            if (dimentionResult.DimentionId == regulation.DimentionId) {
-                                if (dimentionResult.Value < regulation.MinValue ||
-                                    dimentionResult.Value > regulation.MaxValue) {
-                                    return false;
-                                }
-                            } // if
-                        } // for
+                        if (regulation.StandartSizeId == aSlabInfo.StandartSizeId) {
+                            for (var j = 0; j < dimentionResults.Length; ++j) {
+                                var dimentionResult = dimentionResults[j];
+                                if (dimentionResult.DimentionId == regulation.DimentionId) {
+                                    if (dimentionResult.Value < regulation.MinValue ||
+                                        dimentionResult.Value > regulation.MaxValue) {
+                                        return false;
+                                    }
+                                } // if
+                            } // for
+                        }                        
                     } // for
                 } // if                
             } // if
@@ -227,6 +227,20 @@ namespace SGCUserInterface
             if (!Equals(row.Cells["StandartSize"].Value, standartSizeText)) {
                 row.Cells["StandartSize"].Value = standartSizeText;
                 row.Cells["standartSizeId"].Value = aSlabInfo.StandartSizeId;
+                UpdateRegulationAccepted(aRowIndex, aSlabInfo);
+            }
+        }
+
+        private void UpdateRegulationAccepted(int aRowIndex, SlabInfo aSlabInfo)
+        {
+            var row = dataGridView1.Rows[aRowIndex];
+            if (CheckRegulationsAccepted(aSlabInfo)) {                
+                row.Cells["Accepted"].Value = "Соответствует";
+                row.DefaultCellStyle.BackColor = Color.White;
+            }
+            else {
+                row.Cells["Accepted"].Value = "Не соответствует";
+                row.DefaultCellStyle.BackColor = Color.LightGray;
             }
         }
 
@@ -532,6 +546,11 @@ namespace SGCUserInterface
         private void подключениеToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new ConnectionSettingsForm().ShowDialog();
+        }
+
+        private void калибровкаДатчиковToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new CalibrationForm(client).ShowDialog();
         }
     }
 }

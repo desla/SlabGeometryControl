@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Alvasoft.SlabGeometryControl;
+using SGCUserInterface.Filters;
 using SGCUserInterface.SlabVisualizationFormPrimitivs;
 using Tao.FreeGlut;
 using Tao.OpenGl;
@@ -22,7 +23,8 @@ namespace SGCUserInterface
         private int slabId = -1;
         private int standartSizeId = -1;
         private BackgroundWorker loader = new BackgroundWorker();
-        private ProgressShower progressShower = null;        
+        private ProgressShower progressShower = null;
+        private int plotIndex = 0;
 
         // Параметры для отрисовки графиков.
         private SensorInfo[] sensors = null;
@@ -33,7 +35,7 @@ namespace SGCUserInterface
         private SlabModel3D slabModel = null;
         private int translateX = 0;
         private int translateY = 0;
-        private int translateZ = -10000;
+        private int translateZ = -5000;
         private int angleX = 15;
         private int angleY = 70;
         private int angleZ = 0;        
@@ -43,6 +45,9 @@ namespace SGCUserInterface
         private int lastPositionY = 0;
         private int lastAngleX = 0;
         private int lastAngleY = 0;
+
+        private List<LineItem> plotLines = new List<LineItem>();
+        private List<LineItem> filteredLines = new List<LineItem>();
 
         private List<DimentionGraphicPrimitiveBase> dimentions = new List<DimentionGraphicPrimitiveBase>();
         private int greenDimentionsCount = 0;
@@ -95,19 +100,21 @@ namespace SGCUserInterface
                     InitializeDimentionsGlObjects();
                     InitializeGlObjects();                    
                     ShowModel();
-                }
-
+                }                               
+            }
+            catch (Exception ex) {
+                //MessageBox.Show(@"Ошибка при построении модели: " + ex.Message);
+            } 
+            finally {
                 if (progressShower != null) {
                     progressShower.Dispose();
                     progressShower = null;
-                }                
-            }
-            catch {
-            }
+                }
 
-            for (var i = 0; i < this.Controls.Count; ++i) {
-                Controls[i].Show();
-            }
+                for (var i = 0; i < this.Controls.Count; ++i) {
+                    Controls[i].Show();
+                }
+            }            
         }
 
         private void InitializeDimentionsGlObjects()
@@ -349,7 +356,7 @@ namespace SGCUserInterface
             pane.XAxis.MinorGrid.IsVisible = true;
             // Аналогично задаем вид пунктирной линии для крупных рисок по оси Y
             pane.XAxis.MinorGrid.DashOn = 1;
-            pane.XAxis.MinorGrid.DashOff = 2;
+            pane.XAxis.MinorGrid.DashOff = 2;            
         }        
 
         private void ShowPlots()
@@ -362,15 +369,32 @@ namespace SGCUserInterface
             }
 
             var pane = plotsView.GraphPane;
-            for (var i = 0; i < points.Length - 1; ++i) {
-                if (points[i] != null) {
-                    Text = "Точек всего: " + points[i].Length;
+            for (var i = 0; i < points.Length; ++i) {
+                if (points[i] != null) {                                        
                     for (var j = 0; j < points[i].Length; ++j) {
                         pane.CurveList[i].AddPoint(points[i][j].X / 1000, points[i][j].Y);
                     }
                 }
+
+                HidePlotLine(i);
             }
 
+            for (var i = 0; i < points.Length; ++i) {
+                if (points[i] != null) {
+                    var rattledPoints = new RattleFilter().Filter(points[i]);                    
+                    var result = rattledPoints;
+                    for (var j = 0; j < result.Length; ++j) {
+                        pane.CurveList[points.Length + i].AddPoint(result[j].X / 1000, result[j].Y);
+                    }
+                }
+
+                HidePlotLine(i);
+            }
+
+            if (points.Length > 0) {
+                ShowPlotLine(0);
+            }            
+                        
             plotsView.AxisChange();
             plotsView.Invalidate();
         }
@@ -380,15 +404,31 @@ namespace SGCUserInterface
             if (sensors == null) {
                 return;
             }
-            
-            for (var i = 0; i < sensors.Length; ++i) {
-                var pane = plotsView.GraphPane;
-                pane.AddCurve(
+
+            var pane = plotsView.GraphPane;
+            for (var i = 0; i < sensors.Length; ++i) {                
+                var curve = pane.AddCurve(
                     sensors[i].Name,
                     new PointPairList(),
                     Color.FromArgb(rnd.Next(255), rnd.Next(255), rnd.Next(255)),
-                    SymbolType.None);               
-            }                                    
+                    SymbolType.None);
+                curve.Line.IsSmooth = true;
+                curve.Line.SmoothTension = 0;
+                curve.Line.IsAntiAlias = true;
+                plotLines.Add(curve);
+            }
+            for (var i = 0; i < sensors.Length; ++i) {
+                var curve = pane.AddCurve(
+                    sensors[i].Name + "_Filtered",
+                    new PointPairList(),
+                    Color.FromArgb(rnd.Next(255), rnd.Next(255), rnd.Next(255)),
+                    SymbolType.None);
+                curve.Line.IsSmooth = true;
+                curve.Line.SmoothTension = 0;
+                curve.Line.IsAntiAlias = true;
+                filteredLines.Add(curve);
+            }
+
         }
 
         private void ShowModel()
@@ -791,6 +831,114 @@ namespace SGCUserInterface
             translateX = 0;
             translateY = 0;
             ShowModel();
+        }               
+
+        private void leftButton_Click(object sender, EventArgs e)
+        {
+            HidePlotLine(plotIndex);
+            plotIndex = (plotIndex == 0 ? plotLines.Count - 1 : plotIndex - 1);
+            ShowPlotLine(plotIndex);
+
+            plotsView.AxisChange();
+            plotsView.Invalidate();
         }
+
+        private void rightButton_Click(object sender, EventArgs e)
+        {
+            HidePlotLine(plotIndex);
+            plotIndex = (plotIndex == plotLines.Count - 1 ? 0 : plotIndex + 1);            
+            ShowPlotLine(plotIndex);
+            
+            plotsView.AxisChange();
+            plotsView.Invalidate();
+        }
+
+        private void ShowPlotLine(int aPlotIndex)
+        {
+            plotLines[aPlotIndex].IsVisible = true;
+            plotLines[aPlotIndex].Label.IsVisible = true;
+            Text = @"Всего точек: " + plotLines[aPlotIndex].Points.Count;
+
+            if (bumpingFilterCheckBox.Checked) {
+                filteredLines[aPlotIndex].IsVisible = true;
+                filteredLines[aPlotIndex].Label.IsVisible = true;
+            }
+            else {
+                filteredLines[aPlotIndex].IsVisible = false;
+                filteredLines[aPlotIndex].Label.IsVisible = false;
+            }
+        }
+
+        private void HidePlotLine(int aPlotIndex)
+        {
+            plotLines[aPlotIndex].IsVisible = false;
+            plotLines[aPlotIndex].Label.IsVisible = false;            
+            filteredLines[aPlotIndex].IsVisible = false;
+            filteredLines[aPlotIndex].Label.IsVisible = false;            
+        }
+
+        private void isAllPlotShowCheckedBox_CheckedChanged(object sender, EventArgs e)
+        {            
+            if (isAllPlotShowCheckedBox.Checked) {
+                leftButton.Enabled = false;
+                rightButton.Enabled = false;
+                for (var i = 0; i < plotLines.Count; ++i) {                    
+                    ShowPlotLine(i);
+                }
+            }
+            else {
+                leftButton.Enabled = true;
+                rightButton.Enabled = true;
+                for (var i = 0; i < plotLines.Count; ++i) {
+                    HidePlotLine(i);                    
+                }
+
+                ShowPlotLine(plotIndex);
+            }
+
+            plotsView.AxisChange();
+            plotsView.Invalidate();
+        }
+
+        private void isShowNodesCheckedBox_CheckedChanged(object sender, EventArgs e)
+        {
+            foreach (var plotLine in plotLines) {
+                var color = plotLine.Color;
+                if (isShowNodesCheckedBox.Checked) {
+                    plotLine.Symbol = new Symbol(SymbolType.Triangle, color);
+                }
+                else {
+                    plotLine.Symbol = new Symbol(SymbolType.None, color);
+                }
+            }
+
+            plotsView.AxisChange();
+            plotsView.Invalidate();
+        }
+
+        private void smoothNumeric_ValueChanged(object sender, EventArgs e)
+        {
+            foreach (var plotLine in plotLines) {
+                plotLine.Line.SmoothTension = (float)smoothNumeric.Value;
+            }
+
+            plotsView.AxisChange();
+            plotsView.Invalidate();
+        }
+
+        private void bumpingFilterCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (isAllPlotShowCheckedBox.Checked) {
+                for (var i = 0; i < plotLines.Count; ++i) {
+                    ShowPlotLine(i);
+                }
+            }
+            else {
+                ShowPlotLine(plotIndex);
+            }
+
+            plotsView.AxisChange();
+            plotsView.Invalidate();
+        }        
     }
 }

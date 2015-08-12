@@ -13,11 +13,28 @@
   </control>
   <sensors>
     <sensor>
-      <name>Top_0</name>
-      <!--Список тегов-->
+      <name>Top_0</name>      
       <enable>S7:[S7 connection_1]IsEnableSensorDb11</enable>
       <currentValue>S7:[S7 connection_1]CurrentValueDb11</currentValue>
-      <sensorValuesList>S7:[S7 connection_1]SensorValuesDb11</sensorValuesList>
+      <sensorValuesList>S7:[S7 connection_1]SensorValuesDb11</sensorValuesList>      
+    </sensor>
+    <sensor>
+      <name>Bottom_0</name>      
+      <enable>S7:[S7 connection_1]IsEnableSensorDb12</enable>
+      <currentValue>S7:[S7 connection_1]CurrentValueDb12</currentValue>
+      <sensorValuesList>S7:[S7 connection_1]SensorValuesDb12</sensorValuesList>
+    </sensor>
+    <sensor>
+      <name>Left_0</name>
+      <enable>S7:[S7 connection_1]IsEnableSensorDb13</enable>
+      <currentValue>S7:[S7 connection_1]CurrentValueDb13</currentValue>
+      <sensorValuesList>S7:[S7 connection_1]SensorValuesDb13</sensorValuesList>
+    </sensor>
+    <sensor>
+      <name>Right_0</name>
+      <enable>S7:[S7 connection_1]IsEnableSensorDb14</enable>
+      <currentValue>S7:[S7 connection_1]CurrentValueDb14</currentValue>
+      <sensorValuesList>S7:[S7 connection_1]SensorValuesDb14</sensorValuesList>
     </sensor>
   </sensors>  
 </configuration>

@@ -62,7 +62,7 @@ namespace SGCUserInterface
                 loader.RunWorkerAsync();
 
                 loaderStarter.Tick += StartLoader;
-                loaderStarter.Interval = 1;
+                loaderStarter.Interval = 1000;
                 loaderStarter.Start();
             }            
         }
@@ -137,12 +137,14 @@ namespace SGCUserInterface
                     var sensors = information.Sensors;
                     var sensorPercents = 100/sensors.Length;
                     for (var i = 0; i < sensors.Length; ++i) {
-                        var sensor = sensors[i];
-                        var sensorValue = client.GetSensorValueBySensorId(sensor.Id);
-                        if (sensorValue != null) {
-                            information.Values[i] = sensorValue.Value;
-                            loader.ReportProgress(i*sensorPercents);
-                        }
+                        if (sensors[i].SensorType != SensorType.POSITION) {
+                            var sensor = sensors[i];
+                            var sensorValue = client.GetSensorValueBySensorId(sensor.Id);
+                            if (sensorValue != null) {
+                                information.Values[i] = sensorValue.Value;
+                                loader.ReportProgress(i * sensorPercents);
+                            }
+                        }                        
                     }
                 }
             }

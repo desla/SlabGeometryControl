@@ -13,6 +13,8 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs
         private static readonly Color calloutColor = System.Drawing.Color.LightGray;
         private static readonly Color selectedCalloutColor = System.Drawing.Color.DarkGray;
 
+        protected const double SphereSize = 20;
+
         public DimentionResult Result { get; set; }
 
         public Dimention Dimention { get; set; }

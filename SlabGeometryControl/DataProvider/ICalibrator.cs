@@ -16,6 +16,13 @@
         /// </summary>
         /// <param name="aSensorId">Идентификатор датчика.</param>
         /// <returns>Калибровочное значение.</returns>
-        double GetCalibratedValueBySensorId(int aSensorId);
+        double GetCalibratedValue(int aSensorId);
+
+        /// <summary>
+        /// Устанавливает калибровочное значение для датчика.
+        /// </summary>
+        /// <param name="aSensorId">Идентификатор датчика.</param>
+        /// <param name="aCalibratedValue">Калибровочное значение.</param>
+        void SetCalibratedValue(int aSensorId, double aCalibratedValue);
     }
 }

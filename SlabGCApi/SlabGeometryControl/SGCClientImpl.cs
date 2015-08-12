@@ -160,6 +160,12 @@ namespace Alvasoft.SlabGeometryControl
             ServerInstance.AddOpcSensorTag(GetSessionId(), aSensorId, aTagValue, aTagName);
         }
 
+        public void SetCalibratedValue(int aSensorId, double aCalibratedValue)
+        {
+            CheckConnection();
+            ServerInstance.SetCalibratedValue(GetSessionId(), aSensorId, aCalibratedValue);
+        }
+
         protected override void LogInfo(string aInfoMessage)
         {
             logger.Info(aInfoMessage);

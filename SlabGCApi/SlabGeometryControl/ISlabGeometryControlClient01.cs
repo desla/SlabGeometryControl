@@ -232,6 +232,15 @@
         [OperationContract]
         void AddOpcSensorTag(long aSessionId, int aSensorId, string aTagValue, string aTagName);
 
+        /// <summary>
+        /// Устанавливает калибровочное значение для датчика.
+        /// </summary>
+        /// <param name="aSessionId">Идентификатор сессии клиента.</param>
+        /// <param name="aSensorId">Идентификатор датчика.</param>
+        /// <param name="aCalibratedValue">Калибровочное значение.</param>
+        [OperationContract]
+        void SetCalibratedValue(long aSessionId, int aSensorId, double aCalibratedValue);
+
         #endregion
     }
 }

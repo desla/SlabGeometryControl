@@ -21,10 +21,6 @@ namespace Alvasoft.SlabBuilder.Impl
         private ISensorValueContainer container;
         private ICalibrator calibrator;
 
-        private bool isCalibrated = false;
-        private Dictionary<int, double> calibratedValue;
-
-
         public void SetSensorConfiguration(ISensorConfiguration aConfiguration)
         {
             if (aConfiguration == null) {
@@ -123,31 +119,22 @@ namespace Alvasoft.SlabBuilder.Impl
 
         protected override void DoInitialize()
         {
-            logger.Info("Инициализация...");
-            calibratedValue = new Dictionary<int, double>();
+            logger.Info("Инициализация...");            
             for (var i = 0; i < configuration.GetSensorInfoCount(); ++i) {
-                var sensorInfo = configuration.ReadSensorInfoByIndex(i);
-                calibratedValue[sensorInfo.GetId()] = 
-                    calibrator.GetCalibratedValueBySensorId(sensorInfo.GetId());
+                var sensorInfo = configuration.ReadSensorInfoByIndex(i);                
             }
             logger.Info("Инициализация завершена.");
         }
 
         protected override void DoUninitialize()
         {
-            logger.Info("Деинициализация...");
-            calibratedValue.Clear();
+            logger.Info("Деинициализация...");            
             logger.Info("Деинициализация завершена.");
         }
 
         public void OnSensorCreated(ISensorConfiguration aConfiguration, int aSensorId)
-        {
-            isCalibrated = false;
-            if (calibrator == null) {
-                throw new ArgumentException("Нет возможности получить значения калибратора.");
-            }
-            calibratedValue[aSensorId] = calibrator.GetCalibratedValueBySensorId(aSensorId);
-            isCalibrated = true;
+        {            
+            throw new NotImplementedException();
         }
 
         public void OnSensorUpdated(ISensorConfiguration aConfiguration, int aSensorId)
@@ -191,7 +178,7 @@ namespace Alvasoft.SlabBuilder.Impl
                     positionValues, 
                     container.GetSensorValuesBySensorId(sensor.GetId()),
                     sensor.GetShift(),
-                    calibratedValue[sensor.GetId()] / 2.0);
+                    calibrator.GetCalibratedValue(sensor.GetId()) / 2.0);
 
                 MoveToZeroOnZ(aSlab.TopLines[i]);
             }
@@ -228,7 +215,7 @@ namespace Alvasoft.SlabBuilder.Impl
                     positionValues,
                     container.GetSensorValuesBySensorId(sensor.GetId()),
                     sensor.GetShift(),
-                    calibratedValue[sensor.GetId()] / 2.0);
+                    calibrator.GetCalibratedValue(sensor.GetId()) / 2.0);
 
                 MoveToZeroOnZ(aSlab.BottomLines[i]);
             }
@@ -265,7 +252,7 @@ namespace Alvasoft.SlabBuilder.Impl
                     positionValues,
                     container.GetSensorValuesBySensorId(sensor.GetId()),
                     sensor.GetShift(),
-                    calibratedValue[sensor.GetId()] / 2.0);
+                    calibrator.GetCalibratedValue(sensor.GetId()) / 2.0);
 
                 MoveToZeroOnZ(aSlab.LeftLines[i]);
             }
@@ -302,7 +289,7 @@ namespace Alvasoft.SlabBuilder.Impl
                     positionValues,
                     container.GetSensorValuesBySensorId(sensor.GetId()),
                     sensor.GetShift(),
-                    calibratedValue[sensor.GetId()] / 2.0);
+                    calibrator.GetCalibratedValue(sensor.GetId()) / 2.0);
 
                 MoveToZeroOnZ(aSlab.RightLines[i]);
             }

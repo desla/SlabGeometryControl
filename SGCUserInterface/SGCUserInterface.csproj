@@ -74,6 +74,12 @@
     <Compile Include="AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="CalibrationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CalibrationForm.Designer.cs">
+      <DependentUpon>CalibrationForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Connection.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -98,6 +104,9 @@
     <Compile Include="EditOpcTagsForm.Designer.cs">
       <DependentUpon>EditOpcTagsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Filters\RattleFilter.cs" />
+    <Compile Include="Filters\ShiftingFilter.cs" />
+    <Compile Include="Filters\IFilter.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -160,6 +169,9 @@
     <Compile Include="SystemInformation.cs" />
     <EmbeddedResource Include="AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CalibrationForm.resx">
+      <DependentUpon>CalibrationForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ConnectionSettingsForm.resx">
       <DependentUpon>ConnectionSettingsForm.cs</DependentUpon>
@@ -250,6 +262,7 @@
   <ItemGroup>
     <None Include="Resources\kub_icon_top.bmp" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

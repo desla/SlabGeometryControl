@@ -39,7 +39,7 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs
                 Gl.glDisable(Gl.GL_LINE_SMOOTH);
                 Gl.glDisable(Gl.GL_BLEND);
             }
-            Glut.glutSolidSphere(40, 15, 15);
+            Glut.glutSolidSphere(SphereSize, 15, 15);
             if (aIsSmoothEnable) {
                 Gl.glEnable(Gl.GL_MULTISAMPLE_ARB);
                 Gl.glEnable(Gl.GL_LINE_SMOOTH);

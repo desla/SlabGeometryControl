@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Alvasoft.SlabGeometryControl;
 using Alvasoft.Utils.Mathematic3D;
+using log4net.Repository.Hierarchy;
 using NHibernate.Mapping;
 
 namespace Alvasoft.SlabBuilder.Impl
@@ -51,13 +52,14 @@ namespace Alvasoft.SlabBuilder.Impl
 
         public Point3D GetTopSidePoint(double aX, double aZ)
         {
-            if (aX < GetLeftLimit() || aX > GetRightLimit() ||
+            if (//aX < GetLeftLimit() || aX > GetRightLimit() ||
                 aZ < 0 || aZ > GetLengthLimit()) {
                 throw new ArgumentException("Точка выходит за пределы слитка.");
             }            
 
             if (aX <= TopLines[0][0].X) {
                 var leftPointIndex = GetLowerBoundPoint(TopLines[0], aZ);
+                Console.WriteLine("========================> " + leftPointIndex);
                 var rightPointIndex = TopLines[0].Length - 1;
                 if (leftPointIndex != TopLines[0].Length - 1) {
                     rightPointIndex = leftPointIndex + 1;
@@ -70,7 +72,8 @@ namespace Alvasoft.SlabBuilder.Impl
                 }                
                 return new Point3D {
                     X = aX, 
-                    Y = leftPoint.Y + difference * (rightPoint.Y - leftPoint.Y),
+                    //Y = leftPoint.Y + difference * (rightPoint.Y - leftPoint.Y),
+                    Y = leftPoint.Y,
                     Z = aZ
                 };
             } 
@@ -88,7 +91,8 @@ namespace Alvasoft.SlabBuilder.Impl
                 }   
                 return new Point3D {
                     X = aX,
-                    Y = leftPoint.Y + difference*(rightPoint.Y - leftPoint.Y),
+                    //Y = leftPoint.Y + difference*(rightPoint.Y - leftPoint.Y),
+                    Y = leftPoint.Y,
                     Z = aZ
                 };
             }
@@ -120,7 +124,8 @@ namespace Alvasoft.SlabBuilder.Impl
                 difference = (aX - rightPointLeftLine.X)/(rightPointRightLine.X - rightPointLeftLine.X);
                 return new Point3D {
                     X = aX,
-                    Y = leftY + difference*(rightY - leftY),
+                    //Y = leftY + difference*(rightY - leftY),
+                    Y = leftY,
                     Z = aZ
                 };
             }            
@@ -128,13 +133,14 @@ namespace Alvasoft.SlabBuilder.Impl
 
         public Point3D GetBottomSidePoint(double aX, double aZ)
         {
-            if (aX < GetLeftLimit() || aX > GetRightLimit() ||
+            if (//aX < GetLeftLimit() || aX > GetRightLimit() ||
                 aZ < 0 || aZ > GetLengthLimit()) {
                 throw new ArgumentException("Точка выходит за пределы слитка.");
             }
 
             if (aX <= BottomLines[0][0].X) {
                 var leftPointIndex = GetLowerBoundPoint(BottomLines[0], aZ);
+                Console.WriteLine("========================> " + leftPointIndex);
                 var rightPointIndex = BottomLines[0].Length - 1;
                 if (leftPointIndex != BottomLines[0].Length - 1) {
                     rightPointIndex = leftPointIndex + 1;
@@ -147,7 +153,8 @@ namespace Alvasoft.SlabBuilder.Impl
                 }
                 return new Point3D {
                     X = aX,
-                    Y = leftPoint.Y + difference * (rightPoint.Y - leftPoint.Y),
+                    //Y = leftPoint.Y + difference * (rightPoint.Y - leftPoint.Y),
+                    Y = leftPoint.Y,
                     Z = aZ
                 };
             }
@@ -165,7 +172,8 @@ namespace Alvasoft.SlabBuilder.Impl
                 }
                 return new Point3D {
                     X = aX,
-                    Y = leftPoint.Y + difference * (rightPoint.Y - leftPoint.Y),
+                    //Y = leftPoint.Y + difference * (rightPoint.Y - leftPoint.Y),
+                    Y = leftPoint.Y,
                     Z = aZ
                 };
             }
@@ -197,7 +205,8 @@ namespace Alvasoft.SlabBuilder.Impl
                 difference = (aX - rightPointLeftLine.X) / (rightPointRightLine.X - rightPointLeftLine.X);
                 return new Point3D {
                     X = aX,
-                    Y = leftY + difference * (rightY - leftY),
+                    //Y = leftY + difference * (rightY - leftY),
+                    Y = leftY,
                     Z = aZ
                 };
             }

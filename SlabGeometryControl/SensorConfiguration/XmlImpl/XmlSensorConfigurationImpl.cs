@@ -17,6 +17,7 @@ namespace Alvasoft.SensorConfiguration.XmlImpl
         private const string SENSOR_TYPE = "type";
         private const string SENSOR_SIDE = "side";
         private const string SENSOR_SHIFT = "shift";
+        private const string SENSOR_ID = "id";
 
         private string xmlFileName = "Settings/SensorConfiguration.xml";
         private List<ISensorInfo> sensorInfos = new List<ISensorInfo>();
@@ -141,7 +142,7 @@ namespace Alvasoft.SensorConfiguration.XmlImpl
 
         private ISensorInfo LoadSensor(XmlNode aSensorNode)
         {
-            var sensorId = sensorInfos.Count;
+            var sensorId = -1;
             var sensorName = "";
             var sensorType = SensorType.POSITION;
             var sensorSide = SensorSide.TOP;
@@ -149,7 +150,10 @@ namespace Alvasoft.SensorConfiguration.XmlImpl
             var items = aSensorNode.ChildNodes;
             for (var i = 0; i < items.Count; ++i) {
                 var item = items[i];
-                switch (item.Name) {                    
+                switch (item.Name) {
+                    case SENSOR_ID:
+                        sensorId = Convert.ToInt32(item.InnerText);
+                        break;
                     case SENSOR_NAME:
                         sensorName = item.InnerText;
                         break;

@@ -336,6 +336,18 @@ namespace Alvasoft.Server
             }            
         }
 
+        public void SetCalibratedValue(long aSessionId, int aSensorId, double aCalibratedValue)
+        {
+            try {
+                logger.Debug("Сессия: " + aSessionId + " " +
+                             "Запрос SetCalibratedValue(" + aSensorId + ", " + aCalibratedValue + ")");
+                gcsServer.SerCalibratedValue(aSensorId, aCalibratedValue);
+            }
+            catch (Exception ex) {
+                logger.Error("Сессия: " + aSensorId + " Ошибка: " + ex.Message);
+            }
+        }
+
         public void Dispose()
         {
             if (gcsServer.IsInitialized()) {

@@ -30,6 +30,15 @@
             this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.plotsPage = new System.Windows.Forms.TabPage();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.bumpingFilterCheckBox = new System.Windows.Forms.CheckBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.smoothNumeric = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
+            this.isShowNodesCheckedBox = new System.Windows.Forms.CheckBox();
+            this.isAllPlotShowCheckedBox = new System.Windows.Forms.CheckBox();
+            this.rightButton = new System.Windows.Forms.Button();
+            this.leftButton = new System.Windows.Forms.Button();
             this.plotsView = new ZedGraph.ZedGraphControl();
             this.slabModelPage = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -54,6 +63,8 @@
             this.modelPanel = new Tao.Platform.Windows.SimpleOpenGlControl();
             this.tabControl1.SuspendLayout();
             this.plotsPage.SuspendLayout();
+            this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.smoothNumeric)).BeginInit();
             this.slabModelPage.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -72,6 +83,7 @@
             // 
             // plotsPage
             // 
+            this.plotsPage.Controls.Add(this.panel4);
             this.plotsPage.Controls.Add(this.plotsView);
             this.plotsPage.Location = new System.Drawing.Point(4, 22);
             this.plotsPage.Name = "plotsPage";
@@ -81,10 +93,127 @@
             this.plotsPage.Text = "Показания датчиков";
             this.plotsPage.UseVisualStyleBackColor = true;
             // 
+            // panel4
+            // 
+            this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel4.BackColor = System.Drawing.Color.White;
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.bumpingFilterCheckBox);
+            this.panel4.Controls.Add(this.label4);
+            this.panel4.Controls.Add(this.smoothNumeric);
+            this.panel4.Controls.Add(this.label3);
+            this.panel4.Controls.Add(this.isShowNodesCheckedBox);
+            this.panel4.Controls.Add(this.isAllPlotShowCheckedBox);
+            this.panel4.Controls.Add(this.rightButton);
+            this.panel4.Controls.Add(this.leftButton);
+            this.panel4.Location = new System.Drawing.Point(547, 6);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(165, 196);
+            this.panel4.TabIndex = 3;
+            // 
+            // bumpingFilterCheckBox
+            // 
+            this.bumpingFilterCheckBox.AutoSize = true;
+            this.bumpingFilterCheckBox.Location = new System.Drawing.Point(3, 159);
+            this.bumpingFilterCheckBox.Name = "bumpingFilterCheckBox";
+            this.bumpingFilterCheckBox.Size = new System.Drawing.Size(66, 17);
+            this.bumpingFilterCheckBox.TabIndex = 8;
+            this.bumpingFilterCheckBox.Text = "Фильтр";
+            this.bumpingFilterCheckBox.UseVisualStyleBackColor = true;
+            this.bumpingFilterCheckBox.CheckedChanged += new System.EventHandler(this.bumpingFilterCheckBox_CheckedChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(36, 6);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(83, 13);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "Выбор датчика";
+            // 
+            // smoothNumeric
+            // 
+            this.smoothNumeric.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.smoothNumeric.DecimalPlaces = 1;
+            this.smoothNumeric.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.smoothNumeric.Location = new System.Drawing.Point(3, 117);
+            this.smoothNumeric.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.smoothNumeric.Name = "smoothNumeric";
+            this.smoothNumeric.Size = new System.Drawing.Size(154, 20);
+            this.smoothNumeric.TabIndex = 6;
+            this.smoothNumeric.ValueChanged += new System.EventHandler(this.smoothNumeric_ValueChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(0, 101);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(119, 13);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Степень сглаживания";
+            // 
+            // isShowNodesCheckedBox
+            // 
+            this.isShowNodesCheckedBox.AutoSize = true;
+            this.isShowNodesCheckedBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.isShowNodesCheckedBox.Location = new System.Drawing.Point(3, 74);
+            this.isShowNodesCheckedBox.Name = "isShowNodesCheckedBox";
+            this.isShowNodesCheckedBox.Size = new System.Drawing.Size(145, 17);
+            this.isShowNodesCheckedBox.TabIndex = 4;
+            this.isShowNodesCheckedBox.Text = "Показывать узлы точек";
+            this.isShowNodesCheckedBox.UseVisualStyleBackColor = true;
+            this.isShowNodesCheckedBox.CheckedChanged += new System.EventHandler(this.isShowNodesCheckedBox_CheckedChanged);
+            // 
+            // isAllPlotShowCheckedBox
+            // 
+            this.isAllPlotShowCheckedBox.AutoSize = true;
+            this.isAllPlotShowCheckedBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.isAllPlotShowCheckedBox.Location = new System.Drawing.Point(3, 51);
+            this.isAllPlotShowCheckedBox.Name = "isAllPlotShowCheckedBox";
+            this.isAllPlotShowCheckedBox.Size = new System.Drawing.Size(153, 17);
+            this.isAllPlotShowCheckedBox.TabIndex = 3;
+            this.isAllPlotShowCheckedBox.Text = "Показывать все графики";
+            this.isAllPlotShowCheckedBox.UseVisualStyleBackColor = true;
+            this.isAllPlotShowCheckedBox.CheckedChanged += new System.EventHandler(this.isAllPlotShowCheckedBox_CheckedChanged);
+            // 
+            // rightButton
+            // 
+            this.rightButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.rightButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.rightButton.Location = new System.Drawing.Point(84, 22);
+            this.rightButton.Name = "rightButton";
+            this.rightButton.Size = new System.Drawing.Size(74, 23);
+            this.rightButton.TabIndex = 2;
+            this.rightButton.Text = ">";
+            this.rightButton.UseVisualStyleBackColor = false;
+            this.rightButton.Click += new System.EventHandler(this.rightButton_Click);
+            // 
+            // leftButton
+            // 
+            this.leftButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.leftButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.leftButton.Location = new System.Drawing.Point(4, 22);
+            this.leftButton.Name = "leftButton";
+            this.leftButton.Size = new System.Drawing.Size(74, 23);
+            this.leftButton.TabIndex = 1;
+            this.leftButton.Text = "<";
+            this.leftButton.UseVisualStyleBackColor = false;
+            this.leftButton.Click += new System.EventHandler(this.leftButton_Click);
+            // 
             // plotsView
             // 
-            this.plotsView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.plotsView.Location = new System.Drawing.Point(3, 3);
+            this.plotsView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.plotsView.Location = new System.Drawing.Point(0, 0);
             this.plotsView.Name = "plotsView";
             this.plotsView.ScrollGrace = 0D;
             this.plotsView.ScrollMaxX = 0D;
@@ -93,7 +222,7 @@
             this.plotsView.ScrollMinX = 0D;
             this.plotsView.ScrollMinY = 0D;
             this.plotsView.ScrollMinY2 = 0D;
-            this.plotsView.Size = new System.Drawing.Size(709, 474);
+            this.plotsView.Size = new System.Drawing.Size(719, 480);
             this.plotsView.TabIndex = 0;
             this.plotsView.ContextMenuBuilder += new ZedGraph.ZedGraphControl.ContextMenuBuilderEventHandler(this.plotsView_ContextMenuBuilder);
             // 
@@ -207,9 +336,10 @@
             this.longitudinalTopCheckBox.AutoSize = true;
             this.longitudinalTopCheckBox.Checked = true;
             this.longitudinalTopCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.longitudinalTopCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.longitudinalTopCheckBox.Location = new System.Drawing.Point(7, 240);
             this.longitudinalTopCheckBox.Name = "longitudinalTopCheckBox";
-            this.longitudinalTopCheckBox.Size = new System.Drawing.Size(172, 17);
+            this.longitudinalTopCheckBox.Size = new System.Drawing.Size(169, 17);
             this.longitudinalTopCheckBox.TabIndex = 14;
             this.longitudinalTopCheckBox.Text = "Продольная кривизна (Верх)";
             this.longitudinalTopCheckBox.UseVisualStyleBackColor = true;
@@ -219,9 +349,10 @@
             this.lateralLeftCheckBox.AutoSize = true;
             this.lateralLeftCheckBox.Checked = true;
             this.lateralLeftCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.lateralLeftCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lateralLeftCheckBox.Location = new System.Drawing.Point(7, 220);
             this.lateralLeftCheckBox.Name = "lateralLeftCheckBox";
-            this.lateralLeftCheckBox.Size = new System.Drawing.Size(173, 17);
+            this.lateralLeftCheckBox.Size = new System.Drawing.Size(170, 17);
             this.lateralLeftCheckBox.TabIndex = 13;
             this.lateralLeftCheckBox.Text = "Поперечная кривизна (Лево)";
             this.lateralLeftCheckBox.UseVisualStyleBackColor = true;
@@ -231,9 +362,10 @@
             this.lateralRightCheckBox.AutoSize = true;
             this.lateralRightCheckBox.Checked = true;
             this.lateralRightCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.lateralRightCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lateralRightCheckBox.Location = new System.Drawing.Point(7, 200);
             this.lateralRightCheckBox.Name = "lateralRightCheckBox";
-            this.lateralRightCheckBox.Size = new System.Drawing.Size(179, 17);
+            this.lateralRightCheckBox.Size = new System.Drawing.Size(176, 17);
             this.lateralRightCheckBox.TabIndex = 12;
             this.lateralRightCheckBox.Text = "Поперечная кривизна (Право)";
             this.lateralRightCheckBox.UseVisualStyleBackColor = true;
@@ -243,9 +375,10 @@
             this.lengthCheckBox.AutoSize = true;
             this.lengthCheckBox.Checked = true;
             this.lengthCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.lengthCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lengthCheckBox.Location = new System.Drawing.Point(7, 180);
             this.lengthCheckBox.Name = "lengthCheckBox";
-            this.lengthCheckBox.Size = new System.Drawing.Size(97, 17);
+            this.lengthCheckBox.Size = new System.Drawing.Size(94, 17);
             this.lengthCheckBox.TabIndex = 11;
             this.lengthCheckBox.Text = "Длина слитка";
             this.lengthCheckBox.UseVisualStyleBackColor = true;
@@ -255,9 +388,10 @@
             this.widthCheckBox.AutoSize = true;
             this.widthCheckBox.Checked = true;
             this.widthCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.widthCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.widthCheckBox.Location = new System.Drawing.Point(7, 160);
             this.widthCheckBox.Name = "widthCheckBox";
-            this.widthCheckBox.Size = new System.Drawing.Size(103, 17);
+            this.widthCheckBox.Size = new System.Drawing.Size(100, 17);
             this.widthCheckBox.TabIndex = 10;
             this.widthCheckBox.Text = "Ширина слитка";
             this.widthCheckBox.UseVisualStyleBackColor = true;
@@ -267,9 +401,10 @@
             this.heightCheckBox.AutoSize = true;
             this.heightCheckBox.Checked = true;
             this.heightCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.heightCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.heightCheckBox.Location = new System.Drawing.Point(7, 140);
             this.heightCheckBox.Name = "heightCheckBox";
-            this.heightCheckBox.Size = new System.Drawing.Size(102, 17);
+            this.heightCheckBox.Size = new System.Drawing.Size(99, 17);
             this.heightCheckBox.TabIndex = 9;
             this.heightCheckBox.Text = "Высота слитка";
             this.heightCheckBox.UseVisualStyleBackColor = true;
@@ -279,9 +414,10 @@
             this.allDimentionsCheckBox.AutoSize = true;
             this.allDimentionsCheckBox.Checked = true;
             this.allDimentionsCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.allDimentionsCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.allDimentionsCheckBox.Location = new System.Drawing.Point(7, 120);
             this.allDimentionsCheckBox.Name = "allDimentionsCheckBox";
-            this.allDimentionsCheckBox.Size = new System.Drawing.Size(104, 17);
+            this.allDimentionsCheckBox.Size = new System.Drawing.Size(101, 17);
             this.allDimentionsCheckBox.TabIndex = 8;
             this.allDimentionsCheckBox.Text = "Все измерения";
             this.allDimentionsCheckBox.UseVisualStyleBackColor = true;
@@ -310,9 +446,10 @@
             this.smoothCheckedBox.AutoSize = true;
             this.smoothCheckedBox.Checked = true;
             this.smoothCheckedBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.smoothCheckedBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.smoothCheckedBox.Location = new System.Drawing.Point(7, 87);
             this.smoothCheckedBox.Name = "smoothCheckedBox";
-            this.smoothCheckedBox.Size = new System.Drawing.Size(94, 17);
+            this.smoothCheckedBox.Size = new System.Drawing.Size(91, 17);
             this.smoothCheckedBox.TabIndex = 3;
             this.smoothCheckedBox.Text = "Сглаживание";
             this.smoothCheckedBox.UseVisualStyleBackColor = true;
@@ -323,9 +460,10 @@
             this.sensorValuesCheckBox.AutoSize = true;
             this.sensorValuesCheckBox.Checked = true;
             this.sensorValuesCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.sensorValuesCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.sensorValuesCheckBox.Location = new System.Drawing.Point(7, 50);
             this.sensorValuesCheckBox.Name = "sensorValuesCheckBox";
-            this.sensorValuesCheckBox.Size = new System.Drawing.Size(131, 17);
+            this.sensorValuesCheckBox.Size = new System.Drawing.Size(128, 17);
             this.sensorValuesCheckBox.TabIndex = 2;
             this.sensorValuesCheckBox.Text = "Показания датчиков";
             this.sensorValuesCheckBox.UseVisualStyleBackColor = true;
@@ -336,9 +474,10 @@
             this.dimensionsCheckBox.AutoSize = true;
             this.dimensionsCheckBox.Checked = true;
             this.dimensionsCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.dimensionsCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.dimensionsCheckBox.Location = new System.Drawing.Point(7, 30);
             this.dimensionsCheckBox.Name = "dimensionsCheckBox";
-            this.dimensionsCheckBox.Size = new System.Drawing.Size(113, 17);
+            this.dimensionsCheckBox.Size = new System.Drawing.Size(110, 17);
             this.dimensionsCheckBox.TabIndex = 1;
             this.dimensionsCheckBox.Text = "Габариты слитка";
             this.dimensionsCheckBox.UseVisualStyleBackColor = true;
@@ -349,9 +488,10 @@
             this.gridSurfaceCheckBox.AutoSize = true;
             this.gridSurfaceCheckBox.Checked = true;
             this.gridSurfaceCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.gridSurfaceCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.gridSurfaceCheckBox.Location = new System.Drawing.Point(7, 10);
             this.gridSurfaceCheckBox.Name = "gridSurfaceCheckBox";
-            this.gridSurfaceCheckBox.Size = new System.Drawing.Size(130, 17);
+            this.gridSurfaceCheckBox.Size = new System.Drawing.Size(127, 17);
             this.gridSurfaceCheckBox.TabIndex = 0;
             this.gridSurfaceCheckBox.Text = "Координатная сетка";
             this.gridSurfaceCheckBox.UseVisualStyleBackColor = true;
@@ -391,6 +531,9 @@
             this.Load += new System.EventHandler(this.SlabVisualizationForm_Load);
             this.tabControl1.ResumeLayout(false);
             this.plotsPage.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.smoothNumeric)).EndInit();
             this.slabModelPage.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
@@ -434,5 +577,14 @@
         private System.Windows.Forms.CheckBox lateralRightCheckBox;
         private System.Windows.Forms.CheckBox lateralLeftCheckBox;
         private System.Windows.Forms.CheckBox longitudinalTopCheckBox;
+        private System.Windows.Forms.Button rightButton;
+        private System.Windows.Forms.Button leftButton;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.CheckBox isShowNodesCheckedBox;
+        private System.Windows.Forms.CheckBox isAllPlotShowCheckedBox;
+        private System.Windows.Forms.NumericUpDown smoothNumeric;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.CheckBox bumpingFilterCheckBox;
     }
 }

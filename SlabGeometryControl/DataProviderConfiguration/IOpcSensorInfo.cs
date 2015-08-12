@@ -14,6 +14,6 @@
 
         string CurrentValueTag { get; }
 
-        string ValuesListTag { get; }
+        string ValuesListTag { get; }        
     }
 }

@@ -184,7 +184,7 @@ namespace Alvasoft.DataProvider.Impl.Emulator
         public double GetSensorCurrentValue(int aSensorId)
         {
             if (GetCurrentSystemState() == SystemState.WAITING) {
-                return GetCalibratedValueBySensorId(aSensorId);
+                return GetCalibratedValue(aSensorId);
             }
 
             return values[aSensorId][position].Value;
@@ -195,9 +195,14 @@ namespace Alvasoft.DataProvider.Impl.Emulator
             return true;
         }
 
-        public double GetCalibratedValueBySensorId(int aSensorId)
+        public double GetCalibratedValue(int aSensorId)
         {
             return 2000;
+        }
+
+        public void SetCalibratedValue(int aSensorId, double aCalibratedValue)
+        {
+            throw new NotImplementedException();
         }
 
         private void Init()

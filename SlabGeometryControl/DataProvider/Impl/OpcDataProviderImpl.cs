@@ -13,8 +13,7 @@ namespace Alvasoft.DataProvider.Impl
 {
     public class OpcDataProviderImpl : 
         InitializableImpl,
-        IDataProvider,
-        ICalibrator,
+        IDataProvider,        
         IDataProviderConfigurationListener,
         ISensorConfigurationListener,
         IActivatorListener
@@ -103,11 +102,6 @@ namespace Alvasoft.DataProvider.Impl
         public bool IsCalibratedState()
         {
             return true;
-        }
-
-        public double GetCalibratedValueBySensorId(int aSensorId)
-        {
-            return 1000;
         }
 
         protected override void DoInitialize()
@@ -243,15 +237,20 @@ namespace Alvasoft.DataProvider.Impl
         }
 
         private void EndScanning()
-        {
-            var left = Convert.ToInt32(controlBlock.StartIndex.ReadCurrentValue());
-            var right = Convert.ToInt32(controlBlock.EndIndex.ReadCurrentValue()) - 40;            
+        {            
+            var left = Convert.ToInt32(controlBlock.StartIndex.ReadCurrentValue()) + 5;
+            var right = Convert.ToInt32(controlBlock.EndIndex.ReadCurrentValue()) - 50;
+            if (right < 0)
+                right += 40;
+            if (left >= right) 
+                left -= 5;
+
             var masSize = Convert.ToInt32(controlBlock.MaxSize.ReadCurrentValue());
-            var times = controlBlock.Times.ReadCurrentValue() as Array;            
+            var times = controlBlock.Times.ReadCurrentValue() as Array;
             foreach (var sensorId in sensors.Keys) {
                 var sensor = sensors[sensorId];
                 var values = sensor.ValuesList.ReadCurrentValue() as Array;
-                var currentIndex = left;                
+                var currentIndex = left;
                 while (currentIndex != right) {
                     if (currentIndex > masSize) {
                         currentIndex = 0;
@@ -261,10 +260,13 @@ namespace Alvasoft.DataProvider.Impl
                     var timeSpan = TimeSpan.FromMilliseconds(milliseconds);
                     var fullTime = startScanning.Date.AddMilliseconds(timeSpan.TotalMilliseconds);
                     valueContainer.AddSensorValue(sensorId, value, fullTime.ToBinary());
-                    currentIndex++;                    
+                    currentIndex++;
                 }
             }
 
+            var slabLength = 1000.0;
+            var count = right - left;
+            var step = slabLength/(count - 1);
             var t1 = 0;
             while (left != right) {
                 if (left > masSize) {
@@ -273,10 +275,10 @@ namespace Alvasoft.DataProvider.Impl
                 var milliseconds = Convert.ToDouble(times.GetValue(left + 1));
                 var timeSpan = TimeSpan.FromMilliseconds(milliseconds);
                 var fullTime = startScanning.Date.AddMilliseconds(timeSpan.TotalMilliseconds);
-                valueContainer.AddSensorValue(1, t1 * 5, fullTime.ToBinary());
+                valueContainer.AddSensorValue(4, t1*step, fullTime.ToBinary());
                 t1++;
                 left++;
-            }
+            }           
 
             controlBlock.StartIndex.WriteValue(0);
             controlBlock.EndIndex.WriteValue(0);
