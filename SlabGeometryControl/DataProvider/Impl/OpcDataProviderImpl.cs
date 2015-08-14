@@ -218,7 +218,7 @@ namespace Alvasoft.DataProvider.Impl
                 var sensor = new OpcSensor();                
                 sensor.Enable = new OpcValueImpl(server, sensorInfo.EnableTag);                
                 sensor.CurrentValue = new OpcValueImpl(server, sensorInfo.CurrentValueTag);
-                sensor.ValuesList = new OpcValueImpl(server, sensorInfo.ValuesListTag);
+                sensor.ValuesList = new OpcValueImpl(server, sensorInfo.ValuesListTag, OPCDataSource.OPCDevice);
                 sensor.Initialize();
 
                 sensors[sensorId] = sensor;
@@ -264,6 +264,7 @@ namespace Alvasoft.DataProvider.Impl
                 }
             }
 
+            // /*
             var slabLength = 1000.0;
             var count = right - left;
             var step = slabLength/(count - 1);
@@ -279,6 +280,7 @@ namespace Alvasoft.DataProvider.Impl
                 t1++;
                 left++;
             }           
+            // */
 
             controlBlock.StartIndex.WriteValue(0);
             controlBlock.EndIndex.WriteValue(0);

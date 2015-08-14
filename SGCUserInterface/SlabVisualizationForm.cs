@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using Alvasoft.SlabGeometryControl;
-using SGCUserInterface.Filters;
 using SGCUserInterface.SlabVisualizationFormPrimitivs;
+using SGCUserInterface.SlabVisualizationFormPrimitivs.Panels;
 using Tao.FreeGlut;
 using Tao.OpenGl;
 using ZedGraph;
@@ -17,61 +15,44 @@ namespace SGCUserInterface
 {
     public partial class SlabVisualizationForm : Form
     {
-        private static bool isGlutInited = false;
-
         private SGCClientImpl client = null;
         private int slabId = -1;
         private int standartSizeId = -1;
         private BackgroundWorker loader = new BackgroundWorker();
-        private ProgressShower progressShower = null;
-        private int plotIndex = 0;
+        private ProgressShower progressShower = null;        
 
         // Параметры для отрисовки графиков.
-        private SensorInfo[] sensors = null;
-        private Random rnd = new Random(14121989);
+        private SensorInfo[] sensors = null;        
         private PointF[][] points = null;        
 
         // Дальше идут параметры для отображения 3д модели слитка.
-        private SlabModel3D slabModel = null;
-        private int translateX = 0;
-        private int translateY = 0;
-        private int translateZ = -5000;
-        private int angleX = 15;
-        private int angleY = 70;
-        private int angleZ = 0;        
-        private int deltaX = 0;
-        private int deltaY = 0;
-        private int lastPositionX = 0;
-        private int lastPositionY = 0;
-        private int lastAngleX = 0;
-        private int lastAngleY = 0;
-
-        private List<LineItem> plotLines = new List<LineItem>();
-        private List<LineItem> filteredLines = new List<LineItem>();
-
-        private List<DimentionGraphicPrimitiveBase> dimentions = new List<DimentionGraphicPrimitiveBase>();
-        private int greenDimentionsCount = 0;
-        private int redDimentionsCount = 0;
-
-        private Dictionary<string, int> objectsList = new Dictionary<string, int>();
-        private const string KEY_SURFACE = "surface";
-        private const string KEY_SENSOR_VALUES = "sensorValues";
-        private const string KEY_SLAB_DIMENTIONS = "slabDimentions";
-
-        private DimentionControl dimentionControl;
+        private SlabModel3D slabModel = null;                
         private Dimention[] systemDimentions;
         private DimentionResult[] slabDimentionsResults;
         private Regulation[] regulations;
 
         private bool isErrorLoading = false;
 
+        /// <summary>
+        /// Для отображения графиков показаний датиков.
+        /// </summary>
+        private SensorsPlotsPanel sensorsPlots;
+        /// <summary>
+        /// Для отображения 3-д модели слитка.
+        /// </summary>
+        private SlabModelPanel slabModelPanel;
+        /// <summary>
+        /// Для отображения срезов слитка.
+        /// </summary>
+        private SectionsPlotsPanel sectionsPanel;
+        /// <summary>
+        /// Для отображения графиков отклонения от среднего.
+        /// </summary>
+        private DeviationsPlotsPanel deviationsPanel;
+
         public SlabVisualizationForm(int aSlabId, int aStandartSizeId, SGCClientImpl aClient)
         {
-            InitializeComponent();
-
-            dimentionControl = new DimentionControl();
-            dimentionControl.Hide();
-            dimentionControl.Parent = modelPanel;            
+            InitializeComponent();                        
 
             client = aClient;
             slabId = aSlabId;
@@ -93,17 +74,27 @@ namespace SGCUserInterface
         private void LoadCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             try {
-                if (!isErrorLoading) {
-                    ShowPlots();
-
-                    MoveModelToZeroPoint();
-                    InitializeDimentionsGlObjects();
-                    InitializeGlObjects();                    
-                    ShowModel();
+                if (!isErrorLoading) {                    
+                    // графики показания датчиков.
+                    sensorsPlots.DrawPlots(points, sensors);
+                    sensorsPlots.ShowAllPlots(isAllPlotShowCheckedBox.Checked, bumpingFilterCheckBox.Checked);
+                    // срезы слитка.                    
+                    sectionsPanel.SetSlabModel(slabModel);
+                    sectionsPanel.Initialize();
+                    sectionsPanel.ShowLeftSection();
+                    // графики отклонения от среднего.
+                    deviationsPanel.SetSlabModel(slabModel);
+                    deviationsPanel.Initialize();
+                    deviationsPanel.ShowCurrentPlot();
+                    // 3д модель слитка.
+                    InitializeSlabModelPanel();
+                    slabModelPanel.ShowModel();                    
                 }                               
             }
             catch (Exception ex) {
-                //MessageBox.Show(@"Ошибка при построении модели: " + ex.Message);
+                //MessageBox.Show(@"Ошибка при построении модели: " + ex.Message);                
+                tabControl1.TabPages["slabModelPage"].Enabled = false;
+                tabControl1.TabPages["sectionsPage"].Enabled = false;
             } 
             finally {
                 if (progressShower != null) {
@@ -117,125 +108,20 @@ namespace SGCUserInterface
             }            
         }
 
-        private void InitializeDimentionsGlObjects()
+        private void InitializeSlabModelPanel()
         {
-            var height = new HeightDimention();
-            InitDimentinPrimitive(height, heightCheckBox);            
-
-            var width = new WidthDimention();
-            InitDimentinPrimitive(width, widthCheckBox);
-            
-            var length = new LengthDimention();            
-            InitDimentinPrimitive(length, lengthCheckBox);
-
-            var lateralRight = new LateralCurvatureRightDimention();
-            InitDimentinPrimitive(lateralRight, lateralRightCheckBox);
-
-            var lateralLeft = new LateralCurvatureLeftDimention();
-            InitDimentinPrimitive(lateralLeft, lateralLeftCheckBox);
-
-            var longitudinalTop = new LongitudinalCurvatureTopDimention();
-            InitDimentinPrimitive(longitudinalTop, longitudinalTopCheckBox);
-
-            dimentions.Add(height);
-            dimentions.Add(width);
-            dimentions.Add(length);
-            dimentions.Add(lateralRight);
-            dimentions.Add(lateralLeft);
-            dimentions.Add(longitudinalTop);
-        }
-
-        private void InitDimentinPrimitive(DimentionGraphicPrimitiveBase aDimention, CheckBox aCheckBox)
-        {
-            if (slabModel == null) {
-                return;
-            }
-
-            aDimention.SlabModel = slabModel;
-            aDimention.IsVisible = true;
-            aDimention.CheckBox = aCheckBox;
-            aDimention.Dimention = systemDimentions.FirstOrDefault(d => d.Name.Equals(aDimention.GetDimentionName()));
-            if (aDimention.Dimention != null) {
-                aDimention.Result = slabDimentionsResults
-                    .FirstOrDefault(r => r.DimentionId == aDimention.Dimention.Id);
-            }
-            aDimention.Color = SelectColorByDimentionResult(aDimention.Result);
-            aCheckBox.CheckedChanged += commonDimentions_CheckedChanged;
-        }
-
-
-        private Color SelectColorByDimentionResult(DimentionResult aResult)
-        {
-            if (aResult == null || IsResultSatisfyRegulations(aResult)) {
-                return NextGreenColor();
-            }
-            else {
-                return NextRedColor();
-            }
-        }
-
-        private bool IsResultSatisfyRegulations(DimentionResult aResult)
-        {
-            if (aResult == null) {
-                return true;
-            }
-
-            var regulation =
-                regulations.FirstOrDefault(
-                    r => r.DimentionId == aResult.DimentionId && r.StandartSizeId == standartSizeId);
-            if (regulation == null) {
-                return true;
-            }
-            var value = aResult.Value;
-            return value >= regulation.MinValue && value <= regulation.MaxValue;
-        }
-
-        private Color NextGreenColor()
-        {            
-            var color = Color.FromArgb(255, Color.Green.R, Color.Green.G - greenDimentionsCount, Color.Green.B);
-            greenDimentionsCount++;
-            return color;
-        }
-
-        private Color NextRedColor()
-        {
-            var color = Color.FromArgb(255, Color.Red.R - redDimentionsCount, Color.Red.G, Color.Red.B);
-            redDimentionsCount++;
-            return color;
-        }
-
-        private void MoveModelToZeroPoint()
-        {
-            if (slabModel != null) {
-                var moveTo = slabModel.TopLines[slabModel.TopLines.Length/2].Last().Z/2;
-                for (var i = 0; i < slabModel.TopLines.Length; ++i) {
-                    for (var j = 0; j < slabModel.TopLines[i].Length; ++j) {
-                        slabModel.TopLines[i][j].Z -= moveTo;
-                    }
-                }
-                for (var i = 0; i < slabModel.BottomLines.Length; ++i) {
-                    for (var j = 0; j < slabModel.BottomLines[i].Length; ++j) {
-                        slabModel.BottomLines[i][j].Z -= moveTo;
-                    }
-                }
-                for (var i = 0; i < slabModel.LeftLines.Length; ++i) {
-                    for (var j = 0; j < slabModel.LeftLines[i].Length; ++j) {
-                        slabModel.LeftLines[i][j].Z -= moveTo;
-                    }
-                }
-                for (var i = 0; i < slabModel.RightLines.Length; ++i) {
-                    for (var j = 0; j < slabModel.RightLines[i].Length; ++j) {
-                        slabModel.RightLines[i][j].Z -= moveTo;
-                    }
-                }
-            }
-        }
-
-        private void InitializeGlObjects()
-        {
-            InitGridSurface();
-            InitSensorValues();
-            InitSlabDimentions();
+            slabModelPanel.SetSlabModel(slabModel);
+            slabModelPanel.MoveModelToZeroPoint();
+            slabModelPanel.SetDimentions(systemDimentions);
+            slabModelPanel.SetDimentionResults(slabDimentionsResults);
+            slabModelPanel.SetRegulations(regulations);
+            slabModelPanel.AddDimention(new HeightDimention(), heightCheckBox);
+            slabModelPanel.AddDimention(new WidthDimention(), widthCheckBox);
+            slabModelPanel.AddDimention(new LengthDimention(), lengthCheckBox);
+            slabModelPanel.AddDimention(new LateralCurvatureRightDimention(), lateralRightCheckBox);
+            slabModelPanel.AddDimention(new LateralCurvatureLeftDimention(), lateralLeftCheckBox);
+            slabModelPanel.AddDimention(new LongitudinalCurvatureTopDimention(), longitudinalTopCheckBox);
+            slabModelPanel.InitializeGlObjects();
         }
 
         private void LoadSensorsValues(object sender, DoWorkEventArgs e)
@@ -279,8 +165,11 @@ namespace SGCUserInterface
 
         private void SlabVisualizationForm_Load(object sender, EventArgs e)
         {
-            InitPlotsPanel();
-            InitModelPanel();
+            sensorsPlots = new SensorsPlotsPanel(plotsView);
+            slabModelPanel = new SlabModelPanel(slabId, standartSizeId, modelView);                        
+            sectionsPanel = new SectionsPlotsPanel(sectionsView);           
+            deviationsPanel = new DeviationsPlotsPanel(deviationView);
+            deviationView.MouseWheel += deviationView_MouseWheel;
 
             for (var i = 0; i < this.Controls.Count; ++i) {                
                 Controls[i].Hide();
@@ -292,492 +181,45 @@ namespace SGCUserInterface
             progressShower.Show();
 
             loader.RunWorkerAsync(sensors);
-        }
-
-        private void InitModelPanel()
-        {
-            modelPanel.MouseWheel += modelPanel_MouseWheel;
-            modelPanel.InitializeContexts();
-            if (!isGlutInited) {
-                Glut.glutInit();
-                Glut.glutInitDisplayMode(Glut.GLUT_RGBA | Glut.GLUT_DOUBLE | Glut.GLUT_DEPTH);
-                isGlutInited = true;
-            }            
-
-            Gl.glClearColor(255, 255, 255, 1);
-            Gl.glViewport(0, 0, modelPanel.Width, modelPanel.Height);
-            Gl.glMatrixMode(Gl.GL_PROJECTION);
-            Gl.glLoadIdentity();
-            Glu.gluPerspective(45, (float) modelPanel.Width / modelPanel.Height, 10, 100000);
-
-            Gl.glMatrixMode(Gl.GL_MODELVIEW);
-            Gl.glLoadIdentity();
-
-            //Gl.glEnable(Gl.GL_DEPTH_TEST);
-            Gl.glEnable(Gl.GL_MULTISAMPLE_ARB);
-            Gl.glEnable(Gl.GL_LINE_SMOOTH);
-            Gl.glEnable(Gl.GL_BLEND);
-            Gl.glHint(Gl.GL_MULTISAMPLE_FILTER_HINT_NV, Gl.GL_FASTEST);
-            Gl.glHint(Gl.GL_LINE_SMOOTH_HINT, Gl.GL_FASTEST);
-            Gl.glBlendFunc(Gl.GL_SRC_ALPHA, Gl.GL_ONE_MINUS_SRC_ALPHA);
         }        
-
-        private void InitPlotsPanel()
-        {
-            plotsView.IsShowPointValues = true;            
-            plotsView.GraphPane = new GraphPane(
-                new RectangleF(plotsView.Location.X,
-                               plotsView.Location.Y,
-                               plotsView.Size.Width,
-                               plotsView.Size.Height),
-                "Показания датчиков при сканировании слитка", "Время (секунды)", "Показание датчика (мм)");
-
-            var pane = plotsView.GraphPane;
-            // Включаем отображение сетки напротив крупных рисок по оси X
-            pane.XAxis.MajorGrid.IsVisible = true;
-            // Задаем вид пунктирной линии для крупных рисок по оси X:
-            // Длина штрихов равна 10 пикселям, ... 
-            pane.XAxis.MajorGrid.DashOn = 1;
-            // затем 5 пикселей - пропуск
-            pane.XAxis.MajorGrid.DashOff = 2;
-            // Включаем отображение сетки напротив крупных рисок по оси Y
-            pane.YAxis.MajorGrid.IsVisible = true;
-            // Аналогично задаем вид пунктирной линии для крупных рисок по оси Y
-            pane.YAxis.MajorGrid.DashOn = 1;
-            pane.YAxis.MajorGrid.DashOff = 2;
-            // Включаем отображение сетки напротив мелких рисок по оси X
-            pane.YAxis.MinorGrid.IsVisible = true;
-            // Задаем вид пунктирной линии для крупных рисок по оси Y: 
-            // Длина штрихов равна одному пикселю, ... 
-            pane.YAxis.MinorGrid.DashOn = 1;
-            // затем 2 пикселя - пропуск
-            pane.YAxis.MinorGrid.DashOff = 2;
-            // Включаем отображение сетки напротив мелких рисок по оси Y
-            pane.XAxis.MinorGrid.IsVisible = true;
-            // Аналогично задаем вид пунктирной линии для крупных рисок по оси Y
-            pane.XAxis.MinorGrid.DashOn = 1;
-            pane.XAxis.MinorGrid.DashOff = 2;            
-        }        
-
-        private void ShowPlots()
-        {
-            DrawPlotsPanel();
-
-            if (points == null) {
-                MessageBox.Show(@"Нет точек для отображения");
-                return;
-            }
-
-            var pane = plotsView.GraphPane;
-            for (var i = 0; i < points.Length; ++i) {
-                if (points[i] != null) {                                        
-                    for (var j = 0; j < points[i].Length; ++j) {
-                        pane.CurveList[i].AddPoint(points[i][j].X / 1000, points[i][j].Y);
-                    }
-                }
-
-                HidePlotLine(i);
-            }
-
-            for (var i = 0; i < points.Length; ++i) {
-                if (points[i] != null) {
-                    var rattledPoints = new RattleFilter().Filter(points[i]);                    
-                    var result = rattledPoints;
-                    for (var j = 0; j < result.Length; ++j) {
-                        pane.CurveList[points.Length + i].AddPoint(result[j].X / 1000, result[j].Y);
-                    }
-                }
-
-                HidePlotLine(i);
-            }
-
-            if (points.Length > 0) {
-                ShowPlotLine(0);
-            }            
-                        
-            plotsView.AxisChange();
-            plotsView.Invalidate();
-        }
-
-        private void DrawPlotsPanel()
-        {
-            if (sensors == null) {
-                return;
-            }
-
-            var pane = plotsView.GraphPane;
-            for (var i = 0; i < sensors.Length; ++i) {                
-                var curve = pane.AddCurve(
-                    sensors[i].Name,
-                    new PointPairList(),
-                    Color.FromArgb(rnd.Next(255), rnd.Next(255), rnd.Next(255)),
-                    SymbolType.None);
-                curve.Line.IsSmooth = true;
-                curve.Line.SmoothTension = 0;
-                curve.Line.IsAntiAlias = true;
-                plotLines.Add(curve);
-            }
-            for (var i = 0; i < sensors.Length; ++i) {
-                var curve = pane.AddCurve(
-                    sensors[i].Name + "_Filtered",
-                    new PointPairList(),
-                    Color.FromArgb(rnd.Next(255), rnd.Next(255), rnd.Next(255)),
-                    SymbolType.None);
-                curve.Line.IsSmooth = true;
-                curve.Line.SmoothTension = 0;
-                curve.Line.IsAntiAlias = true;
-                filteredLines.Add(curve);
-            }
-
-        }
-
-        private void ShowModel()
-        {
-            Gl.glPushMatrix();
-            Text = angleX + " " + angleY + " " + angleZ;
-            Gl.glClear(Gl.GL_COLOR_BUFFER_BIT | Gl.GL_DEPTH_BUFFER_BIT);
-            Gl.glTranslated(translateX, translateY, translateZ);
-            Gl.glRotated(angleX, 1, 0, 0);
-            Gl.glRotated(angleY, 0, 1, 0);
-            Gl.glRotated(angleZ, 0, 0, 1);
-            {
-                if (gridSurfaceCheckBox.Checked && objectsList.ContainsKey(KEY_SURFACE)) {
-                    Gl.glCallList(objectsList[KEY_SURFACE]);
-                }
-                
-                if (sensorValuesCheckBox.Checked && objectsList.ContainsKey(KEY_SENSOR_VALUES)) {
-                    Gl.glCallList(objectsList[KEY_SENSOR_VALUES]);
-                }
-
-                if (dimensionsCheckBox.Checked && objectsList.ContainsKey(KEY_SLAB_DIMENTIONS)) {
-                    Gl.glCallList(objectsList[KEY_SLAB_DIMENTIONS]);
-                }
-
-                foreach (var dimention in dimentions) {
-                    dimention.DrawDimention(smoothCheckedBox.Checked);
-                }
-            }
-            Gl.glPopMatrix();
-            Gl.glFlush();
-            modelPanel.Invalidate();
-        }        
-
-        private void plotsView_ContextMenuBuilder(ZedGraphControl sender, ContextMenuStrip menuStrip, Point mousePt, ZedGraphControl.ContextMenuObjectState objState)
-        {
-            menuStrip.Items[0].Text = @"Копировать";
-            menuStrip.Items[1].Text = @"Сохранить как картинку…";
-            menuStrip.Items[2].Text = @"Параметры страницы…";
-            menuStrip.Items[3].Text = @"Печать…";
-            menuStrip.Items[4].Text = @"Показывать значения в точках…";
-            menuStrip.Items[7].Text = @"Установить масштаб по умолчанию…";
-            menuStrip.Items.RemoveAt(5);
-            menuStrip.Items.RemoveAt(5);
-        }
 
         private void modelPanel_MouseDown(object sender, MouseEventArgs e)
         {
-            deltaX = e.X;
-            deltaY = e.Y;
-            lastPositionX = translateX;
-            lastPositionY = translateY;
-            lastAngleX = angleX;
-            lastAngleY = angleY;
+            slabModelPanel.MouseDown(e);
         }
 
         private void modelPanel_MouseMove(object sender, MouseEventArgs e)
         {
-            var isStateChanged = false;
-
-            if (e.Button == MouseButtons.Right) {
-                translateX = lastPositionX + (e.X - deltaX) / 1;
-                translateY = lastPositionY - (e.Y - deltaY) / 1;
-                isStateChanged = true;
-            }
-            else if (e.Button == MouseButtons.Left) {
-                angleX = lastAngleX + (e.Y - deltaY) / 10;
-                angleY = lastAngleY + (e.X - deltaX) / 10;
-                isStateChanged = true;
-            }
-            
-            var selectedDimention = SelectedDimention(e.X, e.Y);
-            if (selectedDimention != null) {
-                if (!selectedDimention.IsSelected) {
-                    isStateChanged = true;
-                }
-                selectedDimention.IsSelected = true;
-                ShowDimentionControl(e.X, e.Y, selectedDimention);
-            }
-            else {
-                HideDimentionControl();
-                foreach (var dimention in dimentions) {
-                    if (dimention.IsSelected) {
-                        isStateChanged = true;
-                    }
-                    dimention.IsSelected = false;
-                }
-            }
-
-            if (isStateChanged) {
-                ShowModel();
-            }
-        }
-
-        private void HideDimentionControl()
-        {
-            dimentionControl.Hide();
-        }
-
-        private DimentionGraphicPrimitiveBase SelectedDimention(int aX, int aY)
-        {
-            var pixel = new byte[4];
-            Gl.glReadPixels(aX, modelPanel.Height - aY, 1, 1, Gl.GL_BGRA, Gl.GL_UNSIGNED_BYTE, pixel);
-            var currentColor = Color.FromArgb(pixel[3], pixel[2], pixel[1], pixel[0]);            
-            return dimentions.FirstOrDefault(dimention => dimention.Color == currentColor);
-        }
-
-        private void ShowDimentionControl(int aX, int aY, DimentionGraphicPrimitiveBase aDimention)
-        {
-            dimentionControl.Top = aY;
-            dimentionControl.Left = aX;
-            dimentionControl.SetDimentionPrimitive(aDimention);
-            dimentionControl.SetRegulation(GetRegulationOrDefault(aDimention));
-            dimentionControl.Show();
-        }
-
-        private Regulation GetRegulationOrDefault(DimentionGraphicPrimitiveBase aDimention)
-        {
-            if (aDimention == null) {
-                return null;
-            }
-
-            return regulations.FirstOrDefault(r => r.DimentionId == aDimention.Dimention.Id &&
-                                                   r.StandartSizeId == standartSizeId);
-        }
-
-        private void modelPanel_MouseWheel(object sender, MouseEventArgs e)
-        {
-            translateZ += e.Delta;
-            ShowModel();
-        }
+            slabModelPanel.MouseMove(e);
+        }                              
 
         private void gridSurfaceCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            ShowModel();
+            slabModelPanel.ShowGridSurfaceChanged(gridSurfaceCheckBox.Checked);
+            slabModelPanel.ShowModel();
         }
 
         private void dimensionsCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            ShowModel();
+            slabModelPanel.ShowDimentionsChanged(dimensionsCheckBox.Checked);
+            slabModelPanel.ShowModel();
         }
 
         private void sensorValuesCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            ShowModel();
-        }
-
-        // Вспомогательные функции для отрисовки 3д модели.
-
-        private void InitGridSurface()
-        {
-            var strongLinesCount = 10;
-            var slimLinesCount = 2;
-            var distanceBetwenStrongLines = 1000;
-            var depthY = -2000;
-            var startPosition = distanceBetwenStrongLines * strongLinesCount / 2;
-
-            var surfaceNumber = Gl.glGenLists(1);
-            objectsList[KEY_SURFACE] = surfaceNumber;
-            Gl.glNewList(surfaceNumber, Gl.GL_COMPILE);
-            var color = Color.LightGray;
-            Gl.glLineWidth(1f);                        
-            Gl.glColor3d(
-                Convert.ToDouble(color.R) / 255,
-                Convert.ToDouble(color.G) / 255,
-                Convert.ToDouble(color.B) / 255);
-            Gl.glBegin(Gl.GL_LINES);
-            {                
-                for (var i = 1; i <= strongLinesCount; ++i) {
-                    Gl.glVertex3f(-startPosition, depthY, -startPosition + distanceBetwenStrongLines * i);
-                    Gl.glVertex3f(startPosition, depthY, -startPosition + distanceBetwenStrongLines * i);
-                    Gl.glVertex3f(startPosition - distanceBetwenStrongLines * i, depthY, -startPosition);
-                    Gl.glVertex3f(startPosition - distanceBetwenStrongLines * i, depthY, startPosition);
-                                        
-                    Gl.glVertex3f(startPosition - distanceBetwenStrongLines * i, depthY, -startPosition);
-                    Gl.glVertex3f(startPosition - distanceBetwenStrongLines * i, startPosition - depthY, -startPosition);
-                    
-                    Gl.glVertex3f(startPosition, depthY, -startPosition + distanceBetwenStrongLines * i);
-                    Gl.glVertex3f(startPosition, startPosition - depthY, -startPosition + distanceBetwenStrongLines * i);
-
-                    if (i != strongLinesCount) {
-                        Gl.glVertex3f(-startPosition, depthY + distanceBetwenStrongLines * i, -startPosition);
-                        Gl.glVertex3f(startPosition, depthY + distanceBetwenStrongLines * i, -startPosition);
-
-                        Gl.glVertex3f(startPosition, depthY + distanceBetwenStrongLines * i, -startPosition);
-                        Gl.glVertex3f(startPosition, depthY + distanceBetwenStrongLines * i, startPosition);
-                    }                    
-                }
-            }
-            Gl.glEnd();
-
-            color = Color.Gray;
-            Gl.glLineWidth(2f);
-            Gl.glColor3d(
-                Convert.ToDouble(color.R) / 255,
-                Convert.ToDouble(color.G) / 255,
-                Convert.ToDouble(color.B) / 255);
-            Gl.glBegin(Gl.GL_LINES);
-            {
-                Gl.glVertex3f(startPosition, depthY, -startPosition);
-                Gl.glVertex3f(-startPosition, depthY, -startPosition);
-
-                Gl.glVertex3f(startPosition, depthY, -startPosition);
-                Gl.glVertex3f(startPosition, depthY, startPosition);
-                
-                Gl.glVertex3f(startPosition, depthY, -startPosition);
-                Gl.glVertex3f(startPosition, startPosition - depthY, -startPosition);                
-            }
-            Gl.glEnd();
-            Gl.glEndList();
-        }
-
-        private void InitSlabDimentions()
-        {
-            if (slabModel == null) {
-                return;
-            }            
-            var p1 = slabModel.TopLines[slabModel.TopLines.Length/2].First();
-            var p2 = slabModel.RightLines[slabModel.RightLines.Length/2].First();
-            var p3 = slabModel.BottomLines[slabModel.BottomLines.Length/2].First();
-            var p4 = slabModel.LeftLines[slabModel.LeftLines.Length/2].First();
-            var p5 = slabModel.TopLines[slabModel.TopLines.Length/2].Last();
-            var p6 = slabModel.RightLines[slabModel.RightLines.Length/2].Last();
-            var p7 = slabModel.BottomLines[slabModel.BottomLines.Length/2].Last();
-            var p8 = slabModel.LeftLines[slabModel.LeftLines.Length/2].Last();
-
-            var slabDimentionsNumber = Gl.glGenLists(1);
-            objectsList[KEY_SLAB_DIMENTIONS] = slabDimentionsNumber;
-            Gl.glNewList(slabDimentionsNumber, Gl.GL_COMPILE);
-            var color = Color.Blue;
-            Gl.glColor3d(
-                Convert.ToDouble(color.R)/255,
-                Convert.ToDouble(color.G)/255,
-                Convert.ToDouble(color.B)/255);
-            Gl.glLineWidth(2f);
-            Gl.glEnable(Gl.GL_LINE_STIPPLE);
-            Gl.glLineStipple(1, 0x00FF);
-            Gl.glBegin(Gl.GL_LINE_STRIP);
-            {
-                Gl.glVertex3d(p4.X, p1.Y, p1.Z);
-                Gl.glVertex3d(p2.X, p1.Y, p1.Z);
-                Gl.glVertex3d(p2.X, p3.Y, p1.Z);
-                Gl.glVertex3d(p4.X, p3.Y, p1.Z);
-                Gl.glVertex3d(p4.X, p1.Y, p1.Z);
-                Gl.glVertex3d(p8.X, p5.Y, p5.Z);
-                Gl.glVertex3d(p6.X, p5.Y, p5.Z);
-                Gl.glVertex3d(p6.X, p7.Y, p5.Z);
-                Gl.glVertex3d(p8.X, p7.Y, p5.Z);
-                Gl.glVertex3d(p8.X, p5.Y, p5.Z);
-            }
-            Gl.glEnd();
-            Gl.glBegin(Gl.GL_LINES);
-            {
-                Gl.glVertex3d(p2.X, p1.Y, p1.Z);
-                Gl.glVertex3d(p6.X, p5.Y, p5.Z);
-                Gl.glVertex3d(p2.X, p3.Y, p1.Z);
-                Gl.glVertex3d(p6.X, p7.Y, p5.Z);
-                Gl.glVertex3d(p4.X, p3.Y, p1.Z);
-                Gl.glVertex3d(p8.X, p7.Y, p5.Z);
-            }
-            Gl.glEnd();
-            Gl.glDisable(Gl.GL_LINE_STIPPLE);
-            Gl.glEndList();            
-        }
-
-        private void InitSensorValues()
-        {
-            if (slabModel == null) {
-                return;
-            }            
-
-            var sensorValuesNumber = Gl.glGenLists(1);
-            objectsList[KEY_SENSOR_VALUES] = sensorValuesNumber;
-            Gl.glNewList(sensorValuesNumber, Gl.GL_COMPILE);
-            var color = Color.Brown;
-            Gl.glColor3d(
-                Convert.ToDouble(color.R) / 255,
-                Convert.ToDouble(color.G) / 255,
-                Convert.ToDouble(color.B) / 255);
-            Gl.glLineWidth(2f);
-            Gl.glBegin(Gl.GL_LINE_STRIP);
-            {
-                for (var i = 0; i < slabModel.TopLines.Length; ++i) {
-                    for (var j = 0; j < slabModel.TopLines[i].Length; ++j) {
-                        var point = slabModel.TopLines[i][j];
-                        Gl.glVertex3d(point.X, point.Y, point.Z);
-                    }
-                }
-            }
-            Gl.glEnd();
-            Gl.glBegin(Gl.GL_LINE_STRIP);
-            {
-                for (var i = 0; i < slabModel.BottomLines.Length; ++i) {
-                    for (var j = 0; j < slabModel.BottomLines[i].Length; ++j) {
-                        var point = slabModel.BottomLines[i][j];
-                        Gl.glVertex3d(point.X, point.Y, point.Z);
-                    }
-                }
-            }
-            Gl.glEnd();
-            Gl.glBegin(Gl.GL_LINE_STRIP);
-            {
-                for (var i = 0; i < slabModel.LeftLines.Length; ++i) {
-                    for (var j = 0; j < slabModel.LeftLines[i].Length; ++j) {
-                        var point = slabModel.LeftLines[i][j];
-                        Gl.glVertex3d(point.X, point.Y, point.Z);
-                    }
-                }
-            }
-            Gl.glEnd();
-            Gl.glBegin(Gl.GL_LINE_STRIP);
-            {
-                for (var i = 0; i < slabModel.RightLines.Length; ++i) {
-                    for (var j = 0; j < slabModel.RightLines[i].Length; ++j) {
-                        var point = slabModel.RightLines[i][j];
-                        Gl.glVertex3d(point.X, point.Y, point.Z);
-                    }
-                }
-            }
-            Gl.glEnd();
-            Gl.glEndList();
-        }
+            slabModelPanel.ShowSensorValuesChanged(sensorValuesCheckBox.Checked);
+            slabModelPanel.ShowModel();
+        }               
 
         private void smoothCheckedBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (smoothCheckedBox.Checked) {
-                Gl.glEnable(Gl.GL_MULTISAMPLE_ARB);                
-                Gl.glEnable(Gl.GL_LINE_SMOOTH);                                                
-                Gl.glEnable(Gl.GL_BLEND);                                
-            }
-            else {
-                Gl.glDisable(Gl.GL_MULTISAMPLE_ARB);
-                Gl.glDisable(Gl.GL_LINE_SMOOTH);
-                Gl.glDisable(Gl.GL_BLEND);
-            }
-
-            ShowModel();
+            slabModelPanel.ShowSmoothChanged(smoothCheckedBox.Checked);
+            slabModelPanel.ShowModel();
         }
 
         private void SlabVisualizationForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (objectsList.ContainsKey(KEY_SURFACE)) {
-                Gl.glDeleteLists(objectsList[KEY_SURFACE], 1);
-            }            
-            if (objectsList.ContainsKey(KEY_SENSOR_VALUES)) {
-                Gl.glDeleteLists(objectsList[KEY_SENSOR_VALUES], 1);
-            }
-            if (objectsList.ContainsKey(KEY_SLAB_DIMENTIONS)) {
-                Gl.glDeleteLists(objectsList[KEY_SLAB_DIMENTIONS], 1);
-            }
+            slabModelPanel.Dispose();
         }
 
         private void allDimentionsCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -792,153 +234,114 @@ namespace SGCUserInterface
             longitudinalTopCheckBox.Checked = value;
         }
 
-        private void commonDimentions_CheckedChanged(object sender, EventArgs e)
+        private void deviationView_MouseWheel(object sender, MouseEventArgs e)
         {
-            ShowModel();
+            deviationsPanel.ChangeYAsix(e.Delta / 10);
         }
 
         private void frontSideButton_Click(object sender, EventArgs e)
         {
-            angleY = 0;
-            angleX = 0;
-            translateX = 0;
-            translateY = 0;
-            ShowModel();            
+            slabModelPanel.MoveToFrontSide();
+            slabModelPanel.ShowModel();            
         }
 
         private void topSideButton_Click(object sender, EventArgs e)
         {
-            angleY = 90;
-            angleX = 90;
-            translateX = 0;
-            translateY = 0;
-            ShowModel();
+            slabModelPanel.MoveToTopSide();
+            slabModelPanel.ShowModel();
         }
 
         private void leftSideButton_Click(object sender, EventArgs e)
         {
-            angleY = 90;
-            angleX = 0;
-            translateX = 0;
-            translateY = 0;
-            ShowModel();
+            slabModelPanel.MoveToLeftSide();
+            slabModelPanel.ShowModel();
         }
 
         private void angleSideButton_Click(object sender, EventArgs e)
         {
-            angleX = 45;
-            angleY = 45;
-            translateX = 0;
-            translateY = 0;
-            ShowModel();
+            slabModelPanel.MoveToAngleSide();
+            slabModelPanel.ShowModel();
         }               
 
         private void leftButton_Click(object sender, EventArgs e)
         {
-            HidePlotLine(plotIndex);
-            plotIndex = (plotIndex == 0 ? plotLines.Count - 1 : plotIndex - 1);
-            ShowPlotLine(plotIndex);
-
-            plotsView.AxisChange();
-            plotsView.Invalidate();
+            sensorsPlots.ShowLeftPlots(bumpingFilterCheckBox.Checked);
         }
 
         private void rightButton_Click(object sender, EventArgs e)
         {
-            HidePlotLine(plotIndex);
-            plotIndex = (plotIndex == plotLines.Count - 1 ? 0 : plotIndex + 1);            
-            ShowPlotLine(plotIndex);
-            
-            plotsView.AxisChange();
-            plotsView.Invalidate();
-        }
-
-        private void ShowPlotLine(int aPlotIndex)
-        {
-            plotLines[aPlotIndex].IsVisible = true;
-            plotLines[aPlotIndex].Label.IsVisible = true;
-            Text = @"Всего точек: " + plotLines[aPlotIndex].Points.Count;
-
-            if (bumpingFilterCheckBox.Checked) {
-                filteredLines[aPlotIndex].IsVisible = true;
-                filteredLines[aPlotIndex].Label.IsVisible = true;
-            }
-            else {
-                filteredLines[aPlotIndex].IsVisible = false;
-                filteredLines[aPlotIndex].Label.IsVisible = false;
-            }
-        }
-
-        private void HidePlotLine(int aPlotIndex)
-        {
-            plotLines[aPlotIndex].IsVisible = false;
-            plotLines[aPlotIndex].Label.IsVisible = false;            
-            filteredLines[aPlotIndex].IsVisible = false;
-            filteredLines[aPlotIndex].Label.IsVisible = false;            
+            sensorsPlots.ShowRightPlots(bumpingFilterCheckBox.Checked);
         }
 
         private void isAllPlotShowCheckedBox_CheckedChanged(object sender, EventArgs e)
-        {            
-            if (isAllPlotShowCheckedBox.Checked) {
-                leftButton.Enabled = false;
-                rightButton.Enabled = false;
-                for (var i = 0; i < plotLines.Count; ++i) {                    
-                    ShowPlotLine(i);
-                }
-            }
-            else {
-                leftButton.Enabled = true;
-                rightButton.Enabled = true;
-                for (var i = 0; i < plotLines.Count; ++i) {
-                    HidePlotLine(i);                    
-                }
-
-                ShowPlotLine(plotIndex);
-            }
-
-            plotsView.AxisChange();
-            plotsView.Invalidate();
+        {
+            sensorsPlots.ShowAllPlots(isAllPlotShowCheckedBox.Checked, bumpingFilterCheckBox.Checked);
         }
 
         private void isShowNodesCheckedBox_CheckedChanged(object sender, EventArgs e)
         {
-            foreach (var plotLine in plotLines) {
-                var color = plotLine.Color;
-                if (isShowNodesCheckedBox.Checked) {
-                    plotLine.Symbol = new Symbol(SymbolType.Triangle, color);
-                }
-                else {
-                    plotLine.Symbol = new Symbol(SymbolType.None, color);
-                }
-            }
-
-            plotsView.AxisChange();
-            plotsView.Invalidate();
-        }
-
-        private void smoothNumeric_ValueChanged(object sender, EventArgs e)
-        {
-            foreach (var plotLine in plotLines) {
-                plotLine.Line.SmoothTension = (float)smoothNumeric.Value;
-            }
-
-            plotsView.AxisChange();
-            plotsView.Invalidate();
+            sensorsPlots.ShowPlotNodes(isShowNodesCheckedBox.Checked);
         }
 
         private void bumpingFilterCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (isAllPlotShowCheckedBox.Checked) {
-                for (var i = 0; i < plotLines.Count; ++i) {
-                    ShowPlotLine(i);
-                }
-            }
-            else {
-                ShowPlotLine(plotIndex);
-            }
+            sensorsPlots.ShowFilteredPlot(bumpingFilterCheckBox.Checked);
+        }
 
-            plotsView.AxisChange();
-            plotsView.Invalidate();
-        }        
+        private void sectionsView_ContextMenuBuilder(ZedGraphControl sender, ContextMenuStrip menuStrip, Point mousePt, ZedGraphControl.ContextMenuObjectState objState)
+        {
+            menuStrip.Items[0].Text = @"Копировать";
+            menuStrip.Items[1].Text = @"Сохранить как картинку…";
+            menuStrip.Items[2].Text = @"Параметры страницы";
+            menuStrip.Items[3].Text = @"Печать…";
+            menuStrip.Items[4].Text = @"Показывать значения в точках";
+            menuStrip.Items[7].Text = @"Установить масштаб по умолчанию";
+            menuStrip.Items.RemoveAt(5);
+            menuStrip.Items.RemoveAt(5);
+        }
+
+        private void plotsView_ContextMenuBuilder(ZedGraphControl sender, ContextMenuStrip menuStrip, Point mousePt, ZedGraphControl.ContextMenuObjectState objState)
+        {
+            menuStrip.Items[0].Text = @"Копировать";
+            menuStrip.Items[1].Text = @"Сохранить как картинку…";
+            menuStrip.Items[2].Text = @"Параметры страницы…";
+            menuStrip.Items[3].Text = @"Печать…";
+            menuStrip.Items[4].Text = @"Показывать значения в точках…";
+            menuStrip.Items[7].Text = @"Установить масштаб по умолчанию…";
+            menuStrip.Items.RemoveAt(5);
+            menuStrip.Items.RemoveAt(5);
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            sectionsPanel.ShowLeftSection();
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            sectionsPanel.ShowTopSection();
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            deviationsPanel.ShowLeftPlot();
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            deviationsPanel.ShowRightPlot();
+        }
+
+        private void deviationView_ContextMenuBuilder(ZedGraphControl sender, ContextMenuStrip menuStrip, Point mousePt, ZedGraphControl.ContextMenuObjectState objState)
+        {
+            menuStrip.Items[0].Text = @"Копировать";
+            menuStrip.Items[1].Text = @"Сохранить как картинку…";
+            menuStrip.Items[2].Text = @"Параметры страницы…";
+            menuStrip.Items[3].Text = @"Печать…";
+            menuStrip.Items[4].Text = @"Показывать значения в точках…";
+            menuStrip.Items[7].Text = @"Установить масштаб по умолчанию…";
+            menuStrip.Items.RemoveAt(5);
+            menuStrip.Items.RemoveAt(5);
+        }
     }
 }

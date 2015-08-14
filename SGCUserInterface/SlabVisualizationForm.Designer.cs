@@ -33,13 +33,22 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.bumpingFilterCheckBox = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.smoothNumeric = new System.Windows.Forms.NumericUpDown();
-            this.label3 = new System.Windows.Forms.Label();
             this.isShowNodesCheckedBox = new System.Windows.Forms.CheckBox();
             this.isAllPlotShowCheckedBox = new System.Windows.Forms.CheckBox();
             this.rightButton = new System.Windows.Forms.Button();
             this.leftButton = new System.Windows.Forms.Button();
             this.plotsView = new ZedGraph.ZedGraphControl();
+            this.sectionsPage = new System.Windows.Forms.TabPage();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.button8 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.sectionsView = new ZedGraph.ZedGraphControl();
+            this.deviationPage = new System.Windows.Forms.TabPage();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.button9 = new System.Windows.Forms.Button();
+            this.button10 = new System.Windows.Forms.Button();
+            this.deviationView = new ZedGraph.ZedGraphControl();
             this.slabModelPage = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
             this.button6 = new System.Windows.Forms.Button();
@@ -60,11 +69,14 @@
             this.sensorValuesCheckBox = new System.Windows.Forms.CheckBox();
             this.dimensionsCheckBox = new System.Windows.Forms.CheckBox();
             this.gridSurfaceCheckBox = new System.Windows.Forms.CheckBox();
-            this.modelPanel = new Tao.Platform.Windows.SimpleOpenGlControl();
+            this.modelView = new Tao.Platform.Windows.SimpleOpenGlControl();
             this.tabControl1.SuspendLayout();
             this.plotsPage.SuspendLayout();
             this.panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.smoothNumeric)).BeginInit();
+            this.sectionsPage.SuspendLayout();
+            this.panel5.SuspendLayout();
+            this.deviationPage.SuspendLayout();
+            this.panel6.SuspendLayout();
             this.slabModelPage.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -73,6 +85,8 @@
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.plotsPage);
+            this.tabControl1.Controls.Add(this.sectionsPage);
+            this.tabControl1.Controls.Add(this.deviationPage);
             this.tabControl1.Controls.Add(this.slabModelPage);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
@@ -100,21 +114,19 @@
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel4.Controls.Add(this.bumpingFilterCheckBox);
             this.panel4.Controls.Add(this.label4);
-            this.panel4.Controls.Add(this.smoothNumeric);
-            this.panel4.Controls.Add(this.label3);
             this.panel4.Controls.Add(this.isShowNodesCheckedBox);
             this.panel4.Controls.Add(this.isAllPlotShowCheckedBox);
             this.panel4.Controls.Add(this.rightButton);
             this.panel4.Controls.Add(this.leftButton);
             this.panel4.Location = new System.Drawing.Point(547, 6);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(165, 196);
+            this.panel4.Size = new System.Drawing.Size(165, 126);
             this.panel4.TabIndex = 3;
             // 
             // bumpingFilterCheckBox
             // 
             this.bumpingFilterCheckBox.AutoSize = true;
-            this.bumpingFilterCheckBox.Location = new System.Drawing.Point(3, 159);
+            this.bumpingFilterCheckBox.Location = new System.Drawing.Point(3, 97);
             this.bumpingFilterCheckBox.Name = "bumpingFilterCheckBox";
             this.bumpingFilterCheckBox.Size = new System.Drawing.Size(66, 17);
             this.bumpingFilterCheckBox.TabIndex = 8;
@@ -131,35 +143,6 @@
             this.label4.TabIndex = 7;
             this.label4.Text = "Выбор датчика";
             // 
-            // smoothNumeric
-            // 
-            this.smoothNumeric.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.smoothNumeric.DecimalPlaces = 1;
-            this.smoothNumeric.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.smoothNumeric.Location = new System.Drawing.Point(3, 117);
-            this.smoothNumeric.Maximum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.smoothNumeric.Name = "smoothNumeric";
-            this.smoothNumeric.Size = new System.Drawing.Size(154, 20);
-            this.smoothNumeric.TabIndex = 6;
-            this.smoothNumeric.ValueChanged += new System.EventHandler(this.smoothNumeric_ValueChanged);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(0, 101);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(119, 13);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Степень сглаживания";
-            // 
             // isShowNodesCheckedBox
             // 
             this.isShowNodesCheckedBox.AutoSize = true;
@@ -175,6 +158,8 @@
             // isAllPlotShowCheckedBox
             // 
             this.isAllPlotShowCheckedBox.AutoSize = true;
+            this.isAllPlotShowCheckedBox.Checked = true;
+            this.isAllPlotShowCheckedBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.isAllPlotShowCheckedBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.isAllPlotShowCheckedBox.Location = new System.Drawing.Point(3, 51);
             this.isAllPlotShowCheckedBox.Name = "isAllPlotShowCheckedBox";
@@ -213,7 +198,7 @@
             this.plotsView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.plotsView.Location = new System.Drawing.Point(0, 0);
+            this.plotsView.Location = new System.Drawing.Point(-4, -10);
             this.plotsView.Name = "plotsView";
             this.plotsView.ScrollGrace = 0D;
             this.plotsView.ScrollMaxX = 0D;
@@ -222,15 +207,171 @@
             this.plotsView.ScrollMinX = 0D;
             this.plotsView.ScrollMinY = 0D;
             this.plotsView.ScrollMinY2 = 0D;
-            this.plotsView.Size = new System.Drawing.Size(719, 480);
+            this.plotsView.Size = new System.Drawing.Size(723, 500);
             this.plotsView.TabIndex = 0;
             this.plotsView.ContextMenuBuilder += new ZedGraph.ZedGraphControl.ContextMenuBuilderEventHandler(this.plotsView_ContextMenuBuilder);
+            // 
+            // sectionsPage
+            // 
+            this.sectionsPage.Controls.Add(this.panel5);
+            this.sectionsPage.Controls.Add(this.sectionsView);
+            this.sectionsPage.Location = new System.Drawing.Point(4, 22);
+            this.sectionsPage.Name = "sectionsPage";
+            this.sectionsPage.Padding = new System.Windows.Forms.Padding(3);
+            this.sectionsPage.Size = new System.Drawing.Size(715, 480);
+            this.sectionsPage.TabIndex = 2;
+            this.sectionsPage.Text = "Срезы слитка";
+            this.sectionsPage.UseVisualStyleBackColor = true;
+            // 
+            // panel5
+            // 
+            this.panel5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel5.BackColor = System.Drawing.Color.White;
+            this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel5.Controls.Add(this.button8);
+            this.panel5.Controls.Add(this.button7);
+            this.panel5.Location = new System.Drawing.Point(589, 6);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(123, 125);
+            this.panel5.TabIndex = 4;
+            // 
+            // button8
+            // 
+            this.button8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.button8.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.button8.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.button8.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+            this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button8.Location = new System.Drawing.Point(12, 65);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(98, 48);
+            this.button8.TabIndex = 3;
+            this.button8.Text = "СВЕРХУ";
+            this.button8.UseVisualStyleBackColor = false;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
+            // button7
+            // 
+            this.button7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.button7.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.button7.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.button7.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button7.Location = new System.Drawing.Point(12, 11);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(98, 48);
+            this.button7.TabIndex = 2;
+            this.button7.Text = "СЛЕВА";
+            this.button7.UseVisualStyleBackColor = false;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // sectionsView
+            // 
+            this.sectionsView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.sectionsView.Location = new System.Drawing.Point(-2, -10);
+            this.sectionsView.Name = "sectionsView";
+            this.sectionsView.ScrollGrace = 0D;
+            this.sectionsView.ScrollMaxX = 0D;
+            this.sectionsView.ScrollMaxY = 0D;
+            this.sectionsView.ScrollMaxY2 = 0D;
+            this.sectionsView.ScrollMinX = 0D;
+            this.sectionsView.ScrollMinY = 0D;
+            this.sectionsView.ScrollMinY2 = 0D;
+            this.sectionsView.Size = new System.Drawing.Size(719, 504);
+            this.sectionsView.TabIndex = 1;
+            this.sectionsView.ContextMenuBuilder += new ZedGraph.ZedGraphControl.ContextMenuBuilderEventHandler(this.sectionsView_ContextMenuBuilder);
+            // 
+            // deviationPage
+            // 
+            this.deviationPage.Controls.Add(this.panel6);
+            this.deviationPage.Controls.Add(this.deviationView);
+            this.deviationPage.Location = new System.Drawing.Point(4, 22);
+            this.deviationPage.Name = "deviationPage";
+            this.deviationPage.Padding = new System.Windows.Forms.Padding(3);
+            this.deviationPage.Size = new System.Drawing.Size(715, 480);
+            this.deviationPage.TabIndex = 3;
+            this.deviationPage.Text = "Графики отклонения от среднего";
+            this.deviationPage.UseVisualStyleBackColor = true;
+            // 
+            // panel6
+            // 
+            this.panel6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel6.BackColor = System.Drawing.Color.White;
+            this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel6.Controls.Add(this.label3);
+            this.panel6.Controls.Add(this.button9);
+            this.panel6.Controls.Add(this.button10);
+            this.panel6.Location = new System.Drawing.Point(562, 6);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(147, 73);
+            this.panel6.TabIndex = 5;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(30, 9);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(86, 13);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Выбор стороны";
+            // 
+            // button9
+            // 
+            this.button9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.button9.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.button9.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.button9.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+            this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button9.Location = new System.Drawing.Point(82, 25);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(45, 29);
+            this.button9.TabIndex = 3;
+            this.button9.Text = ">>";
+            this.button9.UseVisualStyleBackColor = false;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
+            // 
+            // button10
+            // 
+            this.button10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.button10.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.button10.FlatAppearance.CheckedBackColor = System.Drawing.Color.White;
+            this.button10.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+            this.button10.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button10.Location = new System.Drawing.Point(19, 25);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(45, 29);
+            this.button10.TabIndex = 2;
+            this.button10.Text = "<<";
+            this.button10.UseVisualStyleBackColor = false;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
+            // 
+            // deviationView
+            // 
+            this.deviationView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.deviationView.IsEnableVZoom = false;
+            this.deviationView.IsEnableWheelZoom = false;
+            this.deviationView.Location = new System.Drawing.Point(-2, -7);
+            this.deviationView.Name = "deviationView";
+            this.deviationView.ScrollGrace = 0D;
+            this.deviationView.ScrollMaxX = 0D;
+            this.deviationView.ScrollMaxY = 0D;
+            this.deviationView.ScrollMaxY2 = 0D;
+            this.deviationView.ScrollMinX = 0D;
+            this.deviationView.ScrollMinY = 0D;
+            this.deviationView.ScrollMinY2 = 0D;
+            this.deviationView.Size = new System.Drawing.Size(719, 503);
+            this.deviationView.TabIndex = 2;
+            this.deviationView.ContextMenuBuilder += new ZedGraph.ZedGraphControl.ContextMenuBuilderEventHandler(this.deviationView_ContextMenuBuilder);
             // 
             // slabModelPage
             // 
             this.slabModelPage.Controls.Add(this.panel3);
             this.slabModelPage.Controls.Add(this.panel1);
-            this.slabModelPage.Controls.Add(this.modelPanel);
+            this.slabModelPage.Controls.Add(this.modelView);
             this.slabModelPage.Location = new System.Drawing.Point(4, 22);
             this.slabModelPage.Name = "slabModelPage";
             this.slabModelPage.Padding = new System.Windows.Forms.Padding(3);
@@ -497,24 +638,24 @@
             this.gridSurfaceCheckBox.UseVisualStyleBackColor = true;
             this.gridSurfaceCheckBox.CheckedChanged += new System.EventHandler(this.gridSurfaceCheckBox_CheckedChanged);
             // 
-            // modelPanel
+            // modelView
             // 
-            this.modelPanel.AccumBits = ((byte)(0));
-            this.modelPanel.AutoCheckErrors = false;
-            this.modelPanel.AutoFinish = false;
-            this.modelPanel.AutoMakeCurrent = true;
-            this.modelPanel.AutoSwapBuffers = true;
-            this.modelPanel.BackColor = System.Drawing.Color.Black;
-            this.modelPanel.ColorBits = ((byte)(32));
-            this.modelPanel.DepthBits = ((byte)(16));
-            this.modelPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.modelPanel.Location = new System.Drawing.Point(3, 3);
-            this.modelPanel.Name = "modelPanel";
-            this.modelPanel.Size = new System.Drawing.Size(709, 474);
-            this.modelPanel.StencilBits = ((byte)(0));
-            this.modelPanel.TabIndex = 0;
-            this.modelPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.modelPanel_MouseDown);
-            this.modelPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.modelPanel_MouseMove);
+            this.modelView.AccumBits = ((byte)(0));
+            this.modelView.AutoCheckErrors = false;
+            this.modelView.AutoFinish = false;
+            this.modelView.AutoMakeCurrent = true;
+            this.modelView.AutoSwapBuffers = true;
+            this.modelView.BackColor = System.Drawing.Color.Black;
+            this.modelView.ColorBits = ((byte)(32));
+            this.modelView.DepthBits = ((byte)(16));
+            this.modelView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.modelView.Location = new System.Drawing.Point(3, 3);
+            this.modelView.Name = "modelView";
+            this.modelView.Size = new System.Drawing.Size(709, 474);
+            this.modelView.StencilBits = ((byte)(0));
+            this.modelView.TabIndex = 0;
+            this.modelView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.modelPanel_MouseDown);
+            this.modelView.MouseMove += new System.Windows.Forms.MouseEventHandler(this.modelPanel_MouseMove);
             // 
             // SlabVisualizationForm
             // 
@@ -533,7 +674,11 @@
             this.plotsPage.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.smoothNumeric)).EndInit();
+            this.sectionsPage.ResumeLayout(false);
+            this.panel5.ResumeLayout(false);
+            this.deviationPage.ResumeLayout(false);
+            this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
             this.slabModelPage.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
@@ -544,11 +689,10 @@
 
         #endregion
 
-        private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage plotsPage;
         private ZedGraph.ZedGraphControl plotsView;
         private System.Windows.Forms.TabPage slabModelPage;
-        private Tao.Platform.Windows.SimpleOpenGlControl modelPanel;
+        private Tao.Platform.Windows.SimpleOpenGlControl modelView;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.CheckBox gridSurfaceCheckBox;
         private System.Windows.Forms.CheckBox dimensionsCheckBox;
@@ -582,9 +726,19 @@
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.CheckBox isShowNodesCheckedBox;
         private System.Windows.Forms.CheckBox isAllPlotShowCheckedBox;
-        private System.Windows.Forms.NumericUpDown smoothNumeric;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox bumpingFilterCheckBox;
+        private System.Windows.Forms.TabPage sectionsPage;
+        private ZedGraph.ZedGraphControl sectionsView;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage deviationPage;
+        private ZedGraph.ZedGraphControl deviationView;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Label label3;
     }
 }

@@ -20,7 +20,7 @@ namespace SGCUserInterface
         private long currentTime = 0;
         private BackgroundWorker loader = null;
         private CurrentInformation information = new CurrentInformation();
-        private Timer loaderStarter = new Timer();
+        private Timer loaderStarter = new Timer();        
 
         public CurrentValuesForm(SGCClientImpl aClient)
         {
@@ -62,7 +62,7 @@ namespace SGCUserInterface
                 loader.RunWorkerAsync();
 
                 loaderStarter.Tick += StartLoader;
-                loaderStarter.Interval = 1000;
+                loaderStarter.Interval = 100;
                 loaderStarter.Start();
             }            
         }
@@ -171,6 +171,9 @@ namespace SGCUserInterface
             if (information.Values != null) {
                 var pane = plotsView.GraphPane;
                 for (var i = 0; i < information.Sensors.Length; ++i) {
+                    if (currentTime % 300 == 0 && checkBox1.Checked) {
+                        pane.CurveList[i].Clear();                                                
+                    }
                     pane.CurveList[i].AddPoint(currentTime, information.Values[i]);
                 }
                 currentTime++;

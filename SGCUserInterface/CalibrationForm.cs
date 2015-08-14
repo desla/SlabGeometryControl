@@ -133,6 +133,14 @@ namespace SGCUserInterface
                 + bag.FirstSensorValue 
                 + bag.SecondSensor;
 
+            if (MessageBox.Show(@"Подтверждаете калибровку датчиков?", 
+                                @"Подтверждение калибровки", 
+                                MessageBoxButtons.OKCancel,
+                                MessageBoxIcon.Question) 
+                           == DialogResult.Cancel) {
+                return;
+            }
+
             try {
                 client.SetCalibratedValue(bag.FirstSensorId, calibratedValue);
                 client.SetCalibratedValue(bag.SecondSensorId, calibratedValue);
