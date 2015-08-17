@@ -4,6 +4,7 @@ using Alvasoft.DataEnums;
 using Alvasoft.DataProvider;
 using Alvasoft.SensorConfiguration;
 using Alvasoft.SensorValueContainer;
+using Alvasoft.SlabBuilder.Impl.Filters;
 using Alvasoft.Utils.Activity;
 using Alvasoft.Utils.Mathematic3D;
 using log4net;
@@ -67,8 +68,9 @@ namespace Alvasoft.SlabBuilder.Impl
 
             BuildLimits(slab);
 
-            //RattleFilter(slab);
-            //BumpingFilter(slab);
+            PickFilter.Filter(slab);
+            BumpFilter.Filter(slab);
+            AverageFilter.Filter(slab);
 
             return slab;
         }

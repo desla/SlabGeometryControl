@@ -63,6 +63,7 @@ namespace Alvasoft.DimentionCalculator.Impl
             algorithms.Add(new LateralCurvatureRightAlgorithm()); // поперечная кривизна справа
             algorithms.Add(new LateralCurvatureLeftAlgorithm()); // поперечная кривизна слева
             algorithms.Add(new LongitudinalCurvatureTopAlgorithm()); // продольная кривизна сверху
+            algorithms.Add(new AngleAlgorithm()); // угол движения
             logger.Info("Инициализация завершена.");
         }
 

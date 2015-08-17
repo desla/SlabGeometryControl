@@ -105,8 +105,9 @@
     <Compile Include="EditOpcTagsForm.Designer.cs">
       <DependentUpon>EditOpcTagsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Filters\RattleFilter.cs" />
-    <Compile Include="Filters\IFilter.cs" />
+    <Compile Include="Filters\AverageFilter.cs" />
+    <Compile Include="Filters\BumpFilter.cs" />
+    <Compile Include="Filters\PickFilter.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

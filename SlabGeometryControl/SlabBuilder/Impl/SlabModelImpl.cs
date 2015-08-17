@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Alvasoft.SlabGeometryControl;
 using Alvasoft.Utils.Mathematic3D;
-using log4net.Repository.Hierarchy;
-using NHibernate.Mapping;
 
 namespace Alvasoft.SlabBuilder.Impl
 {

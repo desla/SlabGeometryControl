@@ -31,7 +31,6 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.plotsPage = new System.Windows.Forms.TabPage();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.bumpingFilterCheckBox = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.isShowNodesCheckedBox = new System.Windows.Forms.CheckBox();
             this.isAllPlotShowCheckedBox = new System.Windows.Forms.CheckBox();
@@ -112,7 +111,6 @@
             this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel4.BackColor = System.Drawing.Color.White;
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.Controls.Add(this.bumpingFilterCheckBox);
             this.panel4.Controls.Add(this.label4);
             this.panel4.Controls.Add(this.isShowNodesCheckedBox);
             this.panel4.Controls.Add(this.isAllPlotShowCheckedBox);
@@ -120,19 +118,8 @@
             this.panel4.Controls.Add(this.leftButton);
             this.panel4.Location = new System.Drawing.Point(547, 6);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(165, 126);
+            this.panel4.Size = new System.Drawing.Size(165, 101);
             this.panel4.TabIndex = 3;
-            // 
-            // bumpingFilterCheckBox
-            // 
-            this.bumpingFilterCheckBox.AutoSize = true;
-            this.bumpingFilterCheckBox.Location = new System.Drawing.Point(3, 97);
-            this.bumpingFilterCheckBox.Name = "bumpingFilterCheckBox";
-            this.bumpingFilterCheckBox.Size = new System.Drawing.Size(66, 17);
-            this.bumpingFilterCheckBox.TabIndex = 8;
-            this.bumpingFilterCheckBox.Text = "Фильтр";
-            this.bumpingFilterCheckBox.UseVisualStyleBackColor = true;
-            this.bumpingFilterCheckBox.CheckedChanged += new System.EventHandler(this.bumpingFilterCheckBox_CheckedChanged);
             // 
             // label4
             // 
@@ -727,7 +714,6 @@
         private System.Windows.Forms.CheckBox isShowNodesCheckedBox;
         private System.Windows.Forms.CheckBox isAllPlotShowCheckedBox;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.CheckBox bumpingFilterCheckBox;
         private System.Windows.Forms.TabPage sectionsPage;
         private ZedGraph.ZedGraphControl sectionsView;
         private System.Windows.Forms.Panel panel5;

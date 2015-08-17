@@ -267,7 +267,7 @@ namespace Alvasoft.DataProvider.Impl
             // /*
             var slabLength = 1000.0;
             var count = right - left;
-            var step = slabLength/(count - 1);
+            var step = slabLength/(count - 2);
             var t1 = 0;
             while (left != right) {
                 if (left > masSize) {

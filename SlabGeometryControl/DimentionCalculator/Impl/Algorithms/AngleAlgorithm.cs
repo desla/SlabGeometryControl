@@ -3,14 +3,11 @@ using Alvasoft.SlabBuilder;
 
 namespace Alvasoft.DimentionCalculator.Impl.Algorithms
 {
-    /// <summary>
-    /// Поперечная кривизна (боковое искривление).
-    /// </summary>
-    public class LongitudinalCurvatureTopAlgorithm : IDimentionAlgorithm
+    public class AngleAlgorithm : IDimentionAlgorithm
     {
         public string GetName()
         {
-            return "top_side_longitudinal_curvature";
+            return "angle";
         }
 
         public double CalculateValue(ISlabModel aSlabModel)
@@ -18,15 +15,18 @@ namespace Alvasoft.DimentionCalculator.Impl.Algorithms
             if (aSlabModel == null) {
                 throw new ArgumentNullException("aSlabModel");
             }
-            
+
             var indent = 30.0; // 3 см.
             // вычисляем середину слитка.
-            var coordinateX = aSlabModel.GetLeftLimit() + 300; // отступ 30 см слева.
+            var coordinateX = 0;
             var leftPoint = aSlabModel.GetTopSidePoint(coordinateX, indent);
             var rightPoint = aSlabModel.GetTopSidePoint(coordinateX, aSlabModel.GetLengthLimit() - indent);
-            var middlePoint = aSlabModel.GetTopSidePoint(coordinateX, aSlabModel.GetLengthLimit()/2);
 
-            return Math.Round(middlePoint.DistanceToLine(leftPoint, rightPoint), 4);
+            var hypotenuse = leftPoint.DistanceToPoint(rightPoint);
+
+            var angle = Math.Asin((leftPoint.Y - rightPoint.Y) / hypotenuse);
+
+            return 180.0 * angle / Math.PI;
         }
     }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using Alvasoft.SlabGeometryControl;
-using SGCUserInterface.Filters;
 using ZedGraph;
 
 namespace SGCUserInterface.SlabVisualizationFormPrimitivs.Panels
@@ -17,8 +16,7 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs.Panels
     {
         private ZedGraphControl control;
         private Random rnd = new Random(14121989);
-        private List<LineItem> plotLines = new List<LineItem>();
-        private List<LineItem> filteredLines = new List<LineItem>();
+        private List<LineItem> plotLines = new List<LineItem>();        
         private int plotIndex = 0;
         private bool isShowAllPlots;
         
@@ -52,27 +50,15 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs.Panels
                 HidePlotLine(i);
             }
 
-            for (var i = 0; i < aPoints.Length; ++i) {
-                if (aPoints[i] != null) {
-                    var rattledPoints = new RattleFilter().Filter(aPoints[i]);
-                    var result = rattledPoints;
-                    for (var j = 0; j < result.Length; ++j) {
-                        pane.CurveList[aPoints.Length + i].AddPoint(result[j].X / 1000, result[j].Y);
-                    }
-                }
-
-                HidePlotLine(i);
-            }
-
             if (aPoints.Length > 0) {
-                ShowPlotLine(0, isShowAllPlots);
+                ShowPlotLine(0);
             }
 
             control.AxisChange();
             control.Invalidate();
         }
 
-        public void ShowLeftPlots(bool aIsShowFilteredPlot)
+        public void ShowLeftPlots()
         {
             if (isShowAllPlots) {
                 return;
@@ -80,13 +66,13 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs.Panels
 
             HidePlotLine(plotIndex);
             plotIndex = (plotIndex == 0 ? plotLines.Count - 1 : plotIndex - 1);
-            ShowPlotLine(plotIndex, aIsShowFilteredPlot);
+            ShowPlotLine(plotIndex);
 
             control.AxisChange();
             control.Invalidate();
         }
 
-        public void ShowRightPlots(bool aIsShowFilteredPlot)
+        public void ShowRightPlots()
         {
             if (isShowAllPlots) {
                 return;
@@ -94,18 +80,18 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs.Panels
 
             HidePlotLine(plotIndex);
             plotIndex = (plotIndex == plotLines.Count - 1 ? 0 : plotIndex + 1);
-            ShowPlotLine(plotIndex, aIsShowFilteredPlot);
+            ShowPlotLine(plotIndex);
 
             control.AxisChange();
             control.Invalidate();
         }
 
-        public void ShowAllPlots(bool aIsShowAllPlots, bool aIsShowFilteredPlot)
+        public void ShowAllPlots(bool aIsShowAllPlots)
         {
             isShowAllPlots = aIsShowAllPlots;
             if (aIsShowAllPlots) {                
                 for (var i = 0; i < plotLines.Count; ++i) {
-                    ShowPlotLine(i, aIsShowFilteredPlot);
+                    ShowPlotLine(i);
                 }
             }
             else {                
@@ -113,7 +99,7 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs.Panels
                     HidePlotLine(i);
                 }
 
-                ShowPlotLine(plotIndex, aIsShowFilteredPlot);
+                ShowPlotLine(plotIndex);
             }
 
             control.AxisChange();
@@ -137,17 +123,6 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs.Panels
                 curve.Line.SmoothTension = 0;
                 curve.Line.IsAntiAlias = true;
                 plotLines.Add(curve);
-            }
-            for (var i = 0; i < aSensors.Length; ++i) {
-                var curve = pane.AddCurve(
-                    aSensors[i].Name + "_Filtered",
-                    new PointPairList(),
-                    Color.FromArgb(rnd.Next(255), rnd.Next(255), rnd.Next(255)),
-                    SymbolType.None);
-                curve.Line.IsSmooth = true;
-                curve.Line.SmoothTension = 0;
-                curve.Line.IsAntiAlias = true;
-                filteredLines.Add(curve);
             }
         }
 
@@ -190,27 +165,16 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs.Panels
             pane.XAxis.MinorGrid.DashOff = 2;
         }
 
-        private void ShowPlotLine(int aPlotIndex, bool aIsShowFilteredLine)
+        private void ShowPlotLine(int aPlotIndex)
         {
             plotLines[aPlotIndex].IsVisible = true;
-            plotLines[aPlotIndex].Label.IsVisible = true;
-
-            if (aIsShowFilteredLine) {
-                filteredLines[aPlotIndex].IsVisible = true;
-                filteredLines[aPlotIndex].Label.IsVisible = true;
-            }
-            else {
-                filteredLines[aPlotIndex].IsVisible = false;
-                filteredLines[aPlotIndex].Label.IsVisible = false;
-            }
+            plotLines[aPlotIndex].Label.IsVisible = true;            
         }
 
         private void HidePlotLine(int aPlotIndex)
         {
             plotLines[aPlotIndex].IsVisible = false;
-            plotLines[aPlotIndex].Label.IsVisible = false;
-            filteredLines[aPlotIndex].IsVisible = false;
-            filteredLines[aPlotIndex].Label.IsVisible = false;
+            plotLines[aPlotIndex].Label.IsVisible = false;            
         }
 
         public void ShowPlotNodes(bool aIsShowNodes)
@@ -223,21 +187,6 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs.Panels
                 else {
                     plotLine.Symbol = new Symbol(SymbolType.None, color);
                 }
-            }
-
-            control.AxisChange();
-            control.Invalidate();
-        }
-
-        public void ShowFilteredPlot(bool aIsShowFilteredPlots)
-        {
-            if (isShowAllPlots) {
-                for (var i = 0; i < plotLines.Count; ++i) {
-                    ShowPlotLine(i, aIsShowFilteredPlots);
-                }
-            }
-            else {
-                ShowPlotLine(plotIndex, aIsShowFilteredPlots);
             }
 
             control.AxisChange();

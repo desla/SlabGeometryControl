@@ -16,8 +16,7 @@ namespace Alvasoft.SensorValueContainer.Impl
 
         public void AddSensorValue(int aSensorId, double aValue, long aTime)
         {            
-            var sensorValue = new SensorValueInfoImpl(aSensorId, aValue, aTime);
-            logger.Debug("Добавить новое значение для датчика: " + sensorValue.ToString());
+            var sensorValue = new SensorValueInfoImpl(aSensorId, aValue, aTime);            
             lock (accessLock) {
                 if (!container.ContainsKey(aSensorId)) {
                     container[aSensorId] = new List<ISensorValueInfo>();

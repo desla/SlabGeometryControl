@@ -17,9 +17,10 @@ namespace Alvasoft.DimentionCalculator.Impl.Algorithms
             }
 
             // вычисляем середину слитка.
-            var positionY = 0.5 * (aSlabModel.GetTopLimit() + aSlabModel.GetBottomLimit());
-            // отступаем 10 см от торца слитка.
-            var positionZ = 100;
+            //var positionY = 0.5 * (aSlabModel.GetTopLimit() + aSlabModel.GetBottomLimit());
+            var positionY = 0;
+            // отступаем 2 см от торца слитка.
+            var positionZ = 20;
 
             var leftPoint = aSlabModel.GetLeftSidePoint(positionY, positionZ);
             var rightPoint = aSlabModel.GetRightSidePoint(positionY, positionZ);

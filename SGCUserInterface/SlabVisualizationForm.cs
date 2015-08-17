@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Alvasoft.SlabGeometryControl;
+using SGCUserInterface.Filters;
 using SGCUserInterface.SlabVisualizationFormPrimitivs;
 using SGCUserInterface.SlabVisualizationFormPrimitivs.Panels;
 using Tao.FreeGlut;
@@ -50,13 +51,16 @@ namespace SGCUserInterface
         /// </summary>
         private DeviationsPlotsPanel deviationsPanel;
 
-        public SlabVisualizationForm(int aSlabId, int aStandartSizeId, SGCClientImpl aClient)
+        private bool isUseFilter;
+
+        public SlabVisualizationForm(int aSlabId, int aStandartSizeId, SGCClientImpl aClient, bool aIsUseFilter)
         {
             InitializeComponent();                        
 
             client = aClient;
             slabId = aSlabId;
             standartSizeId = aStandartSizeId;
+            isUseFilter = aIsUseFilter;
 
             loader.DoWork += LoadSensorsValues;
             loader.RunWorkerCompleted += LoadCompleted;
@@ -74,10 +78,13 @@ namespace SGCUserInterface
         private void LoadCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             try {
-                if (!isErrorLoading) {                    
+                if (!isErrorLoading) {
+                    if (isUseFilter) {
+                        Filtered(slabModel);
+                    }                    
                     // графики показания датчиков.
                     sensorsPlots.DrawPlots(points, sensors);
-                    sensorsPlots.ShowAllPlots(isAllPlotShowCheckedBox.Checked, bumpingFilterCheckBox.Checked);
+                    sensorsPlots.ShowAllPlots(isAllPlotShowCheckedBox.Checked);
                     // срезы слитка.                    
                     sectionsPanel.SetSlabModel(slabModel);
                     sectionsPanel.Initialize();
@@ -106,6 +113,32 @@ namespace SGCUserInterface
                     Controls[i].Show();
                 }
             }            
+        }
+
+        private void Filtered(SlabModel3D aSlabModel)
+        {
+            if (aSlabModel == null) {
+                return;
+            }
+
+            //try {
+            //    PickFilter.Filter(aSlabModel);
+            //}
+            //catch {
+            //    MessageBox.Show(@"Возникла ошибка в фильтре пиков.");
+            //}
+            //try {
+            //    BumpFilter.Filter(aSlabModel);
+            //}
+            //catch {
+            //    MessageBox.Show(@"Возникла ошибка в фильтре подпрыгиваний.");
+            //}
+            //try {
+            //    AverageFilter.Filter(aSlabModel);
+            //}
+            //catch {
+            //    MessageBox.Show(@"Возникла ошибка в фильтре средних.");
+            //}            
         }
 
         private void InitializeSlabModelPanel()
@@ -265,27 +298,22 @@ namespace SGCUserInterface
 
         private void leftButton_Click(object sender, EventArgs e)
         {
-            sensorsPlots.ShowLeftPlots(bumpingFilterCheckBox.Checked);
+            sensorsPlots.ShowLeftPlots();
         }
 
         private void rightButton_Click(object sender, EventArgs e)
         {
-            sensorsPlots.ShowRightPlots(bumpingFilterCheckBox.Checked);
+            sensorsPlots.ShowRightPlots();
         }
 
         private void isAllPlotShowCheckedBox_CheckedChanged(object sender, EventArgs e)
         {
-            sensorsPlots.ShowAllPlots(isAllPlotShowCheckedBox.Checked, bumpingFilterCheckBox.Checked);
+            sensorsPlots.ShowAllPlots(isAllPlotShowCheckedBox.Checked);
         }
 
         private void isShowNodesCheckedBox_CheckedChanged(object sender, EventArgs e)
         {
             sensorsPlots.ShowPlotNodes(isShowNodesCheckedBox.Checked);
-        }
-
-        private void bumpingFilterCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            sensorsPlots.ShowFilteredPlot(bumpingFilterCheckBox.Checked);
         }
 
         private void sectionsView_ContextMenuBuilder(ZedGraphControl sender, ContextMenuStrip menuStrip, Point mousePt, ZedGraphControl.ContextMenuObjectState objState)

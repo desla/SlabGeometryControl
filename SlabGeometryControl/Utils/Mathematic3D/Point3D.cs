@@ -58,6 +58,13 @@ namespace Alvasoft.Utils.Mathematic3D
             return distance;
         }
 
+        public double DistanceToPoint(Point3D aPoint)
+        {
+            return Math.Sqrt((aPoint.X - X) * (aPoint.X - X) +
+                             (aPoint.Y - Y) * (aPoint.Y - Y) +
+                             (aPoint.X - Z) * (aPoint.X - Z));
+        }
+
         public override string ToString()
         {
             return "(" + X.ToString() + ", " + Y.ToString() + ", " + Z.ToString() + ")";

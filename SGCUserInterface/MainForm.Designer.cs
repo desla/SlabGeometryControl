@@ -56,6 +56,7 @@ namespace SGCUserInterface
             this.датчикиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.подключениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.калибровкаДатчиковToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.оПрограммеToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
@@ -64,8 +65,6 @@ namespace SGCUserInterface
             this.ширинаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.высотаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dateTimeFrom = new System.Windows.Forms.DateTimePicker();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -81,7 +80,8 @@ namespace SGCUserInterface
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.калибровкаДатчиковToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -186,7 +186,7 @@ namespace SGCUserInterface
             // просмотрToolStripMenuItem
             // 
             this.просмотрToolStripMenuItem.Name = "просмотрToolStripMenuItem";
-            this.просмотрToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.просмотрToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.просмотрToolStripMenuItem.Text = "Просмотр";
             this.просмотрToolStripMenuItem.Click += new System.EventHandler(this.просмотрToolStripMenuItem_Click);
             // 
@@ -308,6 +308,13 @@ namespace SGCUserInterface
             this.подключениеToolStripMenuItem.Text = "Подключение";
             this.подключениеToolStripMenuItem.Click += new System.EventHandler(this.подключениеToolStripMenuItem_Click);
             // 
+            // калибровкаДатчиковToolStripMenuItem
+            // 
+            this.калибровкаДатчиковToolStripMenuItem.Name = "калибровкаДатчиковToolStripMenuItem";
+            this.калибровкаДатчиковToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.калибровкаДатчиковToolStripMenuItem.Text = "Калибровка";
+            this.калибровкаДатчиковToolStripMenuItem.Click += new System.EventHandler(this.калибровкаДатчиковToolStripMenuItem_Click);
+            // 
             // оПрограммеToolStripMenuItem
             // 
             this.оПрограммеToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -377,18 +384,6 @@ namespace SGCUserInterface
             this.dataGridView2.RowHeadersVisible = false;
             this.dataGridView2.Size = new System.Drawing.Size(288, 378);
             this.dataGridView2.TabIndex = 3;
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "Параметр слитка";
-            this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
-            // 
-            // Column6
-            // 
-            this.Column6.HeaderText = "Значение";
-            this.Column6.Name = "Column6";
-            this.Column6.ReadOnly = true;
             // 
             // groupBox2
             // 
@@ -550,12 +545,19 @@ namespace SGCUserInterface
             this.richTextBox1.Text = "";
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
-            // калибровкаДатчиковToolStripMenuItem
+            // Column5
             // 
-            this.калибровкаДатчиковToolStripMenuItem.Name = "калибровкаДатчиковToolStripMenuItem";
-            this.калибровкаДатчиковToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.калибровкаДатчиковToolStripMenuItem.Text = "Калибровка";
-            this.калибровкаДатчиковToolStripMenuItem.Click += new System.EventHandler(this.калибровкаДатчиковToolStripMenuItem_Click);
+            this.Column5.FillWeight = 139.0863F;
+            this.Column5.HeaderText = "Параметр слитка";
+            this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
+            // 
+            // Column6
+            // 
+            this.Column6.FillWeight = 60.9137F;
+            this.Column6.HeaderText = "Значение";
+            this.Column6.Name = "Column6";
+            this.Column6.ReadOnly = true;
             // 
             // MainForm
             // 
@@ -603,8 +605,6 @@ namespace SGCUserInterface
         private System.Windows.Forms.ToolStripMenuItem оПрограммеToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem оПрограммеToolStripMenuItem1;
         private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.DateTimePicker dateTimeFrom;
         private System.Windows.Forms.GroupBox groupBox3;
@@ -646,6 +646,8 @@ namespace SGCUserInterface
         private System.Windows.Forms.DataGridViewTextBoxColumn Accepted;
         private System.Windows.Forms.DataGridViewTextBoxColumn standartSizeId;
         private System.Windows.Forms.ToolStripMenuItem калибровкаДатчиковToolStripMenuItem;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
     }
 }
 
