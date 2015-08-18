@@ -33,6 +33,10 @@ namespace SGCUserInterface
 
         private BackgroundWorker connectorWorker = null;
 
+        private BackgroundWorker dimentionLoader = null;
+        private DimentionResult[] dimentions = null;
+        private int currentStandartSizeId = -1;
+
         public MainForm()
         {
             InitializeComponent();
@@ -61,12 +65,27 @@ namespace SGCUserInterface
             connectorWorker.DoWork += ConnectOrDisconnect;
             connectorWorker.RunWorkerCompleted += ConnectionCompleat;
 
+            dimentionLoader = new BackgroundWorker();
+            dimentionLoader.DoWork += LoadSlabDimentionResults;
+            dimentionLoader.RunWorkerCompleted += LoadSlabDimentionResultsCompleat;
+
             AddLogInfo("GUI", "Успешная инициализация.");
             MakeClientInstance();
 
             if (Convert.ToBoolean(Connection.Default["autoConnect"])) {
                 подключитьсяToolStripMenuItem_Click(sender, e);
             }
+        }
+
+        private void LoadSlabDimentionResultsCompleat(object sender, RunWorkerCompletedEventArgs e)
+        {
+            ShowDimentionResults(dimentions);
+        }
+
+        private void LoadSlabDimentionResults(object sender, DoWorkEventArgs e)
+        {
+            var slabId = (int) e.Argument;
+            dimentions = client.GetDimentionResultsBySlabId(slabId);
         }
 
         private void ConnectOrDisconnect(object sender, DoWorkEventArgs e)
@@ -240,7 +259,7 @@ namespace SGCUserInterface
             }
             else {
                 row.Cells["Accepted"].Value = "Не соответствует";
-                row.DefaultCellStyle.BackColor = Color.LightGray;
+                row.DefaultCellStyle.BackColor = Color.LightGray;                
             }
         }
 
@@ -435,8 +454,13 @@ namespace SGCUserInterface
             if (e.RowIndex >= 0 && client != null && client.IsConnected) {
                 var row = dataGridView1.Rows[e.RowIndex];
                 var slabId = Convert.ToInt32(row.Cells["Id"].Value);
-                var dimentions = client.GetDimentionResultsBySlabId(slabId);
-                ShowDimentionResults(dimentions);
+                var standartSizeValue = Convert.ToString(row.Cells["standartSizeId"].Value);
+                currentStandartSizeId = -1;
+                int.TryParse(standartSizeValue, out currentStandartSizeId);
+
+                if (!dimentionLoader.IsBusy) {
+                    dimentionLoader.RunWorkerAsync(slabId);
+                }                
             }            
         }
 
@@ -449,7 +473,22 @@ namespace SGCUserInterface
                         dimentionTitles[dimentionResult.DimentionId], 
                         dimentionResult.Value.ToString()
                     };
-                    dataGridView2.Rows.Add(row);
+                    var rowIndex = dataGridView2.Rows.Add(row);
+                    if (currentStandartSizeId != -1 && slabsList.Regulations != null) {
+                        var gridRow = dataGridView2.Rows[rowIndex];
+                        foreach (var regulation in slabsList.Regulations) {
+                            if (regulation.StandartSizeId == currentStandartSizeId) {
+                                if (dimentionResult.DimentionId == regulation.DimentionId) {
+                                    if (dimentionResult.Value < regulation.MinValue ||
+                                        dimentionResult.Value > regulation.MaxValue) {
+                                        //gridRow.DefaultCellStyle.BackColor = Color.LightGray;
+                                        gridRow.DefaultCellStyle.ForeColor = Color.Red;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }                    
                 }
             }            
         }
@@ -551,23 +590,6 @@ namespace SGCUserInterface
         private void калибровкаДатчиковToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new CalibrationForm(client).ShowDialog();
-        }
-
-        private void просмотрФильтрованноеToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            AddLogInfo("GUI", "Просмотр данных слитка.");
-            var rowIndex = -1;
-            if (dataGridView1.SelectedCells.Count > 0) {
-                rowIndex = dataGridView1.SelectedCells[0].RowIndex;
-            }
-
-            if (rowIndex != -1) {
-                var row = dataGridView1.Rows[rowIndex];
-                var slabId = Convert.ToInt32(row.Cells["Id"].Value);
-                var standartSizeId = Convert.ToInt32(row.Cells["standartSizeId"].Value);
-                ThreadPool.QueueUserWorkItem(state =>
-                    new SlabVisualizationForm(slabId, standartSizeId, client, true).ShowDialog());
-            }
         }
     }
 }
