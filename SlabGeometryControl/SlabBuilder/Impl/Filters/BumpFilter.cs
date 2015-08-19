@@ -1,92 +1,52 @@
-﻿namespace Alvasoft.SlabBuilder.Impl.Filters
+﻿using System;
+using Alvasoft.Utils.Mathematic3D;
+
+namespace Alvasoft.SlabBuilder.Impl.Filters
 {
     public class BumpFilter
     {
         private const int BUMP_POINTS_LENGTH = 1;
+        private const double MAX_DIFFERENCE = 5;
+        private const double MIN_BUMP = 0.2;
 
         public static void Filter(SlabModelImpl aSlab)
         {
             if (aSlab == null) {
                 return;
             }
-            
-            var line = aSlab.TopLines[aSlab.TopLines.Length/2];
-            for (var i = 0; i < line.Length - 1; ++i) {
-                if (IsBump(aSlab, i)) {
-                    var bumpLength = CalculateBumpLength(aSlab, i);
-                    FilterBumping(aSlab, i, bumpLength);
-                }
-            }                                    
-        }
 
-        private static void FilterBumping(SlabModelImpl aSlab, int aStart, int aBumpLength)
-        {
-            var topLine = aSlab.TopLines[aSlab.TopLines.Length / 2];            
-            if (aStart + aBumpLength >= topLine.Length) {
-                return;
-            }
-
-            var topDifference = topLine[aStart].Y - topLine[aStart + aBumpLength].Y;
-            var topLineFirstPointsY = topLine[aStart].Y;
-            for (var i = 0; i < aSlab.TopLines.Length; ++i) {
-                for (var j = aStart; j < aSlab.TopLines[i].Length; ++j) {
-                    if (j <= aStart + aBumpLength) {
-                        aSlab.TopLines[i][j].Y = topLineFirstPointsY;
-                    }
-                    else {
-                        aSlab.TopLines[i][j].Y += topDifference;
-                    }                    
-                }
-            }
-
-            var bottomLine = aSlab.BottomLines[aSlab.BottomLines.Length / 2];
-            if (aStart + aBumpLength >= bottomLine.Length) {
-                return;
-            }
-            var bottomDifference = bottomLine[aStart].Y - bottomLine[aStart + aBumpLength].Y;
-            var bottomLineFirstPointsY = bottomLine[aStart].Y;
-            for (var i = 0; i < aSlab.BottomLines.Length; ++i) {
-                for (var j = aStart; j < aSlab.BottomLines[i].Length; ++j) {
-                    if (j <= aStart + aBumpLength) {
-                        aSlab.BottomLines[i][j].Y = bottomLineFirstPointsY;
-                    }
-                    else {
-                        aSlab.BottomLines[i][j].Y += bottomDifference;
-                    }
-                }
-            }
-        }
-
-        private static int CalculateBumpLength(SlabModelImpl aSlab, int aStart)
-        {
-            var topLine = aSlab.TopLines[aSlab.TopLines.Length / 2];
-            var bottomLine = aSlab.BottomLines[aSlab.BottomLines.Length / 2];
-            for (var i = aStart; i < topLine.Length - 1 && i < bottomLine.Length - 1; ++i) {
-                var topDifference = topLine[i].Y - topLine[i + 1].Y;
-                var bottomDifference = bottomLine[i].Y - bottomLine[i + 1].Y;
-                if (topDifference * bottomDifference <= double.Epsilon) { // имеют разные направления или маленькие                    
-                    return i - aStart;
-                }
-            }
-
-            return topLine.Length - 1 - aStart;
-        }
-
-        private static bool IsBump(SlabModelImpl aSlab, int aStart)
-        {
-            var topLine = aSlab.TopLines[aSlab.TopLines.Length/2];
             var bottomLine = aSlab.BottomLines[aSlab.BottomLines.Length/2];
-            for (var i = aStart; 
-                i < aStart + BUMP_POINTS_LENGTH && i < topLine.Length - 1 && i < bottomLine.Length - 1; 
-                ++i) {
-                var topDifference = topLine[i].Y - topLine[i + 1].Y;
-                var bottomDifference = bottomLine[i].Y - bottomLine[i + 1].Y;
-                if (topDifference*bottomDifference <= double.Epsilon) {// имеют разные направления                    
-                    return false;
+            var topLine = aSlab.TopLines[aSlab.TopLines.Length/2];
+            for (var i = 0; i < bottomLine.Length - 1; ++i) {
+                var bottomBump = GetBump(bottomLine[i], bottomLine[i + 1]);
+                if (Math.Abs(bottomBump) >= MIN_BUMP) {
+                    for (var j = -4; j <= 4; ++j) {
+                        if (i + j >= 0 && i + j < bottomLine.Length - 1) {
+                            var topBump = GetBump(topLine[i+j], topLine[i+j+1]);
+                            if (Math.Abs(topBump) >= MIN_BUMP) {
+                                if (topBump * bottomBump > 0 && // если имеют одинаковые направления.
+                                    Math.Abs(topBump - bottomBump) <= MAX_DIFFERENCE) { 
+                                    FilterBump(bottomLine, i + 1, bottomBump);
+                                    FilterBump(topLine, i + j + 1, topBump);
+                                    break;
+                                }
+                            }
+                        }                        
+                    }
                 }
             }
+        }        
 
-            return true;
+        private static double GetBump(Point3D aA, Point3D aB)
+        {
+            return aA.Y - aB.Y;
+        }
+
+        private static void FilterBump(Point3D[] aLine, int aStart, double aBump)
+        {
+            for (var i = aStart; i < aLine.Length; ++i) {
+                aLine[i].Y += aBump;
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using Alvasoft.SlabBuilder;
+using Alvasoft.SlabBuilder.Impl;
 
 namespace Alvasoft.DimentionCalculator.Impl.Algorithms
 {
@@ -10,7 +11,7 @@ namespace Alvasoft.DimentionCalculator.Impl.Algorithms
             return "length";
         }
 
-        public double CalculateValue(ISlabModel aSlabModel)
+        public double CalculateValue(SlabModelImpl aSlabModel)
         {
             if (aSlabModel == null) {
                 throw new ArgumentNullException("aSlabModel");

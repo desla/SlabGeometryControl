@@ -267,18 +267,19 @@ namespace Alvasoft.DataProvider.Impl
             // /*
             var slabLength = 1000.0;
             var count = right - left;
-            var step = slabLength/(count - 2);
+            var step = slabLength/(count - 1);
             var t1 = 0;
-            while (left != right) {
-                if (left > masSize) {
-                    left = 0;
+            var emulatorCurrentIndex = left;
+            while (emulatorCurrentIndex != right) {
+                if (emulatorCurrentIndex > masSize) {
+                    emulatorCurrentIndex = 0;
                 }
-                var milliseconds = Convert.ToDouble(times.GetValue(left + 1));
+                var milliseconds = Convert.ToDouble(times.GetValue(emulatorCurrentIndex));
                 var timeSpan = TimeSpan.FromMilliseconds(milliseconds);
                 var fullTime = startScanning.Date.AddMilliseconds(timeSpan.TotalMilliseconds);
                 valueContainer.AddSensorValue(4, t1*step, fullTime.ToBinary());
                 t1++;
-                left++;
+                emulatorCurrentIndex++;
             }           
             // */
 

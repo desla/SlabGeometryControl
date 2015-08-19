@@ -1,4 +1,5 @@
 ﻿using Alvasoft.SlabBuilder;
+using Alvasoft.SlabBuilder.Impl;
 
 namespace Alvasoft.DimentionCalculator
 {
@@ -18,6 +19,6 @@ namespace Alvasoft.DimentionCalculator
         /// </summary>
         /// <param name="aSlabModel">Модель слитка.</param>
         /// <returns>Значение параметра.</returns>
-        double CalculateValue(ISlabModel aSlabModel);
+        double CalculateValue(SlabModelImpl aSlabModel);
     }
 }

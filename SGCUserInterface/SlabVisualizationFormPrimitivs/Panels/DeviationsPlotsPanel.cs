@@ -11,7 +11,8 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs.Panels
     {
         private ZedGraphControl control;
         private SlabModel3D slabModel;
-        private List<LineItem> plots = new List<LineItem>();
+        private List<LineItem> deviationsPlots = new List<LineItem>();
+        private List<LineItem> convexPlots = new List<LineItem>(); 
         private int currentCurveIndex = 0;
 
         public DeviationsPlotsPanel(ZedGraphControl aGraphControl)
@@ -41,21 +42,25 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs.Panels
 
         public void ShowLeftPlot()
         {
-            if (plots.Count == 0) {
+            if (deviationsPlots.Count == 0) {
                 return;
             }
 
-            plots[currentCurveIndex].IsVisible = false;
-            plots[currentCurveIndex].Label.IsVisible = false;
+            deviationsPlots[currentCurveIndex].IsVisible = false;
+            deviationsPlots[currentCurveIndex].Label.IsVisible = false;
+            convexPlots[currentCurveIndex].IsVisible = false;
+            convexPlots[currentCurveIndex].Label.IsVisible = false;
             if (currentCurveIndex == 0) {
-                currentCurveIndex = plots.Count - 1;
+                currentCurveIndex = deviationsPlots.Count - 1;
             }
             else {
                 currentCurveIndex--;
             }
 
-            plots[currentCurveIndex].IsVisible = true;
-            plots[currentCurveIndex].Label.IsVisible = true;
+            deviationsPlots[currentCurveIndex].IsVisible = true;
+            deviationsPlots[currentCurveIndex].Label.IsVisible = true;
+            convexPlots[currentCurveIndex].IsVisible = true;
+            convexPlots[currentCurveIndex].Label.IsVisible = true;
 
             control.AxisChange();
             control.Invalidate();
@@ -63,21 +68,25 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs.Panels
 
         public void ShowRightPlot()
         {
-            if (plots.Count == 0) {
+            if (deviationsPlots.Count == 0) {
                 return;
             }
 
-            plots[currentCurveIndex].IsVisible = false;
-            plots[currentCurveIndex].Label.IsVisible = false;
-            if (currentCurveIndex == plots.Count - 1) {
+            deviationsPlots[currentCurveIndex].IsVisible = false;
+            deviationsPlots[currentCurveIndex].Label.IsVisible = false;
+            convexPlots[currentCurveIndex].IsVisible = false;
+            convexPlots[currentCurveIndex].Label.IsVisible = false;
+            if (currentCurveIndex == deviationsPlots.Count - 1) {
                 currentCurveIndex = 0;
             }
             else {
                 currentCurveIndex++;
             }
 
-            plots[currentCurveIndex].IsVisible = true;
-            plots[currentCurveIndex].Label.IsVisible = true;
+            deviationsPlots[currentCurveIndex].IsVisible = true;
+            deviationsPlots[currentCurveIndex].Label.IsVisible = true;
+            convexPlots[currentCurveIndex].IsVisible = true;
+            convexPlots[currentCurveIndex].Label.IsVisible = true;
 
             control.AxisChange();
             control.Invalidate();
@@ -85,8 +94,10 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs.Panels
 
         public void ShowCurrentPlot()
         {
-            plots[currentCurveIndex].IsVisible = true;
-            plots[currentCurveIndex].Label.IsVisible = true;
+            deviationsPlots[currentCurveIndex].IsVisible = true;
+            deviationsPlots[currentCurveIndex].Label.IsVisible = true;
+            convexPlots[currentCurveIndex].IsVisible = true;
+            convexPlots[currentCurveIndex].Label.IsVisible = true;
             control.AxisChange();
             control.Invalidate();
         }
@@ -123,10 +134,12 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs.Panels
             }
 
             var curve = pane.AddCurve("Сверху", xPoints, yPoints, Color.Blue, SymbolType.None);
-            curve.Line.IsAntiAlias = true;
+            curve.Line.IsAntiAlias = true;            
             curve.IsVisible = false;
             curve.Label.IsVisible = false;
-            plots.Add(curve);
+            deviationsPlots.Add(curve);
+
+            AddConvexHullPlot(xPoints, yPoints, 1);
 
             var bottomLine = slabModel.BottomLines[slabModel.BottomLines.Length / 2];
             xPoints = new double[bottomLine.Length];
@@ -140,11 +153,31 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs.Panels
                 yPoints[i] += average;
             }
             curve = pane.AddCurve("Снизу", xPoints, yPoints, Color.Blue, SymbolType.None);
+            curve.Line.IsAntiAlias = true;            
+            curve.IsVisible = false;
+            curve.Label.IsVisible = false;
+            deviationsPlots.Add(curve);
+
+            AddConvexHullPlot(xPoints, yPoints, -1);
+        }
+
+        private void AddConvexHullPlot(double[] aXPoints, double[] aYPoints, int aValue)
+        {
+            var saddlePoints = ConvexHull.Build(aXPoints, aYPoints, aValue);
+            var xPoints = new double[saddlePoints.Length];
+            var yPoints = new double[saddlePoints.Length];
+            for (var i = 0; i < saddlePoints.Length; ++i) {
+                xPoints[i] = aXPoints[saddlePoints[i]];
+                yPoints[i] = aYPoints[saddlePoints[i]];
+            }
+
+            var pane = control.GraphPane;
+            var curve = pane.AddCurve("Леска", xPoints, yPoints, Color.DarkGreen, SymbolType.None);
             curve.Line.IsAntiAlias = true;
             curve.IsVisible = false;
             curve.Label.IsVisible = false;
-            plots.Add(curve);
-        }
+            convexPlots.Add(curve);
+        }        
 
         private void BuildTopViewPlots()
         {
@@ -165,10 +198,12 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs.Panels
                 yPoints[i] += average;
             }
             var curve = pane.AddCurve("Слева", xPoints, yPoints, Color.Blue, SymbolType.None);
-            curve.Line.IsAntiAlias = true;
+            curve.Line.IsAntiAlias = true;            
             curve.IsVisible = false;
             curve.Label.IsVisible = false;
-            plots.Add(curve);
+            deviationsPlots.Add(curve);
+
+            AddConvexHullPlot(xPoints, yPoints, -1);
 
             var rightLine = slabModel.RightLines[slabModel.RightLines.Length / 2];
             xPoints = new double[rightLine.Length];
@@ -182,10 +217,12 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs.Panels
                 yPoints[i] += average;
             }
             curve = pane.AddCurve("Справа", xPoints, yPoints, Color.Blue, SymbolType.None);
-            curve.Line.IsAntiAlias = true;
+            curve.Line.IsAntiAlias = true;            
             curve.IsVisible = false;
             curve.Label.IsVisible = false;
-            plots.Add(curve);
+            deviationsPlots.Add(curve);
+
+            AddConvexHullPlot(xPoints, yPoints, 1);
         }
 
         private void InitDeviationsPlotsPanel()

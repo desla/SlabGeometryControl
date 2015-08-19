@@ -191,7 +191,7 @@ namespace SGCUserInterface
                 isErrorLoading = false;
             }
             catch (Exception ex) {
-                MessageBox.Show(@"Ошибка при загрузке данных слитка.");
+                MessageBox.Show(@"Ошибка при загрузке данных слитка: " + ex.Message);
                 isErrorLoading = true;
             }
         }

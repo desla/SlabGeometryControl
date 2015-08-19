@@ -7,6 +7,7 @@ namespace Alvasoft.SlabBuilder.Impl.Filters
     public class AverageFilter
     {
         private const int WINDOW_SIZE = 10; // размер окна для вычисления среднего.
+        private const double MIN_SPEED = 0.5; // минимальное значение производной.
 
         public static void Filter(SlabModelImpl aSlab)
         {
@@ -41,11 +42,11 @@ namespace Alvasoft.SlabBuilder.Impl.Filters
             for (var i = 0; i < aLine.Length; ++i) {
                 var difLeft = false;
                 var difRight = false;
-                if (i == 0 || Math.Abs(DxDivDz(aLine[i], aLine[i - 1])) >= 1) {
+                if (i == 0 || Math.Abs(DxDivDz(aLine[i], aLine[i - 1])) >= MIN_SPEED) {
                     difLeft = true;
                 }
 
-                if (i == aLine.Length - 1 || Math.Abs(DxDivDz(aLine[i], aLine[i + 1])) >= 1) {
+                if (i == aLine.Length - 1 || Math.Abs(DxDivDz(aLine[i], aLine[i + 1])) >= MIN_SPEED) {
                     difRight = true;
                 }
 
@@ -95,11 +96,11 @@ namespace Alvasoft.SlabBuilder.Impl.Filters
             for (var i = 0; i < aLine.Length; ++i) {
                 var difLeft = false;
                 var difRight = false;
-                if (i == 0 || Math.Abs(DyDivDz(aLine[i], aLine[i - 1])) >= 1) {
+                if (i == 0 || Math.Abs(DyDivDz(aLine[i], aLine[i - 1])) >= MIN_SPEED) {
                     difLeft = true;
                 }
 
-                if (i == aLine.Length - 1 || Math.Abs(DyDivDz(aLine[i], aLine[i + 1])) >= 1) {
+                if (i == aLine.Length - 1 || Math.Abs(DyDivDz(aLine[i], aLine[i + 1])) >= MIN_SPEED) {
                     difRight = true;
                 }
 

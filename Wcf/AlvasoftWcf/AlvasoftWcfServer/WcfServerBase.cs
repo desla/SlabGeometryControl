@@ -102,7 +102,8 @@ namespace Alvasoft.Wcf.Server
             };
 
             ServiceName = DEFAULT_SERVICE_NAME;
-            ServiceBinding = new NetTcpBinding(SecurityMode.None);            
+            ServiceBinding = new NetTcpBinding(SecurityMode.None);
+            (ServiceBinding as NetTcpBinding).MaxReceivedMessageSize = 9999999;
         }
 
         /// <summary>

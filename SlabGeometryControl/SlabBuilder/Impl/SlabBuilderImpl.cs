@@ -371,21 +371,27 @@ namespace Alvasoft.SlabBuilder.Impl
 
         private double GetPositionByTime(ISensorValueInfo[] aPositions, long aTime)
         {
-            if (aPositions[0].GetTime() >= aTime) {
-                return aPositions[0].GetValue();
-            }
+            //if (aPositions[0].GetTime() >= aTime) {
+            //    return aPositions[0].GetValue();
+            //}
 
-            if (aPositions[aPositions.Length - 1].GetTime() <= aTime) {
-                return aPositions[aPositions.Length - 1].GetValue();
-            }
+            //if (aPositions[aPositions.Length - 1].GetTime() <= aTime) {
+            //    return aPositions[aPositions.Length - 1].GetValue();
+            //}
 
-            // TODO: Сделать бинарнй поиск.
-            for (var i = 0; i < aPositions.Length - 1; ++i) {
-                if (aPositions[i].GetTime() <= aTime && aPositions[i + 1].GetTime() > aTime) {
-                    var difference = (aTime - aPositions[i].GetTime()) /
-                                     (double) (aPositions[i + 1].GetTime() - aPositions[i].GetTime());
-                    return aPositions[i].GetValue() +
-                           difference * (aPositions[i + 1].GetValue() - aPositions[i].GetValue());
+            //// TODO: Сделать бинарнй поиск.
+            //for (var i = 0; i < aPositions.Length - 1; ++i) {
+            //    if (aPositions[i].GetTime() <= aTime && aPositions[i + 1].GetTime() > aTime) {
+            //        var difference = (aTime - aPositions[i].GetTime()) /
+            //                         (double) (aPositions[i + 1].GetTime() - aPositions[i].GetTime());
+            //        return aPositions[i].GetValue() +
+            //               difference * (aPositions[i + 1].GetValue() - aPositions[i].GetValue());
+            //    }
+            //}
+
+            for (var i = 0; i < aPositions.Length; ++i) {
+                if (aPositions[i].GetTime() == aTime) {
+                    return aPositions[i].GetValue();
                 }
             }
 

@@ -158,6 +158,7 @@
     <Compile Include="SlabVisualizationFormPrimitivs\DimentionGraphicPrimitiveBase.cs" />
     <Compile Include="SlabVisualizationFormPrimitivs\LateralCurvatureRightDimention.cs" />
     <Compile Include="SlabVisualizationFormPrimitivs\LengthDimention.cs" />
+    <Compile Include="SlabVisualizationFormPrimitivs\Panels\ConvexHull.cs" />
     <Compile Include="SlabVisualizationFormPrimitivs\Panels\DeviationsPlotsPanel.cs" />
     <Compile Include="SlabVisualizationFormPrimitivs\Panels\SectionsPlotsPanel.cs" />
     <Compile Include="SlabVisualizationFormPrimitivs\Panels\SensorsPlotsPanel.cs" />

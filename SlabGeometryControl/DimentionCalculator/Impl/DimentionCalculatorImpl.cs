@@ -4,6 +4,7 @@ using Alvasoft.DimentionCalculator.Impl.Algorithms;
 using Alvasoft.DimentionConfiguration;
 using Alvasoft.DimentionValueContainer;
 using Alvasoft.SlabBuilder;
+using Alvasoft.SlabBuilder.Impl;
 using Alvasoft.Utils.Activity;
 using log4net;
 
@@ -35,7 +36,7 @@ namespace Alvasoft.DimentionCalculator.Impl
 
             foreach (var algorithm in algorithms) {
                 try {
-                    var result = algorithm.CalculateValue(aSlabModel);
+                    var result = algorithm.CalculateValue(aSlabModel as SlabModelImpl);
                     var dimentionId = GetDimentionId(algorithm);
                     var dimentionValue = new DimentionValueImpl(dimentionId, result);
                     container.AddDimentionValue(dimentionValue);
@@ -63,7 +64,10 @@ namespace Alvasoft.DimentionCalculator.Impl
             algorithms.Add(new LateralCurvatureRightAlgorithm()); // поперечная кривизна справа
             algorithms.Add(new LateralCurvatureLeftAlgorithm()); // поперечная кривизна слева
             algorithms.Add(new LongitudinalCurvatureTopAlgorithm()); // продольная кривизна сверху
-            algorithms.Add(new AngleAlgorithm()); // угол движения
+            algorithms.Add(new SlopeAngleAlgorithm()); // угол движения
+            algorithms.Add(new RotateAngleAlgorithm()); // угол поворота
+            algorithms.Add(new MaxConcavityTopAlgorithm()); // максимальная вогнутость (сверху)
+            algorithms.Add(new ConcavityMiddleTopAlgorithm()); // вогнутость посередине
             logger.Info("Инициализация завершена.");
         }
 

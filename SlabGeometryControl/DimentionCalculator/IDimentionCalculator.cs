@@ -1,6 +1,7 @@
 ﻿using Alvasoft.DimentionConfiguration;
 using Alvasoft.DimentionValueContainer;
 using Alvasoft.SlabBuilder;
+using Alvasoft.SlabBuilder.Impl;
 
 namespace Alvasoft.DimentionCalculator
 {

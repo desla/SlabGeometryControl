@@ -35,7 +35,7 @@ namespace Alvasoft.Server
     {
         private static readonly ILog logger = LogManager.GetLogger("Server");
 
-        private static readonly TimeSpan minimumScanTime = TimeSpan.FromSeconds(5);
+        private static readonly TimeSpan minimumScanTime = TimeSpan.FromSeconds(10);
 
         private XmlDataProviderConfigurationImpl dataProviderConfiguration;
         private XmlSensorConfigurationImpl sensorConfiguration;
@@ -166,6 +166,7 @@ namespace Alvasoft.Server
                 if (IsEndOfScanning(currentSystemState)) {
                     endSlabScanTime = DateTime.Now;
                     if (endSlabScanTime - startSlabScanTime >= minimumScanTime) {
+                        logger.Info("Время сканирования: " + (endSlabScanTime - startSlabScanTime));
                         var slabId = GetNewSlabId();
                         StoreSensorValues(slabId);                        
                         var slabModel = slabBuilder.BuildSlabModel();
@@ -471,7 +472,8 @@ namespace Alvasoft.Server
                 var slab = userSlabBuilder.BuildSlabModel();
                 return slab.ToSlabModel();
             }
-            catch {
+            catch (Exception ex) {
+                logger.Info("Ошибка при построении модели слитка: " + ex.Message);
                 return null;
             }
             finally {
