@@ -59,7 +59,7 @@ namespace Alvasoft.SlabBuilder.Impl
                 throw new ArgumentException("Конфигурация не установлена.");
             }
 
-            var slab = new SlabModelImpl();            
+            var slab = new SlabModelImpl();                
 
             BuildTopLines(slab);
             BuildBottomLines(slab);
@@ -176,9 +176,11 @@ namespace Alvasoft.SlabBuilder.Impl
             aSlab.TopLines = new Point3D[sensors.Count][];
             for (var i = 0; i < sensors.Count; ++i) {
                 var sensor = sensors[i];
+                var sensorValues = container.GetSensorValuesBySensorId(sensor.GetId());
+                DoublePositionFilter.Filter(ref positionValues, ref sensorValues);
                 aSlab.TopLines[i] = BuildTopValues(
                     positionValues, 
-                    container.GetSensorValuesBySensorId(sensor.GetId()),
+                    sensorValues,
                     sensor.GetShift(),
                     calibrator.GetCalibratedValue(sensor.GetId()) / 2.0);
 
@@ -213,9 +215,11 @@ namespace Alvasoft.SlabBuilder.Impl
             aSlab.BottomLines = new Point3D[sensors.Count][];
             for (var i = 0; i < sensors.Count; ++i) {
                 var sensor = sensors[i];
+                var sensorValues = container.GetSensorValuesBySensorId(sensor.GetId());
+                DoublePositionFilter.Filter(ref positionValues, ref sensorValues);
                 aSlab.BottomLines[i] = BuildBottomValues(
                     positionValues,
-                    container.GetSensorValuesBySensorId(sensor.GetId()),
+                    sensorValues,
                     sensor.GetShift(),
                     calibrator.GetCalibratedValue(sensor.GetId()) / 2.0);
 
@@ -250,9 +254,11 @@ namespace Alvasoft.SlabBuilder.Impl
             aSlab.LeftLines = new Point3D[sensors.Count][];
             for (var i = 0; i < sensors.Count; ++i) {
                 var sensor = sensors[i];
+                var sensorValues = container.GetSensorValuesBySensorId(sensor.GetId());
+                DoublePositionFilter.Filter(ref positionValues, ref sensorValues);
                 aSlab.LeftLines[i] = BuildLeftValues(
                     positionValues,
-                    container.GetSensorValuesBySensorId(sensor.GetId()),
+                    sensorValues,
                     sensor.GetShift(),
                     calibrator.GetCalibratedValue(sensor.GetId()) / 2.0);
 
@@ -287,9 +293,11 @@ namespace Alvasoft.SlabBuilder.Impl
             aSlab.RightLines = new Point3D[sensors.Count][];
             for (var i = 0; i < sensors.Count; ++i) {
                 var sensor = sensors[i];
+                var sensorValues = container.GetSensorValuesBySensorId(sensor.GetId());
+                DoublePositionFilter.Filter(ref positionValues, ref sensorValues);
                 aSlab.RightLines[i] = BuildRightValues(
                     positionValues,
-                    container.GetSensorValuesBySensorId(sensor.GetId()),
+                    sensorValues,
                     sensor.GetShift(),
                     calibrator.GetCalibratedValue(sensor.GetId()) / 2.0);
 

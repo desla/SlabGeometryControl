@@ -339,8 +339,6 @@
             this.deviationView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.deviationView.IsEnableVZoom = false;
-            this.deviationView.IsEnableWheelZoom = false;
             this.deviationView.Location = new System.Drawing.Point(-2, -7);
             this.deviationView.Name = "deviationView";
             this.deviationView.ScrollGrace = 0D;

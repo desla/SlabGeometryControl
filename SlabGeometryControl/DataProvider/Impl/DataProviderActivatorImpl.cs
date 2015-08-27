@@ -57,16 +57,16 @@ namespace Alvasoft.DataProvider.Impl
             }            
         }
 
-        public void OnValueChanged(IOpcValue aOpcValue, object aCurrentValue)
+        public void OnValueChanged(IOpcValue aOpcValue, OpcValueChangedEventArgs aEventArgs)
         {
             if (listener != null) {
-                listener.OnActivationTagValueChanged((bool) aCurrentValue);
+                listener.OnActivationTagValueChanged((bool)aEventArgs.Value);
             }
         }
 
         public bool GetCurrentValue()
         {
             return Convert.ToBoolean(activationTag.ReadCurrentValue());
-        }
+        }        
     }
 }

@@ -5,13 +5,13 @@ using Alvasoft.SlabBuilder.Impl;
 namespace Alvasoft.DimentionCalculator.Impl.Algorithms
 {
     /// <summary>
-    /// Максимальная вогнутость.
+    /// Вогнутость посередине слитка.
     /// </summary>
-    public class MaxConcavityTopAlgorithm : IDimentionAlgorithm
+    public class ConcavityMiddleTopAlgorithm : IDimentionAlgorithm
     {
         public string GetName()
         {
-            return "maxConcavityTopSide";
+            return "concavityMiddleTopSide";
         }
 
         public double CalculateValue(SlabModelImpl aSlabModel)
@@ -25,23 +25,18 @@ namespace Alvasoft.DimentionCalculator.Impl.Algorithms
             }
 
 
+            var middlePoint = topLine.Length/2;
             var saddlePoints = ConvexHull.Build(xPoints, yPoints, 1);
-            var leftSaddlePoint = 0;
-            var maxConcavity = double.MinValue;
-            for (var i = 1; i < topLine.Length - 1; ++i) {
-                if (i == saddlePoints[leftSaddlePoint + 1]) {
-                    maxConcavity = Math.Max(maxConcavity, 0);
-                    leftSaddlePoint++;
-                }
-                else {
-                    var distance = topLine[i].DistanceToLine(
-                        topLine[saddlePoints[leftSaddlePoint]],
-                        topLine[saddlePoints[leftSaddlePoint + 1]]);
-                    maxConcavity = Math.Max(maxConcavity, distance);
+            for (var i = 0; i < saddlePoints.Length - 1; ++i) {
+                if (middlePoint >= saddlePoints[i] && middlePoint <= saddlePoints[i + 1]) {
+                    var leftPoint = topLine[saddlePoints[i]];
+                    var rightPoint = topLine[saddlePoints[i + 1]];
+                    var distance = topLine[middlePoint].DistanceToLine(leftPoint, rightPoint);
+                    return Math.Round(distance, 4, MidpointRounding.ToEven);
                 }
             }
 
-            return Math.Round(maxConcavity, 4, MidpointRounding.ToEven);
+            return 0;
         }
     }
 }

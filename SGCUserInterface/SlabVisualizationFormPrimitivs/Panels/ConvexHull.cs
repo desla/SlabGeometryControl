@@ -48,7 +48,7 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs.Panels
                 saddlePoints.Push(i);
             }
 
-            return saddlePoints.ToArray();
+            return saddlePoints.Reverse().ToArray();
         }
 
         private static bool IsSameDirection(

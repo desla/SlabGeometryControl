@@ -408,14 +408,20 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs.Panels
             if (slabModel == null) {
                 return;
             }
-            var p1 = slabModel.TopLines[slabModel.TopLines.Length / 2].First();
-            var p2 = slabModel.RightLines[slabModel.RightLines.Length / 2].First();
-            var p3 = slabModel.BottomLines[slabModel.BottomLines.Length / 2].First();
-            var p4 = slabModel.LeftLines[slabModel.LeftLines.Length / 2].First();
-            var p5 = slabModel.TopLines[slabModel.TopLines.Length / 2].Last();
-            var p6 = slabModel.RightLines[slabModel.RightLines.Length / 2].Last();
-            var p7 = slabModel.BottomLines[slabModel.BottomLines.Length / 2].Last();
-            var p8 = slabModel.LeftLines[slabModel.LeftLines.Length / 2].Last();
+            var startPosition = 3;
+            var endPosition = 3;
+            var p1 = slabModel.TopLines[slabModel.TopLines.Length / 2][startPosition];
+            var p2 = slabModel.RightLines[slabModel.RightLines.Length / 2][startPosition];
+            var p3 = slabModel.BottomLines[slabModel.BottomLines.Length / 2][startPosition];
+            var p4 = slabModel.LeftLines[slabModel.LeftLines.Length / 2][startPosition];
+            var l1 = slabModel.TopLines[slabModel.TopLines.Length/2].Length;
+            var p5 = slabModel.TopLines[slabModel.TopLines.Length / 2][l1 - endPosition];
+            var l2 = slabModel.TopLines[slabModel.RightLines.Length / 2].Length;
+            var p6 = slabModel.RightLines[slabModel.RightLines.Length / 2][l2 - endPosition];
+            var l3 = slabModel.TopLines[slabModel.BottomLines.Length / 2].Length;
+            var p7 = slabModel.BottomLines[slabModel.BottomLines.Length / 2][l3 - endPosition];
+            var l4 = slabModel.TopLines[slabModel.LeftLines.Length / 2].Length;
+            var p8 = slabModel.LeftLines[slabModel.LeftLines.Length / 2][l4 - endPosition];
 
             var slabDimentionsNumber = Gl.glGenLists(1);
             objectsList[KEY_SLAB_DIMENTIONS] = slabDimentionsNumber;

@@ -30,7 +30,7 @@
   </sensor>
   <sensor>
     <id>4</id>
-    <name>PositionEmulator</name>
+    <name>Position</name>
     <type>position</type>
   </sensor>
 </sensors>

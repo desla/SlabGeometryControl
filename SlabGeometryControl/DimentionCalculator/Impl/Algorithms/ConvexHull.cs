@@ -48,7 +48,7 @@ namespace Alvasoft.DimentionCalculator.Impl.Algorithms
                 saddlePoints.Push(i);
             }
 
-            return saddlePoints.ToArray();
+            return saddlePoints.Reverse().ToArray();
         }
 
         private static bool IsSameDirection(

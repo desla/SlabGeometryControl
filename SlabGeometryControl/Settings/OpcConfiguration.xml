@@ -36,5 +36,11 @@
       <currentValue>S7:[S7 connection_1]CurrentValueDb14</currentValue>
       <sensorValuesList>S7:[S7 connection_1]SensorValuesDb14</sensorValuesList>
     </sensor>
+    <sensor>
+      <name>Position</name>
+      <enable>S7:[S7 connection_1]IsEnableSensorDb18</enable>
+      <currentValue>S7:[S7 connection_1]CurrentValueDb18</currentValue>
+      <sensorValuesList>S7:[S7 connection_1]SensorValuesDb18</sensorValuesList>
+    </sensor>
   </sensors>  
 </configuration>

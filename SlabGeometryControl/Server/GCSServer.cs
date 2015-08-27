@@ -245,7 +245,7 @@ namespace Alvasoft.Server
 
         public void OnDataReceived(ISensorValueContainer aContainer)
         {
-            logger.Info("Уведомление о поступлении данных с датчиков в контейнер.");            
+            //logger.Info("Уведомление о поступлении данных с датчиков в контейнер.");            
         }
 
         private void StoreSensorValues(int aSlabId)

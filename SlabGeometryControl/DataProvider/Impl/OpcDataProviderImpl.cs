@@ -186,7 +186,7 @@ namespace Alvasoft.DataProvider.Impl
             controlBlock.MaxSize = new OpcValueImpl(server, controlBlockInfo.DataMaxSizeTag);
             controlBlock.StartIndex = new OpcValueImpl(server, controlBlockInfo.StartIndexTag);
             controlBlock.EndIndex = new OpcValueImpl(server, controlBlockInfo.EndIndexTag);
-            controlBlock.Times = new OpcValueImpl(server, controlBlockInfo.TimesTag);
+            controlBlock.Times = new OpcValueImpl(server, controlBlockInfo.TimesTag, OPCDataSource.OPCDevice);
             controlBlock.TimeSyncActivator = new OpcValueImpl(server, controlBlockInfo.DateTimeSyncActivatorTag);
             controlBlock.TimeForSync = new OpcValueImpl(server, controlBlockInfo.DateTimeForSyncTag);
             controlBlock.Initialize();
@@ -237,13 +237,15 @@ namespace Alvasoft.DataProvider.Impl
         }
 
         private void EndScanning()
-        {            
-            var left = Convert.ToInt32(controlBlock.StartIndex.ReadCurrentValue()) + 5;
-            var right = Convert.ToInt32(controlBlock.EndIndex.ReadCurrentValue()) - 50;
-            if (right < 0)
-                right += 40;
-            if (left >= right) 
-                left -= 5;
+        {
+            var left = Convert.ToInt32(controlBlock.StartIndex.ReadCurrentValue());
+            var right = Convert.ToInt32(controlBlock.EndIndex.ReadCurrentValue());
+            //var left = Convert.ToInt32(controlBlock.StartIndex.ReadCurrentValue()) + 5;
+            //var right = Convert.ToInt32(controlBlock.EndIndex.ReadCurrentValue()) - 5;
+            //if (right < 0)
+            //    right += 5;
+            //if (left >= right)
+            //    left -= 5;
 
             var masSize = Convert.ToInt32(controlBlock.MaxSize.ReadCurrentValue());
             var times = controlBlock.Times.ReadCurrentValue() as Array;
@@ -264,7 +266,7 @@ namespace Alvasoft.DataProvider.Impl
                 }
             }
 
-            // /*
+             /*
             var slabLength = 1000.0;
             var count = right - left;
             var step = slabLength/(count - 1);
