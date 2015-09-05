@@ -137,6 +137,7 @@
     <Compile Include="SlabBuilder\Impl\Filters\BumpFilter.cs" />
     <Compile Include="SlabBuilder\Impl\Filters\DoublePositionFilter.cs" />
     <Compile Include="SlabBuilder\Impl\Filters\PickFilter.cs" />
+    <Compile Include="SlabBuilder\Impl\Filters\SplashFilter.cs" />
     <Compile Include="SlabBuilder\Impl\SlabModelImpl.cs" />
     <Compile Include="Tests\NHibernateDimentionConfigurationTest.cs" />
     <Compile Include="Tests\SlabModelImplTest.cs" />

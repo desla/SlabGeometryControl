@@ -64,13 +64,14 @@ namespace Alvasoft.SlabBuilder.Impl
             BuildTopLines(slab);
             BuildBottomLines(slab);
             BuildLeftLines(slab);
-            BuildRightLines(slab);            
+            BuildRightLines(slab);
 
-            BuildLimits(slab);
-
+            SplashFilter.Filter(slab);
             PickFilter.Filter(slab);
             BumpFilter.Filter(slab);
             AverageFilter.Filter(slab);
+
+            BuildLimits(slab);
 
             return slab;
         }
@@ -86,17 +87,16 @@ namespace Alvasoft.SlabBuilder.Impl
             for (var i = 0; i < sensorCount; ++i) {
                 var values = aSlab.TopLines[i];
                 for (var j = 0; j < values.Length; ++j) {
-                    aSlab.TopLimit = Math.Max(aSlab.TopLimit, values[j].Y);
-                    aSlab.LengthLimit = Math.Max(aSlab.LengthLimit, values[j].Z);
+                    aSlab.TopLimit = Math.Max(aSlab.TopLimit, values[j].Y);                    
                 }
+                aSlab.LengthLimit = Math.Max(aSlab.LengthLimit, values[values.Length - 1].Z - values[0].Z);
             }
 
             sensorCount = aSlab.BottomLines.Length;
             for (var i = 0; i < sensorCount; ++i) {
                 var values = aSlab.BottomLines[i];
                 for (var j = 0; j < values.Length; ++j) {
-                    aSlab.BottomLimit = Math.Min(aSlab.BottomLimit, values[j].Y);
-                    aSlab.LengthLimit = Math.Max(aSlab.LengthLimit, values[j].Z);
+                    aSlab.BottomLimit = Math.Min(aSlab.BottomLimit, values[j].Y);                    
                 }
             }
 
@@ -104,8 +104,7 @@ namespace Alvasoft.SlabBuilder.Impl
             for (var i = 0; i < sensorCount; ++i) {
                 var values = aSlab.LeftLines[i];
                 for (var j = 0; j < values.Length; ++j) {
-                    aSlab.LeftLimit = Math.Min(aSlab.LeftLimit, values[j].X);
-                    aSlab.LengthLimit = Math.Max(aSlab.LengthLimit, values[j].Z);
+                    aSlab.LeftLimit = Math.Min(aSlab.LeftLimit, values[j].X);                    
                 }
             }
 
@@ -113,8 +112,7 @@ namespace Alvasoft.SlabBuilder.Impl
             for (var i = 0; i < sensorCount; ++i) {
                 var values = aSlab.RightLines[i];
                 for (var j = 0; j < values.Length; ++j) {
-                    aSlab.RightLimit = Math.Max(aSlab.RightLimit, values[j].X);
-                    aSlab.LengthLimit = Math.Max(aSlab.LengthLimit, values[j].Z);
+                    aSlab.RightLimit = Math.Max(aSlab.RightLimit, values[j].X);                    
                 }
             }            
         }

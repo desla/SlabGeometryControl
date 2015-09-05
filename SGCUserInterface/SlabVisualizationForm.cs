@@ -99,9 +99,9 @@ namespace SGCUserInterface
                 }                               
             }
             catch (Exception ex) {
-                //MessageBox.Show(@"Ошибка при построении модели: " + ex.Message);                
-                tabControl1.TabPages["slabModelPage"].Enabled = false;
-                tabControl1.TabPages["sectionsPage"].Enabled = false;
+                MessageBox.Show(@"Ошибка при построении модели: " + ex.Message);                
+                tabControl1.TabPages["slabModelPage"].Visible = false;
+                tabControl1.TabPages["sectionsPage"].Visible = false;
             } 
             finally {
                 if (progressShower != null) {
