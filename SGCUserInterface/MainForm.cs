@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
@@ -590,6 +591,11 @@ namespace SGCUserInterface
         private void калибровкаДатчиковToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new CalibrationForm(client).ShowDialog();
+        }
+
+        private void отчетПоСлиткуToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("report_.pdf");
         }
     }
 }

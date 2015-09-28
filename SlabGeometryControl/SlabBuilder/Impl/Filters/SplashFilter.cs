@@ -13,7 +13,7 @@ namespace Alvasoft.SlabBuilder.Impl.Filters
         private const int MAX_POINT_COUNT = 30;
 
         // Значение производной, после которого считает, что это всплеск.
-        private const double splashIndex = 1.0;
+        private const double splashIndex = 0.6;
 
         public static void Filter(SlabModelImpl aSlab)
         {

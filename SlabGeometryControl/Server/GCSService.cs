@@ -16,7 +16,12 @@ namespace Alvasoft.Server
         {
             ContractType = typeof (ISlabGeometryControlClient01);
             ServiceName = "Alvasoft_SlabGeometryControlSystem";
-            gcsServer.Initialize();
+            try {
+                gcsServer.Initialize();
+            }
+            catch (Exception ex) {
+                logger.Info("Ошибка при инициализации сервера: " + ex.Message);
+            }
         }        
 
         protected override void LogInfo(string aInfoMessage)

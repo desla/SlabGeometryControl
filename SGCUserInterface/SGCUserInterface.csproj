@@ -195,6 +195,7 @@
     <EmbeddedResource Include="Pictures.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Pictures.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ProgressShower.resx">
       <DependentUpon>ProgressShower.cs</DependentUpon>

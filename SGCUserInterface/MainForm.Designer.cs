@@ -65,6 +65,8 @@ namespace SGCUserInterface
             this.ширинаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.высотаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dateTimeFrom = new System.Windows.Forms.DateTimePicker();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -80,8 +82,7 @@ namespace SGCUserInterface
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.отчетПоСлиткуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -179,14 +180,15 @@ namespace SGCUserInterface
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.просмотрToolStripMenuItem});
+            this.просмотрToolStripMenuItem,
+            this.отчетПоСлиткуToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(123, 26);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(160, 70);
             // 
             // просмотрToolStripMenuItem
             // 
             this.просмотрToolStripMenuItem.Name = "просмотрToolStripMenuItem";
-            this.просмотрToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.просмотрToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.просмотрToolStripMenuItem.Text = "Просмотр";
             this.просмотрToolStripMenuItem.Click += new System.EventHandler(this.просмотрToolStripMenuItem_Click);
             // 
@@ -385,6 +387,20 @@ namespace SGCUserInterface
             this.dataGridView2.Size = new System.Drawing.Size(288, 378);
             this.dataGridView2.TabIndex = 3;
             // 
+            // Column5
+            // 
+            this.Column5.FillWeight = 139.0863F;
+            this.Column5.HeaderText = "Параметр слитка";
+            this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
+            // 
+            // Column6
+            // 
+            this.Column6.FillWeight = 60.9137F;
+            this.Column6.HeaderText = "Значение";
+            this.Column6.Name = "Column6";
+            this.Column6.ReadOnly = true;
+            // 
             // groupBox2
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -545,19 +561,12 @@ namespace SGCUserInterface
             this.richTextBox1.Text = "";
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
-            // Column5
+            // отчетПоСлиткуToolStripMenuItem
             // 
-            this.Column5.FillWeight = 139.0863F;
-            this.Column5.HeaderText = "Параметр слитка";
-            this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
-            // 
-            // Column6
-            // 
-            this.Column6.FillWeight = 60.9137F;
-            this.Column6.HeaderText = "Значение";
-            this.Column6.Name = "Column6";
-            this.Column6.ReadOnly = true;
+            this.отчетПоСлиткуToolStripMenuItem.Name = "отчетПоСлиткуToolStripMenuItem";
+            this.отчетПоСлиткуToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.отчетПоСлиткуToolStripMenuItem.Text = "Отчет по слитку";
+            this.отчетПоСлиткуToolStripMenuItem.Click += new System.EventHandler(this.отчетПоСлиткуToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -648,6 +657,7 @@ namespace SGCUserInterface
         private System.Windows.Forms.ToolStripMenuItem калибровкаДатчиковToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
+        private System.Windows.Forms.ToolStripMenuItem отчетПоСлиткуToolStripMenuItem;
     }
 }
 

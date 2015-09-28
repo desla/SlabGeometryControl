@@ -123,17 +123,5 @@
   </data>
   <data name="_87" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\87.GIF;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="kub_icon_algle" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\kub_icon_algle.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="kub_icon_front" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\kub_icon_front.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="kub_icon_left" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\kub_icon_left.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="kub_icon_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\kub_icon_top.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
+  </data>  
 </root>

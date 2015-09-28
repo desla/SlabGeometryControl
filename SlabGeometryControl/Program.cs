@@ -15,7 +15,8 @@ namespace Alvasoft
             XmlConfigurator.Configure(new FileInfo(configLogingFileName));
 
             var netConfiguration = new NetConfigurationImpl {
-                ServerHost = "192.168.1.66",
+                //ServerHost = "192.168.1.66",
+                ServerHost = "localhost",
                 ServerPort = 9876
             };
 
