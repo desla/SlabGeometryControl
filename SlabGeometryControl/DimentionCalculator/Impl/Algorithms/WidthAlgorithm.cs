@@ -6,7 +6,7 @@ namespace Alvasoft.DimentionCalculator.Impl.Algorithms
 {
     public class WidthAlgorithm : IDimentionAlgorithm
     {
-        private static Random rnd = new Random();
+        private static Random rnd = new Random(1234567);
 
         public string GetName()
         {
@@ -29,9 +29,9 @@ namespace Alvasoft.DimentionCalculator.Impl.Algorithms
             var rightPoint = aSlabModel.GetRightSidePoint(positionY, positionZ);
 
             var width = Math.Round(rightPoint.X - leftPoint.X, 4);            
-            if (Math.Abs(width - 405) <= 10) {
-                width = 405 + (double) rnd.Next(49)/100.0*(rnd.Next()%2 == 0 ? -1 : 1);
-            }
+            //if (Math.Abs(width - 405) <= 10) {
+            //    width = 405 + (double) rnd.Next(49)/100.0*(rnd.Next()%2 == 0 ? -1 : 1);
+            //}
 
             return width;
         }

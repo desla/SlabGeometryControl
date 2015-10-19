@@ -6,7 +6,7 @@ namespace Alvasoft.DimentionCalculator.Impl.Algorithms
 {
     public class HeightAlgorithm : IDimentionAlgorithm
     {
-        private static Random rnd = new Random();
+        private static Random rnd = new Random(7654321);
 
         public string GetName()
         {
@@ -30,9 +30,9 @@ namespace Alvasoft.DimentionCalculator.Impl.Algorithms
             Console.WriteLine(topPoint + " " + bottomPoint);
 
             var height = Math.Round(topPoint.Y - bottomPoint.Y, 4, MidpointRounding.ToEven);
-            if (Math.Abs(height - 205) <= 10) {
-                height = 205 + (double)rnd.Next(49) / 100.0 * (rnd.Next() % 2 == 0 ? -1 : 1);
-            }
+            //if (Math.Abs(height - 205) <= 10) {
+            //    height = 205 + (double)rnd.Next(49) / 100.0 * (rnd.Next() % 2 == 0 ? -1 : 1);
+            //}
 
             return height;
         }

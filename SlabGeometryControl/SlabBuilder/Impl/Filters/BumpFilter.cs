@@ -21,7 +21,8 @@ namespace Alvasoft.SlabBuilder.Impl.Filters
                 var bottomBump = GetBump(bottomLine[i], bottomLine[i + 1]);
                 if (Math.Abs(bottomBump) >= MIN_BUMP) {
                     for (var j = -4; j <= 4; ++j) {
-                        if (i + j >= 0 && i + j < bottomLine.Length - 1) {
+                        if (i + j >= 0 && i + j < bottomLine.Length - 1 &&
+                            i+j < topLine.Length - 1) {
                             var topBump = GetBump(topLine[i+j], topLine[i+j+1]);
                             if (Math.Abs(topBump) >= MIN_BUMP) {
                                 if (topBump * bottomBump > 0 && // если имеют одинаковые направления.

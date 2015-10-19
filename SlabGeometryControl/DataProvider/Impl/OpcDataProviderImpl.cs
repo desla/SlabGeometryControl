@@ -266,6 +266,7 @@ namespace Alvasoft.DataProvider.Impl
                 }
             }
 
+            controlBlock.Times.WriteValue(new int[2000]);
              /*
             var slabLength = 1000.0;
             var count = right - left;
@@ -287,6 +288,9 @@ namespace Alvasoft.DataProvider.Impl
 
             controlBlock.StartIndex.WriteValue(0);
             controlBlock.EndIndex.WriteValue(0);
+            foreach (var opcSensor in sensors.Values) {
+                opcSensor.ResetValues();
+            }
 
             foreach (var listener in listeners) {
                 listener.OnStateChanged(this);

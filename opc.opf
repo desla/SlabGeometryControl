@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<OPC.OPC_Scout_Dotnet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Project name="New project" autoConnect="true" FileVersion="6" />
+  <Servers>
+    <DAServer id="8dfd7e64-39b3-4292-b0e1-aab7ec9304ec" name="opcda://localhost/OPC.SimaticNET" ServerUrl="opcda://localhost/OPC.SimaticNET/{b6eacb30-42d5-11d0-9517-0020afaa4b3c}" Protocol="COM" LCID="1033" Interface="COM_DA" />
+  </Servers>
+  <Views>
+    <DAView id="47cb9952-8f15-4367-b78c-b0127e025134" name="DA view 1" DefaultCycleTimerForGenerate_ms="1000">
+      <Columns>
+        <ViewColumn Width="25" Header="" Visible="true" />
+        <ViewColumn Width="227" Header="ColHeaderName" Visible="true" />
+        <ViewColumn Width="120" Header="ColHeaderDisplayName" Visible="true" />
+        <ViewColumn Width="60" Header="ColHeaderType" Visible="true" />
+        <ViewColumn Width="100" Header="ColHeaderAccessRight" Visible="true" />
+        <ViewColumn Width="155" Header="ColHeaderTimeStamp" Visible="true" />
+        <ViewColumn Width="133" Header="ColHeaderValue" Visible="true" />
+        <ViewColumn Width="70" Header="ColHeaderQuality" Visible="true" />
+        <ViewColumn Width="70" Header="ColHeaderError" Visible="true" />
+        <ViewColumn Width="100" Header="ColHeaderServer" Visible="true" />
+        <ViewColumn Width="100" Header="ColHeaderNewVal" Visible="true" />
+        <ViewColumn Width="110" Header="ColHeaderNVError" Visible="true" />
+        <ViewColumn Width="120" Header="ColHeaderGenMode" Visible="true" />
+        <ViewColumn Width="250" Header="ColHeaderDescription" Visible="true" />
+      </Columns>
+      <SecondTabColumns />
+      <Icon>0</Icon>
+      <ItemName>1</ItemName>
+      <DisplayName>2</DisplayName>
+      <Type>3</Type>
+      <AccessRight>4</AccessRight>
+      <Timestamp>5</Timestamp>
+      <Value>6</Value>
+      <Quality>7</Quality>
+      <Error>8</Error>
+      <Server>9</Server>
+      <NewValue>10</NewValue>
+      <ErrorNV>11</ErrorNV>
+      <GenMode>12</GenMode>
+      <Description>13</Description>
+      <Items>
+        <Item id="73ba33f4-b4a9-47ba-8745-52a5e3542080" ItemTypeCorrected="false" AccessRight="READWRITE" ServerId="8dfd7e64-39b3-4292-b0e1-aab7ec9304ec" RequestedUpdateRate_ms="500" RevisedUpdateRate_ms="-1" Deadband="0" TimeStamp="2015-10-19T08:13:37.656Z" Quality="0" Description="" Name="S7:[S7 connection_1]ResetToZeroDb2" PersistentItemDataType="System.Boolean" />
+        <Item id="e835f30d-b445-4d89-b457-573e4fc4b885" ItemTypeCorrected="false" AccessRight="READWRITE" ServerId="8dfd7e64-39b3-4292-b0e1-aab7ec9304ec" RequestedUpdateRate_ms="500" RevisedUpdateRate_ms="-1" Deadband="0" TimeStamp="2015-10-19T08:13:37.656Z" Quality="0" Description="" Name="S7:[S7 connection_1]CurrentValueDb18" PersistentItemDataType="System.Single" />
+        <Item id="b7bd642d-f90f-4cf2-8465-e2bb74b62376" ItemTypeCorrected="false" AccessRight="READWRITE" ServerId="8dfd7e64-39b3-4292-b0e1-aab7ec9304ec" RequestedUpdateRate_ms="500" RevisedUpdateRate_ms="-1" Deadband="0" TimeStamp="2015-10-19T08:13:37.656Z" Quality="0" Description="" Name="S7:[S7 connection_1]SensorValuesDb18" PersistentItemDataType="System.Single[]" />
+        <Item id="418ba4cd-8d97-45a0-9b65-147f0d2bd70b" ItemTypeCorrected="false" AccessRight="READWRITE" ServerId="8dfd7e64-39b3-4292-b0e1-aab7ec9304ec" RequestedUpdateRate_ms="500" RevisedUpdateRate_ms="-1" Deadband="0" TimeStamp="2015-10-19T08:13:37.656Z" Quality="0" Description="" Name="S7:[S7 connection_1]SensorValuesDb11" PersistentItemDataType="System.Single[]" />
+      </Items>
+    </DAView>
+  </Views>
+</OPC.OPC_Scout_Dotnet>
