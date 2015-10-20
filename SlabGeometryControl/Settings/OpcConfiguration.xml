@@ -10,6 +10,7 @@
     <times>S7:[S7 connection_1]ValueTimesGlobal</times>
     <syncDateTimeActivator>S7:[S7 connection_1]IsSyncDT</syncDateTimeActivator>
     <dateTimeForSync>S7:[S7 connection_1]DTForSync</dateTimeForSync>
+    <resetToZero>S7:[S7 connection_1]ResetToZeroDb2</resetToZero>
   </control>
   <sensors>
     <sensor>

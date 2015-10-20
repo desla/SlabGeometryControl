@@ -18,5 +18,7 @@
         string DateTimeSyncActivatorTag { get; }
 
         string DateTimeForSyncTag { get; }
+
+        string ResetToZeroTag { get; }
     }
 }

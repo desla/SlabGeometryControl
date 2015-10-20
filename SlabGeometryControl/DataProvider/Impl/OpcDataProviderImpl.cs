@@ -189,11 +189,13 @@ namespace Alvasoft.DataProvider.Impl
             controlBlock.Times = new OpcValueImpl(server, controlBlockInfo.TimesTag, OPCDataSource.OPCDevice);
             controlBlock.TimeSyncActivator = new OpcValueImpl(server, controlBlockInfo.DateTimeSyncActivatorTag);
             controlBlock.TimeForSync = new OpcValueImpl(server, controlBlockInfo.DateTimeForSyncTag);
+            controlBlock.ResetToZeroItem = new OpcValueImpl(server, controlBlockInfo.ResetToZeroTag);
             controlBlock.Initialize();
             controlBlock.StartIndex.WriteValue(0);
-            controlBlock.EndIndex.WriteValue(0);
+            controlBlock.EndIndex.WriteValue(0);            
             controlBlock.TimeForSync.WriteValue(DateTime.Now);
             controlBlock.TimeSyncActivator.WriteValue(true);
+            controlBlock.ResetToZeroItem.WriteValue(true);
         }
 
         private void InitializeActivator()
@@ -264,9 +266,7 @@ namespace Alvasoft.DataProvider.Impl
                     valueContainer.AddSensorValue(sensorId, value, fullTime.ToBinary());
                     currentIndex++;
                 }
-            }
-
-            controlBlock.Times.WriteValue(new int[2000]);
+            }            
              /*
             var slabLength = 1000.0;
             var count = right - left;
@@ -286,14 +286,27 @@ namespace Alvasoft.DataProvider.Impl
             }           
             // */
 
-            controlBlock.StartIndex.WriteValue(0);
-            controlBlock.EndIndex.WriteValue(0);
-            foreach (var opcSensor in sensors.Values) {
-                opcSensor.ResetValues();
+
+            try {
+                foreach (var listener in listeners) {
+                    listener.OnStateChanged(this);
+                }
+            }
+            catch (Exception ex) {
+                logger.Info("Ошибка в callback'е: " + ex.Message);
             }
 
-            foreach (var listener in listeners) {
-                listener.OnStateChanged(this);
+            try {
+                controlBlock.Times.WriteValue(new int[2000]);
+                controlBlock.StartIndex.WriteValue(0);
+                controlBlock.EndIndex.WriteValue(0);
+                controlBlock.ResetToZeroItem.WriteValue(true);
+                foreach (var opcSensor in sensors.Values) {
+                    opcSensor.ResetValues();
+                }
+            }
+            catch (Exception ex) {
+                logger.Error("Ошибка при обнулении значений после сканирования: " + ex.Message);
             }
         }
 

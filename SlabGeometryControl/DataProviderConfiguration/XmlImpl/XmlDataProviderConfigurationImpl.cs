@@ -29,7 +29,7 @@ namespace Alvasoft.DataProviderConfiguration.XmlImpl
         private const string TIMES_TAG = "times";
         private const string TIME_ACTIVATOR_TAG = "syncDateTimeActivator";
         private const string TIME_FOR_SYNC_TAG = "dateTimeForSync";
-        private const string CALIBRATED_VALUE = "calibratedValue";
+        private const string RESET_TO_ZERO_TAG = "resetToZero";
         
         private string xmlFileName = "Settings/OpcConfiguration.xml";
         private List<IOpcSensorInfo> opcSensorInfos = new List<IOpcSensorInfo>();
@@ -199,6 +199,9 @@ namespace Alvasoft.DataProviderConfiguration.XmlImpl
                         break;
                     case TIME_FOR_SYNC_TAG:
                         controlBlock.DateTimeForSyncTag = item.InnerText;
+                        break;
+                    case RESET_TO_ZERO_TAG:
+                        controlBlock.ResetToZeroTag = item.InnerText;
                         break;
                 }
             }            

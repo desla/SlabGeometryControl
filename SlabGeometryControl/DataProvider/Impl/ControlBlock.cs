@@ -17,6 +17,8 @@ namespace Alvasoft.DataProvider.Impl
 
         public OpcValueImpl TimeForSync { get; set; }
 
+        public OpcValueImpl ResetToZeroItem { get; set; }
+
         protected override void DoInitialize()
         {
             MaxSize.Activate();
@@ -25,6 +27,7 @@ namespace Alvasoft.DataProvider.Impl
             Times.Activate();
             TimeSyncActivator.Activate();
             TimeForSync.Activate();
+            ResetToZeroItem.Activate();
         }
 
         protected override void DoUninitialize()
@@ -35,6 +38,7 @@ namespace Alvasoft.DataProvider.Impl
             Times.Deactivate();
             TimeSyncActivator.Deactivate();
             TimeForSync.Deactivate();
+            ResetToZeroItem.Deactivate();
         }
     }
 }

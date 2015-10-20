@@ -35,7 +35,7 @@ namespace Alvasoft.Server
     {
         private static readonly ILog logger = LogManager.GetLogger("Server");
 
-        private static readonly TimeSpan minimumScanTime = TimeSpan.FromSeconds(15);
+        private static readonly TimeSpan minimumScanTime = TimeSpan.FromSeconds(10);
 
         private XmlDataProviderConfigurationImpl dataProviderConfiguration;
         private XmlSensorConfigurationImpl sensorConfiguration;

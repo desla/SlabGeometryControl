@@ -9,5 +9,6 @@
         public string TimesTag { get; set; }
         public string DateTimeSyncActivatorTag { get; set; }
         public string DateTimeForSyncTag { get; set; }
+        public string ResetToZeroTag { get; set; }
     }
 }
