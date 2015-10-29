@@ -260,7 +260,7 @@ namespace Alvasoft.DataProviderConfiguration.XmlImpl
                         var dataBlocks = item.ChildNodes;
                         for (var j = 0; j < controlBlock.DataBlocksCount; ++j) {
                             if (dataBlocks[j].Name.Equals(DATA_BLOCK)) {
-                                sensorInfo.DataBlocksTags[j] = item.InnerText;
+                                sensorInfo.DataBlocksTags[j] = dataBlocks[j].InnerText;
                             }
                         }
                         break;

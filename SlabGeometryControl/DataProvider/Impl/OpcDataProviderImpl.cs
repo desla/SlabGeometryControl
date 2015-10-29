@@ -128,8 +128,8 @@ namespace Alvasoft.DataProvider.Impl
             var serverHost = opcConfiguration.GetHost();
             server.Connect(serverName, serverHost);
 
-            InitializeOpcSensors();
-            InitializeControlBlock();            
+            InitializeControlBlock();
+            InitializeOpcSensors();                        
             InitializeActivator();
 
             lastDataBlock = controlBlock.DataBlocksCount - 1;
@@ -208,20 +208,24 @@ namespace Alvasoft.DataProvider.Impl
             controlBlock = new ControlBlock();
             controlBlock.MaxSize = new OpcValueImpl(server, controlBlockInfo.DataMaxSizeTag);
             controlBlock.StartIndex = new OpcValueImpl(server, controlBlockInfo.StartIndexTag);
-            controlBlock.EndIndex = new OpcValueImpl(server, controlBlockInfo.EndIndexTag, aUpdateRate: 1000);            
+            controlBlock.EndIndex = new OpcValueImpl(server, controlBlockInfo.EndIndexTag, aUpdateRate: 250);            
             controlBlock.TimeSyncActivator = new OpcValueImpl(server, controlBlockInfo.DateTimeSyncActivatorTag);
             controlBlock.TimeForSync = new OpcValueImpl(server, controlBlockInfo.DateTimeForSyncTag);
             controlBlock.ResetToZeroItem = new OpcValueImpl(server, controlBlockInfo.ResetToZeroTag);
             controlBlock.DataBlockSize = controlBlockInfo.DataBlockSize;
             controlBlock.DataBlocksCount = controlBlockInfo.DataBlocksCount;
-            for (var i = 0; i < controlBlockInfo.TimesTags.Length; ++i) {
-                controlBlock.Times[i] = new OpcValueImpl(server, controlBlockInfo.TimesTags[i]);            
+            controlBlock.Times = new OpcValueImpl[controlBlockInfo.DataBlocksCount];
+            for (var i = 0; i < controlBlockInfo.DataBlocksCount; ++i) {
+                controlBlock.Times[i] = new OpcValueImpl(server, controlBlockInfo.TimesTags[i], OPCDataSource.OPCDevice);            
             }
 
             controlBlock.EndIndex.IsListenValueChanging = true;
             controlBlock.EndIndex.SubscribeToValueChange(this);
 
             controlBlock.Initialize();
+            foreach (var timeBlock in controlBlock.Times) {
+                timeBlock.WriteValue(new int[100]);
+            }
             controlBlock.StartIndex.WriteValue(0);
             controlBlock.EndIndex.WriteValue(0);            
             controlBlock.TimeForSync.WriteValue(DateTime.Now);
@@ -286,7 +290,8 @@ namespace Alvasoft.DataProvider.Impl
             while (dataBlockQueue.Count > 0) {
                 Thread.Sleep(100);
             }
-            logger.Info("Данные полностью прочитаны.");            
+            logger.Info("Данные полностью прочитаны.");        
+    
 
             try {
                 foreach (var listener in listeners) {
@@ -298,6 +303,9 @@ namespace Alvasoft.DataProvider.Impl
             }
 
             try {                                
+                controlBlock.StartIndex.WriteValue(0);
+                controlBlock.EndIndex.WriteValue(0);
+                lastDataBlock = controlBlock.DataBlocksCount - 1;
                 controlBlock.ResetToZeroItem.WriteValue(true);
                 foreach (var opcSensor in sensors.Values) {
                     opcSensor.ResetValues();
@@ -346,15 +354,15 @@ namespace Alvasoft.DataProvider.Impl
             lock (lastDataBlockLock) {
                 // Если предыдущий блок уже был помещен в очередь,
                 // то ничего делать не надо.
-                if (previosDataBlock == lastDataBlock) {
+                if (lastDataBlock == previosDataBlock) {
                     return;
                 }
 
-                lastDataBlockLock = currentDataBlock;
+                lastDataBlock = previosDataBlock;
             }
 
             lock (dataBlockQueue) {
-                logger.Debug("Добавляем блок для чтения " + previosDataBlock);
+                logger.Info("Добавляем блок для чтения " + previosDataBlock);
                 dataBlockQueue.Enqueue(previosDataBlock);
             }
         }
@@ -379,7 +387,7 @@ namespace Alvasoft.DataProvider.Impl
                     
                     // Если левая граница не в блоке, то это непонятно!
                     if (leftIndex < dataBlock*controlBlock.DataBlockSize ||
-                        leftIndex - dataBlock*controlBlock.DataBlockSize >= controlBlock.DataBlockSize) {
+                        leftIndex >= dataBlock * controlBlock.DataBlockSize + controlBlock.DataBlockSize) {
                         logger.Error(string.Format(
                             "Левая граница {0} лежит не в блоке для чтения {1}.", leftIndex, dataBlock));
                     }
@@ -392,10 +400,25 @@ namespace Alvasoft.DataProvider.Impl
 
                     // теперь есть fromIndex и toIndex.
                     try {
-                        ReadDataBlock(dataBlock, fromIndex, toIndex);
+                        logger.Info("Читаем блок " + dataBlock + " от " + fromIndex + " до " + toIndex);
+                        ReadDataBlock(
+                            dataBlock, 
+                            fromIndex - dataBlock * controlBlock.DataBlockSize, 
+                            toIndex - dataBlock * controlBlock.DataBlockSize);
                     }
                     catch (Exception ex) {
                         logger.Error("Ошибка при чтении блока данных " + dataBlock + ": " + ex.Message);
+                    }
+
+                    try {                        
+                        var nextPosition = dataBlock != controlBlock.DataBlocksCount - 1
+                            ? toIndex + 1
+                            : 0;
+                        logger.Info("Сдвигаем границу в позицию " + nextPosition);
+                        controlBlock.StartIndex.WriteValue(nextPosition);                        
+                    }
+                    catch (Exception ex) {
+                        logger.Error("Ошибка при записи границы.");
                     }
 
                     lock (dataBlockQueue) {
@@ -406,20 +429,20 @@ namespace Alvasoft.DataProvider.Impl
         }
 
         private void ReadDataBlock(int aDataBlock, int aFromIndex, int aToIndex)
-        {
-            var times = controlBlock.Times[aDataBlock].ReadCurrentValue() as Array;
-            var longTimes = new long[times.Length];
+        {                        
+            var times = controlBlock.Times[aDataBlock].ReadCurrentValue() as Array;            
+            var longTimes = new long[times.Length];            
             for (var i = 0; i < times.Length; ++i) {
-                var milliseconds = Convert.ToDouble(times.GetValue(i + 1));
+                var milliseconds = Convert.ToDouble(times.GetValue(i));
                 var timeSpan = TimeSpan.FromMilliseconds(milliseconds);
                 var fullTime = startScanning.Date.AddMilliseconds(timeSpan.TotalMilliseconds);
                 longTimes[i] = fullTime.ToBinary();
-            }
+            }            
             foreach (var sensorId in sensors.Keys) {
                 var sensor = sensors[sensorId];
                 var values = sensor.DataBlocks[aDataBlock].ReadCurrentValue() as Array;
                 var currentIndex = aFromIndex;
-                while (currentIndex < aToIndex) {                    
+                while (currentIndex <= aToIndex) {                    
                     var value = Convert.ToDouble(values.GetValue(currentIndex));                                        
                     valueContainer.AddSensorValue(sensorId, value, longTimes[currentIndex]);
                     currentIndex++;
