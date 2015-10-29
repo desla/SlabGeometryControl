@@ -13,12 +13,16 @@
 
         string EndIndexTag { get; }
 
-        string TimesTag { get; }
+        string[] TimesTags { get; }
 
         string DateTimeSyncActivatorTag { get; }
 
         string DateTimeForSyncTag { get; }
 
         string ResetToZeroTag { get; }
+
+        int DataBlockSize { get; }
+
+        int DataBlocksCount { get; }
     }
 }

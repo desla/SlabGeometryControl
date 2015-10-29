@@ -9,6 +9,6 @@ namespace Alvasoft.DataProviderConfiguration.XmlImpl
         public string Name { get; set; }
         public string EnableTag { get; set; }
         public string CurrentValueTag { get; set; }
-        public string ValuesListTag { get; set; }        
+        public string[] DataBlocksTags { get; set; }
     }
 }

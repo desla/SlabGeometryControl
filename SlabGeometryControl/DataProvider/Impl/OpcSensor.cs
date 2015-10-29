@@ -7,18 +7,20 @@ namespace Alvasoft.DataProvider.Impl
 
     public class OpcSensor : InitializableImpl
     {
-        private const int VALUES_COUT = 2000;
+        public int dataBlockSize = 100;
 
         public OpcValueImpl Enable { get; set; }
 
         public OpcValueImpl CurrentValue { get; set; }
 
-        public OpcValueImpl ValuesList { get; set; }
+        public OpcValueImpl[] DataBlocks { get; set; }
 
         public void ResetValues()
         {
             try {
-                ValuesList.WriteValue(new double[VALUES_COUT]);
+                foreach (var dataBlock in DataBlocks) {
+                    dataBlock.WriteValue(new double[dataBlockSize]);
+                }
             }
             catch {
                 Console.WriteLine("Ошибка при обнулении значений.");
@@ -29,14 +31,18 @@ namespace Alvasoft.DataProvider.Impl
         {
             Enable.Activate();
             CurrentValue.Activate();
-            ValuesList.Activate();
+            foreach (var dataBlock in DataBlocks) {
+                dataBlock.Activate();
+            }
         }
 
         protected override void DoUninitialize()
         {
             Enable.Deactivate();
             CurrentValue.Deactivate();
-            ValuesList.Deactivate();
+            foreach (var dataBlock in DataBlocks) {
+                dataBlock.Deactivate();
+            }
         }
     }
 }

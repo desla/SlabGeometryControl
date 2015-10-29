@@ -26,11 +26,16 @@ namespace Alvasoft.DataProviderConfiguration.XmlImpl
         private const string SENSOR_ENABLE = "enable";
         private const string SENSOR_CURRENT_VALUE = "currentValue";
         private const string SENSOR_VALUES_LIST = "sensorValuesList";
-        private const string TIMES_TAG = "times";
+        private const string TIME_BLOCKS_TAG = "timeBlocks";
+        private const string TIME_BLOCK_TAG = "timeBlock";
         private const string TIME_ACTIVATOR_TAG = "syncDateTimeActivator";
         private const string TIME_FOR_SYNC_TAG = "dateTimeForSync";
         private const string RESET_TO_ZERO_TAG = "resetToZero";
-        
+        private const string DATA_BLOCK_SIZE = "dataBlockSize";
+        private const string DATA_BLOCKS_COUNT = "dataBlocksCount";
+        private const string DATA_BLOCKS = "dataBlocks";
+        private const string DATA_BLOCK = "dataBlock";
+
         private string xmlFileName = "Settings/OpcConfiguration.xml";
         private List<IOpcSensorInfo> opcSensorInfos = new List<IOpcSensorInfo>();
         private OpcControlBlockImpl controlBlock = null;
@@ -191,8 +196,14 @@ namespace Alvasoft.DataProviderConfiguration.XmlImpl
                     case END_INDEX_TAG:
                         controlBlock.EndIndexTag = item.InnerText;
                         break;
-                    case TIMES_TAG:
-                        controlBlock.TimesTag = item.InnerText;
+                    case TIME_BLOCKS_TAG:
+                        controlBlock.TimesTags = new string[item.ChildNodes.Count];
+                        var times = item.ChildNodes;
+                        for (var j = 0; j < times.Count; ++j) {
+                            if (times[i].Name.Equals(TIME_BLOCK_TAG)) {
+                                controlBlock.TimesTags[j] = times[j].InnerText;
+                            }                            
+                        }
                         break;
                     case TIME_ACTIVATOR_TAG:
                         controlBlock.DateTimeSyncActivatorTag = item.InnerText;
@@ -202,6 +213,12 @@ namespace Alvasoft.DataProviderConfiguration.XmlImpl
                         break;
                     case RESET_TO_ZERO_TAG:
                         controlBlock.ResetToZeroTag = item.InnerText;
+                        break;
+                    case DATA_BLOCK_SIZE:
+                        controlBlock.DataBlockSize = Convert.ToInt32(item.InnerText);
+                        break;
+                    case DATA_BLOCKS_COUNT:
+                        controlBlock.DataBlocksCount = Convert.ToInt32(item.InnerText);
                         break;
                 }
             }            
@@ -223,7 +240,8 @@ namespace Alvasoft.DataProviderConfiguration.XmlImpl
         private void LoadOpcSensor(XmlNode aNode)
         {
             var sensorInfo = new OpcSensorInfoImpl {
-                Id = opcSensorInfos.Count
+                Id = opcSensorInfos.Count,
+                DataBlocksTags = new string[controlBlock.DataBlocksCount]
             };
             var items = aNode.ChildNodes;
             for (var i = 0; i < items.Count; ++i) {
@@ -237,10 +255,15 @@ namespace Alvasoft.DataProviderConfiguration.XmlImpl
                         break;
                     case SENSOR_CURRENT_VALUE:
                         sensorInfo.CurrentValueTag = item.InnerText;
+                        break;             
+                    case DATA_BLOCKS:
+                        var dataBlocks = item.ChildNodes;
+                        for (var j = 0; j < controlBlock.DataBlocksCount; ++j) {
+                            if (dataBlocks[j].Name.Equals(DATA_BLOCK)) {
+                                sensorInfo.DataBlocksTags[j] = item.InnerText;
+                            }
+                        }
                         break;
-                    case SENSOR_VALUES_LIST:
-                        sensorInfo.ValuesListTag = item.InnerText;
-                        break;                    
                 }
             }
 

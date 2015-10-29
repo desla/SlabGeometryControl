@@ -11,7 +11,7 @@ namespace Alvasoft.DataProvider.Impl
 
         public OpcValueImpl EndIndex { get; set; }
 
-        public OpcValueImpl Times { get; set; }
+        public OpcValueImpl[] Times { get; set; }
 
         public OpcValueImpl TimeSyncActivator { get; set; }
 
@@ -19,26 +19,34 @@ namespace Alvasoft.DataProvider.Impl
 
         public OpcValueImpl ResetToZeroItem { get; set; }
 
+        public int DataBlocksCount { get; set; }
+
+        public int DataBlockSize { get; set; }
+
         protected override void DoInitialize()
         {
             MaxSize.Activate();
             StartIndex.Activate();
-            EndIndex.Activate();
-            Times.Activate();
+            EndIndex.Activate();            
             TimeSyncActivator.Activate();
             TimeForSync.Activate();
             ResetToZeroItem.Activate();
+            foreach (var timeBlock in Times) {
+                timeBlock.Activate();
+            }
         }
 
         protected override void DoUninitialize()
         {
             MaxSize.Deactivate();
             StartIndex.Deactivate();
-            EndIndex.Deactivate();
-            Times.Deactivate();
+            EndIndex.Deactivate();            
             TimeSyncActivator.Deactivate();
             TimeForSync.Deactivate();
             ResetToZeroItem.Deactivate();
+            foreach (var timeBlock in Times) {
+                timeBlock.Deactivate();
+            }
         }
     }
 }
