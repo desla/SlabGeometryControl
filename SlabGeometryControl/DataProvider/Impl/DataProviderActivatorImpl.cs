@@ -44,7 +44,7 @@ namespace Alvasoft.DataProvider.Impl
                 throw new ArgumentException("Слушатель активатора для DataProvider не задан.");
             }
 
-            activationTag = new OpcValueImpl(server, tagName);
+            activationTag = new OpcValueImpl(server, tagName, OPCDataSource.OPCDevice, aUpdateRate: 25);
             activationTag.IsListenValueChanging = true;
             activationTag.SubscribeToValueChange(this);
             activationTag.Activate();

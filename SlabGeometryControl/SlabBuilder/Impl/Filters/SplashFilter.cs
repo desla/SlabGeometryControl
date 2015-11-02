@@ -10,7 +10,7 @@ namespace Alvasoft.SlabBuilder.Impl.Filters
     public class SplashFilter
     {
         // Число точек от начана и от конца, которые будут фильтроваться.
-        private const int MAX_POINT_COUNT = 10;
+        private const int MAX_POINT_COUNT = 30;
 
         // Значение производной, после которого считает, что это всплеск.
         private const double splashIndex = 0.8;
