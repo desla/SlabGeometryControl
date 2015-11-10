@@ -129,9 +129,14 @@ namespace Alvasoft.DataProvider.Impl
             var serverHost = opcConfiguration.GetHost();
             server.Connect(serverName, serverHost);
 
-            InitializeControlBlock();
-            InitializeOpcSensors();                        
-            InitializeActivator();
+            try {
+                InitializeControlBlock();
+                InitializeOpcSensors();
+                InitializeActivator();
+            }
+            catch (Exception ex) {
+                logger.Error("Ошибка при инициализации: " + ex.Message);
+            }
 
             lastDataBlock = controlBlock.DataBlocksCount - 1;
 

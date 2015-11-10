@@ -51,7 +51,12 @@ namespace Alvasoft.Wcf.Server
         /// <summary>
         /// Текущий открытый канал связи с клиентами.
         /// </summary>
-        private ServiceHost CurrentService { get; set; }
+        protected ServiceHost CurrentService { get; set; }
+
+        /// <summary>
+        /// Определяет доступен ли сервис по http-запросу.
+        /// </summary>
+        protected bool IsHttpGetEnabled { get; set; }
 
         /// <summary>
         /// Имя сервиса.
@@ -163,7 +168,14 @@ namespace Alvasoft.Wcf.Server
             if (!IsListening()) {
                 var connectionString = MakeConnectionString();
                 var address = new Uri(connectionString);                
-                CurrentService = new ServiceHost(this);                                      
+                CurrentService = new ServiceHost(this);
+                if (IsHttpGetEnabled) {
+                    var metadata = new ServiceMetadataBehavior {
+                        HttpGetEnabled = true,
+                        HttpGetUrl = new Uri(MakeBaseHttpConnectionString())
+                    };
+                    CurrentService.Description.Behaviors.Add(metadata);
+                }
                 CurrentService.AddServiceEndpoint(ContractType, ServiceBinding, address);                
                 CurrentService.Open();
                 LogInfo("Сервис запущен.");
