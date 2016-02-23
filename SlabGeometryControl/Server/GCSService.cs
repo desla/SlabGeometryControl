@@ -16,7 +16,7 @@ namespace Alvasoft.Server
         {
             ContractType = typeof (ISlabGeometryControlClient01);
             ServiceName = "Alvasoft_SlabGeometryControlSystem";
-            IsHttpEnabled = true;
+            IsHttpGetEnabled = true;
             gcsServer.Initialize();                        
         }        
 
