@@ -62,7 +62,7 @@ namespace Alvasoft.Utils.Mathematic3D
         {
             return Math.Sqrt((aPoint.X - X) * (aPoint.X - X) +
                              (aPoint.Y - Y) * (aPoint.Y - Y) +
-                             (aPoint.X - Z) * (aPoint.X - Z));
+                             (aPoint.Z - Z) * (aPoint.Z - Z));
         }
 
         public override string ToString()
