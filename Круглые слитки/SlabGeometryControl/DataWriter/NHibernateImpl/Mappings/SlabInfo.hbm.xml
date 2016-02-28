@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="RSlabGeometryControl"
+                   namespace="Alvasoft.DataWriter.NHibernateImpl.Entity">
+  <class name="SlabInfoEntity" table="SlabInfo">
+    <id name="Id">
+      <generator class="native" />
+    </id>
+    <property name="Number" />
+    <property name="StandartSizeId" />    
+    <property name="StartScanTime" />
+    <property name="EndScanTime" />    
+  </class>
+</hibernate-mapping>

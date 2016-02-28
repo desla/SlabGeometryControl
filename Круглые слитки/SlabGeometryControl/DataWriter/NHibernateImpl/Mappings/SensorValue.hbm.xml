@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="RSlabGeometryControl"
+                   namespace="Alvasoft.DataWriter.NHibernateImpl.Entity">
+  <class name="SensorValueEntity" table="SensorValue">
+    <id name="Id">
+      <generator class="native" />
+    </id>
+    <property name="SensorId" index="IDX_SensorValue_SensorId_Time" />
+    <property name="SlabId" />
+    <property name="Value" />
+    <property name="Time" index="IDX_SensorValue_SensorId_Time" />    
+  </class>
+</hibernate-mapping>

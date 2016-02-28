@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4B0A5827-D335-47EE-B77B-FF5136ABE6A2}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Alvasoft</RootNamespace>
+    <AssemblyName>RSlabGeometryControl</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AlvasoftWcfClient">
+      <HintPath>..\Wcf\AlvasoftWcf\AlvasoftWcfServer\bin\Debug\AlvasoftWcfClient.dll</HintPath>
+    </Reference>
+    <Reference Include="AlvasoftWcfServer">
+      <HintPath>..\Wcf\AlvasoftWcf\AlvasoftWcfServer\bin\Debug\AlvasoftWcfServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections">
+      <HintPath>Usings\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.OPCAutomation">
+      <HintPath>.\Interop.OPCAutomation.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>Usings\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>Usings\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Usings\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="OpcTagAccessProvider">
+      <HintPath>..\..\..\denxc\OpcTagAccessProvider\bin\Debug\OpcTagAccessProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="RoundSlabEmulator">
+      <HintPath>..\RoundSlabEmulator\RoundSlabEmulator\bin\Debug\RoundSlabEmulator.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.SqlServerCe, Version=3.5.1.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Usings\System.Data.SqlServerCe.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataProviderConfiguration\IDataProviderConfigurationListener.cs" />
+    <Compile Include="DataProviderConfiguration\IOpcControlBlock.cs" />
+    <Compile Include="DataProviderConfiguration\XmlImpl\OpcControlBlockImpl.cs" />
+    <Compile Include="DataProviderConfiguration\XmlImpl\OpcSensorInfoImpl.cs" />
+    <Compile Include="DataProviderConfiguration\XmlImpl\XmlDataProviderConfigurationImpl.cs" />
+    <Compile Include="DataProvider\Impl\CalibratorImpl.cs" />
+    <Compile Include="DataProvider\Impl\ControlBlock.cs" />
+    <Compile Include="DataProvider\Impl\DataProviderActivatorImpl.cs" />
+    <Compile Include="DataProvider\Impl\Emulator\EmulatorDataProvider.cs" />
+    <Compile Include="DataProvider\Impl\Emulator\Ingot.cs" />
+    <Compile Include="DataProvider\Impl\Emulator\Sensor.cs" />
+    <Compile Include="DataProvider\Impl\IActivatorListener.cs" />
+    <Compile Include="DataProvider\Impl\IDataProviderActivator.cs" />
+    <Compile Include="DataProvider\Impl\OpcDataProviderImpl.cs" />
+    <Compile Include="DataProvider\Impl\OpcSensor.cs" />
+    <Compile Include="DataWriter\IRegulation.cs" />
+    <Compile Include="DataWriter\IRegulationsReaderWriter.cs" />
+    <Compile Include="DataWriter\ISensorValueReader.cs" />
+    <Compile Include="DataWriter\ISlabInfo.cs" />
+    <Compile Include="DataWriter\ISlabInfoReader.cs" />
+    <Compile Include="DataWriter\ISlabWriter.cs" />
+    <Compile Include="DataWriter\IStandartSize.cs" />
+    <Compile Include="DataWriter\IStandartSizeReaderWriter.cs" />
+    <Compile Include="DataWriter\NHibernateImpl\Entity\DimentionValueEntity.cs" />
+    <Compile Include="DataWriter\NHibernateImpl\Entity\RegulationEntity.cs" />
+    <Compile Include="DataWriter\NHibernateImpl\Entity\SlabInfoEntity.cs" />
+    <Compile Include="DataWriter\NHibernateImpl\Entity\StandartSizeEntity.cs" />
+    <Compile Include="DataWriter\NHibernateImpl\NHibernateDimentionValueWriter.cs" />
+    <Compile Include="DataWriter\NHibernateImpl\NHibernateSlabInfoWriter.cs" />
+    <Compile Include="DataWriter\NHibernateImpl\NHibernateStandartSizeReaderWriter.cs" />
+    <Compile Include="DataWriter\NHibernateImpl\NHibernateRegulationReaderWriter.cs" />
+    <Compile Include="DataWriter\RegulationImpl.cs" />
+    <Compile Include="DataWriter\SensorValueImpl.cs" />
+    <Compile Include="DataWriter\SlabInfoImpl.cs" />
+    <Compile Include="DataWriter\StandartSizeImpl.cs" />
+    <Compile Include="DimentionCalculator\Impl\Algorithms\ConvexHull.cs" />
+    <Compile Include="DimentionCalculator\Impl\Algorithms\ConcavityMiddleTopAlgorithm.cs" />
+    <Compile Include="DimentionCalculator\Impl\Algorithms\SlopeAngleAlgorithm.cs" />
+    <Compile Include="DimentionCalculator\Impl\Algorithms\HeightAlgorithm.cs" />
+    <Compile Include="DimentionCalculator\Impl\Algorithms\LateralCurvatureRightAlgorithm.cs" />
+    <Compile Include="DimentionCalculator\Impl\Algorithms\LengthAlgorithm.cs" />
+    <Compile Include="DimentionCalculator\Impl\Algorithms\WidthAlgorithm.cs" />
+    <Compile Include="DimentionCalculator\Impl\Algorithms\LateralCurvatureLeftAlgorithm.cs" />
+    <Compile Include="DimentionCalculator\Impl\Algorithms\LongitudinalCurvatureTopAlgorithm.cs" />
+    <Compile Include="DimentionCalculator\Impl\Algorithms\RotateAngleAlgorithm.cs" />
+    <Compile Include="DimentionCalculator\Impl\Algorithms\MaxConcavityTopAlgorithm.cs" />
+    <Compile Include="DimentionCalculator\Impl\DimentionValueImpl.cs" />
+    <Compile Include="DimentionConfiguration\DimentionInfoImpl.cs" />
+    <Compile Include="DimentionConfiguration\NHibernateImpl\Entity\DimentionInfoEntity.cs" />
+    <Compile Include="DimentionConfiguration\NHibernateImpl\NHibernateDimentionConfigurationImpl.cs" />
+    <Compile Include="SensorConfiguration\XmlImpl\SensorInfoImpl.cs" />
+    <Compile Include="SensorConfiguration\XmlImpl\XmlSensorConfigurationImpl.cs" />
+    <Compile Include="SensorValueContainer\Impl\SensorValueInfoImpl.cs" />
+    <Compile Include="DataWriter\IDimentionValueWriter.cs" />
+    <Compile Include="DataWriter\ISensorValueWriter.cs" />
+    <Compile Include="DataWriter\NHibernateImpl\Entity\SensorValueEntity.cs" />
+    <Compile Include="Server\GCSService.cs" />
+    <Compile Include="SlabBuilder\Impl\Filters\AverageFilter.cs" />
+    <Compile Include="SlabBuilder\Impl\Filters\BumpFilter.cs" />
+    <Compile Include="SlabBuilder\Impl\Filters\DoublePositionFilter.cs" />
+    <Compile Include="SlabBuilder\Impl\Filters\PickFilter.cs" />
+    <Compile Include="SlabBuilder\Impl\Filters\SplashFilter.cs" />
+    <Compile Include="SlabBuilder\Impl\SlabModelImpl.cs" />
+    <Compile Include="Utils\HNibernateHelper.cs" />
+    <Compile Include="DataWriter\NHibernateImpl\NHibernateSensorValueReaderWriter.cs" />
+    <Compile Include="DimentionCalculator\Impl\DimentionCalculatorImpl.cs" />
+    <Compile Include="DimentionConfiguration\IDimentionConfiguration.cs" />
+    <Compile Include="DimentionConfiguration\IDimentionInfo.cs" />
+    <Compile Include="DimentionValueContainer\Impl\DimentionValueContainerImpl.cs" />
+    <Compile Include="SensorConfiguration\ISensorConfiguration.cs" />
+    <Compile Include="SensorConfiguration\ISensorConfigurationListener.cs" />
+    <Compile Include="SensorConfiguration\ISensorInfo.cs" />
+    <Compile Include="DataProvider\ICalibrator.cs" />
+    <Compile Include="DataProvider\IDataProvider.cs" />
+    <Compile Include="DataProviderConfiguration\IDataProviderConfiguration.cs" />
+    <Compile Include="DataProvider\IDataProviderListener.cs" />
+    <Compile Include="DataProviderConfiguration\IOpcSensorInfo.cs" />
+    <Compile Include="DataEnums\SensorSide.cs" />
+    <Compile Include="DataEnums\SensorType.cs" />
+    <Compile Include="DataEnums\SystemState.cs" />
+    <Compile Include="DimentionCalculator\IDimentionAlgorithm.cs" />
+    <Compile Include="DimentionCalculator\IDimentionCalculator.cs" />
+    <Compile Include="DimentionValueContainer\IDimentionValue.cs" />
+    <Compile Include="DimentionValueContainer\IDimentionValueContainer.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SensorValueContainer\Impl\SensorValueContainerImpl.cs" />
+    <Compile Include="SensorValueContainer\ISensorValueContainer.cs" />
+    <Compile Include="SensorValueContainer\ISensorValueContainerListener.cs" />
+    <Compile Include="SensorValueContainer\ISensorValueInfo.cs" />
+    <Compile Include="Server\GCSServer.cs" />
+    <Compile Include="SlabBuilder\Impl\SlabBuilderImpl.cs" />
+    <Compile Include="SlabBuilder\ISlabBuilder.cs" />
+    <Compile Include="SlabBuilder\ISlabModel.cs" />
+    <Compile Include="Utils\Activity\Initializable.cs" />
+    <Compile Include="Utils\Activity\InitializableImpl.cs" />
+    <Compile Include="Utils\Activity\InitializedException.cs" />
+    <Compile Include="Utils\Activity\NotInitializedException.cs" />
+    <Compile Include="Utils\Common\Identifiable.cs" />
+    <Compile Include="Utils\Common\IdentifiableImpl.cs" />
+    <Compile Include="Utils\Common\IdentifiableNameable.cs" />
+    <Compile Include="Utils\Common\IdentifiableNameableImpl.cs" />
+    <Compile Include="Utils\Common\Nameable.cs" />
+    <Compile Include="Utils\Common\NameableImpl.cs" />
+    <Compile Include="Utils\Common\NotFoundException.cs" />
+    <Compile Include="Utils\Mathematic3D\Math3D.cs" />
+    <Compile Include="Utils\Mathematic3D\Point3D.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SlabGCApi\RSlabGCApi.csproj">
+      <Project>{9E4FFC36-EBD7-4EE8-ADC6-8ADE568E6FF7}</Project>
+      <Name>RSlabGCApi</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DimentionConfiguration\NHibernateImpl\Mappings\DimentionInfo.hbm.xml" />
+    <EmbeddedResource Include="DataWriter\NHibernateImpl\Mappings\SensorValue.hbm.xml" />
+    <EmbeddedResource Include="DataWriter\NHibernateImpl\Mappings\SlabInfo.hbm.xml" />
+    <EmbeddedResource Include="DataWriter\NHibernateImpl\Mappings\StandartSize.hbm.xml" />
+    <EmbeddedResource Include="DataWriter\NHibernateImpl\Mappings\Regulation.hbm.xml" />
+    <Content Include="Settings\CalibratorConfiguration.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Settings\Emulator.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Settings\hibernate.cfg.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Settings\Logging.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Settings\OpcConfiguration.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Settings\SensorConfiguration.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Usings\Iesi.Collections.dll" />
+    <Content Include="Usings\log4net.dll" />
+    <Content Include="Usings\NHibernate.dll" />
+    <Content Include="Usings\nunit.framework.dll" />
+    <Content Include="Usings\System.Data.SqlServerCe.dll" />
+    <EmbeddedResource Include="DataWriter\NHibernateImpl\Mappings\DimentionValue.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Usings\nhibernate-mapping.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
