@@ -1,4 +1,4 @@
-﻿namespace RoundSlabEmulator.Configuration {
+﻿namespace REmulatorConfiguration {
     using System.Drawing;
 
     public class SensorConfiguration {

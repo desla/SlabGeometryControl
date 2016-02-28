@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using RoundSlabEmulator.Configuration;
+using REmulatorConfiguration;
 
-namespace RoundSlabEmulator.Emulator {
+namespace RoundSlabEmulator {
     /// <summary>
     /// Эмулятор круглых слитков.
     /// </summary>
-    public class RoundSlabEmulator {
+    public class RSlabEmulator {
         private EmulatorConfiguration configuration;
 
         /// <summary>
@@ -37,12 +37,28 @@ namespace RoundSlabEmulator.Emulator {
 
             var sensors = configuration.Frame.Sensors;
             for (var i = 0; i < sensors.Length; ++i) {
-                var values = new List<double>();
-                for (var j = 0; j < centers.Length; ++j) {
-                    values.Add(IntersectionLength(sensors[i], centers[j]));
+                if (sensors[i].Id != 4) { // если обычный датчик.
+                    var values = new List<double>();
+                    for (var j = 0; j < centers.Length; ++j) {
+                        values.Add(IntersectionLength(sensors[i], centers[j]));
+                    }
+                    sensorValues[sensors[i].Id] = values.ToArray();
+                } else { // если датчик положения.
+                    sensorValues[sensors[i].Id] = GeneratePositionValues();
                 }
-                sensorValues[sensors[i].Id] = values.ToArray();
             }
+        }
+
+        private double[] GeneratePositionValues() {
+            var pointsCount = (int)(1.0 * configuration.Length * configuration.Frame.ScanSpeed / configuration.Speed);
+            var results = new double[pointsCount];
+            var currentPosition = 0.0;
+            for (var i = 0; i < pointsCount; ++i) {
+                results[i] = currentPosition;
+                currentPosition += 1.0 * configuration.Length / pointsCount;
+            }
+
+            return results;
         }
 
         /// <summary>
@@ -69,15 +85,16 @@ namespace RoundSlabEmulator.Emulator {
             }
 
             // накладываем искривление с максимумом в указанной позиции.
-            var length = 0.0;
+            var currentPosition = 0.0;
             for (var i = 0; i < centersCount; ++i) {
-                if (length <= configuration.Flexs[0].Position) {
-                    var flex = configuration.Flexs[0].Maxumum * length / configuration.Flexs[0].Position;
+                if (currentPosition <= configuration.Flexs[0].Position) {
+                    var flex = configuration.Flexs[0].Maxumum * currentPosition / configuration.Flexs[0].Position;
                     centers[i].Y -= (float)flex;
                 } else {
-                    var flex = configuration.Flexs[0].Maxumum * (configuration.Length - length) / (configuration.Length - configuration.Flexs[0].Position);
+                    var flex = configuration.Flexs[0].Maxumum * (configuration.Length - currentPosition) / (configuration.Length - configuration.Flexs[0].Position);
                     centers[i].Y -= (float)flex;
                 }
+                currentPosition += 1.0 * configuration.Length / centersCount;
             }
 
             // накладываем подпрыгивания.
@@ -105,8 +122,7 @@ namespace RoundSlabEmulator.Emulator {
             var xo = aCenter.X;
             var yo = aCenter.Y;
             var R = configuration.Diameter / 2;
-
-            // найдем точки пересечения окружности и прямой http://e-maxx.ru/algo/circle_line_intersection
+            
             PointF a, b;
             StraightContactCricle(xo, yo, R, A, B, C, out a, out b);
 
@@ -120,16 +136,18 @@ namespace RoundSlabEmulator.Emulator {
         /// <summary>
         /// Откроем доступ для тестов.
         /// </summary>        
-        public void StraightContactCricle(
+        private void StraightContactCricle(
             double xo, double yo, double R, 
             double A, double B, double C, 
-            out PointF a, out PointF b) {
+            out PointF a, out PointF b) 
+        {
+            // найдем точки пересечения окружности и прямой http://e-maxx.ru/algo/circle_line_intersection
             PointF t = new PointF();
-            double EPS = 0.0001;
+            double EPS = 0.00000001;
             C = A * xo + B * yo + C;
             t.X = (float)(-A * C / (A * A + B * B));
             t.Y = (float)(-B * C / (A * A + B * B));
-            if (C * C > xo * R * (A * A + B * B) + EPS)
+            if (C * C > R * R * (A * A + B * B) + EPS)
                 throw new ArgumentException("Нет пересечений луча сканиварония и слитка.");
             else if (Math.Abs(C * C - R * R * (A * A + B * B)) < EPS) {
                 throw new ArgumentException("Единственное пересечение луча сканирования и окружности слитка.");
@@ -151,7 +169,7 @@ namespace RoundSlabEmulator.Emulator {
         /// <param name="A"></param>
         /// <param name="B"></param>
         /// <param name="C"></param>
-        public void BuildLine(double x0, double y0, double x1, double y1, out double A, out double B, out double C) {
+        private void BuildLine(double x0, double y0, double x1, double y1, out double A, out double B, out double C) {
             A = y0 - y1;
             B = x1 - x0;
             C = -A * x0 - B * y0;

@@ -1,4 +1,4 @@
-﻿namespace RoundSlabEmulator.Configuration {
+﻿namespace REmulatorConfiguration {
     public class FlexConfiguration {
         /// <summary>
         /// Положение максимума.
