@@ -14,6 +14,11 @@
         public double ScanSpeed { get; set; }
 
         /// <summary>
+        /// Размер рамки.
+        /// </summary>
+        public double Size { get; set; }        
+
+        /// <summary>
         /// Погрешность.
         /// </summary>
         public double Error { get; set; }

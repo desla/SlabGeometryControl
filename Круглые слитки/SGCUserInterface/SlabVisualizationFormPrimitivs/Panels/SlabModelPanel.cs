@@ -39,6 +39,7 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs.Panels
 
         private Dictionary<string, int> objectsList = new Dictionary<string, int>();        
         private const string KEY_SURFACE = "surface";
+        private const string KEY_CENTERS = "centers";
         private const string KEY_SENSOR_VALUES = "sensorValues";
         private const string KEY_SLAB_DIMENTIONS = "slabDimentions";
 
@@ -47,6 +48,7 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs.Panels
         private Regulation[] regulations;
 
         private bool isShowGridSurface = true;
+        private bool isShowCenters = true;
         private bool isShowSensorValues = true;
         private bool isShowSlabDimentions = true;
         private bool isUseSmooth = true;
@@ -164,12 +166,7 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs.Panels
         public void SetSlabModel(SlabModel3D aSlabModel)
         {
             slabModel = aSlabModel;
-        }
-
-        public void MoveModelToZeroPoint()
-        {
-            
-        }
+        }        
 
         public void SetDimentions(Dimention[] aDimentions)
         {
@@ -189,6 +186,7 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs.Panels
         public void InitializeGlObjects()
         {
             InitGridSurface();
+            InitCenters();
             InitSensorValues();
             InitSlabDimentions();
         }
@@ -206,12 +204,16 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs.Panels
                     Gl.glCallList(objectsList[KEY_SURFACE]);
                 }
 
-                if (isShowSensorValues && objectsList.ContainsKey(KEY_SENSOR_VALUES)) {
-                    Gl.glCallList(objectsList[KEY_SENSOR_VALUES]);
+                if (isShowCenters && objectsList.ContainsKey(KEY_CENTERS)) {
+                    Gl.glCallList(objectsList[KEY_CENTERS]);
                 }
 
                 if (isShowSlabDimentions && objectsList.ContainsKey(KEY_SLAB_DIMENTIONS)) {
                     Gl.glCallList(objectsList[KEY_SLAB_DIMENTIONS]);
+                }
+
+                if (isShowSensorValues && objectsList.ContainsKey(KEY_SENSOR_VALUES)) {
+                    Gl.glCallList(objectsList[KEY_SENSOR_VALUES]);
                 }
 
                 foreach (var dimention in dimentions) {
@@ -313,15 +315,17 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs.Panels
             isShowSlabDimentions = aIsShowDimentions;
         }
 
-        public void ShowSensorValuesChanged(bool aIsShowSensorValues)
+        public void ShowCentersValuesChanged(bool aIsShowCenterValues)
         {
-            isShowSensorValues = aIsShowSensorValues;
+            isShowCenters = aIsShowCenterValues;
         }
 
+        /// <summary>
+        /// Рисует сетку.
+        /// </summary>
         private void InitGridSurface()
         {
-            var strongLinesCount = 5;
-            var slimLinesCount = 2;
+            var strongLinesCount = 5;            
             var distanceBetwenStrongLines = 1000;
             var depthY = -2000;
             var startPosition = distanceBetwenStrongLines * strongLinesCount / 2;
@@ -386,9 +390,82 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs.Panels
             
         }
 
-        private void InitSensorValues()
-        {
-            
+        private void InitCenters() {
+            if (slabModel == null) {
+                return;
+            }
+
+            var centersValuesNumber = Gl.glGenLists(1);
+            objectsList[KEY_CENTERS] = centersValuesNumber;
+            Gl.glNewList(centersValuesNumber, Gl.GL_COMPILE);
+            var color = Color.Brown;
+            Gl.glColor3d(
+                Convert.ToDouble(color.R) / 255,
+                Convert.ToDouble(color.G) / 255,
+                Convert.ToDouble(color.B) / 255);
+            Gl.glLineWidth(2f);
+            Gl.glPointSize(1f);
+            // рисуем все центры срезов.
+            Gl.glBegin(Gl.GL_POINTS);
+            {
+                for (var i = 0; i < slabModel.CenterLine.Length; ++i) {                    
+                    var point = slabModel.CenterLine[i];
+                    Gl.glVertex3d(point.X, point.Y, point.Z);                    
+                }
+            }
+            Gl.glEnd();
+            // рисуем каждую 10-ую окружность.
+            Gl.glBegin(Gl.GL_POINTS);
+            {
+                for (var i = 0; i < slabModel.CenterLine.Length; i+=5) {
+                    var point = slabModel.CenterLine[i];
+                    AddCircle(point, slabModel.Diameters[i] / 2.0);
+                }
+            }
+            Gl.glEnd();
+            Gl.glEndList();
+        }
+
+        private void InitSensorValues() {
+            if (slabModel == null) {
+                return;
+            }
+
+            var sensorValuesNumber = Gl.glGenLists(1);
+            objectsList[KEY_SENSOR_VALUES] = sensorValuesNumber;
+            Gl.glNewList(sensorValuesNumber, Gl.GL_COMPILE);
+            var color = Color.Red;
+            Gl.glColor3d(
+                Convert.ToDouble(color.R) / 255,
+                Convert.ToDouble(color.G) / 255,
+                Convert.ToDouble(color.B) / 255);
+            Gl.glLineWidth(2f);
+            Gl.glPointSize(1f);
+            // рисуем точки на поверхности слитка.            
+            for (var i = 0; i < slabModel.SensorsLines.Length; ++i) {
+                var line = slabModel.SensorsLines[i];
+                Gl.glBegin(Gl.GL_LINE_STRIP);
+                {
+                    for (var j = 0; j < line.Length; ++j) {
+                        var point = line[j];
+                        Gl.glVertex3d(point.X, point.Y, point.Z);
+                    }
+                }
+                Gl.glEnd();
+            }            
+            Gl.glEndList();
+        }
+
+        public void ShowSensorValuesChanged(bool aShowSensorValues) {
+            isShowSensorValues = aShowSensorValues;                        
+        }
+        
+        private void AddCircle(SlabPoint aCenter, double aRadius) {
+            var pointsCount = 50;
+            for (var i = 0; i < pointsCount; ++i) {
+                var angle = 2.0 * Math.PI * i / pointsCount;
+                Gl.glVertex3d(aCenter.X + aRadius * Math.Cos(angle), aCenter.Y + aRadius * Math.Sin(angle), aCenter.Z);
+            }
         }
 
         public void ShowSmoothChanged(bool aIsUseSmooth)
@@ -411,8 +488,8 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs.Panels
             if (objectsList.ContainsKey(KEY_SURFACE)) {
                 Gl.glDeleteLists(objectsList[KEY_SURFACE], 1);
             }
-            if (objectsList.ContainsKey(KEY_SENSOR_VALUES)) {
-                Gl.glDeleteLists(objectsList[KEY_SENSOR_VALUES], 1);
+            if (objectsList.ContainsKey(KEY_CENTERS)) {
+                Gl.glDeleteLists(objectsList[KEY_CENTERS], 1);
             }
             if (objectsList.ContainsKey(KEY_SLAB_DIMENTIONS)) {
                 Gl.glDeleteLists(objectsList[KEY_SLAB_DIMENTIONS], 1);

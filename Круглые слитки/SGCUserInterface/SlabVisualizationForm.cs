@@ -86,16 +86,16 @@ namespace SGCUserInterface
                     sensorsPlots.DrawPlots(points, sensors);
                     sensorsPlots.ShowAllPlots(isAllPlotShowCheckedBox.Checked);
                     // срезы слитка.                    
-                    sectionsPanel.SetSlabModel(slabModel);
-                    sectionsPanel.Initialize();
-                    sectionsPanel.ShowLeftSection();
+                    //sectionsPanel.SetSlabModel(slabModel);
+                    //sectionsPanel.Initialize();
+                    //sectionsPanel.ShowLeftSection();
                     // графики отклонения от среднего.
-                    deviationsPanel.SetSlabModel(slabModel);
-                    deviationsPanel.Initialize();
-                    deviationsPanel.ShowCurrentPlot();
+                    //deviationsPanel.SetSlabModel(slabModel);
+                    //deviationsPanel.Initialize();
+                    //deviationsPanel.ShowCurrentPlot();
                     // 3д модель слитка.
                     InitializeSlabModelPanel();
-                    slabModelPanel.ShowModel();                    
+                    slabModelPanel.ShowModel();           
                 }                               
             }
             catch (Exception ex) {
@@ -143,17 +143,16 @@ namespace SGCUserInterface
 
         private void InitializeSlabModelPanel()
         {
-            slabModelPanel.SetSlabModel(slabModel);
-            slabModelPanel.MoveModelToZeroPoint();
-            slabModelPanel.SetDimentions(systemDimentions);
-            slabModelPanel.SetDimentionResults(slabDimentionsResults);
-            slabModelPanel.SetRegulations(regulations);
-            slabModelPanel.AddDimention(new HeightDimention(), heightCheckBox);
-            slabModelPanel.AddDimention(new WidthDimention(), widthCheckBox);
-            slabModelPanel.AddDimention(new LengthDimention(), lengthCheckBox);
-            slabModelPanel.AddDimention(new LateralCurvatureRightDimention(), lateralRightCheckBox);
-            slabModelPanel.AddDimention(new LateralCurvatureLeftDimention(), lateralLeftCheckBox);
-            slabModelPanel.AddDimention(new LongitudinalCurvatureTopDimention(), longitudinalTopCheckBox);
+            slabModelPanel.SetSlabModel(slabModel);            
+            //slabModelPanel.SetDimentions(systemDimentions);
+            //slabModelPanel.SetDimentionResults(slabDimentionsResults);
+            //slabModelPanel.SetRegulations(regulations);
+            //slabModelPanel.AddDimention(new HeightDimention(), heightCheckBox);
+            //slabModelPanel.AddDimention(new WidthDimention(), widthCheckBox);
+            //slabModelPanel.AddDimention(new LengthDimention(), lengthCheckBox);
+            //slabModelPanel.AddDimention(new LateralCurvatureRightDimention(), lateralRightCheckBox);
+            //slabModelPanel.AddDimention(new LateralCurvatureLeftDimention(), lateralLeftCheckBox);
+            //slabModelPanel.AddDimention(new LongitudinalCurvatureTopDimention(), longitudinalTopCheckBox);
             slabModelPanel.InitializeGlObjects();
         }
 
@@ -238,9 +237,9 @@ namespace SGCUserInterface
             slabModelPanel.ShowModel();
         }
 
-        private void sensorValuesCheckBox_CheckedChanged(object sender, EventArgs e)
+        private void centersValuesCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            slabModelPanel.ShowSensorValuesChanged(sensorValuesCheckBox.Checked);
+            slabModelPanel.ShowCentersValuesChanged(centersValuesCheckBox.Checked);
             slabModelPanel.ShowModel();
         }               
 
@@ -370,6 +369,11 @@ namespace SGCUserInterface
             menuStrip.Items[7].Text = @"Установить масштаб по умолчанию…";
             menuStrip.Items.RemoveAt(5);
             menuStrip.Items.RemoveAt(5);
+        }
+
+        private void sensorsValuesCheckedBox_CheckedChanged(object sender, EventArgs e) {
+            slabModelPanel.ShowSensorValuesChanged(sensorsValuesCheckedBox.Checked);
+            slabModelPanel.ShowModel();
         }
     }
 }

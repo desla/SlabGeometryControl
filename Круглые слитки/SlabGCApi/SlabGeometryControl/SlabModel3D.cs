@@ -9,6 +9,9 @@ namespace Alvasoft.SlabGeometryControl
         public SlabPoint[] CenterLine { get; set; }
 
         [DataMember]
-        public double[] Diameters { get; set; }        
+        public double[] Diameters { get; set; }      
+        
+        [DataMember]
+        public SlabPoint[][] SensorsLines { get; set; }   
     }
 }

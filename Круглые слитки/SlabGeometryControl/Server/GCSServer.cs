@@ -42,7 +42,7 @@ namespace Alvasoft.Server
         private NHibernateDimentionConfigurationImpl dimentionConfiguration;
         
         private IDataProvider dataProvider;
-        private CalibratorImpl calibrator;        
+        private ICalibrator calibrator;        
         private SlabBuilderImpl slabBuilder;
         private DimentionCalculatorImpl dimentionCalculator;
         private ISensorValueContainer sensorValueContainer;
@@ -75,8 +75,10 @@ namespace Alvasoft.Server
             sensorConfiguration = new XmlSensorConfigurationImpl("Settings/SensorConfiguration.xml");
 
             //dataProvider = new OpcDataProviderImpl();        
+            //calibrator = new CalibratorImpl();
             dataProvider = new EmulatorDataProvider();
-            calibrator = new CalibratorImpl();            
+            calibrator = new EmulatorDataProvider();            
+
             slabBuilder = new SlabBuilderImpl();
             dimentionCalculator = new DimentionCalculatorImpl();            
             sensorValueContainer = new SensorValueContainerImpl();
@@ -172,7 +174,7 @@ namespace Alvasoft.Server
                         dimentionCalculator.CalculateDimentions(slabModel);
                         var dimentionValues = dimentionValueContainer.GetDimentionValues();
                         dimentionValueWriter.WriteDimentionValues(slabId, dimentionValues);
-                        UpdateStandartSizeId(slabId, DetermineStandartSize(dimentionValues));
+                        //UpdateStandartSizeId(slabId, DetermineStandartSize(dimentionValues));
                     }
                     else {
                         logger.Info("Ложное срабатывание: сканирование длилось меньше временной отсечки.");

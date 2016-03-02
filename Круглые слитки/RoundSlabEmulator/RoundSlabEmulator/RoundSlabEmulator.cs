@@ -85,22 +85,141 @@ namespace RoundSlabEmulator {
             }
 
             // накладываем искривление с максимумом в указанной позиции.
-            var currentPosition = 0.0;
+            // используем интерполирование.
+            MakeFlexs(centers);
+            //for (var i = 0; i < configuration.Flexs.Length; ++i) {
+            //    MakeFlexs(centers, configuration.Flexs[i]);
+            //}            
+
+
+            // накладываем подпрыгивания.            
+            for (var i = 0; i < configuration.Bumps.Length; ++i) {                
+                var bump = configuration.Bumps[i];
+                var normal = Math.Sqrt(bump.Direction.X * bump.Direction.X + bump.Direction.Y * bump.Direction.Y);
+                var dx = bump.Direction.X / normal;
+                var dy = bump.Direction.Y / normal;
+                var currentPosition = 0.0;
+                for (var j = 0; j < centersCount; ++j) {
+                    if (currentPosition >= bump.Position) {
+                        centers[j].X += (float)(dx * bump.Value);
+                        centers[j].Y += (float)(dy * bump.Value);
+                    }
+                    currentPosition += 1.0 * configuration.Length / centersCount;
+                }                
+            }
+
+            // накладываем дребезжание.
+
+
+            return centers;
+        }
+
+        private void MakeFlexs(PointF[] aCenters) {
+            // составим таблицу интерполяционных узлов.
+            var centersCount = aCenters.Length;
+            var pointsCount = 2 + configuration.Flexs.Length;
+            var xValues = new double[pointsCount];
+            var yValues = new double[pointsCount];
+            xValues[0] = 0;
+            yValues[0] = aCenters[0].Y;
+            xValues[pointsCount - 1] = configuration.Length;
+            yValues[pointsCount - 1] = aCenters[centersCount - 1].Y;
+            for (var i = 1; i <= configuration.Flexs.Length; ++i) {
+                xValues[i] = configuration.Flexs[i-1].Position;
+                yValues[i] = configuration.Flexs[i-1].Maximum;
+            }
+
+            var currentPosition = 0.0;            
             for (var i = 0; i < centersCount; ++i) {
-                if (currentPosition <= configuration.Flexs[0].Position) {
-                    var flex = configuration.Flexs[0].Maxumum * currentPosition / configuration.Flexs[0].Position;
-                    centers[i].Y -= (float)flex;
-                } else {
-                    var flex = configuration.Flexs[0].Maxumum * (configuration.Length - currentPosition) / (configuration.Length - configuration.Flexs[0].Position);
-                    centers[i].Y -= (float)flex;
+                aCenters[i].Y = (float)InterpolateLagrangePolynomial(currentPosition, xValues, yValues, pointsCount);
+                currentPosition += 1.0 * configuration.Length / centersCount;
+            }
+        }
+
+        /// <summary>
+        /// https://ru.wikipedia.org/wiki/Интерполяционный_многочлен_Лагранжа
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="xValues"></param>
+        /// <param name="yValues"></param>
+        /// <param name="size"></param>
+        /// <returns></returns>
+        private double InterpolateLagrangePolynomial(double x, double[] xValues, double[] yValues, int size) {
+            double lagrangePol = 0;
+            for (int i = 0; i < size; i++) {
+                double basicsPol = 1;
+                for (int j = 0; j < size; j++) {
+                    if (j != i) {
+                        basicsPol *= (x - xValues[j]) / (xValues[i] - xValues[j]);
+                    }
+                }
+                lagrangePol += basicsPol * yValues[i];
+            }
+
+            return lagrangePol;
+        }
+
+        /// <summary>
+        /// Накладывает искривление.
+        /// </summary>
+        /// <param name="centers"></param>
+        /// <param name="flexConfiguration"></param>
+        private void MakeFlexs(PointF[] aCenters, FlexConfiguration aFlex) {
+            var centersCount = aCenters.Length;
+            // укажем три точки на слитке.
+            var a = aCenters[0];
+            var b = aCenters[centersCount - 1];
+            PointF c = new PointF();
+            var currentPosition = 0.0;
+            var find = false;
+            for (var i = 0; i < aCenters.Length; ++i) {
+                if (currentPosition >= aFlex.Position) {
+                    c = aCenters[i];
+                    find = true;
+                    break;
                 }
                 currentPosition += 1.0 * configuration.Length / centersCount;
             }
+            if (!find) {
+                throw new ArgumentException("MakeFlexs: положение искривления не в пределах размеров слитка.");
+            }
 
-            // накладываем подпрыгивания.
-            // накладываем дребезжание.
+            // Сдвинем точку C на заданное отклонение.
+            c.Y -= (float)aFlex.Maximum;
 
-            return centers;
+            // Все точик лежат в плоскости YOZ, поэтому учитываем это.
+
+            // теперь найдем центр и радиус окружности. 
+            var pa = new Point3D { X = 0, Y = a.Y, Z = 0 };
+            var pb = new Point3D { X = configuration.Length, Y = b.Y, Z = 0 };
+            var pc = new Point3D { X = aFlex.Position, Y = c.Y, Z = 0 };
+
+            var center = CalcCircleCenter(pa, pb, pc);
+            var radius = CalcCircleDiameter(pa, pb, pc) / 2.0;
+
+            // переведем центр обратно в систему координат.
+            center.Z = center.X;
+            center.X = 0;
+
+            // теперь сдвигаем все точки в направлении радиус-вектора.
+            currentPosition = 0.0;
+            for (var i = 0; i < centersCount; ++i) {
+                // dr: найдем разницу между радиусом и расстоянием от центра до точки.
+                var pt = new Point3D { X = aCenters[i].X, Y = aCenters[i].Y, Z = currentPosition };
+                var dr = radius - center.DistanceToPoint(pt);
+                // vr: найдем вектор радиуса и нормализуем его.
+                var vr = new Point3D { X = pt.X - center.X, Y = pt.Y - center.Y, Z = pt.Z - center.Z };
+                var vsize = Math.Sqrt(vr.X * vr.X + vr.Y * vr.Y + vr.Z * vr.Z);
+                vr.X /= vsize;
+                vr.Y /= vsize;                
+                // теперь сдвинем исходную точку по направлению вектора на разницу.
+                pt.X += dr * vr.X;
+                pt.Y += dr * vr.Y;                
+                aCenters[i].X = (float)pt.X;
+                aCenters[i].Y = (float)pt.Y;
+
+                currentPosition += 1.0 * configuration.Length / centersCount;
+            }
         }
 
         /// <summary>
@@ -173,6 +292,59 @@ namespace RoundSlabEmulator {
             A = y0 - y1;
             B = x1 - x0;
             C = -A * x0 - B * y0;
+        }
+
+        /// <summary>
+        /// Вычисляет диаметр описанной окружности.
+        /// </summary>
+        /// <param name="aA"></param>
+        /// <param name="aB"></param>
+        /// <param name="aC"></param>
+        /// <returns>Диаметр.</returns>
+        private double CalcCircleDiameter(Point3D aA, Point3D aB, Point3D aC) {
+            // Формула:
+            // D = a*b*c / 2 * sqrt(p*(p-a)*(p-b)*(p-c)), 
+            // где a,b,c - длины сторон треугольника, p - полупериметр треугольника.
+            var a = aA.DistanceToPoint(aB);
+            var b = aB.DistanceToPoint(aC);
+            var c = aC.DistanceToPoint(aA);
+            var p = (a + b + c) / 2.0;
+
+            return (2 * a * b * c) / (4 * Math.Sqrt(p * (p - a) * (p - b) * (p - c)));
+        }
+
+        /// <summary>
+        /// Вычисляет центр описанной окружности.
+        /// </summary>        
+        /// <returns></returns>
+        private Point3D CalcCircleCenter(Point3D aA, Point3D aB, Point3D aC) {
+            var epsilon = 0.0001;
+            if (Math.Abs(aA.Z - aB.Z) > epsilon || Math.Abs(aA.Z - aC.Z) > epsilon) {
+                throw new ArgumentException("CalcCircleCenter: точки находятся не в одной плоскости.");
+            }
+
+            // формула http://www.cyberforum.ru/geometry/thread1190053.html
+
+            double x1 = aA.X, x2 = aB.X, x3 = aC.X,
+                   y1 = aA.Y, y2 = aB.Y, y3 = aC.Y;
+            double x12 = x1 - x2,
+                x23 = x2 - x3,
+                x31 = x3 - x1,
+                y12 = y1 - y2,
+                y23 = y2 - y3,
+                y31 = y3 - y1;
+            double z1 = x1 * x1 + y1 * y1,
+                z2 = x2 * x2 + y2 * y2,
+                z3 = x3 * x3 + y3 * y3;
+            double zx = y12 * z3 + y23 * z1 + y31 * z2,
+                zy = x12 * z3 + x23 * z1 + x31 * z2,
+                z = x12 * y31 - y12 * x31;
+
+            return new Point3D {
+                X = -zx / (2.0 * z),
+                Y = zy / (2.0 * z),
+                Z = aA.Z
+            };
         }
     }
 }

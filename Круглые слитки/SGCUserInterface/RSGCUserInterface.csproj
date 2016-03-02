@@ -161,6 +161,12 @@
     <Compile Include="SlabVisualizationFormPrimitivs\WidthDimention.cs" />
     <Compile Include="SlabVisualizationFormPrimitivs\LateralCurvatureLeftDimention.cs" />
     <Compile Include="SlabVisualizationFormPrimitivs\LongitudinalCurvatureTopDimention.cs" />
+    <Compile Include="StandartSizeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StandartSizeForm.designer.cs">
+      <DependentUpon>StandartSizeForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SystemInformation.cs" />
     <EmbeddedResource Include="AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
@@ -209,6 +215,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SlabVisualizationFormPrimitivs\DimentionControl.resx">
       <DependentUpon>DimentionControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StandartSizeForm.resx">
+      <DependentUpon>StandartSizeForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Connection.settings">

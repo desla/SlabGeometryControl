@@ -16,6 +16,8 @@ namespace Alvasoft.SlabBuilder.Impl
 
         public double[] Diameters { get; set; }               
 
+        public Point3D[][] SensorsLines { get; set; }
+
         public double GetLengthLimit() {
             return LengthLimit;
         }
@@ -64,8 +66,7 @@ namespace Alvasoft.SlabBuilder.Impl
         /// <returns></returns>
         public SlabModel3D ToSlabModel() {
             var model = new SlabModel3D();
-            model.CenterLine = new SlabPoint[CenterLine.Length];
-            model.Diameters = new double[Diameters.Length];
+            model.CenterLine = new SlabPoint[CenterLine.Length];            
             for (var i = 0; i < CenterLine.Length; ++i) {
                 model.CenterLine[i] = new SlabPoint {
                     X = CenterLine[i].X,
@@ -73,8 +74,22 @@ namespace Alvasoft.SlabBuilder.Impl
                     Z = CenterLine[i].Z
                 };
             }
+
+            model.Diameters = new double[Diameters.Length];            
             for (var i = 0; i < Diameters.Length; ++i) {
                 model.Diameters[i] = Diameters[i];
+            }
+
+            model.SensorsLines = new SlabPoint[SensorsLines.Length][];
+            for (var i = 0; i < SensorsLines.Length; ++i) {
+                model.SensorsLines[i] = new SlabPoint[SensorsLines[i].Length];
+                for (var j = 0; j < SensorsLines[i].Length; ++j) {
+                    model.SensorsLines[i][j] = new SlabPoint {
+                        X = SensorsLines[i][j].X,
+                        Y = SensorsLines[i][j].Y,
+                        Z = SensorsLines[i][j].Z,
+                    };
+                }
             }
 
             return model;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml;
+using Alvasoft.DataProvider.Impl.Emulator;
 using Alvasoft.Utils.Activity;
 using log4net;
 
@@ -85,6 +86,6 @@ namespace Alvasoft.DataProvider.Impl
                 logger.Error("Ошибка калибратора: " + ex.Message);
             }
             logger.Info("Инициализация завершена.");
-        }
+        }       
     }
 }

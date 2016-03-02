@@ -8,6 +8,6 @@
         /// <summary>
         /// Максимальное значение отклонения.
         /// </summary>
-        public double Maxumum { get; set; }
+        public double Maximum { get; set; }
     }
 }

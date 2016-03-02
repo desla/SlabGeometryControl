@@ -36,7 +36,8 @@ namespace Alvasoft.DataProvider.Impl.Emulator {
             scanTimer = new Timer();
             scanTimer.Elapsed += StartScan;
             scanTimer.Interval = 10000;
-            scanTimer.Start();
+            //scanTimer.Start();
+            //StartScan(null, null);
         }
 
         private void StartScan(object sender, ElapsedEventArgs e) {
@@ -75,14 +76,12 @@ namespace Alvasoft.DataProvider.Impl.Emulator {
         }
 
 
-        /// <summary>
-        /// Теряет смысл, так как теперь не важно на каком расстоянии расположен датчик. 
-        /// Важно его положение и вектор сканирования.
+        /// <summary>     
         /// </summary>
         /// <param name="aSensorId"></param>
         /// <returns></returns>
         public double GetCalibratedValue(int aSensorId) {
-            throw new NotImplementedException();
+            return configuration.Frame.Size;
         }
 
 

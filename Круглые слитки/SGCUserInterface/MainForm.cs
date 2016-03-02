@@ -496,7 +496,10 @@ namespace SGCUserInterface
 
         private void типоразмерыToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            new StandartSizeForm(client).ShowDialog();
+            lock (slabsList) {
+                slabsList.StandartSizes = null;
+            }
         }
 
         private void датчикиToolStripMenuItem_Click(object sender, EventArgs e)
@@ -594,5 +597,9 @@ namespace SGCUserInterface
         {
             Process.Start("report_.pdf");
         }
+
+        private void измеренияСлиткаToolStripMenuItem1_Click(object sender, EventArgs e) {
+
+        }        
     }
 }
