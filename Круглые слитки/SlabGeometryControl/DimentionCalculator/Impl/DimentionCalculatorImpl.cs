@@ -57,17 +57,11 @@ namespace Alvasoft.DimentionCalculator.Impl
 
         protected override void DoInitialize()
         {            
-            logger.Info("Инициализация...");
-            algorithms.Add(new HeightAlgorithm()); // высота
-            algorithms.Add(new WidthAlgorithm()); // ширина
-            algorithms.Add(new LengthAlgorithm()); // длина
-            algorithms.Add(new LateralCurvatureRightAlgorithm()); // поперечная кривизна справа
-            algorithms.Add(new LateralCurvatureLeftAlgorithm()); // поперечная кривизна слева
-            algorithms.Add(new LongitudinalCurvatureTopAlgorithm()); // продольная кривизна сверху
-            algorithms.Add(new SlopeAngleAlgorithm()); // угол движения
-            algorithms.Add(new RotateAngleAlgorithm()); // угол поворота
-            algorithms.Add(new MaxConcavityTopAlgorithm()); // максимальная вогнутость (сверху)
-            algorithms.Add(new ConcavityMiddleTopAlgorithm()); // вогнутость посередине
+            logger.Info("Инициализация...");            
+            algorithms.Add(new LengthAlgorithm()); // длина.
+            algorithms.Add(new MaxDiameterAlgorithm()); // максимальный диаметр.
+            algorithms.Add(new MinDiameterAlgorithm()); // минимальный диаметр.
+            algorithms.Add(new AverageDiameterAlgorithm()); // средний диаметр.
             logger.Info("Инициализация завершена.");
         }
 

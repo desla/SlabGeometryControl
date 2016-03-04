@@ -77,7 +77,7 @@ namespace Alvasoft.Server
             //dataProvider = new OpcDataProviderImpl();        
             //calibrator = new CalibratorImpl();
             dataProvider = new EmulatorDataProvider();
-            calibrator = new EmulatorDataProvider();            
+            calibrator = dataProvider as ICalibrator;
 
             slabBuilder = new SlabBuilderImpl();
             dimentionCalculator = new DimentionCalculatorImpl();            
@@ -121,7 +121,7 @@ namespace Alvasoft.Server
             slabWriter.Initialize();
             dimentionValueWriter.Initialize();
             dimentionCalculator.Initialize();
-            calibrator.Initialize();
+            //calibrator.Initialize();
             slabBuilder.Initialize();            
             userSlabBuilder.Initialize();            
             dataProvider.Initialize();
@@ -174,7 +174,7 @@ namespace Alvasoft.Server
                         dimentionCalculator.CalculateDimentions(slabModel);
                         var dimentionValues = dimentionValueContainer.GetDimentionValues();
                         dimentionValueWriter.WriteDimentionValues(slabId, dimentionValues);
-                        //UpdateStandartSizeId(slabId, DetermineStandartSize(dimentionValues));
+                        UpdateStandartSizeId(slabId, DetermineStandartSize(dimentionValues));
                     }
                     else {
                         logger.Info("Ложное срабатывание: сканирование длилось меньше временной отсечки.");
@@ -206,35 +206,17 @@ namespace Alvasoft.Server
                 standartSizes = GetStandartSizes();
             }
 
-            var length = -1.0;
-            var width = -1.0; 
-            var height = -1.0;
-            var mask = 0;
+            var diameter = 0.0;            
             for (var i = 0; i < aDimentions.Length; ++i) {
-                if (aDimentions[i].GetDimentionId() == 3) { // длина
-                    length = aDimentions[i].GetValue();
-                    mask |= 1;
-                } else
-                if (aDimentions[i].GetDimentionId() == 1) { // ширина
-                    width = aDimentions[i].GetValue();
-                    mask |= 2;
-                } else
-                if (aDimentions[i].GetDimentionId() == 2) { // высота
-                    height = aDimentions[i].GetValue();
-                    mask |= 4;
+                if (aDimentions[i].GetDimentionId() == 12) { // Средний диаметр.
+                    diameter = aDimentions[i].GetValue();
                 }                
             }
-
-            if (mask != 7) {
-                return -1;
-            }
-
+            
             var difference = double.MaxValue;
             var standartSizeId = -1;
             for (var i = 0; i < standartSizes.Length; ++i) {
-                var currentDifference = Math.Abs(length - standartSizes[i].Length) +
-                                        Math.Abs(width - standartSizes[i].Width) +
-                                        Math.Abs(height - standartSizes[i].Height);
+                var currentDifference = Math.Abs(diameter - standartSizes[i].Diameter);
                 if (currentDifference < difference) {
                     difference = currentDifference;
                     standartSizeId = standartSizes[i].Id;
@@ -356,9 +338,7 @@ namespace Alvasoft.Server
                 for (var i = 0; i < standartSizes.Length; ++i) {                    
                     results.Add(new StandartSize {
                         Id = standartSizes[i].GetId(),
-                        Width = standartSizes[i].GetWidth(),
-                        Height = standartSizes[i].GetHeight(),
-                        Length = standartSizes[i].GetLength()
+                        Diameter = standartSizes[i].GetDiameter()
                     });                    
                 }
             }            
@@ -505,9 +485,7 @@ namespace Alvasoft.Server
         {
             standartSizes = null;
             var standartSize = new StandartSizeImpl {
-                Width = aStandartSize.Width,
-                Height = aStandartSize.Height,
-                Length = aStandartSize.Length
+                Diameter = aStandartSize.Diameter
             };            
 
             return standartSizeReaderWriter.AddStandartSize(standartSize);
@@ -530,9 +508,7 @@ namespace Alvasoft.Server
             standartSizes = null;
             var standartSize = new StandartSizeImpl {
                 Id = aStandartSize.Id,
-                Width = aStandartSize.Width,
-                Height = aStandartSize.Height,
-                Length = aStandartSize.Length
+                Diameter = aStandartSize.Diameter
             };
 
             standartSizeReaderWriter.EditStandartSize(standartSize);

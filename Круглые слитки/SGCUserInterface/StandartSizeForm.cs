@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using Alvasoft.SlabGeometryControl;
 
-namespace SGCUserInterface
-{
+namespace SGCUserInterface {
     public partial class StandartSizeForm : Form
     {
         private SGCClientImpl client = null;
@@ -29,9 +22,7 @@ namespace SGCUserInterface
                 foreach (var standartSize in standartSizes) {
                     var row = new[] {
                         standartSize.Id.ToString(),
-                        standartSize.Length.ToString(),
-                        standartSize.Width.ToString(),
-                        standartSize.Height.ToString(),
+                        standartSize.Diameter.ToString(),
                         "0"
                     };
                     dataGridView1.Rows.Add(row);
@@ -89,9 +80,7 @@ namespace SGCUserInterface
                 else if ((mask & (int) ModifiedMask.ADDED) != 0) {
                     try {
                         var standartSize = new StandartSize();
-                        standartSize.Length = Convert.ToDouble(row.Cells["Length"].Value);
-                        standartSize.Width = Convert.ToDouble(row.Cells["Width"].Value);
-                        standartSize.Height = Convert.ToDouble(row.Cells["Height"].Value);
+                        standartSize.Diameter = Convert.ToDouble(row.Cells["Diameter"].Value);                        
                         client.AddStandartSize(standartSize);
                     }
                     catch (Exception ex) {
@@ -102,9 +91,7 @@ namespace SGCUserInterface
                     try {
                         var standartSize = new StandartSize();
                         standartSize.Id = Convert.ToInt32(row.Cells["Id"].Value);
-                        standartSize.Length = Convert.ToDouble(row.Cells["Length"].Value);
-                        standartSize.Width = Convert.ToDouble(row.Cells["Width"].Value);
-                        standartSize.Height = Convert.ToDouble(row.Cells["Height"].Value);
+                        standartSize.Diameter = Convert.ToDouble(row.Cells["Diameter"].Value);                        
                         client.EditStandartSize(standartSize);
                     }
                     catch (Exception ex) {

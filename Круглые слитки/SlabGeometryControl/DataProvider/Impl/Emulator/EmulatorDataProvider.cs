@@ -27,7 +27,7 @@ namespace Alvasoft.DataProvider.Impl.Emulator {
         private ISensorValueContainer valueContainer;
         private List<IDataProviderListener> listeners = new List<IDataProviderListener>();
 
-        private Timer scanTimer;
+        private Timer scanTimer;        
 
         public EmulatorDataProvider() {            
             configuration = EmulatorConfiguration.Deserialize("Settings/Emulator.xml");
@@ -37,8 +37,8 @@ namespace Alvasoft.DataProvider.Impl.Emulator {
             scanTimer.Elapsed += StartScan;
             scanTimer.Interval = 10000;
             //scanTimer.Start();
-            //StartScan(null, null);
-        }
+            //StartScan(null, null);            
+        }        
 
         private void StartScan(object sender, ElapsedEventArgs e) {
             scanTimer.Stop();
@@ -144,7 +144,7 @@ namespace Alvasoft.DataProvider.Impl.Emulator {
         }
 
         public void SetSensorValueContainer(ISensorValueContainer aSensorValueContainer) {
-            valueContainer = aSensorValueContainer;
+            valueContainer = aSensorValueContainer;            
         }
 
         public void SubscribeDataProviderListener(IDataProviderListener aListener) {

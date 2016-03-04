@@ -4,10 +4,6 @@
     {
         int GetId();
 
-        double GetHeight();
-
-        double GetWidth();
-
-        double GetLength();
+        double GetDiameter();
     }
 }

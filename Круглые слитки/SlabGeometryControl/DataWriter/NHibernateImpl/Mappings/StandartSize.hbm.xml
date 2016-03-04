@@ -6,8 +6,6 @@
     <id name="Id">
       <generator class="native" />
     </id>
-    <property name="Width" />
-    <property name="Height" />    
-    <property name="Length" />    
+    <property name="Diameter" />    
   </class>
 </hibernate-mapping>
