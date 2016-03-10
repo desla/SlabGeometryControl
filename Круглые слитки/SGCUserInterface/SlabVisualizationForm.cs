@@ -86,13 +86,13 @@ namespace SGCUserInterface
                     sensorsPlots.DrawPlots(points, sensors);
                     sensorsPlots.ShowAllPlots(isAllPlotShowCheckedBox.Checked);
                     // срезы слитка.                    
-                    //sectionsPanel.SetSlabModel(slabModel);
-                    //sectionsPanel.Initialize();
-                    //sectionsPanel.ShowLeftSection();
+                    sectionsPanel.SetSlabModel(slabModel);
+                    sectionsPanel.Initialize();
+                    sectionsPanel.ShowLeftSection();
                     // графики отклонения от среднего.
-                    //deviationsPanel.SetSlabModel(slabModel);
-                    //deviationsPanel.Initialize();
-                    //deviationsPanel.ShowCurrentPlot();
+                    deviationsPanel.SetSlabModel(slabModel);
+                    deviationsPanel.Initialize();
+                    deviationsPanel.ShowCurrentPlot();
                     // 3д модель слитка.
                     InitializeSlabModelPanel();
                     slabModelPanel.ShowModel();           
@@ -257,13 +257,9 @@ namespace SGCUserInterface
         private void allDimentionsCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             var value = allDimentionsCheckBox.Checked;
-            
-            heightCheckBox.Checked = value;
-            widthCheckBox.Checked = value;
+
             lengthCheckBox.Checked = value;
-            lateralLeftCheckBox.Checked = value;
-            lateralRightCheckBox.Checked = value;
-            longitudinalTopCheckBox.Checked = value;
+            lateralRightCheckBox.Checked = value;            
         }
 
         private void deviationView_MouseWheel(object sender, MouseEventArgs e)
@@ -374,6 +370,10 @@ namespace SGCUserInterface
         private void sensorsValuesCheckedBox_CheckedChanged(object sender, EventArgs e) {
             slabModelPanel.ShowSensorValuesChanged(sensorsValuesCheckedBox.Checked);
             slabModelPanel.ShowModel();
+        }
+
+        private void lengthCheckBox_CheckedChanged(object sender, EventArgs e) {
+
         }
     }
 }

@@ -109,7 +109,11 @@ namespace RoundSlabEmulator {
             }
 
             // накладываем дребезжание.
-
+            var rnd = new Random(141289);
+            for (var i = 0; i < centers.Length; ++i) {
+                centers[i].X += (float)((rnd.Next() % 2 == 0 ? 1 : -1) * configuration.RattleLimit * rnd.Next(100) / 100.0);
+                centers[i].Y += (float)((rnd.Next() % 2 == 0 ? 1 : -1) * configuration.RattleLimit * rnd.Next(100) / 100.0);
+            }
 
             return centers;
         }

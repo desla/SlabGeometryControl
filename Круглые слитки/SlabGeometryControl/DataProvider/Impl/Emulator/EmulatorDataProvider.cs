@@ -36,7 +36,7 @@ namespace Alvasoft.DataProvider.Impl.Emulator {
             scanTimer = new Timer();
             scanTimer.Elapsed += StartScan;
             scanTimer.Interval = 10000;
-            //scanTimer.Start();
+            scanTimer.Start();
             //StartScan(null, null);            
         }        
 

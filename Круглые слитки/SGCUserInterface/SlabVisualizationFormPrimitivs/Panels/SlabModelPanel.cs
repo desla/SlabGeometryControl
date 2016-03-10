@@ -310,6 +310,10 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs.Panels
             isShowGridSurface = aIsShowGridSurface;
         }
 
+        /// <summary>
+        /// Показать габариты слитка.
+        /// </summary>
+        /// <param name="aIsShowDimentions"></param>
         public void ShowDimentionsChanged(bool aIsShowDimentions)
         {
             isShowSlabDimentions = aIsShowDimentions;
@@ -387,7 +391,31 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs.Panels
 
         private void InitSlabDimentions()
         {
-            
+            if (slabModel == null) {
+                return;
+            }
+
+            var slabDimentions = Gl.glGenLists(1);
+            objectsList[KEY_SLAB_DIMENTIONS] = slabDimentions;
+            Gl.glNewList(slabDimentions, Gl.GL_COMPILE);
+            var color = Color.Blue;
+            Gl.glColor3d(
+                Convert.ToDouble(color.R) / 255,
+                Convert.ToDouble(color.G) / 255,
+                Convert.ToDouble(color.B) / 255);
+            Gl.glLineWidth(0.5f);
+            Gl.glPointSize(1f);
+            // рисуем каждую 10-ую окружность.
+            //Gl.glBegin(Gl.GL_POINTS);
+            Gl.glBegin(Gl.GL_LINES);            
+            {
+                for (var i = 0; i < slabModel.CenterLine.Length; i += 5) {
+                    var point = slabModel.CenterLine[i];
+                    AddCircle(point, slabModel.Diameters[i] / 2.0);
+                }
+            }
+            Gl.glEnd();
+            Gl.glEndList();
         }
 
         private void InitCenters() {
@@ -403,26 +431,18 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs.Panels
                 Convert.ToDouble(color.R) / 255,
                 Convert.ToDouble(color.G) / 255,
                 Convert.ToDouble(color.B) / 255);
-            Gl.glLineWidth(2f);
+            Gl.glLineWidth(1f);
             Gl.glPointSize(1f);
             // рисуем все центры срезов.
-            Gl.glBegin(Gl.GL_POINTS);
+            //Gl.glBegin(Gl.GL_POINTS);
+            Gl.glBegin(Gl.GL_LINES);
             {
                 for (var i = 0; i < slabModel.CenterLine.Length; ++i) {                    
                     var point = slabModel.CenterLine[i];
                     Gl.glVertex3d(point.X, point.Y, point.Z);                    
                 }
             }
-            Gl.glEnd();
-            // рисуем каждую 10-ую окружность.
-            Gl.glBegin(Gl.GL_POINTS);
-            {
-                for (var i = 0; i < slabModel.CenterLine.Length; i+=5) {
-                    var point = slabModel.CenterLine[i];
-                    AddCircle(point, slabModel.Diameters[i] / 2.0);
-                }
-            }
-            Gl.glEnd();
+            Gl.glEnd();            
             Gl.glEndList();
         }
 
@@ -461,7 +481,7 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs.Panels
         }
         
         private void AddCircle(SlabPoint aCenter, double aRadius) {
-            var pointsCount = 50;
+            var pointsCount = 70;
             for (var i = 0; i < pointsCount; ++i) {
                 var angle = 2.0 * Math.PI * i / pointsCount;
                 Gl.glVertex3d(aCenter.X + aRadius * Math.Cos(angle), aCenter.Y + aRadius * Math.Sin(angle), aCenter.Z);

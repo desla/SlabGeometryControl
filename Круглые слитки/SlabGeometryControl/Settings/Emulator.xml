@@ -3,6 +3,7 @@
   <Length>1000</Length>
   <Diameter>500</Diameter>
   <Speed>15</Speed>
+  <RattleLimit>10</RattleLimit>
   <Bumps>
     <BumpConfiguration>
       <Position>700</Position>
@@ -12,8 +13,7 @@
         <Y>1</Y>
       </Direction>
     </BumpConfiguration>
-  </Bumps>
-  <RattleLimit>1.5</RattleLimit>
+  </Bumps>  
   <Flexs>
     <FlexConfiguration>
       <Position>100</Position>

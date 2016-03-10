@@ -59,9 +59,9 @@ namespace Alvasoft.DimentionCalculator.Impl
         {            
             logger.Info("Инициализация...");            
             algorithms.Add(new LengthAlgorithm()); // длина.
-            algorithms.Add(new MaxDiameterAlgorithm()); // максимальный диаметр.
-            algorithms.Add(new MinDiameterAlgorithm()); // минимальный диаметр.
-            algorithms.Add(new AverageDiameterAlgorithm()); // средний диаметр.
+            algorithms.Add(new BackDiameterAlgorithm()); // Диаметр на заднем торце слитка.
+            algorithms.Add(new FrontDiameterAlgorithm()); // Диаметр на переднем торце слитка.
+            algorithms.Add(new MiddleDiameterAlgorithm()); // Диаметр посередине слитка.
             logger.Info("Инициализация завершена.");
         }
 

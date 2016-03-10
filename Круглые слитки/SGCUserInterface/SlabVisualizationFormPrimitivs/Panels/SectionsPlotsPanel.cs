@@ -86,22 +86,88 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs.Panels
 
         private void BuildLeftSectionPlots()
         {
-            
-        }        
+            if (slabModel == null ||
+                    slabModel.CenterLine == null ||
+                    slabModel.Diameters == null) {
+                return;
+            }
+            var topPoints = GetLeftSectionPoints(slabModel.CenterLine, 1);
+            var bottomPoints = GetLeftSectionPoints(slabModel.CenterLine, -1);
+            var averageBottom = -bottomPoints.Y.Average();
+            for (var i = 0; i < topPoints.Y.Length; ++i) {
+                topPoints.Y[i] += averageBottom;
+            }
+            var averageTop = topPoints.Y.Average();
+            for (var i = 0; i < bottomPoints.Y.Length; ++i) {
+                bottomPoints.Y[i] += averageBottom;
+            }
+
+            var pane = control.GraphPane;
+            var topCurve = pane.AddCurve("Поверхность сверху",
+                topPoints.X,
+                topPoints.Y,
+                Color.Blue, SymbolType.None);
+            var topZero = pane.AddCurve("",
+                new[] { 0, topPoints.X.Last() },
+                new[] { averageTop, averageTop },
+                Color.Green, SymbolType.None);
+            topZero.Line.Style = DashStyle.Dash;
+            topZero.Line.IsAntiAlias = true;
+            var bottomCurve = pane.AddCurve("Поверхность снизу",
+                bottomPoints.X,
+                bottomPoints.Y,
+                Color.Brown, SymbolType.None);
+            topCurve.Line.IsAntiAlias = true;
+            bottomCurve.Line.IsAntiAlias = true;
+            leftPlots.Add(topCurve);
+            leftPlots.Add(bottomCurve);
+            leftPlots.Add(topZero);
+
+        }
 
         private void BuildTopSectionPlots()
         {
-               
+            if (slabModel == null ||
+                   slabModel.CenterLine == null ||
+                   slabModel.Diameters == null) {
+                return;
+            }
+
+            var leftPoints = GetTopSectionPoints(slabModel.CenterLine, -1);
+            var rightPoints = GetTopSectionPoints(slabModel.CenterLine, 1);
+            var averageLeft = -leftPoints.Y.Average();
+            for (var i = 0; i < leftPoints.Y.Length; ++i) {
+                leftPoints.Y[i] += averageLeft;
+            }
+            for (var i = 0; i < rightPoints.Y.Length; ++i) {
+                rightPoints.Y[i] += averageLeft;
+            }
+            var averageRight = rightPoints.Y.Average();
+
+            var pane = control.GraphPane;
+            var rightZero = pane.AddCurve("",
+                new[] { 0, rightPoints.X.Last() },
+                new[] { averageRight, averageRight },
+                Color.Green, SymbolType.None);
+            rightZero.Line.Style = DashStyle.Dash;
+            rightZero.Line.IsAntiAlias = true;
+            var leftCurve = pane.AddCurve("Поверхность слева", leftPoints.X, leftPoints.Y, Color.Blue, SymbolType.None);
+            var rightCurve = pane.AddCurve("Поверхность справа", rightPoints.X, rightPoints.Y, Color.Brown, SymbolType.None);
+            leftCurve.Line.IsAntiAlias = true;
+            rightCurve.Line.IsAntiAlias = true;
+            topPlots.Add(leftCurve);
+            topPlots.Add(rightCurve);
+            topPlots.Add(rightZero);
         }
 
-        private TuplePoints GetTopSectionPoints(SlabPoint[] aLine)
+        private TuplePoints GetTopSectionPoints(SlabPoint[] aLine, double aMultiplicator)
         {
             var xPoints = new List<double>();
             var yPoints = new List<double>();
             if (aLine != null) {
                 for (var i = 0; i < aLine.Length; ++i) {
                     xPoints.Add(aLine[i].Z);
-                    yPoints.Add(aLine[i].X);
+                    yPoints.Add(aLine[i].X + aMultiplicator * slabModel.Diameters[i] / 2.0);
                 }
             }
 
@@ -111,14 +177,14 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs.Panels
             };
         }
 
-        private TuplePoints GetLeftSectionPoints(SlabPoint[] aLine)
+        private TuplePoints GetLeftSectionPoints(SlabPoint[] aLine, double aMultiplicator)
         {
             var xPoints = new List<double>();
             var yPoints = new List<double>();
             if (aLine != null) {
                 for (var i = 0; i < aLine.Length; ++i) {
                     xPoints.Add(aLine[i].Z);
-                    yPoints.Add(aLine[i].Y);
+                    yPoints.Add(aLine[i].Y + aMultiplicator * slabModel.Diameters[i] / 2.0);
                 }
             }
 
