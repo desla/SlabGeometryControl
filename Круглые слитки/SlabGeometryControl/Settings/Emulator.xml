@@ -1,26 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <EmulatorConfiguration>
   <Length>1000</Length>
-  <Diameter>200</Diameter>
+  <Diameter>500</Diameter>
   <Speed>15</Speed>
+  <RattleLimit>0</RattleLimit>
   <Bumps>
     <BumpConfiguration>
       <Position>700</Position>
+      <Value>0</Value>
       <Direction>
-        <X>0</X>
-        <Y>20</Y>
+        <X>1</X>
+        <Y>1</Y>
       </Direction>
     </BumpConfiguration>
-  </Bumps>
-  <RattleLimit>1.5</RattleLimit>
+  </Bumps>  
   <Flexs>
     <FlexConfiguration>
+      <Position>100</Position>
+      <Maximum>50</Maximum>
+    </FlexConfiguration>
+    <FlexConfiguration>
       <Position>500</Position>
-      <Maxumum>5</Maxumum>
+      <Maximum>10</Maximum>
+    </FlexConfiguration>
+    <FlexConfiguration>
+      <Position>700</Position>
+      <Maximum>0</Maximum>
     </FlexConfiguration>
   </Flexs>
   <Frame>
     <ScanSpeed>2</ScanSpeed>
+    <Size>1000</Size>
     <Sensors>
       <SensorConfiguration>
         <Id>0</Id>
@@ -67,7 +77,7 @@
         </ScanVertor>
       </SensorConfiguration>
       <SensorConfiguration>
-        <Id>4</Id>        
+        <Id>4</Id>
       </SensorConfiguration>
     </Sensors>
   </Frame>

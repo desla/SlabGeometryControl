@@ -27,7 +27,7 @@ namespace Alvasoft.DataProvider.Impl.Emulator {
         private ISensorValueContainer valueContainer;
         private List<IDataProviderListener> listeners = new List<IDataProviderListener>();
 
-        private Timer scanTimer;
+        private Timer scanTimer;        
 
         public EmulatorDataProvider() {            
             configuration = EmulatorConfiguration.Deserialize("Settings/Emulator.xml");
@@ -36,8 +36,9 @@ namespace Alvasoft.DataProvider.Impl.Emulator {
             scanTimer = new Timer();
             scanTimer.Elapsed += StartScan;
             scanTimer.Interval = 10000;
-            scanTimer.Start();
-        }
+            //scanTimer.Start();
+            //StartScan(null, null);            
+        }        
 
         private void StartScan(object sender, ElapsedEventArgs e) {
             scanTimer.Stop();
@@ -75,14 +76,12 @@ namespace Alvasoft.DataProvider.Impl.Emulator {
         }
 
 
-        /// <summary>
-        /// Теряет смысл, так как теперь не важно на каком расстоянии расположен датчик. 
-        /// Важно его положение и вектор сканирования.
+        /// <summary>     
         /// </summary>
         /// <param name="aSensorId"></param>
         /// <returns></returns>
         public double GetCalibratedValue(int aSensorId) {
-            throw new NotImplementedException();
+            return configuration.Frame.Size;
         }
 
 
@@ -145,7 +144,7 @@ namespace Alvasoft.DataProvider.Impl.Emulator {
         }
 
         public void SetSensorValueContainer(ISensorValueContainer aSensorValueContainer) {
-            valueContainer = aSensorValueContainer;
+            valueContainer = aSensorValueContainer;            
         }
 
         public void SubscribeDataProviderListener(IDataProviderListener aListener) {

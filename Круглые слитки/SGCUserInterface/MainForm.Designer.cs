@@ -356,12 +356,14 @@ namespace SGCUserInterface
             this.теукщиеПоказанияToolStripMenuItem.Name = "теукщиеПоказанияToolStripMenuItem";
             this.теукщиеПоказанияToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
             this.теукщиеПоказанияToolStripMenuItem.Text = "Текущие показания";
+            this.теукщиеПоказанияToolStripMenuItem.Click += new System.EventHandler(this.теукщиеПоказанияToolStripMenuItem_Click);
             // 
             // просмотрВыбранногоСлиткаToolStripMenuItem
             // 
             this.просмотрВыбранногоСлиткаToolStripMenuItem.Name = "просмотрВыбранногоСлиткаToolStripMenuItem";
             this.просмотрВыбранногоСлиткаToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
             this.просмотрВыбранногоСлиткаToolStripMenuItem.Text = "Просмотр выбранного слитка";
+            this.просмотрВыбранногоСлиткаToolStripMenuItem.Click += new System.EventHandler(this.просмотрВыбранногоСлиткаToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
@@ -373,6 +375,7 @@ namespace SGCUserInterface
             this.подключитьсяToolStripMenuItem.Name = "подключитьсяToolStripMenuItem";
             this.подключитьсяToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
             this.подключитьсяToolStripMenuItem.Text = "Подключиться";
+            this.подключитьсяToolStripMenuItem.Click += new System.EventHandler(this.подключитьсяToolStripMenuItem_Click);
             // 
             // отключитьсяToolStripMenuItem
             // 
@@ -380,6 +383,7 @@ namespace SGCUserInterface
             this.отключитьсяToolStripMenuItem.Name = "отключитьсяToolStripMenuItem";
             this.отключитьсяToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
             this.отключитьсяToolStripMenuItem.Text = "Отключиться";
+            this.отключитьсяToolStripMenuItem.Click += new System.EventHandler(this.отключитьсяToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -391,6 +395,7 @@ namespace SGCUserInterface
             this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
             this.выходToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
             this.выходToolStripMenuItem.Text = "Выход";
+            this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
             // 
             // настройкиToolStripMenuItem
             // 
@@ -410,18 +415,21 @@ namespace SGCUserInterface
             this.типоразмерыToolStripMenuItem.Name = "типоразмерыToolStripMenuItem";
             this.типоразмерыToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.типоразмерыToolStripMenuItem.Text = "Типо-размеры";
+            this.типоразмерыToolStripMenuItem.Click += new System.EventHandler(this.типоразмерыToolStripMenuItem_Click);
             // 
             // правилаToolStripMenuItem
             // 
             this.правилаToolStripMenuItem.Name = "правилаToolStripMenuItem";
             this.правилаToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.правилаToolStripMenuItem.Text = "Регламент измерений";
+            this.правилаToolStripMenuItem.Click += new System.EventHandler(this.правилаToolStripMenuItem_Click);
             // 
             // датчикиToolStripMenuItem
             // 
             this.датчикиToolStripMenuItem.Name = "датчикиToolStripMenuItem";
             this.датчикиToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.датчикиToolStripMenuItem.Text = "Датчики";
+            this.датчикиToolStripMenuItem.Click += new System.EventHandler(this.датчикиToolStripMenuItem_Click);
             // 
             // toolStripMenuItem4
             // 
@@ -433,12 +441,14 @@ namespace SGCUserInterface
             this.подключениеToolStripMenuItem.Name = "подключениеToolStripMenuItem";
             this.подключениеToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.подключениеToolStripMenuItem.Text = "Подключение";
+            this.подключениеToolStripMenuItem.Click += new System.EventHandler(this.подключениеToolStripMenuItem_Click);
             // 
             // калибровкаДатчиковToolStripMenuItem
             // 
             this.калибровкаДатчиковToolStripMenuItem.Name = "калибровкаДатчиковToolStripMenuItem";
             this.калибровкаДатчиковToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.калибровкаДатчиковToolStripMenuItem.Text = "Калибровка";
+            this.калибровкаДатчиковToolStripMenuItem.Click += new System.EventHandler(this.калибровкаДатчиковToolStripMenuItem_Click);
             // 
             // оПрограммеToolStripMenuItem
             // 
@@ -455,6 +465,7 @@ namespace SGCUserInterface
             this.оПрограммеToolStripMenuItem1.Name = "оПрограммеToolStripMenuItem1";
             this.оПрограммеToolStripMenuItem1.Size = new System.Drawing.Size(166, 22);
             this.оПрограммеToolStripMenuItem1.Text = "О программе";
+            this.оПрограммеToolStripMenuItem1.Click += new System.EventHandler(this.оПрограммеToolStripMenuItem1_Click);
             // 
             // toolStripMenuItem3
             // 
@@ -470,6 +481,7 @@ namespace SGCUserInterface
             this.измеренияСлиткаToolStripMenuItem1.Name = "измеренияСлиткаToolStripMenuItem1";
             this.измеренияСлиткаToolStripMenuItem1.Size = new System.Drawing.Size(166, 22);
             this.измеренияСлиткаToolStripMenuItem1.Text = "Измерения слитка";
+            this.измеренияСлиткаToolStripMenuItem1.Click += new System.EventHandler(this.измеренияСлиткаToolStripMenuItem1_Click);
             // 
             // длинаToolStripMenuItem
             // 
@@ -517,6 +529,8 @@ namespace SGCUserInterface
             this.dataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dataGridView1.Size = new System.Drawing.Size(628, 378);
             this.dataGridView1.TabIndex = 9;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.dataGridView1.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEnter);
             // 
             // Id
             // 

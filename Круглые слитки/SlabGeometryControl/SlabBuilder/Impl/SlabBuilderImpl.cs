@@ -91,12 +91,13 @@ namespace Alvasoft.SlabBuilder.Impl
         /// <param name="aModel"></param>
         private void BuildCenters(SlabModelImpl aModel) {
             // построим точки на поверхности слитка.
-            var lines = BuildSurfacePoints();
+            aModel.SensorsLines = BuildSurfacePoints();
 
-            if (lines.Length < 3) {
+            if (aModel.SensorsLines.Length < 3) {
                 throw new ArgumentException("BuildCenters: точек не достаточно для построения модели слитка.");
             }
 
+            var lines = aModel.SensorsLines;
             // теперь по 3-м точкам будем строить описанную окружность и вычислять ее центр и диаметр.
             var pointsCount = lines[0].Length;
             var centers = new Point3D[pointsCount];
@@ -126,7 +127,7 @@ namespace Alvasoft.SlabBuilder.Impl
             var c = aC.DistanceToPoint(aA);
             var p = (a + b + c) / 2.0;
 
-            return a * b * c / 2 * Math.Sqrt( p * (p - a) * (p - b) * (p - c));
+            return (2 * a * b * c) / (4 * Math.Sqrt( p * (p - a) * (p - b) * (p - c)));
         }
 
         /// <summary>

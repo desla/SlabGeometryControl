@@ -95,7 +95,7 @@ namespace SGCUserInterface
                     deviationsPanel.ShowCurrentPlot();
                     // 3д модель слитка.
                     InitializeSlabModelPanel();
-                    slabModelPanel.ShowModel();                    
+                    slabModelPanel.ShowModel();           
                 }                               
             }
             catch (Exception ex) {
@@ -143,17 +143,15 @@ namespace SGCUserInterface
 
         private void InitializeSlabModelPanel()
         {
-            slabModelPanel.SetSlabModel(slabModel);
-            slabModelPanel.MoveModelToZeroPoint();
+            slabModelPanel.SetSlabModel(slabModel);            
             slabModelPanel.SetDimentions(systemDimentions);
             slabModelPanel.SetDimentionResults(slabDimentionsResults);
             slabModelPanel.SetRegulations(regulations);
-            slabModelPanel.AddDimention(new HeightDimention(), heightCheckBox);
-            slabModelPanel.AddDimention(new WidthDimention(), widthCheckBox);
+                        
             slabModelPanel.AddDimention(new LengthDimention(), lengthCheckBox);
-            slabModelPanel.AddDimention(new LateralCurvatureRightDimention(), lateralRightCheckBox);
-            slabModelPanel.AddDimention(new LateralCurvatureLeftDimention(), lateralLeftCheckBox);
-            slabModelPanel.AddDimention(new LongitudinalCurvatureTopDimention(), longitudinalTopCheckBox);
+            slabModelPanel.AddDimention(new FrontDiameterDimention(), frontDiameterCheckBox);
+            slabModelPanel.AddDimention(new BackDiameterDimention(), backDiameterCheckBox);
+
             slabModelPanel.InitializeGlObjects();
         }
 
@@ -238,9 +236,9 @@ namespace SGCUserInterface
             slabModelPanel.ShowModel();
         }
 
-        private void sensorValuesCheckBox_CheckedChanged(object sender, EventArgs e)
+        private void centersValuesCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            slabModelPanel.ShowSensorValuesChanged(sensorValuesCheckBox.Checked);
+            slabModelPanel.ShowCentersValuesChanged(centersValuesCheckBox.Checked);
             slabModelPanel.ShowModel();
         }               
 
@@ -258,13 +256,9 @@ namespace SGCUserInterface
         private void allDimentionsCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             var value = allDimentionsCheckBox.Checked;
-            
-            heightCheckBox.Checked = value;
-            widthCheckBox.Checked = value;
+
             lengthCheckBox.Checked = value;
-            lateralLeftCheckBox.Checked = value;
-            lateralRightCheckBox.Checked = value;
-            longitudinalTopCheckBox.Checked = value;
+            frontDiameterCheckBox.Checked = value;            
         }
 
         private void deviationView_MouseWheel(object sender, MouseEventArgs e)
@@ -370,6 +364,23 @@ namespace SGCUserInterface
             menuStrip.Items[7].Text = @"Установить масштаб по умолчанию…";
             menuStrip.Items.RemoveAt(5);
             menuStrip.Items.RemoveAt(5);
+        }
+
+        private void sensorsValuesCheckedBox_CheckedChanged(object sender, EventArgs e) {
+            slabModelPanel.ShowSensorValuesChanged(sensorsValuesCheckedBox.Checked);
+            slabModelPanel.ShowModel();
+        }
+
+        private void lengthCheckBox_CheckedChanged(object sender, EventArgs e) {
+
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e) {
+
+        }
+
+        private void frontDiameterCheckBox_CheckedChanged(object sender, EventArgs e) {
+
         }
     }
 }

@@ -3,10 +3,10 @@
   <Length>1000</Length>
   <Diameter>200</Diameter>
   <Speed>15</Speed>
-  <ScanSpeed>2</ScanSpeed>
   <Bumps>
     <BumpConfiguration>
       <Position>700</Position>
+      <Value>10</Value>
       <Direction>
         <X>0</X>
         <Y>20</Y>
@@ -17,16 +17,18 @@
   <Flexs>
     <FlexConfiguration>
       <Position>500</Position>
-      <Maxumum>0</Maxumum>
+      <Maximum>5</Maximum>
     </FlexConfiguration>
   </Flexs>
   <Frame>
+    <ScanSpeed>2</ScanSpeed>
+    <Size>1000</Size>
     <Sensors>
       <SensorConfiguration>
-        <Id>1</Id>
+        <Id>0</Id>
         <Position>
           <X>0</X>
-          <Y>70</Y>
+          <Y>500</Y>
         </Position>
         <ScanVertor>
           <X>0</X>
@@ -34,9 +36,31 @@
         </ScanVertor>
       </SensorConfiguration>
       <SensorConfiguration>
+        <Id>1</Id>
+        <Position>
+          <X>0</X>
+          <Y>-500</Y>
+        </Position>
+        <ScanVertor>
+          <X>0</X>
+          <Y>1</Y>
+        </ScanVertor>
+      </SensorConfiguration>
+      <SensorConfiguration>
         <Id>2</Id>
         <Position>
-          <X>70</X>
+          <X>-500</X>
+          <Y>0</Y>
+        </Position>
+        <ScanVertor>
+          <X>1</X>
+          <Y>0</Y>
+        </ScanVertor>
+      </SensorConfiguration>
+      <SensorConfiguration>
+        <Id>3</Id>
+        <Position>
+          <X>500</X>
           <Y>0</Y>
         </Position>
         <ScanVertor>
@@ -45,27 +69,8 @@
         </ScanVertor>
       </SensorConfiguration>
       <SensorConfiguration>
-        <Id>3</Id>
-        <Position>
-          <X>0</X>
-          <Y>-70</Y>
-        </Position>
-        <ScanVertor>
-          <X>0</X>
-          <Y>1</Y>
-        </ScanVertor>
-      </SensorConfiguration>
-      <SensorConfiguration>
         <Id>4</Id>
-        <Position>
-          <X>-70</X>
-          <Y>0</Y>
-        </Position>
-        <ScanVertor>
-          <X>1</X>
-          <Y>0</Y>
-        </ScanVertor>
       </SensorConfiguration>
-    </Sensors>        
+    </Sensors>
   </Frame>
 </EmulatorConfiguration>

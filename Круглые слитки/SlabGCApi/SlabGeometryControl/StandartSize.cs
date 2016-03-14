@@ -15,26 +15,14 @@ namespace Alvasoft.SlabGeometryControl
         public int Id { get; set; }
 
         /// <summary>
-        /// Ширина.
+        /// Диаметр.
         /// </summary>
         [DataMember]
-        public double Width { get; set; }
-
-        /// <summary>
-        /// Высота.
-        /// </summary>
-        [DataMember]
-        public double Height { get; set; }
-
-        /// <summary>
-        /// Длина слитка.
-        /// </summary>
-        [DataMember]
-        public double Length { get; set; }
+        public double Diameter { get; set; }        
 
         public override string ToString()
         {
-            return (int)Width + "x" + (int)Height + "x" + (int)Length;
+            return "D " + (int)Diameter;
         }
     }
 }

@@ -116,7 +116,46 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs.Panels
 
         private void BuildLeftViewPlots()
         {
-            
+            if (slabModel.CenterLine == null) {
+                return;
+            }
+
+            var pane = control.GraphPane;
+            var centersLine = slabModel.CenterLine;
+            var diameters = slabModel.Diameters;
+            var xPoints = new double[centersLine.Length];
+            var yPoints = new double[centersLine.Length];
+            for (var i = 0; i < centersLine.Length; ++i) {
+                xPoints[i] = centersLine[i].Z;
+                yPoints[i] = centersLine[i].Y + diameters[i] / 2.0;
+            }
+            var average = -yPoints.Average();
+            for (var i = 0; i < yPoints.Length; ++i) {
+                yPoints[i] += average;
+            }
+            var curve = pane.AddCurve("Снизу", xPoints, yPoints, Color.Blue, SymbolType.None);
+            curve.Line.IsAntiAlias = true;
+            curve.IsVisible = false;
+            curve.Label.IsVisible = false;
+            deviationsPlots.Add(curve);
+            AddConvexHullPlot(xPoints, yPoints, -1);
+
+            xPoints = new double[centersLine.Length];
+            yPoints = new double[centersLine.Length];
+            for (var i = 0; i < centersLine.Length; ++i) {
+                xPoints[i] = centersLine[i].Z;
+                yPoints[i] = centersLine[i].Y - diameters[i] / 2.0;
+            }
+            average = -yPoints.Average();
+            for (var i = 0; i < yPoints.Length; ++i) {
+                yPoints[i] += average;
+            }
+            curve = pane.AddCurve("Сверху", xPoints, yPoints, Color.Blue, SymbolType.None);
+            curve.Line.IsAntiAlias = true;
+            curve.IsVisible = false;
+            curve.Label.IsVisible = false;
+            deviationsPlots.Add(curve);
+            AddConvexHullPlot(xPoints, yPoints, 1);
         }
 
         private void AddConvexHullPlot(double[] aXPoints, double[] aYPoints, int aValue)
@@ -139,7 +178,46 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs.Panels
 
         private void BuildTopViewPlots()
         {
-            
+            if (slabModel.CenterLine == null) {
+                return;
+            }
+
+            var pane = control.GraphPane;
+            var centersLine = slabModel.CenterLine;
+            var diameters = slabModel.Diameters;
+            var xPoints = new double[centersLine.Length];
+            var yPoints = new double[centersLine.Length];
+            for (var i = 0; i < centersLine.Length; ++i) {
+                xPoints[i] = centersLine[i].Z;
+                yPoints[i] = centersLine[i].X + diameters[i] / 2.0;
+            }
+            var average = -yPoints.Average();
+            for (var i = 0; i < yPoints.Length; ++i) {
+                yPoints[i] += average;
+            }
+            var curve = pane.AddCurve("Слева", xPoints, yPoints, Color.Blue, SymbolType.None);
+            curve.Line.IsAntiAlias = true;
+            curve.IsVisible = false;
+            curve.Label.IsVisible = false;
+            deviationsPlots.Add(curve);
+            AddConvexHullPlot(xPoints, yPoints, -1);
+
+            xPoints = new double[centersLine.Length];
+            yPoints = new double[centersLine.Length];
+            for (var i = 0; i < centersLine.Length; ++i) {
+                xPoints[i] = centersLine[i].Z;
+                yPoints[i] = centersLine[i].X - diameters[i] / 2.0;
+            }
+            average = -yPoints.Average();
+            for (var i = 0; i < yPoints.Length; ++i) {
+                yPoints[i] += average;
+            }
+            curve = pane.AddCurve("Справа", xPoints, yPoints, Color.Blue, SymbolType.None);
+            curve.Line.IsAntiAlias = true;
+            curve.IsVisible = false;
+            curve.Label.IsVisible = false;
+            deviationsPlots.Add(curve);
+            AddConvexHullPlot(xPoints, yPoints, 1);
         }
 
         private void InitDeviationsPlotsPanel()

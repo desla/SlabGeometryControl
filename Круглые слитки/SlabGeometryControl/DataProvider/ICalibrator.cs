@@ -1,9 +1,11 @@
-﻿namespace Alvasoft.DataProvider
+﻿using Alvasoft.Utils.Activity;
+
+namespace Alvasoft.DataProvider
 {
     /// <summary>
     /// Калибратор.
     /// </summary>
-    public interface ICalibrator
+    public interface ICalibrator : Initializable
     {
         /// <summary>
         /// Возвращает можно ли калиброваться в настоящее время.

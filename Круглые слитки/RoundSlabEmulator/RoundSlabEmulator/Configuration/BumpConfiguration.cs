@@ -14,5 +14,10 @@
         /// Направление.
         /// </summary>
         public PointF Direction { get; set; }
+
+        /// <summary>
+        /// Значение подпрыгивания.
+        /// </summary>
+        public double Value { get; set; }
     }
 }

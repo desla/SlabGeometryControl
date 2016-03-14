@@ -35,9 +35,7 @@ namespace Alvasoft.DataWriter.NHibernateImpl
                 foreach (var entity in entitys) {
                     results.Add(new StandartSizeImpl {
                         Id = entity.Id,
-                        Width = entity.Width,
-                        Height = entity.Height,
-                        Length = entity.Length
+                        Diameter = entity.Diameter
                     });
                 }
 
@@ -48,9 +46,7 @@ namespace Alvasoft.DataWriter.NHibernateImpl
         public int AddStandartSize(IStandartSize aStandartSize)
         {
             var entity = new StandartSizeEntity {
-                Height = aStandartSize.GetHeight(),
-                Width = aStandartSize.GetWidth(),
-                Length = aStandartSize.GetLength()
+                Diameter = aStandartSize.GetDiameter()
             };
 
             using (var session = NHibernateHelper.OpenSession()) {
@@ -79,9 +75,7 @@ namespace Alvasoft.DataWriter.NHibernateImpl
             using (var session = NHibernateHelper.OpenSession()) {
                 using (var transaction = session.BeginTransaction()) {
                     var entity = session.Get<StandartSizeEntity>(aStandartSize.GetId());
-                    entity.Height = aStandartSize.GetHeight();
-                    entity.Width = aStandartSize.GetWidth();
-                    entity.Length = aStandartSize.GetLength();
+                    entity.Diameter = aStandartSize.GetDiameter();
                     session.Update(entity);
                     transaction.Commit();
                 }
