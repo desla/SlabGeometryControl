@@ -148,9 +148,9 @@
     <Compile Include="SlabVisualizationFormPrimitivs\DimentionControl.Designer.cs">
       <DependentUpon>DimentionControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="SlabVisualizationFormPrimitivs\HeightDimention.cs" />
     <Compile Include="SlabVisualizationFormPrimitivs\DimentionGraphicPrimitiveBase.cs" />
-    <Compile Include="SlabVisualizationFormPrimitivs\LateralCurvatureRightDimention.cs" />
+    <Compile Include="SlabVisualizationFormPrimitivs\BackDiameterDimention.cs" />
+    <Compile Include="SlabVisualizationFormPrimitivs\FrontDiameterDimention.cs" />
     <Compile Include="SlabVisualizationFormPrimitivs\LengthDimention.cs" />
     <Compile Include="SlabVisualizationFormPrimitivs\Panels\ConvexHull.cs" />
     <Compile Include="SlabVisualizationFormPrimitivs\Panels\DeviationsPlotsPanel.cs" />
@@ -158,9 +158,6 @@
     <Compile Include="SlabVisualizationFormPrimitivs\Panels\SensorsPlotsPanel.cs" />
     <Compile Include="SlabVisualizationFormPrimitivs\Panels\SlabModelPanel.cs" />
     <Compile Include="SlabVisualizationFormPrimitivs\Panels\TuplePoints.cs" />
-    <Compile Include="SlabVisualizationFormPrimitivs\WidthDimention.cs" />
-    <Compile Include="SlabVisualizationFormPrimitivs\LateralCurvatureLeftDimention.cs" />
-    <Compile Include="SlabVisualizationFormPrimitivs\LongitudinalCurvatureTopDimention.cs" />
     <Compile Include="StandartSizeForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -3,7 +3,7 @@
   <Length>1000</Length>
   <Diameter>500</Diameter>
   <Speed>15</Speed>
-  <RattleLimit>10</RattleLimit>
+  <RattleLimit>0</RattleLimit>
   <Bumps>
     <BumpConfiguration>
       <Position>700</Position>

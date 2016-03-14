@@ -42,6 +42,7 @@
             this.nameLabel.Size = new System.Drawing.Size(132, 35);
             this.nameLabel.TabIndex = 0;
             this.nameLabel.Text = "Измерение";
+            this.nameLabel.Click += new System.EventHandler(this.nameLabel_Click);
             // 
             // valueLabel
             // 
@@ -106,7 +107,7 @@
             this.Controls.Add(this.valueLabel);
             this.Controls.Add(this.nameLabel);
             this.Name = "DimentionControl";
-            this.Size = new System.Drawing.Size(148, 149);
+            this.Size = new System.Drawing.Size(148, 151);
             this.Load += new System.EventHandler(this.DimentionControl_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

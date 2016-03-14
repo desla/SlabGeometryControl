@@ -144,15 +144,14 @@ namespace SGCUserInterface
         private void InitializeSlabModelPanel()
         {
             slabModelPanel.SetSlabModel(slabModel);            
-            //slabModelPanel.SetDimentions(systemDimentions);
-            //slabModelPanel.SetDimentionResults(slabDimentionsResults);
-            //slabModelPanel.SetRegulations(regulations);
-            //slabModelPanel.AddDimention(new HeightDimention(), heightCheckBox);
-            //slabModelPanel.AddDimention(new WidthDimention(), widthCheckBox);
-            //slabModelPanel.AddDimention(new LengthDimention(), lengthCheckBox);
-            //slabModelPanel.AddDimention(new LateralCurvatureRightDimention(), lateralRightCheckBox);
-            //slabModelPanel.AddDimention(new LateralCurvatureLeftDimention(), lateralLeftCheckBox);
-            //slabModelPanel.AddDimention(new LongitudinalCurvatureTopDimention(), longitudinalTopCheckBox);
+            slabModelPanel.SetDimentions(systemDimentions);
+            slabModelPanel.SetDimentionResults(slabDimentionsResults);
+            slabModelPanel.SetRegulations(regulations);
+                        
+            slabModelPanel.AddDimention(new LengthDimention(), lengthCheckBox);
+            slabModelPanel.AddDimention(new FrontDiameterDimention(), frontDiameterCheckBox);
+            slabModelPanel.AddDimention(new BackDiameterDimention(), backDiameterCheckBox);
+
             slabModelPanel.InitializeGlObjects();
         }
 
@@ -259,7 +258,7 @@ namespace SGCUserInterface
             var value = allDimentionsCheckBox.Checked;
 
             lengthCheckBox.Checked = value;
-            lateralRightCheckBox.Checked = value;            
+            frontDiameterCheckBox.Checked = value;            
         }
 
         private void deviationView_MouseWheel(object sender, MouseEventArgs e)
@@ -373,6 +372,14 @@ namespace SGCUserInterface
         }
 
         private void lengthCheckBox_CheckedChanged(object sender, EventArgs e) {
+
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e) {
+
+        }
+
+        private void frontDiameterCheckBox_CheckedChanged(object sender, EventArgs e) {
 
         }
     }

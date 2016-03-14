@@ -56,7 +56,7 @@
             this.button3 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.sensorsValuesCheckedBox = new System.Windows.Forms.CheckBox();
-            this.lateralRightCheckBox = new System.Windows.Forms.CheckBox();
+            this.frontDiameterCheckBox = new System.Windows.Forms.CheckBox();
             this.lengthCheckBox = new System.Windows.Forms.CheckBox();
             this.allDimentionsCheckBox = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -66,6 +66,7 @@
             this.dimensionsCheckBox = new System.Windows.Forms.CheckBox();
             this.gridSurfaceCheckBox = new System.Windows.Forms.CheckBox();
             this.modelView = new Tao.Platform.Windows.SimpleOpenGlControl();
+            this.backDiameterCheckBox = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.plotsPage.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -437,8 +438,9 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.backDiameterCheckBox);
             this.panel1.Controls.Add(this.sensorsValuesCheckedBox);
-            this.panel1.Controls.Add(this.lateralRightCheckBox);
+            this.panel1.Controls.Add(this.frontDiameterCheckBox);
             this.panel1.Controls.Add(this.lengthCheckBox);
             this.panel1.Controls.Add(this.allDimentionsCheckBox);
             this.panel1.Controls.Add(this.label2);
@@ -466,18 +468,19 @@
             this.sensorsValuesCheckedBox.UseVisualStyleBackColor = true;
             this.sensorsValuesCheckedBox.CheckedChanged += new System.EventHandler(this.sensorsValuesCheckedBox_CheckedChanged);
             // 
-            // lateralRightCheckBox
+            // frontDiameterCheckBox
             // 
-            this.lateralRightCheckBox.AutoSize = true;
-            this.lateralRightCheckBox.Checked = true;
-            this.lateralRightCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.lateralRightCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lateralRightCheckBox.Location = new System.Drawing.Point(7, 183);
-            this.lateralRightCheckBox.Name = "lateralRightCheckBox";
-            this.lateralRightCheckBox.Size = new System.Drawing.Size(176, 17);
-            this.lateralRightCheckBox.TabIndex = 12;
-            this.lateralRightCheckBox.Text = "Поперечная кривизна (Право)";
-            this.lateralRightCheckBox.UseVisualStyleBackColor = true;
+            this.frontDiameterCheckBox.AutoSize = true;
+            this.frontDiameterCheckBox.Checked = true;
+            this.frontDiameterCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.frontDiameterCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.frontDiameterCheckBox.Location = new System.Drawing.Point(7, 183);
+            this.frontDiameterCheckBox.Name = "frontDiameterCheckBox";
+            this.frontDiameterCheckBox.Size = new System.Drawing.Size(169, 17);
+            this.frontDiameterCheckBox.TabIndex = 12;
+            this.frontDiameterCheckBox.Text = "Передний торцевой диаметр";
+            this.frontDiameterCheckBox.UseVisualStyleBackColor = true;
+            this.frontDiameterCheckBox.CheckedChanged += new System.EventHandler(this.frontDiameterCheckBox_CheckedChanged);
             // 
             // lengthCheckBox
             // 
@@ -600,6 +603,20 @@
             this.modelView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.modelPanel_MouseDown);
             this.modelView.MouseMove += new System.Windows.Forms.MouseEventHandler(this.modelPanel_MouseMove);
             // 
+            // backDiameterCheckBox
+            // 
+            this.backDiameterCheckBox.AutoSize = true;
+            this.backDiameterCheckBox.Checked = true;
+            this.backDiameterCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.backDiameterCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.backDiameterCheckBox.Location = new System.Drawing.Point(7, 206);
+            this.backDiameterCheckBox.Name = "backDiameterCheckBox";
+            this.backDiameterCheckBox.Size = new System.Drawing.Size(156, 17);
+            this.backDiameterCheckBox.TabIndex = 16;
+            this.backDiameterCheckBox.Text = "Задний торцевой диаметр";
+            this.backDiameterCheckBox.UseVisualStyleBackColor = true;
+            this.backDiameterCheckBox.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // SlabVisualizationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -659,7 +676,7 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.CheckBox lateralRightCheckBox;
+        private System.Windows.Forms.CheckBox frontDiameterCheckBox;
         private System.Windows.Forms.Button rightButton;
         private System.Windows.Forms.Button leftButton;
         private System.Windows.Forms.Panel panel4;
@@ -679,5 +696,6 @@
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox sensorsValuesCheckedBox;
+        private System.Windows.Forms.CheckBox backDiameterCheckBox;
     }
 }

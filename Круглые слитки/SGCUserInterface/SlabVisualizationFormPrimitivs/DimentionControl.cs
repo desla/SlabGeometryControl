@@ -61,5 +61,9 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs
                 }
             }
         }
+
+        private void nameLabel_Click(object sender, EventArgs e) {
+
+        }
     }
 }
