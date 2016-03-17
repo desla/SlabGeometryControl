@@ -220,6 +220,7 @@
     </Content>
     <Content Include="Settings\SensorConfiguration.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Tests\Files\OpcConfigurationTest.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
