@@ -32,7 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AlvasoftWcfClient">
-      <HintPath>..\Wcf\AlvasoftWcf\AlvasoftWcfClient\bin\Debug\AlvasoftWcfClient.dll</HintPath>
+      <HintPath>..\Круглые слитки\Wcf\AlvasoftWcf\AlvasoftWcfServer\bin\Debug\AlvasoftWcfClient.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\SlabGeometryControl\Usings\log4net.dll</HintPath>

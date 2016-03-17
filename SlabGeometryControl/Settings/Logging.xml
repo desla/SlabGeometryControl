@@ -45,7 +45,6 @@
             <conversionPattern value="%date [%logger] %-5level - %message%newline" />
         </layout>
     </appender>
-
     
     <root>        
         <appender-ref ref="Console" />
