@@ -4,6 +4,7 @@ using Alvasoft.DataEnums;
 using Alvasoft.DataProvider;
 using Alvasoft.SensorConfiguration;
 using Alvasoft.SensorValueContainer;
+using Alvasoft.SensorValueContainer.Impl;
 using Alvasoft.SlabBuilder.Impl.Filters;
 using Alvasoft.Utils.Activity;
 using Alvasoft.Utils.Mathematic3D;
@@ -171,6 +172,7 @@ namespace Alvasoft.SlabBuilder.Impl
             sensors.Sort((a, b) => a.GetShift() < b.GetShift() ? 1 : 0);
 
             var positionValues = container.GetSensorValuesBySensorId(positionSensor.GetId());
+            ConvertToIncrementValues(positionValues);
             aSlab.TopLines = new Point3D[sensors.Count][];
             for (var i = 0; i < sensors.Count; ++i) {
                 var sensor = sensors[i];
@@ -210,6 +212,7 @@ namespace Alvasoft.SlabBuilder.Impl
             sensors.Sort((a, b) => a.GetShift() < b.GetShift() ? 1 : 0);
 
             var positionValues = container.GetSensorValuesBySensorId(positionSensor.GetId());
+            ConvertToIncrementValues(positionValues);
             aSlab.BottomLines = new Point3D[sensors.Count][];
             for (var i = 0; i < sensors.Count; ++i) {
                 var sensor = sensors[i];
@@ -249,6 +252,7 @@ namespace Alvasoft.SlabBuilder.Impl
             sensors.Sort((a, b) => a.GetShift() < b.GetShift() ? 1 : 0);
 
             var positionValues = container.GetSensorValuesBySensorId(positionSensor.GetId());
+            ConvertToIncrementValues(positionValues);
             aSlab.LeftLines = new Point3D[sensors.Count][];
             for (var i = 0; i < sensors.Count; ++i) {
                 var sensor = sensors[i];
@@ -288,6 +292,7 @@ namespace Alvasoft.SlabBuilder.Impl
             sensors.Sort((a, b) => a.GetShift() < b.GetShift() ? 1 : 0);
 
             var positionValues = container.GetSensorValuesBySensorId(positionSensor.GetId());
+            ConvertToIncrementValues(positionValues);
             aSlab.RightLines = new Point3D[sensors.Count][];
             for (var i = 0; i < sensors.Count; ++i) {
                 var sensor = sensors[i];
@@ -301,7 +306,7 @@ namespace Alvasoft.SlabBuilder.Impl
 
                 MoveToZeroOnZ(aSlab.RightLines[i]);
             }
-        }
+        }        
 
         private Point3D[] BuildRightValues(
             ISensorValueInfo[] aPositions,
@@ -377,29 +382,25 @@ namespace Alvasoft.SlabBuilder.Impl
 
         private double GetPositionByTime(ISensorValueInfo[] aPositions, long aTime)
         {
-            //if (aPositions[0].GetTime() >= aTime) {
-            //    return aPositions[0].GetValue();
-            //}
-
-            //if (aPositions[aPositions.Length - 1].GetTime() <= aTime) {
-            //    return aPositions[aPositions.Length - 1].GetValue();
-            //}
-
-            //// TODO: Сделать бинарнй поиск.
-            //for (var i = 0; i < aPositions.Length - 1; ++i) {
-            //    if (aPositions[i].GetTime() <= aTime && aPositions[i + 1].GetTime() > aTime) {
-            //        var difference = (aTime - aPositions[i].GetTime()) /
-            //                         (double) (aPositions[i + 1].GetTime() - aPositions[i].GetTime());
-            //        return aPositions[i].GetValue() +
-            //               difference * (aPositions[i + 1].GetValue() - aPositions[i].GetValue());
-            //    }
-            //}
-
-            for (var i = 0; i < aPositions.Length; ++i) {
-                if (aPositions[i].GetTime() == aTime) {
-                    return aPositions[i].GetValue();
+            var leftIndex = 0;
+            var rightIndex = aPositions.Length - 1;
+            while (leftIndex < rightIndex) {
+                var medium = leftIndex + (rightIndex - leftIndex) / 2;
+                if (aPositions[medium].GetTime() == aTime) {
+                    return aPositions[medium].GetValue();
+                }
+                if (aPositions[medium].GetTime() > aTime) {
+                    rightIndex = medium - 1;
+                } else {
+                    leftIndex = medium + 1;
                 }
             }
+                        
+            //for (var i = 0; i < aPositions.Length; ++i) {
+            //    if (aPositions[i].GetTime() == aTime) {
+            //        return aPositions[i].GetValue();
+            //    }
+            //}
 
             throw new ArgumentException("Не найдена точка для указанног времени.");
         }
@@ -410,6 +411,23 @@ namespace Alvasoft.SlabBuilder.Impl
             
             for (var i = 0; i < aValues.Length; ++i) {
                 aValues[i].Z -= difference;
+            }
+        }
+
+        private void ConvertToIncrementValues(ISensorValueInfo[] aPositionValues) {
+            if (aPositionValues == null || aPositionValues.Length == 0) {
+                return;
+            }
+
+            var valuesCount = aPositionValues.Length;
+            if (aPositionValues[0].GetValue() < aPositionValues[valuesCount - 1].GetValue()) {
+                var revercedValues = new SensorValueInfoImpl[valuesCount];
+                for (var i = 0; i < valuesCount; ++i) {
+                    var sourceValue = aPositionValues[valuesCount - i - 1];
+                    revercedValues[i] = new SensorValueInfoImpl(sourceValue.GetSensorId(), sourceValue.GetValue(), aPositionValues[i].GetTime());
+                }
+
+                aPositionValues = revercedValues;                
             }
         }
     }
