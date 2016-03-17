@@ -36,8 +36,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AlvasoftWcfClient">
-      <HintPath>..\Wcf\AlvasoftWcf\AlvasoftWcfClient\bin\Debug\AlvasoftWcfClient.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\Круглые слитки\Wcf\AlvasoftWcf\AlvasoftWcfServer\bin\Debug\AlvasoftWcfClient.dll</HintPath>
+    </Reference>
+    <Reference Include="AlvasoftWcfServer">
+      <HintPath>..\Круглые слитки\Wcf\AlvasoftWcf\AlvasoftWcfServer\bin\Debug\AlvasoftWcfServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

@@ -36,10 +36,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AlvasoftWcfClient">
-      <HintPath>..\Wcf\AlvasoftWcf\AlvasoftWcfServer\bin\Debug\AlvasoftWcfClient.dll</HintPath>
+      <HintPath>..\Круглые слитки\Wcf\AlvasoftWcf\AlvasoftWcfServer\bin\Debug\AlvasoftWcfClient.dll</HintPath>
     </Reference>
     <Reference Include="AlvasoftWcfServer">
-      <HintPath>..\Wcf\AlvasoftWcf\AlvasoftWcfServer\bin\Debug\AlvasoftWcfServer.dll</HintPath>
+      <HintPath>..\Круглые слитки\Wcf\AlvasoftWcf\AlvasoftWcfServer\bin\Debug\AlvasoftWcfServer.dll</HintPath>
     </Reference>
     <Reference Include="Iesi.Collections">
       <HintPath>Usings\Iesi.Collections.dll</HintPath>
@@ -221,7 +221,6 @@
     <Content Include="Settings\SensorConfiguration.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Settings\temp.xml" />
     <Content Include="Tests\Files\OpcConfigurationTest.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
