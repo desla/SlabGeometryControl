@@ -6,16 +6,12 @@ namespace Alvasoft.SlabBuilder.Impl.Filters
 {
     public class DoublePositionFilter
     {
-        public static void Filter(ref ISensorValueInfo[] aPositionValues, ref ISensorValueInfo[] aSensorValues)
+        public static void Filter(ref ISensorValueInfo[] aPositionValues)
         {
-            if (aPositionValues == null || aSensorValues == null) {
-                throw new ArgumentNullException("aPositionValues" + " or " + "aSensorValue");
+            if (aPositionValues == null) {
+                throw new ArgumentNullException("aPositionValues");
             }
-
-            if (aPositionValues.Length != aSensorValues.Length) {
-                throw new ArgumentException("Длина массивов не совпадает.");
-            }
-
+            
             var removed = new List<int>();
             var inflectionPoint = 0;
             for (var i = 1; i < aPositionValues.Length; ++i) {
@@ -27,17 +23,14 @@ namespace Alvasoft.SlabBuilder.Impl.Filters
                 }
             }
 
-            var newPosirionValues = new List<ISensorValueInfo>();
-            var newSensorValues = new List<ISensorValueInfo>();
+            var newPositionValues = new List<ISensorValueInfo>();            
             for (var i = 0; i < aPositionValues.Length; ++i) {
                 if (!removed.Contains(i)) {
-                    newPosirionValues.Add(aPositionValues[i]);
-                    newSensorValues.Add(aSensorValues[i]);
+                    newPositionValues.Add(aPositionValues[i]);                    
                 }
             }
 
-            aPositionValues = newPosirionValues.ToArray();
-            aSensorValues = newSensorValues.ToArray();
+            aPositionValues = newPositionValues.ToArray();           
         }
     }
 }

@@ -24,6 +24,7 @@ using Alvasoft.SlabGeometryControl;
 using SensorSide = Alvasoft.DataEnums.SensorSide;
 using SensorType = Alvasoft.DataEnums.SensorType;
 using SensorValue = Alvasoft.SlabGeometryControl.SensorValue;
+using Alvasoft.SlabBuilder.Impl.Filters;
 
 namespace Alvasoft.Server
 {
@@ -482,11 +483,16 @@ namespace Alvasoft.Server
         }
 
         public SensorValue[] GetSensorValuesBySlabId(int aSlabId, int aSensorId)
-        {
-            //var slab = slabReader.GetSlabInfo(aSlabId);
-            var sensorValues = sensorValueReaderWriter
-                //.ReadSensorValueInfo(aSensorId, slab.GetStartScanTime(), slab.GetEndScanTime());
+        {            
+            var sensorValues = sensorValueReaderWriter                
                 .ReadSensorValueInfo(aSensorId, aSlabId);
+
+            if (aSensorId == 4) {
+                //IncrementOrderConverter.Convert(ref sensorValues);
+                //PickPositionFilter.Filter(ref sensorValues);
+                //DoublePositionFilter.Filter(ref sensorValues);                
+            }
+
             var results = new List<SensorValue>();
             if (sensorValues != null) {
                 for (var i = 0; i < sensorValues.Length; ++i) {
@@ -495,7 +501,7 @@ namespace Alvasoft.Server
                         Time = sensorValues[i].GetTime()
                     });
                 }
-            }
+            }            
 
             return results.ToArray();
         }

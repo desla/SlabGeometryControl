@@ -459,18 +459,18 @@ namespace Alvasoft.DataProvider.Impl
                 var values = sensor.DataBlocks[aDataBlock].ReadCurrentValue() as Array;
                 var currentIndex = aFromIndex;
                 var ignored = 0;
-                var previousPosition = 0.0;
+                //var previousPosition = 0.0;
                 while (currentIndex <= aToIndex) {
-                    var currentPosition = Convert.ToDouble(positionValues.GetValue(currentIndex));
-                    if (currentIndex == 0 ||
-                        Math.Abs(currentPosition - previousPosition) > 0.001) {
-                        previousPosition = currentPosition;
+                //    var currentPosition = Convert.ToDouble(positionValues.GetValue(currentIndex));
+                //    if (currentIndex == 0 ||
+                //        Math.Abs(currentPosition - previousPosition) > 0.001) {
+                //        previousPosition = currentPosition;
                         var value = Convert.ToDouble(values.GetValue(currentIndex));
                         valueContainer.AddSensorValue(sensorId, value, longTimes[currentIndex]);
-                    }
-                    else {
-                        ignored++;
-                    }
+                //    }
+                //    else {
+                //        ignored++;
+                //    }
                     currentIndex++;
                 }
                 Console.WriteLine("Игнорировано: " + ignored);

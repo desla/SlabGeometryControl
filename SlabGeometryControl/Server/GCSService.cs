@@ -163,7 +163,7 @@ namespace Alvasoft.Server
         {
             try {
                 logger.Debug("Сессия: " + aSessionId + " " +
-                             "Запрос GetSensorValueBySensorId(" + aSensorId + ")");
+                             "Запрос GetSensorValueBySensorId(" + aSensorId + ")");                
                 return gcsServer.GetSensorValueBySensorId(aSensorId);
             }
             catch (Exception ex) {

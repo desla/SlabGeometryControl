@@ -23,6 +23,8 @@ namespace Alvasoft.SlabBuilder.Impl
         private ISensorValueContainer container;
         private ICalibrator calibrator;
 
+        private ISensorValueInfo[] positionValues;
+
         public void SetSensorConfiguration(ISensorConfiguration aConfiguration)
         {
             if (aConfiguration == null) {
@@ -60,7 +62,9 @@ namespace Alvasoft.SlabBuilder.Impl
                 throw new ArgumentException("Конфигурация не установлена.");
             }
 
-            var slab = new SlabModelImpl();                
+            var slab = new SlabModelImpl();
+
+            MakePositionValues();
 
             BuildTopLines(slab);
             BuildBottomLines(slab);
@@ -75,47 +79,6 @@ namespace Alvasoft.SlabBuilder.Impl
             BuildLimits(slab);
 
             return slab;
-        }
-
-        private void BuildLimits(SlabModelImpl aSlab)
-        {
-            aSlab.TopLimit = double.MinValue;
-            aSlab.BottomLimit = double.MaxValue;
-            aSlab.LeftLimit = double.MaxValue;
-            aSlab.RightLimit = double.MinValue;
-            aSlab.LengthLimit = double.MinValue;
-            var sensorCount = aSlab.TopLines.Length;
-            for (var i = 0; i < sensorCount; ++i) {
-                var values = aSlab.TopLines[i];
-                for (var j = 0; j < values.Length; ++j) {
-                    aSlab.TopLimit = Math.Max(aSlab.TopLimit, values[j].Y);                    
-                }
-                aSlab.LengthLimit = Math.Max(aSlab.LengthLimit, values[values.Length - 1].Z - values[0].Z);
-            }
-
-            sensorCount = aSlab.BottomLines.Length;
-            for (var i = 0; i < sensorCount; ++i) {
-                var values = aSlab.BottomLines[i];
-                for (var j = 0; j < values.Length; ++j) {
-                    aSlab.BottomLimit = Math.Min(aSlab.BottomLimit, values[j].Y);                    
-                }
-            }
-
-            sensorCount = aSlab.LeftLines.Length;
-            for (var i = 0; i < sensorCount; ++i) {
-                var values = aSlab.LeftLines[i];
-                for (var j = 0; j < values.Length; ++j) {
-                    aSlab.LeftLimit = Math.Min(aSlab.LeftLimit, values[j].X);                    
-                }
-            }
-
-            sensorCount = aSlab.RightLines.Length;
-            for (var i = 0; i < sensorCount; ++i) {
-                var values = aSlab.RightLines[i];
-                for (var j = 0; j < values.Length; ++j) {
-                    aSlab.RightLimit = Math.Max(aSlab.RightLimit, values[j].X);                    
-                }
-            }            
         }
 
         protected override void DoInitialize()
@@ -146,38 +109,68 @@ namespace Alvasoft.SlabBuilder.Impl
         public void OnSensorDeleted(ISensorConfiguration aConfiguration, int aSensorId)
         {
             throw new System.NotImplementedException();
-        }        
+        }
 
-        private void BuildTopLines(SlabModelImpl aSlab)
-        {
-            ISensorInfo positionSensor = null;
-            var sensors = new List<ISensorInfo>();
-            var sensorCount = configuration.GetSensorInfoCount();
+        private void MakePositionValues() {
+            var positionSensor = GetPositionSensor();
+            positionValues = container.GetSensorValuesBySensorId(positionSensor.GetId());
+            IncrementOrderConverter.Convert(ref positionValues);
+            PickPositionFilter.Filter(ref positionValues);
+            DoublePositionFilter.Filter(ref positionValues);
+        }
+
+        private void BuildLimits(SlabModelImpl aSlab) {
+            aSlab.TopLimit = double.MinValue;
+            aSlab.BottomLimit = double.MaxValue;
+            aSlab.LeftLimit = double.MaxValue;
+            aSlab.RightLimit = double.MinValue;
+            aSlab.LengthLimit = double.MinValue;
+            var sensorCount = aSlab.TopLines.Length;
             for (var i = 0; i < sensorCount; ++i) {
-                var sensorInfo = configuration.ReadSensorInfoByIndex(i);                
-                if (sensorInfo.GetSensorSide() == SensorSide.TOP && 
-                    sensorInfo.GetSensorType() == SensorType.PROXIMITY) {
-                    sensors.Add(sensorInfo);
-                } 
-                else if (sensorInfo.GetSensorType() == SensorType.POSITION) {
-                    positionSensor = sensorInfo;
+                var values = aSlab.TopLines[i];
+                for (var j = 0; j < values.Length; ++j) {
+                    aSlab.TopLimit = Math.Max(aSlab.TopLimit, values[j].Y);
+                }
+                aSlab.LengthLimit = Math.Max(aSlab.LengthLimit, values[values.Length - 1].Z - values[0].Z);
+            }
+
+            sensorCount = aSlab.BottomLines.Length;
+            for (var i = 0; i < sensorCount; ++i) {
+                var values = aSlab.BottomLines[i];
+                for (var j = 0; j < values.Length; ++j) {
+                    aSlab.BottomLimit = Math.Min(aSlab.BottomLimit, values[j].Y);
                 }
             }
 
-            if (positionSensor == null) {
-                throw new ArgumentException("Датчик положения не найден.");
+            sensorCount = aSlab.LeftLines.Length;
+            for (var i = 0; i < sensorCount; ++i) {
+                var values = aSlab.LeftLines[i];
+                for (var j = 0; j < values.Length; ++j) {
+                    aSlab.LeftLimit = Math.Min(aSlab.LeftLimit, values[j].X);
+                }
             }
+
+            sensorCount = aSlab.RightLines.Length;
+            for (var i = 0; i < sensorCount; ++i) {
+                var values = aSlab.RightLines[i];
+                for (var j = 0; j < values.Length; ++j) {
+                    aSlab.RightLimit = Math.Max(aSlab.RightLimit, values[j].X);
+                }
+            }
+        }
+
+        private void BuildTopLines(SlabModelImpl aSlab)
+        {            
+            var sensors = GetProximitySensors(SensorSide.TOP);
 
             // Сортируем по увеличению отступа - слева на право.
             sensors.Sort((a, b) => a.GetShift() < b.GetShift() ? 1 : 0);
-
-            var positionValues = container.GetSensorValuesBySensorId(positionSensor.GetId());
-            ConvertToIncrementValues(ref positionValues);
+            
             aSlab.TopLines = new Point3D[sensors.Count][];
             for (var i = 0; i < sensors.Count; ++i) {
                 var sensor = sensors[i];
                 var sensorValues = container.GetSensorValuesBySensorId(sensor.GetId());
-                DoublePositionFilter.Filter(ref positionValues, ref sensorValues);
+                RemoveFilteredValues(ref sensorValues);
                 aSlab.TopLines[i] = BuildTopValues(
                     positionValues, 
                     sensorValues,
@@ -186,38 +179,20 @@ namespace Alvasoft.SlabBuilder.Impl
 
                 MoveToZeroOnZ(aSlab.TopLines[i]);
             }
-        }
+        }        
 
         private void BuildBottomLines(SlabModelImpl aSlab)
         {
-            ISensorInfo positionSensor = null;
-            var sensors = new List<ISensorInfo>();
-            var sensorCount = configuration.GetSensorInfoCount();
-            for (var i = 0; i < sensorCount; ++i) {
-                var sensorInfo = configuration.ReadSensorInfoByIndex(i);
-                if (sensorInfo.GetSensorSide() == SensorSide.BOTTOM) {
-                    sensors.Add(sensorInfo);
-                }
-
-                if (sensorInfo.GetSensorType() == SensorType.POSITION) {
-                    positionSensor = sensorInfo;
-                }
-            }
-
-            if (positionSensor == null) {
-                throw new ArgumentException("Датчик положения не найден.");
-            }
+            var sensors = GetProximitySensors(SensorSide.BOTTOM);
 
             // Сортируем по увеличению отступа - слева на право.
             sensors.Sort((a, b) => a.GetShift() < b.GetShift() ? 1 : 0);
 
-            var positionValues = container.GetSensorValuesBySensorId(positionSensor.GetId());
-            ConvertToIncrementValues(ref positionValues);
             aSlab.BottomLines = new Point3D[sensors.Count][];
             for (var i = 0; i < sensors.Count; ++i) {
                 var sensor = sensors[i];
                 var sensorValues = container.GetSensorValuesBySensorId(sensor.GetId());
-                DoublePositionFilter.Filter(ref positionValues, ref sensorValues);
+                RemoveFilteredValues(ref sensorValues);
                 aSlab.BottomLines[i] = BuildBottomValues(
                     positionValues,
                     sensorValues,
@@ -230,34 +205,16 @@ namespace Alvasoft.SlabBuilder.Impl
 
         private void BuildLeftLines(SlabModelImpl aSlab)
         {
-            ISensorInfo positionSensor = null;
-            var sensors = new List<ISensorInfo>();
-            var sensorCount = configuration.GetSensorInfoCount();
-            for (var i = 0; i < sensorCount; ++i) {
-                var sensorInfo = configuration.ReadSensorInfoByIndex(i);
-                if (sensorInfo.GetSensorSide() == SensorSide.LEFT) {
-                    sensors.Add(sensorInfo);
-                }
-
-                if (sensorInfo.GetSensorType() == SensorType.POSITION) {
-                    positionSensor = sensorInfo;
-                }
-            }
-
-            if (positionSensor == null) {
-                throw new ArgumentException("Датчик положения не найден.");
-            }
+            var sensors = GetProximitySensors(SensorSide.LEFT);
 
             // Сортируем по увеличению отступа - снизу вверх.
             sensors.Sort((a, b) => a.GetShift() < b.GetShift() ? 1 : 0);
-
-            var positionValues = container.GetSensorValuesBySensorId(positionSensor.GetId());
-            ConvertToIncrementValues(ref positionValues);
+            
             aSlab.LeftLines = new Point3D[sensors.Count][];
             for (var i = 0; i < sensors.Count; ++i) {
                 var sensor = sensors[i];
                 var sensorValues = container.GetSensorValuesBySensorId(sensor.GetId());
-                DoublePositionFilter.Filter(ref positionValues, ref sensorValues);
+                RemoveFilteredValues(ref sensorValues);
                 aSlab.LeftLines[i] = BuildLeftValues(
                     positionValues,
                     sensorValues,
@@ -270,34 +227,16 @@ namespace Alvasoft.SlabBuilder.Impl
 
         private void BuildRightLines(SlabModelImpl aSlab)
         {
-            ISensorInfo positionSensor = null;
-            var sensors = new List<ISensorInfo>();
-            var sensorCount = configuration.GetSensorInfoCount();
-            for (var i = 0; i < sensorCount; ++i) {
-                var sensorInfo = configuration.ReadSensorInfoByIndex(i);
-                if (sensorInfo.GetSensorSide() == SensorSide.RIGHT) {
-                    sensors.Add(sensorInfo);
-                }
-
-                if (sensorInfo.GetSensorType() == SensorType.POSITION) {
-                    positionSensor = sensorInfo;
-                }
-            }
-
-            if (positionSensor == null) {
-                throw new ArgumentException("Датчик положения не найден.");
-            }
+            var sensors = GetProximitySensors(SensorSide.RIGHT);
 
             // Сортируем по увеличению отступа - снизу вверх.
             sensors.Sort((a, b) => a.GetShift() < b.GetShift() ? 1 : 0);
-
-            var positionValues = container.GetSensorValuesBySensorId(positionSensor.GetId());
-            ConvertToIncrementValues(ref positionValues);
+            
             aSlab.RightLines = new Point3D[sensors.Count][];
             for (var i = 0; i < sensors.Count; ++i) {
                 var sensor = sensors[i];
                 var sensorValues = container.GetSensorValuesBySensorId(sensor.GetId());
-                DoublePositionFilter.Filter(ref positionValues, ref sensorValues);
+                RemoveFilteredValues(ref sensorValues);
                 aSlab.RightLines[i] = BuildRightValues(
                     positionValues,
                     sensorValues,
@@ -405,6 +344,37 @@ namespace Alvasoft.SlabBuilder.Impl
             throw new ArgumentException("Не найдена точка для указанног времени.");
         }
 
+        private ISensorInfo GetPositionSensor() {
+            ISensorInfo positionSensor = null;            
+            var sensorCount = configuration.GetSensorInfoCount();
+            for (var i = 0; i < sensorCount; ++i) {
+                var sensorInfo = configuration.ReadSensorInfoByIndex(i);
+                if (sensorInfo.GetSensorType() == SensorType.POSITION) {
+                    positionSensor = sensorInfo;
+                }
+            }
+
+            if (positionSensor == null) {
+                throw new ArgumentException("Датчик положения не найден.");
+            }
+
+            return positionSensor;
+        }
+
+        private List<ISensorInfo> GetProximitySensors(SensorSide aSensorSide) {
+            var sensors = new List<ISensorInfo>();
+            var sensorCount = configuration.GetSensorInfoCount();
+            for (var i = 0; i < sensorCount; ++i) {
+                var sensorInfo = configuration.ReadSensorInfoByIndex(i);
+                if (sensorInfo.GetSensorSide() == aSensorSide &&
+                    sensorInfo.GetSensorType() == SensorType.PROXIMITY) {
+                    sensors.Add(sensorInfo);
+                }
+            }
+
+            return sensors;
+        }
+
         private void MoveToZeroOnZ(Point3D[] aValues)
         {
             var difference = aValues[0].Z;
@@ -412,23 +382,31 @@ namespace Alvasoft.SlabBuilder.Impl
             for (var i = 0; i < aValues.Length; ++i) {
                 aValues[i].Z -= difference;
             }
+        }        
+
+        /// <summary>
+        /// Отфильтровывает только те показания, для которых есть данные датчика положения.
+        /// </summary>
+        /// <param name="sensorValues"></param>
+        private void RemoveFilteredValues(ref ISensorValueInfo[] aSensorValues) {
+            var newSensorValues = new List<ISensorValueInfo>();
+            for (var i = 0; i < aSensorValues.Length; ++i) {
+                if (IsContainPositionByTime(aSensorValues[i].GetTime())) {
+                    newSensorValues.Add(aSensorValues[i]);
+                }
+            }
+
+            aSensorValues = newSensorValues.ToArray();
         }
 
-        private void ConvertToIncrementValues(ref ISensorValueInfo[] aPositionValues) {
-            if (aPositionValues == null || aPositionValues.Length == 0) {
-                return;
-            }
-
-            var valuesCount = aPositionValues.Length;
-            if (aPositionValues[0].GetValue() > aPositionValues[valuesCount - 1].GetValue()) {
-                var revercedValues = new SensorValueInfoImpl[valuesCount];
-                for (var i = 0; i < valuesCount; ++i) {
-                    var sourceValue = aPositionValues[valuesCount - i - 1];
-                    revercedValues[i] = new SensorValueInfoImpl(sourceValue.GetSensorId(), sourceValue.GetValue(), aPositionValues[i].GetTime());
+        private bool IsContainPositionByTime(long aTime) {            
+            for (var i = 0; i < positionValues.Length; ++i) {
+                if (positionValues[i].GetTime() == aTime) {
+                    return true;
                 }
-
-                aPositionValues = revercedValues;                
             }
+
+            return false;
         }
     }
 }
