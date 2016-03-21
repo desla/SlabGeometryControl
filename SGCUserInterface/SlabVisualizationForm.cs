@@ -121,24 +121,26 @@ namespace SGCUserInterface
                 return;
             }
 
-            //try {
-            //    PickFilter.Filter(aSlabModel);
-            //}
-            //catch {
-            //    MessageBox.Show(@"Возникла ошибка в фильтре пиков.");
-            //}
-            //try {
-            //    BumpFilter.Filter(aSlabModel);
-            //}
-            //catch {
-            //    MessageBox.Show(@"Возникла ошибка в фильтре подпрыгиваний.");
-            //}
-            //try {
-            //    AverageFilter.Filter(aSlabModel);
-            //}
-            //catch {
-            //    MessageBox.Show(@"Возникла ошибка в фильтре средних.");
-            //}            
+            try {
+                SplashFilter.Filter(aSlabModel);
+            } catch {
+                MessageBox.Show(@"Возникла ошибка в фильтре всплесков в начале и конце измерений.");
+            }
+            try {
+                PickFilter.Filter(aSlabModel);
+            } catch {
+                MessageBox.Show(@"Возникла ошибка в фильтре пиков.");
+            }
+            try {
+                BumpFilter.Filter(aSlabModel);
+            } catch {
+                MessageBox.Show(@"Возникла ошибка в фильтре подпрыгиваний.");
+            }
+            try {
+                AverageFilter.Filter(aSlabModel);
+            } catch {
+                MessageBox.Show(@"Возникла ошибка в фильтре средних.");
+            }
         }
 
         private void InitializeSlabModelPanel()

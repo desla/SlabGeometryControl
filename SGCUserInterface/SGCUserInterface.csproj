@@ -110,6 +110,7 @@
     <Compile Include="Filters\AverageFilter.cs" />
     <Compile Include="Filters\BumpFilter.cs" />
     <Compile Include="Filters\PickFilter.cs" />
+    <Compile Include="Filters\SplashFilter.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

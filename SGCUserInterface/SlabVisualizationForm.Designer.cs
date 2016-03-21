@@ -69,6 +69,7 @@
             this.dimensionsCheckBox = new System.Windows.Forms.CheckBox();
             this.gridSurfaceCheckBox = new System.Windows.Forms.CheckBox();
             this.modelView = new Tao.Platform.Windows.SimpleOpenGlControl();
+            this.isShowFilteredValuesCheckBox = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.plotsPage.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -111,6 +112,7 @@
             this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel4.BackColor = System.Drawing.Color.White;
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.isShowFilteredValuesCheckBox);
             this.panel4.Controls.Add(this.label4);
             this.panel4.Controls.Add(this.isShowNodesCheckedBox);
             this.panel4.Controls.Add(this.isAllPlotShowCheckedBox);
@@ -118,7 +120,7 @@
             this.panel4.Controls.Add(this.leftButton);
             this.panel4.Location = new System.Drawing.Point(547, 6);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(165, 101);
+            this.panel4.Size = new System.Drawing.Size(165, 123);
             this.panel4.TabIndex = 3;
             // 
             // label4
@@ -182,9 +184,9 @@
             // 
             // plotsView
             // 
-            this.plotsView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.plotsView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.plotsView.Location = new System.Drawing.Point(-4, -10);
             this.plotsView.Name = "plotsView";
             this.plotsView.ScrollGrace = 0D;
@@ -254,9 +256,9 @@
             // 
             // sectionsView
             // 
-            this.sectionsView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.sectionsView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.sectionsView.Location = new System.Drawing.Point(-2, -10);
             this.sectionsView.Name = "sectionsView";
             this.sectionsView.ScrollGrace = 0D;
@@ -336,9 +338,9 @@
             // 
             // deviationView
             // 
-            this.deviationView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.deviationView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.deviationView.IsEnableHZoom = false;
             this.deviationView.Location = new System.Drawing.Point(-2, -7);
             this.deviationView.Name = "deviationView";
@@ -643,6 +645,17 @@
             this.modelView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.modelPanel_MouseDown);
             this.modelView.MouseMove += new System.Windows.Forms.MouseEventHandler(this.modelPanel_MouseMove);
             // 
+            // isShowFilteredValuesCheckBox
+            // 
+            this.isShowFilteredValuesCheckBox.AutoSize = true;
+            this.isShowFilteredValuesCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.isShowFilteredValuesCheckBox.Location = new System.Drawing.Point(3, 97);
+            this.isShowFilteredValuesCheckBox.Name = "isShowFilteredValuesCheckBox";
+            this.isShowFilteredValuesCheckBox.Size = new System.Drawing.Size(157, 17);
+            this.isShowFilteredValuesCheckBox.TabIndex = 8;
+            this.isShowFilteredValuesCheckBox.Text = "Фильтрованные значения";
+            this.isShowFilteredValuesCheckBox.UseVisualStyleBackColor = true;
+            // 
             // SlabVisualizationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -725,5 +738,6 @@
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.CheckBox isShowFilteredValuesCheckBox;
     }
 }

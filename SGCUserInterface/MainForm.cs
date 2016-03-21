@@ -597,5 +597,21 @@ namespace SGCUserInterface
         {
             Process.Start("report_.pdf");
         }
+
+        private void просмотрФильтровToolStripMenuItem_Click(object sender, EventArgs e) {
+            AddLogInfo("GUI", "Просмотр данных слитка.");
+            var rowIndex = -1;
+            if (dataGridView1.SelectedCells.Count > 0) {
+                rowIndex = dataGridView1.SelectedCells[0].RowIndex;
+            }
+
+            if (rowIndex != -1) {
+                var row = dataGridView1.Rows[rowIndex];
+                var slabId = Convert.ToInt32(row.Cells["Id"].Value);
+                var standartSizeId = Convert.ToInt32(row.Cells["standartSizeId"].Value);
+                ThreadPool.QueueUserWorkItem(state =>
+                    new SlabVisualizationForm(slabId, standartSizeId, client, true).ShowDialog());
+            }
+        }
     }
 }

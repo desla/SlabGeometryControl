@@ -490,7 +490,7 @@ namespace Alvasoft.Server
             if (aSensorId == 4) {
                 //IncrementOrderConverter.Convert(ref sensorValues);
                 //PickPositionFilter.Filter(ref sensorValues);
-                //DoublePositionFilter.Filter(ref sensorValues);                
+                //DoublePositionFilter.Filter(ref sensorValues);
             }
 
             var results = new List<SensorValue>();

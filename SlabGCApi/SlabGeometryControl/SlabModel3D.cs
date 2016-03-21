@@ -6,15 +6,15 @@ namespace Alvasoft.SlabGeometryControl
     public class SlabModel3D
     {
         [DataMember]
-        public SlabPoint[][] TopLines { get; set; }
+        public SlabPoint[][] TopLines;// { get; set; }
 
         [DataMember]
-        public SlabPoint[][] BottomLines { get; set; }
+        public SlabPoint[][] BottomLines;// { get; set; }
 
         [DataMember]
-        public SlabPoint[][] LeftLines { get; set; }
+        public SlabPoint[][] LeftLines;// { get; set; }
 
         [DataMember]
-        public SlabPoint[][] RightLines { get; set; }
+        public SlabPoint[][] RightLines;// { get; set; }
     }
 }

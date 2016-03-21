@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Alvasoft.Utils.Mathematic3D;
+using Alvasoft.SlabGeometryControl;
 
-namespace Alvasoft.SlabBuilder.Impl.Filters
-{
+namespace SGCUserInterface.Filters {
     /// <summary>
     /// Фильтр всплесков показаний, которые получаются в начале и в конце измерения.
     /// </summary>
@@ -15,7 +14,7 @@ namespace Alvasoft.SlabBuilder.Impl.Filters
         // Значение производной, после которого считает, что это всплеск.
         private const double splashIndex = 4.5;
 
-        public static void Filter(SlabModelImpl aSlab)
+        public static void Filter(SlabModel3D aSlab)
         {
             if (aSlab == null) {
                 return;
@@ -46,7 +45,7 @@ namespace Alvasoft.SlabBuilder.Impl.Filters
             }
         }
 
-        private static void FilterTopView(ref Point3D[] aLine)
+        private static void FilterTopView(ref SlabPoint[] aLine)
         {
             if (aLine == null) {
                 return;
@@ -69,7 +68,7 @@ namespace Alvasoft.SlabBuilder.Impl.Filters
             }
 
             if (startDeletetIndex != int.MinValue || endDeletetIndex != int.MaxValue) {
-                var points = new List<Point3D>();
+                var points = new List<SlabPoint>();
                 for (var i = 0; i < aLine.Length; ++i) {
                     if (i >= startDeletetIndex && i <= endDeletetIndex) {
                         points.Add(aLine[i]);
@@ -80,7 +79,7 @@ namespace Alvasoft.SlabBuilder.Impl.Filters
             }           
         }
 
-        private static void FilterLeftView(ref Point3D[] aLine)
+        private static void FilterLeftView(ref SlabPoint[] aLine)
         {
             if (aLine == null) {
                 return;
@@ -103,7 +102,7 @@ namespace Alvasoft.SlabBuilder.Impl.Filters
             }
 
             if (startDeletetIndex != int.MinValue || endDeletetIndex != int.MaxValue) {
-                var points = new List<Point3D>();
+                var points = new List<SlabPoint>();
                 for (var i = 0; i < aLine.Length; ++i) {
                     if (i >= startDeletetIndex && i <= endDeletetIndex) {
                         points.Add(aLine[i]);
