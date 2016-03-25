@@ -136,14 +136,12 @@ namespace SGCUserInterface
                 if (client != null && client.IsConnected) {
                     var sensors = information.Sensors;
                     var sensorPercents = 100/sensors.Length;
-                    for (var i = 0; i < sensors.Length; ++i) {
-                        if (sensors[i].SensorType != SensorType.POSITION) {
-                            var sensor = sensors[i];
-                            var sensorValue = client.GetSensorValueBySensorId(sensor.Id);
-                            if (sensorValue != null) {
-                                information.Values[i] = sensorValue.Value;
-                                loader.ReportProgress(i * sensorPercents);
-                            }
+                    for (var i = 0; i < sensors.Length; ++i) {                        
+                        var sensor = sensors[i];
+                        var sensorValue = client.GetSensorValueBySensorId(sensor.Id);
+                        if (sensorValue != null) {
+                            information.Values[i] = sensorValue.Value;
+                            loader.ReportProgress(i * sensorPercents);
                         }                        
                     }
                 }

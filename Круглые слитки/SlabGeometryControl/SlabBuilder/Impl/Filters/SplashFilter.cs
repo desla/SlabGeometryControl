@@ -13,12 +13,28 @@ namespace Alvasoft.SlabBuilder.Impl.Filters
         private const int MAX_POINT_COUNT = 30;
 
         // Значение производной, после которого считает, что это всплеск.
-        private const double splashIndex = 0.8;
+        private const double splashIndex = 4.5;
 
         public static void Filter(SlabModelImpl aSlab)
         {
             if (aSlab == null) {
                 return;
+            }            
+
+            if (aSlab.TopSensorLine != null) {                
+                FilterLeftView(ref aSlab.TopSensorLine);                
+            }
+
+            if (aSlab.BottomSensorLine != null) {                
+                FilterLeftView(ref aSlab.BottomSensorLine);                
+            }
+
+            if (aSlab.LeftSensorLine != null) {                
+                FilterTopView(ref aSlab.LeftSensorLine);
+            }
+
+            if (aSlab.RightSensorLine != null) {                
+                FilterTopView(ref aSlab.RightSensorLine);
             }
         }
 

@@ -308,11 +308,13 @@ namespace SGCUserInterface.SlabVisualizationFormPrimitivs.Panels
 
         private void ShowDimentionControl(int aX, int aY, DimentionGraphicPrimitiveBase aDimention)
         {
-            dimentionControl.Top = aY;
-            dimentionControl.Left = aX;
-            dimentionControl.SetDimentionPrimitive(aDimention);
-            dimentionControl.SetRegulation(GetRegulationOrDefault(aDimention));
-            dimentionControl.Show();
+            try {
+                dimentionControl.Top = aY;
+                dimentionControl.Left = aX;
+                dimentionControl.SetDimentionPrimitive(aDimention);
+                dimentionControl.SetRegulation(GetRegulationOrDefault(aDimention));
+                dimentionControl.Show();
+            } catch { }
         }
 
         private Regulation GetRegulationOrDefault(DimentionGraphicPrimitiveBase aDimention)

@@ -6,7 +6,7 @@
     <activation>S7:[S7 connection_1]InLimGlobal</activation>
     <dataSize>S7:[S7 connection_1]MassiveSize</dataSize>
     <startIndex>S7:[S7 connection_1]LeftIndexGlobal</startIndex>
-    <endIndex>S7:[S7 connection_1]RightIndexGlobal</endIndex>    
+    <endIndex>S7:[S7 connection_1]RightIndexGlobal</endIndex>
     <syncDateTimeActivator>S7:[S7 connection_1]IsSyncDT</syncDateTimeActivator>
     <dateTimeForSync>S7:[S7 connection_1]DTForSync</dateTimeForSync>
     <resetToZero>S7:[S7 connection_1]ResetToZeroDb2</resetToZero>
@@ -23,21 +23,11 @@
       <timeBlock>S7:[S7 connection_1]ValueTimesGlobal_8</timeBlock>
       <timeBlock>S7:[S7 connection_1]ValueTimesGlobal_9</timeBlock>
       <timeBlock>S7:[S7 connection_1]ValueTimesGlobal_10</timeBlock>
-      <timeBlock>S7:[S7 connection_1]ValueTimesGlobal_11</timeBlock>
-      <timeBlock>S7:[S7 connection_1]ValueTimesGlobal_12</timeBlock>
-      <timeBlock>S7:[S7 connection_1]ValueTimesGlobal_13</timeBlock>
-      <timeBlock>S7:[S7 connection_1]ValueTimesGlobal_14</timeBlock>
-      <timeBlock>S7:[S7 connection_1]ValueTimesGlobal_15</timeBlock>
-      <timeBlock>S7:[S7 connection_1]ValueTimesGlobal_16</timeBlock>
-      <timeBlock>S7:[S7 connection_1]ValueTimesGlobal_17</timeBlock>
-      <timeBlock>S7:[S7 connection_1]ValueTimesGlobal_18</timeBlock>
-      <timeBlock>S7:[S7 connection_1]ValueTimesGlobal_19</timeBlock>
-      <timeBlock>S7:[S7 connection_1]ValueTimesGlobal_20</timeBlock>
     </timeBlocks>
   </control>
   <sensors>
     <sensor>
-      <name>Top_0</name>      
+      <name>Top_0</name>
       <enable>S7:[S7 connection_1]IsEnableSensorDb11</enable>
       <currentValue>S7:[S7 connection_1]CurrentValueDb11</currentValue>
       <dataBlocks>
@@ -51,20 +41,10 @@
         <dataBlock>S7:[S7 connection_1]SensorValuesDb11_8</dataBlock>
         <dataBlock>S7:[S7 connection_1]SensorValuesDb11_9</dataBlock>
         <dataBlock>S7:[S7 connection_1]SensorValuesDb11_10</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb11_11</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb11_12</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb11_13</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb11_14</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb11_15</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb11_16</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb11_17</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb11_18</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb11_19</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb11_20</dataBlock>
       </dataBlocks>
     </sensor>
     <sensor>
-      <name>Bottom_0</name>      
+      <name>Bottom_0</name>
       <enable>S7:[S7 connection_1]IsEnableSensorDb12</enable>
       <currentValue>S7:[S7 connection_1]CurrentValueDb12</currentValue>
       <dataBlocks>
@@ -78,16 +58,6 @@
         <dataBlock>S7:[S7 connection_1]SensorValuesDb12_8</dataBlock>
         <dataBlock>S7:[S7 connection_1]SensorValuesDb12_9</dataBlock>
         <dataBlock>S7:[S7 connection_1]SensorValuesDb12_10</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb12_11</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb12_12</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb12_13</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb12_14</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb12_15</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb12_16</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb12_17</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb12_18</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb12_19</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb12_20</dataBlock>
       </dataBlocks>
     </sensor>
     <sensor>
@@ -105,16 +75,6 @@
         <dataBlock>S7:[S7 connection_1]SensorValuesDb13_8</dataBlock>
         <dataBlock>S7:[S7 connection_1]SensorValuesDb13_9</dataBlock>
         <dataBlock>S7:[S7 connection_1]SensorValuesDb13_10</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb13_11</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb13_12</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb13_13</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb13_14</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb13_15</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb13_16</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb13_17</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb13_18</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb13_19</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb13_20</dataBlock>
       </dataBlocks>
     </sensor>
     <sensor>
@@ -132,44 +92,24 @@
         <dataBlock>S7:[S7 connection_1]SensorValuesDb14_8</dataBlock>
         <dataBlock>S7:[S7 connection_1]SensorValuesDb14_9</dataBlock>
         <dataBlock>S7:[S7 connection_1]SensorValuesDb14_10</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb14_11</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb14_12</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb14_13</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb14_14</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb14_15</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb14_16</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb14_17</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb14_18</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb14_19</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb14_20</dataBlock>
       </dataBlocks>
     </sensor>
     <sensor>
       <name>Position</name>
-      <enable>S7:[S7 connection_1]IsEnableSensorDb18</enable>
-      <currentValue>S7:[S7 connection_1]CurrentValueDb18</currentValue>
+      <enable>S7:[S7 connection_1]IsEnableSensorDb17</enable>
+      <currentValue>S7:[S7 connection_1]CurrentValueDb17</currentValue>
       <dataBlocks>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb18_1</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb18_2</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb18_3</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb18_4</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb18_5</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb18_6</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb18_7</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb18_8</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb18_9</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb18_10</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb18_11</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb18_12</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb18_13</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb18_14</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb18_15</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb18_16</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb18_17</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb18_18</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb18_19</dataBlock>
-        <dataBlock>S7:[S7 connection_1]SensorValuesDb18_20</dataBlock>
+        <dataBlock>S7:[S7 connection_1]SensorValuesDb17_1</dataBlock>
+        <dataBlock>S7:[S7 connection_1]SensorValuesDb17_2</dataBlock>
+        <dataBlock>S7:[S7 connection_1]SensorValuesDb17_3</dataBlock>
+        <dataBlock>S7:[S7 connection_1]SensorValuesDb17_4</dataBlock>
+        <dataBlock>S7:[S7 connection_1]SensorValuesDb17_5</dataBlock>
+        <dataBlock>S7:[S7 connection_1]SensorValuesDb17_6</dataBlock>
+        <dataBlock>S7:[S7 connection_1]SensorValuesDb17_7</dataBlock>
+        <dataBlock>S7:[S7 connection_1]SensorValuesDb17_8</dataBlock>
+        <dataBlock>S7:[S7 connection_1]SensorValuesDb17_9</dataBlock>
+        <dataBlock>S7:[S7 connection_1]SensorValuesDb17_10</dataBlock>
       </dataBlocks>
     </sensor>
-  </sensors>  
+  </sensors>
 </configuration>

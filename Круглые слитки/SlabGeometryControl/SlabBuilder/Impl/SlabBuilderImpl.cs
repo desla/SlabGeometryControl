@@ -22,6 +22,8 @@ namespace Alvasoft.SlabBuilder.Impl
         private ISensorValueContainer container;
         private ICalibrator calibrator;
 
+        private ISensorValueInfo[] positionValues;
+
         public void OnSensorCreated(ISensorConfiguration aConfiguration, int aSensorId) {
             throw new NotImplementedException();
         }
@@ -73,16 +75,57 @@ namespace Alvasoft.SlabBuilder.Impl
 
             var slab = new SlabModelImpl();
 
-            BuildCenters(slab);
+            MakePositionValues();
 
-            //SplashFilter.Filter(slab);
+            BuildSurfacePoints(slab);
+
+            SplashFilter.Filter(slab);
             //PickFilter.Filter(slab);
             //BumpFilter.Filter(slab);
             //AverageFilter.Filter(slab);
 
+            BuildCenters(slab);
             BuildLimits(slab);
 
             return slab;
+        }
+
+        private void MakePositionValues() {            
+            var positionSensor = GetPositionSensor();
+            positionValues = container.GetSensorValuesBySensorId(positionSensor.GetId());
+            IncrementOrderConverter.Convert(ref positionValues);
+            PickPositionFilter.Filter(ref positionValues);
+            DoublePositionFilter.Filter(ref positionValues);        
+        }
+
+        private ISensorInfo GetPositionSensor() {
+            ISensorInfo positionSensor = null;
+            var sensorCount = configuration.GetSensorInfoCount();
+            for (var i = 0; i < sensorCount; ++i) {
+                var sensorInfo = configuration.ReadSensorInfoByIndex(i);
+                if (sensorInfo.GetSensorType() == SensorType.POSITION) {
+                    positionSensor = sensorInfo;
+                }
+            }
+
+            if (positionSensor == null) {
+                throw new ArgumentException("Датчик положения не найден.");
+            }
+
+            return positionSensor;
+        }
+
+        private List<ISensorInfo> GetProximitySensors() {
+            var sensors = new List<ISensorInfo>();
+            var sensorCount = configuration.GetSensorInfoCount();
+            for (var i = 0; i < sensorCount; ++i) {
+                var sensorInfo = configuration.ReadSensorInfoByIndex(i);
+                if (sensorInfo.GetSensorType() == SensorType.PROXIMITY) {
+                    sensors.Add(sensorInfo);
+                }
+            }
+
+            return sensors;
         }
 
         /// <summary>
@@ -90,25 +133,61 @@ namespace Alvasoft.SlabBuilder.Impl
         /// </summary>
         /// <param name="aModel"></param>
         private void BuildCenters(SlabModelImpl aModel) {
-            // построим точки на поверхности слитка.
-            aModel.SensorsLines = BuildSurfacePoints();
+            // теперь по 3-м точкам будем строить описанную окружность и вычислять ее центр и диаметр.            
+            var centers = new List<Point3D>();
+            var diameters = new List<double>();
 
-            if (aModel.SensorsLines.Length < 3) {
-                throw new ArgumentException("BuildCenters: точек не достаточно для построения модели слитка.");
+            var lines = new Point3D[3][];
+            lines[0] = aModel.TopSensorLine;
+            lines[1] = aModel.BottomSensorLine;
+            lines[2] = aModel.LeftSensorLine;
+            var indexes = new int[3] { 0, 0, 0 };
+            MoveToOnePlainZ(ref indexes, lines); // двигает границы массивов до тех пор, пока все точки не станут в одной плоскости.
+            var pointsCount = int.MaxValue;
+            for (var i = 0; i < 3; ++i) {
+                pointsCount = Math.Min(pointsCount, lines[i].Length - indexes[i]);
             }
 
-            var lines = aModel.SensorsLines;
-            // теперь по 3-м точкам будем строить описанную окружность и вычислять ее центр и диаметр.
-            var pointsCount = lines[0].Length;
-            var centers = new Point3D[pointsCount];
-            var diameters = new double[pointsCount];
             for (var i = 0; i < pointsCount; ++i) {
-                centers[i] = CalcCircleCenter(lines[0][i], lines[1][i], lines[2][i]);
-                diameters[i] = CalcCircleDiameter(lines[0][i], lines[1][i], lines[2][i]);
+                var a = indexes[0];
+                var b = indexes[1];
+                var c = indexes[2];
+                var center = CalcCircleCenter(lines[0][a], lines[1][b], lines[2][c]);
+                var diameter = CalcCircleDiameter(lines[0][a], lines[1][b], lines[2][c]);                
+                centers.Add(center);
+                diameters.Add(diameter);
+
+                indexes[0]++;
+                indexes[1]++;
+                indexes[2]++;
             }
 
-            aModel.CenterLine = centers;
-            aModel.Diameters = diameters;
+            aModel.CenterLine = centers.ToArray();
+            aModel.Diameters = diameters.ToArray();
+        }
+
+        private void MoveToOnePlainZ(ref int[] aIndexes, Point3D[][] aLines) {
+            while (!IsOnOnePalneZ(aLines[0][aIndexes[0]], aLines[1][aIndexes[1]], aLines[2][aIndexes[2]])) {
+                var a = aLines[0][aIndexes[0]];
+                var b = aLines[1][aIndexes[1]];
+                var c = aLines[2][aIndexes[2]];
+                if (a.Z < b.Z || a.Z < c.Z) {
+                    aIndexes[0]++;
+                } else if (b.Z < a.Z || b.Z < c.Z) {
+                    aIndexes[1]++;
+                } else if (c.Z < a.Z || c.Z < b.Z) {
+                    aIndexes[2]++;
+                }
+            }
+        }
+
+        private bool IsOnOnePalneZ(Point3D aA, Point3D aB, Point3D aC) {
+            var epsilon = 0.0001;
+            if (Math.Abs(aA.Z - aB.Z) > epsilon || Math.Abs(aA.Z - aC.Z) > epsilon) {
+                return false;
+            }
+
+            return true;
         }
 
         /// <summary>
@@ -127,7 +206,7 @@ namespace Alvasoft.SlabBuilder.Impl
             var c = aC.DistanceToPoint(aA);
             var p = (a + b + c) / 2.0;
 
-            return (2 * a * b * c) / (4 * Math.Sqrt( p * (p - a) * (p - b) * (p - c)));
+            return (a * b * c) / (2 * Math.Sqrt(p * (p - a) * (p - b) * (p - c)));
         }
 
         /// <summary>
@@ -135,11 +214,6 @@ namespace Alvasoft.SlabBuilder.Impl
         /// </summary>        
         /// <returns></returns>
         private Point3D CalcCircleCenter(Point3D aA, Point3D aB, Point3D aC) {
-            var epsilon = 0.0001;
-            if (Math.Abs(aA.Z - aB.Z) > epsilon || Math.Abs(aA.Z - aC.Z) > epsilon) {
-                throw new ArgumentException("CalcCircleCenter: точки находятся не в одной плоскости.");
-            }
-
             // формула http://www.cyberforum.ru/geometry/thread1190053.html
 
             double x1 = aA.X, x2 = aB.X, x3 = aC.X,  
@@ -164,42 +238,61 @@ namespace Alvasoft.SlabBuilder.Impl
             };
         }
 
-        private Point3D[][] BuildSurfacePoints() {
-            // найдем датчик положения, а остальные датчики поместим в массив sensors.
-            ISensorInfo positionSensor = null;
-            var sensors = new List<ISensorInfo>();
-            var sensorCount = configuration.GetSensorInfoCount();
-            for (var i = 0; i < sensorCount; ++i) {
-                var sensorInfo = configuration.ReadSensorInfoByIndex(i);
-                if (sensorInfo.GetSensorType() == SensorType.PROXIMITY) {
-                    sensors.Add(sensorInfo);
-                } else if (sensorInfo.GetSensorType() == SensorType.POSITION) {
-                    positionSensor = sensorInfo;
-                }
-            }
-            if (positionSensor == null) {
-                throw new ArgumentException("BuildSurfacePoints: Датчик положения не найден.");
-            }
-
-            var positionValues = container.GetSensorValuesBySensorId(positionSensor.GetId());
+        private void BuildSurfacePoints(SlabModelImpl aModel) {
             // сначала создадим массивы точек на поверхности слитка.
-            var lines = new Point3D[sensors.Count][];
-
-            for (var i = 0; i < sensors.Count; ++i) {
+            var sensors = GetProximitySensors();            
+            for (var i = 0; i < sensors.Count; ++i) {                
                 var sensor = sensors[i];
                 var sensorValues = container.GetSensorValuesBySensorId(sensor.GetId());
-                DoublePositionFilter.Filter(ref positionValues, ref sensorValues);
-                lines[i] = BuildLineValues(
+                RemoveFilteredValues(ref sensorValues);
+                var sensorLine = BuildLineValues(
                     sensor,
                     positionValues,
                     sensorValues,
                     sensor.GetShift(),
                     calibrator.GetCalibratedValue(sensor.GetId()) / 2.0);
 
-                MoveToZeroOnZ(lines[i]);
+                MoveToZeroOnZ(sensorLine);
+                switch (sensor.GetSensorSide()) {
+                    case SensorSide.TOP:
+                        aModel.TopSensorLine = sensorLine;
+                        break;
+                    case SensorSide.BOTTOM:
+                        aModel.BottomSensorLine = sensorLine;
+                        break;
+                    case SensorSide.LEFT:
+                        aModel.LeftSensorLine = sensorLine;
+                        break;
+                    case SensorSide.RIGHT:
+                        aModel.RightSensorLine = sensorLine;
+                        break;
+                }
+            }            
+        }
+
+        /// <summary>
+        /// Отфильтровывает только те показания, для которых есть данные датчика положения.
+        /// </summary>
+        /// <param name="sensorValues"></param>
+        private void RemoveFilteredValues(ref ISensorValueInfo[] aSensorValues) {
+            var newSensorValues = new List<ISensorValueInfo>();
+            for (var i = 0; i < aSensorValues.Length; ++i) {
+                if (IsContainPositionByTime(aSensorValues[i].GetTime())) {
+                    newSensorValues.Add(aSensorValues[i]);
+                }
             }
 
-            return lines;
+            aSensorValues = newSensorValues.ToArray();
+        }
+
+        private bool IsContainPositionByTime(long aTime) {
+            for (var i = 0; i < positionValues.Length; ++i) {
+                if (positionValues[i].GetTime() == aTime) {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private Point3D[] BuildLineValues(

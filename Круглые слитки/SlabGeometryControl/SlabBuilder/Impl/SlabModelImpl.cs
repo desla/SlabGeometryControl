@@ -14,9 +14,13 @@ namespace Alvasoft.SlabBuilder.Impl
         /// </summary>
         public Point3D[] CenterLine { get; set; }
 
-        public double[] Diameters { get; set; }               
+        public double[] Diameters { get; set; }
 
-        public Point3D[][] SensorsLines { get; set; }
+        public Point3D[] TopSensorLine;
+        public Point3D[] BottomSensorLine;
+        public Point3D[] LeftSensorLine;
+        public Point3D[] RightSensorLine;
+
 
         public double GetLengthLimit() {
             return LengthLimit;
@@ -80,19 +84,27 @@ namespace Alvasoft.SlabBuilder.Impl
                 model.Diameters[i] = Diameters[i];
             }
 
-            model.SensorsLines = new SlabPoint[SensorsLines.Length][];
-            for (var i = 0; i < SensorsLines.Length; ++i) {
-                model.SensorsLines[i] = new SlabPoint[SensorsLines[i].Length];
-                for (var j = 0; j < SensorsLines[i].Length; ++j) {
-                    model.SensorsLines[i][j] = new SlabPoint {
-                        X = SensorsLines[i][j].X,
-                        Y = SensorsLines[i][j].Y,
-                        Z = SensorsLines[i][j].Z,
-                    };
-                }
-            }
+            var sensorsCount = 4;
+            model.SensorsLines = new SlabPoint[sensorsCount][];
+            model.SensorsLines[0] = BuildSensorLine(TopSensorLine);
+            model.SensorsLines[1] = BuildSensorLine(BottomSensorLine);
+            model.SensorsLines[2] = BuildSensorLine(LeftSensorLine);
+            model.SensorsLines[3] = BuildSensorLine(RightSensorLine);            
 
             return model;
+        }
+
+        private SlabPoint[] BuildSensorLine(Point3D[] aSensorLine) {
+            var sensorLine = new SlabPoint[aSensorLine.Length];
+            for (var i = 0; i < aSensorLine.Length; ++i) {
+                sensorLine[i] = new SlabPoint {
+                    X = aSensorLine[i].X,
+                    Y = aSensorLine[i].Y,
+                    Z = aSensorLine[i].Z,
+                };
+            }
+
+            return sensorLine;
         }
     }
 }

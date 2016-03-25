@@ -74,10 +74,10 @@ namespace Alvasoft.Server
             dataProviderConfiguration = new XmlDataProviderConfigurationImpl("Settings/OpcConfiguration.xml");
             sensorConfiguration = new XmlSensorConfigurationImpl("Settings/SensorConfiguration.xml");
 
-            //dataProvider = new OpcDataProviderImpl();        
-            //calibrator = new CalibratorImpl();
-            dataProvider = new EmulatorDataProvider();
-            calibrator = dataProvider as ICalibrator;
+            dataProvider = new OpcDataProviderImpl();        
+            calibrator = new CalibratorImpl();
+            //dataProvider = new EmulatorDataProvider();
+            //calibrator = dataProvider as ICalibrator;
 
             slabBuilder = new SlabBuilderImpl();
             dimentionCalculator = new DimentionCalculatorImpl();            
@@ -121,7 +121,7 @@ namespace Alvasoft.Server
             slabWriter.Initialize();
             dimentionValueWriter.Initialize();
             dimentionCalculator.Initialize();
-            //calibrator.Initialize();
+            calibrator.Initialize();
             slabBuilder.Initialize();            
             userSlabBuilder.Initialize();            
             dataProvider.Initialize();
