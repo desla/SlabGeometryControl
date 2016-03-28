@@ -213,6 +213,7 @@
     </Content>
     <Content Include="Settings\SensorConfiguration.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Usings\Iesi.Collections.dll" />
     <Content Include="Usings\log4net.dll" />
