@@ -23,22 +23,22 @@ xb = -51.5, // левый датчик.
 xc = -30.0; // нижний датчик.
 
 // максимальный сдвиг датчиков влево и вправо, мм.
-double shiftLimit = 100;
+double shiftLimit = 20;
 
 // шаг сдвига, мм.
-double dx = 0.5;
+double dx = 0.1;
 
 // показания датчиков.
-double va = 332.6389,
-vb = 293.0556,
-vc = 231.9444;
+double va = 333.3333,
+vb = 298.6111,
+vc = 228.4722;
 
 // расстояния между датчиками.
 double dac = 672.133,
 	   dbd = 735.327;
 
 // диаметр болванки.
-double sourceDiameter = 110.35;
+double sourceDiameter = 110.453;
 
 struct point {
 	double x, y;
@@ -95,7 +95,7 @@ int main()
 	}
 
 	printf("Смещения датчиков:\n");
-	printf("A: %.3lf\nB: %.3lf\nC: %.3lf\n", resa, resb, resc);
+	printf("Верхний: %.3lf\nЛевый: %.3lf\nНижний: %.3lf\n", resa, resb, resc);
 	printf("Высчитанный диаметр: %.3lf\n", resDiameter);
 	printf("Исходный диаметр: %.3lf\n", sourceDiameter);
 	printf("Ошибка: %.3lf\n", error);	
