@@ -5,28 +5,28 @@
     <name>Top_0</name>
     <type>proximity</type>
     <side>top</side>
-    <shift>-15,8</shift>
+    <shift>-18,7</shift>
   </sensor>
   <sensor>
     <id>1</id>
     <name>Bottom_0</name>
     <type>proximity</type>
     <side>bottom</side>
-    <shift>-19,4</shift>
+    <shift>-22,4</shift>
   </sensor>
   <sensor>
     <id>2</id>
     <name>Left_0</name>
     <type>proximity</type>
     <side>left</side>
-    <shift>-38,3</shift>
+    <shift>-33,6</shift>
   </sensor>
   <sensor>
     <id>3</id>
     <name>Right_0</name>
     <type>proximity</type>
     <side>right</side>
-    <shift>-62,5</shift>
+    <shift>-63,4</shift>
   </sensor>
   <sensor>
     <id>4</id>
