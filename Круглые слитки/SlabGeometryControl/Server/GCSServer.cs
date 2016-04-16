@@ -436,7 +436,7 @@ namespace Alvasoft.Server
             };
         }
 
-        public SlabModel3D GetSlabModel3DBySlabId(int aSlabId)
+        public SlabModel3D GetSlabModel3DBySlabId(int aSlabId, bool aIsUseFilters)
         {
             try {
                 var sensorsCount = sensorConfiguration.GetSensorInfoCount();
@@ -450,7 +450,7 @@ namespace Alvasoft.Server
                     }
                 }
 
-                var slab = userSlabBuilder.BuildSlabModel();
+                var slab = userSlabBuilder.BuildSlabModel(aIsUseFilters);
                 return slab.ToSlabModel();
             }
             catch (Exception ex) {

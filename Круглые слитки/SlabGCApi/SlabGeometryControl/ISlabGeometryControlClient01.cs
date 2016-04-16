@@ -117,9 +117,10 @@
         /// </summary>
         /// <param name="aSessionId">Идентификатор сессии клиента.</param>
         /// <param name="aSlabId">Идентификатор слитка.</param>
+        /// <param name="aIsUseFilters">Показывает использовать или нет фильтры.</param>
         /// <returns>Все точки поверхности слитка.</returns>
         [OperationContract]
-        SlabModel3D GetSlabModel3DBySlabId(long aSessionId, int aSlabId);
+        SlabModel3D GetSlabModel3DBySlabId(long aSessionId, int aSlabId, bool aIsUseFilters);
 
         /// <summary>
         /// Возвращает показания датчика при замере слитка.

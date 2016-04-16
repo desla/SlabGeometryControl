@@ -5,7 +5,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Alvasoft.SlabGeometryControl;
-using SGCUserInterface.Filters;
 using SGCUserInterface.SlabVisualizationFormPrimitivs;
 using SGCUserInterface.SlabVisualizationFormPrimitivs.Panels;
 using Tao.FreeGlut;
@@ -51,7 +50,7 @@ namespace SGCUserInterface
         /// </summary>
         private DeviationsPlotsPanel deviationsPanel;
 
-        private bool isUseFilter;
+        private bool isUseFilters;
 
         public SlabVisualizationForm(int aSlabId, int aStandartSizeId, SGCClientImpl aClient, bool aIsUseFilter)
         {
@@ -60,7 +59,7 @@ namespace SGCUserInterface
             client = aClient;
             slabId = aSlabId;
             standartSizeId = aStandartSizeId;
-            isUseFilter = aIsUseFilter;
+            isUseFilters = aIsUseFilter;
 
             loader.DoWork += LoadSensorsValues;
             loader.RunWorkerCompleted += LoadCompleted;
@@ -78,10 +77,7 @@ namespace SGCUserInterface
         private void LoadCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             try {
-                if (!isErrorLoading) {
-                    if (isUseFilter) {
-                        Filtered(slabModel);
-                    }                    
+                if (!isErrorLoading) {                                    
                     // графики показания датчиков.
                     sensorsPlots.DrawPlots(points, sensors);
                     sensorsPlots.ShowAllPlots(isAllPlotShowCheckedBox.Checked);
@@ -113,33 +109,7 @@ namespace SGCUserInterface
                     Controls[i].Show();
                 }
             }            
-        }
-
-        private void Filtered(SlabModel3D aSlabModel)
-        {
-            if (aSlabModel == null) {
-                return;
-            }
-
-            //try {
-            //    PickFilter.Filter(aSlabModel);
-            //}
-            //catch {
-            //    MessageBox.Show(@"Возникла ошибка в фильтре пиков.");
-            //}
-            //try {
-            //    BumpFilter.Filter(aSlabModel);
-            //}
-            //catch {
-            //    MessageBox.Show(@"Возникла ошибка в фильтре подпрыгиваний.");
-            //}
-            //try {
-            //    AverageFilter.Filter(aSlabModel);
-            //}
-            //catch {
-            //    MessageBox.Show(@"Возникла ошибка в фильтре средних.");
-            //}            
-        }
+        }        
 
         private void InitializeSlabModelPanel()
         {
@@ -179,7 +149,7 @@ namespace SGCUserInterface
                         }
                         loader.ReportProgress((i + 1)*sensorPercens);
                     }
-                    slabModel = client.GetSlabModel3DBySlabId(slabId);
+                    slabModel = client.GetSlabModel3DBySlabId(slabId, isUseFilters);
                     loader.ReportProgress(95);
                     systemDimentions = client.GetDimentions();
                     slabDimentionsResults = client.GetDimentionResultsBySlabId(slabId);

@@ -83,6 +83,7 @@ namespace SGCUserInterface
             this.ScanTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Accepted = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.standartSizeId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.выклФильтрToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -113,9 +114,10 @@ namespace SGCUserInterface
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.просмотрToolStripMenuItem,
-            this.отчетПоСлиткуToolStripMenuItem});
+            this.отчетПоСлиткуToolStripMenuItem,
+            this.выклФильтрToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(160, 48);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(160, 92);
             // 
             // просмотрToolStripMenuItem
             // 
@@ -570,6 +572,13 @@ namespace SGCUserInterface
             this.standartSizeId.ReadOnly = true;
             this.standartSizeId.Visible = false;
             // 
+            // выклФильтрToolStripMenuItem
+            // 
+            this.выклФильтрToolStripMenuItem.Name = "выклФильтрToolStripMenuItem";
+            this.выклФильтрToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.выклФильтрToolStripMenuItem.Text = "Выкл.Фильтр ";
+            this.выклФильтрToolStripMenuItem.Click += new System.EventHandler(this.выклФильтрToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -659,6 +668,7 @@ namespace SGCUserInterface
         private System.Windows.Forms.DataGridViewTextBoxColumn ScanTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn Accepted;
         private System.Windows.Forms.DataGridViewTextBoxColumn standartSizeId;
+        private System.Windows.Forms.ToolStripMenuItem выклФильтрToolStripMenuItem;
     }
 }
 

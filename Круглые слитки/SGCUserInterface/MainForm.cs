@@ -540,7 +540,7 @@ namespace SGCUserInterface
                 var slabId = Convert.ToInt32(row.Cells["Id"].Value);
                 var standartSizeId = Convert.ToInt32(row.Cells["standartSizeId"].Value);
                 ThreadPool.QueueUserWorkItem(state => 
-                    new SlabVisualizationForm(slabId, standartSizeId, client, false).ShowDialog());                
+                    new SlabVisualizationForm(slabId, standartSizeId, client, true).ShowDialog());                
             }
         }        
 
@@ -603,6 +603,22 @@ namespace SGCUserInterface
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e) {             
+        }
+
+        private void выклФильтрToolStripMenuItem_Click(object sender, EventArgs e) {
+            AddLogInfo("GUI", "Просмотр данных слитка.");
+            var rowIndex = -1;
+            if (dataGridView1.SelectedCells.Count > 0) {
+                rowIndex = dataGridView1.SelectedCells[0].RowIndex;
+            }
+
+            if (rowIndex != -1) {
+                var row = dataGridView1.Rows[rowIndex];
+                var slabId = Convert.ToInt32(row.Cells["Id"].Value);
+                var standartSizeId = Convert.ToInt32(row.Cells["standartSizeId"].Value);
+                ThreadPool.QueueUserWorkItem(state =>
+                    new SlabVisualizationForm(slabId, standartSizeId, client, false).ShowDialog());
+            }
         }
     }
 }

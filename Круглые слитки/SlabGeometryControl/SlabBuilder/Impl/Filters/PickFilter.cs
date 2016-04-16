@@ -6,13 +6,18 @@ namespace Alvasoft.SlabBuilder.Impl.Filters
     public class PickFilter
     {
         public static void Filter(SlabModelImpl aSlab)
-        {
+        {            
             if (aSlab == null) {
                 return;
             }
+            
+            FilterTopView(ref aSlab.LeftSensorLine);
+            FilterTopView(ref aSlab.RightSensorLine);
+            FilterLeftView(ref aSlab.TopSensorLine);
+            FilterLeftView(ref aSlab.BottomSensorLine);
         }
 
-        private static void FilterTopView(Point3D[] aLine)
+        private static void FilterTopView(ref Point3D[] aLine)
         {
             if (aLine == null) {
                 return;
@@ -28,7 +33,7 @@ namespace Alvasoft.SlabBuilder.Impl.Filters
             }
         }
 
-        private static void FilterLeftView(Point3D[] aLine)
+        private static void FilterLeftView(ref Point3D[] aLine)
         {
             if (aLine == null) {
                 return;

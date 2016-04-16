@@ -63,7 +63,7 @@ namespace Alvasoft.SlabBuilder.Impl
             calibrator = aCalibrator;
         }
 
-        public ISlabModel BuildSlabModel()
+        public ISlabModel BuildSlabModel(bool aIsUseFilters = true)
         {
             if (container == null || container.IsEmpty()) {
                 throw new ArgumentException("Контейнер не содержит данных для построения модели слитка.");
@@ -80,9 +80,12 @@ namespace Alvasoft.SlabBuilder.Impl
             BuildSurfacePoints(slab);
 
             SplashFilter.Filter(slab);
-            //PickFilter.Filter(slab);
-            //BumpFilter.Filter(slab);
-            //AverageFilter.Filter(slab);
+
+            if (aIsUseFilters) {                
+                PickFilter.Filter(slab);
+                //BumpFilter.Filter(slab);
+                //AverageFilter.Filter(slab);
+            }
 
             BuildCenters(slab);
             BuildLimits(slab);
