@@ -82,13 +82,16 @@ namespace Alvasoft.SlabBuilder.Impl
             SplashFilter.Filter(slab);
 
             if (aIsUseFilters) {                
-                PickFilter.Filter(slab);
-                //BumpFilter.Filter(slab);
-                //AverageFilter.Filter(slab);
+                PickFilter.Filter(slab);                                
             }
 
             BuildCenters(slab);
             BuildLimits(slab);
+
+            if (aIsUseFilters) {
+                BumpFilter.Filter(slab);
+                AverageFilter.Filter(slab);
+            }
 
             return slab;
         }

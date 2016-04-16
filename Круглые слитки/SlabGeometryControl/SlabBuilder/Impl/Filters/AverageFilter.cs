@@ -1,137 +1,70 @@
 ﻿using System;
-using System.Collections.Generic;
 using Alvasoft.Utils.Mathematic3D;
 
-namespace Alvasoft.SlabBuilder.Impl.Filters
-{
+namespace Alvasoft.SlabBuilder.Impl.Filters {
     public class AverageFilter
     {
-        private const int WINDOW_SIZE = 10; // размер окна для вычисления среднего.
-        private const double MIN_SPEED = 0.5; // минимальное значение производной.
+        private const int WINDOW_SIZE = 50; // размер окна для вычисления среднего.        
 
         public static void Filter(SlabModelImpl aSlab)
         {
             if (aSlab == null) {
                 return;
-            }            
-        }
-
-        private static int[] FindHorizontalSegments(Point3D[] aLine)
-        {
-            var segments = new List<int>();
-            for (var i = 0; i < aLine.Length; ++i) {
-                var difLeft = false;
-                var difRight = false;
-                if (i == 0 || Math.Abs(DxDivDz(aLine[i], aLine[i - 1])) >= MIN_SPEED) {
-                    difLeft = true;
-                }
-
-                if (i == aLine.Length - 1 || Math.Abs(DxDivDz(aLine[i], aLine[i + 1])) >= MIN_SPEED) {
-                    difRight = true;
-                }
-
-                if (difRight ^ difLeft) {
-                    segments.Add(i);
-                }
             }
 
-            return segments.ToArray();
-        }
-
-        private static void FilterHorizontLine(Point3D[] aLine, int[] aSegments)
-        {
-            if (aLine == null) {
-                return;
+            if (aSlab.Diameters != null) {
+                FilterDiameters(aSlab.Diameters);
             }
 
-            for (var s = 0; s < aSegments.Length / 2; ++s) {
-                var from = aSegments[s * 2];
-                var to = aSegments[s * 2 + 1];
-                if (to - from >= WINDOW_SIZE * 2 + 1) {
-                    var averages = new double[to - from + 1];
-                    var index = 0;
-                    for (var i = from; i <= to; ++i) {
-                        var summed = 0.0;
-                        var count = 0;
-                        for (var j = i - WINDOW_SIZE; j <= i + WINDOW_SIZE; ++j) {
-                            if (j >= 0 && j < aLine.Length && j >= from && j <= to) {
-                                summed += aLine[j].X;
-                                count++;
-                            }
-                        }
-                        averages[index++] = summed / count;
-                    }
+            if (aSlab.CenterLine != null) {
+                FilterCenters(aSlab.CenterLine);
+            }
+        }
 
-                    index = 0;
-                    for (var i = from; i <= to; ++i) {
-                        aLine[i].X = averages[index++];
+        private static void FilterCenters(Point3D[] aCenterLine) {
+            var newCenters = new Point3D[aCenterLine.Length];
+            for (var i = 0; i < aCenterLine.Length; ++i) {
+                var sumX = 0.0;
+                var sumY = 0.0;
+                var pointCount = 0;
+                for (var j = i - WINDOW_SIZE; j <= i + WINDOW_SIZE; ++j) {
+                    if (j >= 0 && j < aCenterLine.Length) {
+                        sumX += aCenterLine[j].X;
+                        sumY += aCenterLine[j].Y;
+                        pointCount++;
                     }
                 }
+
+                newCenters[i] = new Point3D {
+                    X = sumX / pointCount,
+                    Y = sumY / pointCount
+                };
+            }
+
+            for (var i = 0; i < aCenterLine.Length; ++i) {
+                aCenterLine[i].X = newCenters[i].X;
+                aCenterLine[i].Y = newCenters[i].Y;
             }
         }
 
-        private static int[] FindVerticalSegments(Point3D[] aLine)
-        {
-            var segments = new List<int>();
-            for (var i = 0; i < aLine.Length; ++i) {
-                var difLeft = false;
-                var difRight = false;
-                if (i == 0 || Math.Abs(DyDivDz(aLine[i], aLine[i - 1])) >= MIN_SPEED) {
-                    difLeft = true;
-                }
-
-                if (i == aLine.Length - 1 || Math.Abs(DyDivDz(aLine[i], aLine[i + 1])) >= MIN_SPEED) {
-                    difRight = true;
-                }
-
-                if (difRight ^ difLeft) {
-                    segments.Add(i);
-                }
-            }
-
-            return segments.ToArray();
-        }
-
-        private static double DyDivDz(Point3D aPointA, Point3D aPointB)
-        {
-            return (aPointA.Y - aPointB.Y)/(aPointA.Z - aPointB.Z);
-        }
-
-        private static double DxDivDz(Point3D aPointA, Point3D aPointB)
-        {
-            return (aPointA.X - aPointB.X) / (aPointA.Z - aPointB.Z);
-        }
-
-        private static void FilterVerticalLine(Point3D[] aLine, int[] aSegments)
-        {
-            if (aLine == null) {
-                return;
-            }
-
-            for (var s = 0; s < aSegments.Length/2; ++s) {
-                var from = aSegments[s*2];
-                var to = aSegments[s*2 + 1];
-                if (to - from >= WINDOW_SIZE*2 + 1) {
-                    var averages = new double[to - from + 1];
-                    var index = 0;
-                    for (var i = from; i <= to; ++i) {
-                        var summed = 0.0;
-                        var count = 0;
-                        for (var j = i - WINDOW_SIZE; j <= i + WINDOW_SIZE; ++j) {
-                            if (j >= 0 && j < aLine.Length && j >= from && j <= to) {
-                                summed += aLine[j].Y;
-                                count++;
-                            }
-                        }
-                        averages[index++] = summed / count;
+        private static void FilterDiameters(double[] aDiameters) {
+            var newDiameters = new double[aDiameters.Length];
+            for (var i = 0; i < aDiameters.Length; ++i) {
+                var sumDiameter = 0.0;
+                var pointCount = 0;
+                for (var j = i - WINDOW_SIZE; j <= i + WINDOW_SIZE; ++j) {
+                    if (j >= 0 && j < aDiameters.Length) {
+                        sumDiameter += aDiameters[j];
+                        pointCount++;
                     }
+                }
 
-                    index = 0;
-                    for (var i = from; i <= to; ++i) {
-                        aLine[i].Y = averages[index++];
-                    }
-                }                
-            }            
+                newDiameters[i] = sumDiameter / pointCount;
+            }
+
+            for (var i = 0; i < aDiameters.Length; ++i) {
+                aDiameters[i] = newDiameters[i];
+            }
         }
     }
 }
