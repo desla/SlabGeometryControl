@@ -114,6 +114,8 @@
     <Compile Include="DataWriter\SensorValueImpl.cs" />
     <Compile Include="DataWriter\SlabInfoImpl.cs" />
     <Compile Include="DataWriter\StandartSizeImpl.cs" />
+    <Compile Include="DimentionCalculator\Impl\Algorithms\BackMiddleDiameterAlgorithm.cs" />
+    <Compile Include="DimentionCalculator\Impl\Algorithms\FrontMiddleDiameterAlgorithm.cs" />
     <Compile Include="DimentionCalculator\Impl\Algorithms\MiddleDiameterAlgorithm.cs" />
     <Compile Include="DimentionCalculator\Impl\Algorithms\FrontDiameterAlgorithm.cs" />
     <Compile Include="DimentionCalculator\Impl\Algorithms\BackDiameterAlgorithm.cs" />
