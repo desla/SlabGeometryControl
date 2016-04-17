@@ -1,0 +1,8 @@
+D:\repositories\SlabGeometryControl\Круглые слитки\RoundSlabEmulator\RoundSlabEmulator\bin\Debug\RoundSlabEmulator.dll
+D:\repositories\SlabGeometryControl\Круглые слитки\RoundSlabEmulator\RoundSlabEmulator\bin\Debug\RoundSlabEmulator.pdb
+D:\repositories\SlabGeometryControl\Круглые слитки\RoundSlabEmulator\RoundSlabEmulator\obj\Debug\RoundSlabEmulator.dll
+D:\repositories\SlabGeometryControl\Круглые слитки\RoundSlabEmulator\RoundSlabEmulator\obj\Debug\RoundSlabEmulator.pdb
+D:\repositories\SlabGeometryControl\Круглые слитки\RoundSlabEmulator\RoundSlabEmulator\bin\Debug\nunit.core.dll
+D:\repositories\SlabGeometryControl\Круглые слитки\RoundSlabEmulator\RoundSlabEmulator\bin\Debug\nunit.core.interfaces.dll
+D:\repositories\SlabGeometryControl\Круглые слитки\RoundSlabEmulator\RoundSlabEmulator\bin\Debug\nunit.util.dll
+D:\repositories\SlabGeometryControl\Круглые слитки\RoundSlabEmulator\RoundSlabEmulator\obj\Debug\RoundSlabEmulator.csprojResolveAssemblyReference.cache

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sensors>
+  <sensor>
+    <name>Top0</name>
+    <type>proximity</type>
+    <side>top</side>
+    <shift>123,4</shift>
+  </sensor>
+  <sensor>
+    <name>Top-300</name>
+    <type>proximity</type>
+    <side>top</side>
+    <shift>-300,0</shift>
+  </sensor>
+  <sensor>
+    <name>Position</name>
+    <type>position</type>
+    <side>top</side>
+    <shift>0,0</shift>
+  </sensor>
+</sensors>

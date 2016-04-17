@@ -1,0 +1,7 @@
+D:\repositories\SlabGeometryControl\Круглые слитки\SlabGCApi\bin\Debug\RSlabGCApi.dll
+D:\repositories\SlabGeometryControl\Круглые слитки\SlabGCApi\bin\Debug\RSlabGCApi.pdb
+D:\repositories\SlabGeometryControl\Круглые слитки\SlabGCApi\bin\Debug\AlvasoftWcfClient.dll
+D:\repositories\SlabGeometryControl\Круглые слитки\SlabGCApi\bin\Debug\log4net.dll
+D:\repositories\SlabGeometryControl\Круглые слитки\SlabGCApi\bin\Debug\AlvasoftWcfClient.pdb
+D:\repositories\SlabGeometryControl\Круглые слитки\SlabGCApi\obj\Debug\RSlabGCApi.dll
+D:\repositories\SlabGeometryControl\Круглые слитки\SlabGCApi\obj\Debug\RSlabGCApi.pdb

@@ -1,0 +1,7 @@
+D:\repositories\SlabGeometryControl\Круглые слитки\Wcf\AlvasoftWcf\AlvasoftWcfServer\bin\Debug\AlvasoftWcfServer.dll
+D:\repositories\SlabGeometryControl\Круглые слитки\Wcf\AlvasoftWcf\AlvasoftWcfServer\bin\Debug\AlvasoftWcfServer.pdb
+D:\repositories\SlabGeometryControl\Круглые слитки\Wcf\AlvasoftWcf\AlvasoftWcfServer\bin\Debug\AlvasoftWcfClient.dll
+D:\repositories\SlabGeometryControl\Круглые слитки\Wcf\AlvasoftWcf\AlvasoftWcfServer\bin\Debug\AlvasoftWcfClient.pdb
+D:\repositories\SlabGeometryControl\Круглые слитки\Wcf\AlvasoftWcf\AlvasoftWcfServer\obj\Debug\AlvasoftWcfServer.csprojResolveAssemblyReference.cache
+D:\repositories\SlabGeometryControl\Круглые слитки\Wcf\AlvasoftWcf\AlvasoftWcfServer\obj\Debug\AlvasoftWcfServer.dll
+D:\repositories\SlabGeometryControl\Круглые слитки\Wcf\AlvasoftWcf\AlvasoftWcfServer\obj\Debug\AlvasoftWcfServer.pdb

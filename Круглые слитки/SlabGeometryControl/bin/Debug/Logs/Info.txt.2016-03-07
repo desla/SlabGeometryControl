@@ -1,0 +1,1077 @@
+2016-03-07 12:18:11,115 [Server] INFO  - Инициализация...
+2016-03-07 12:18:11,935 [XmlDataProviderConfigurationImpl] INFO  - Инициализация...
+2016-03-07 12:18:11,945 [XmlDataProviderConfigurationImpl] INFO  - Загрузка конфигурации из Xml...
+2016-03-07 12:18:11,945 [XmlDataProviderConfigurationImpl] INFO  - Загрузка конфигурации из Xml завершена.
+2016-03-07 12:18:11,945 [XmlDataProviderConfigurationImpl] INFO  - Инициализация завершена.
+2016-03-07 12:18:11,945 [XmlSensorConfigurationImpl] INFO  - Инициализация...
+2016-03-07 12:18:11,955 [XmlSensorConfigurationImpl] INFO  - Загрузка конфигурации из Xml...
+2016-03-07 12:18:11,955 [XmlSensorConfigurationImpl] INFO  - Загрузка конфигурации из Xml завершена.
+2016-03-07 12:18:11,955 [XmlSensorConfigurationImpl] INFO  - Инциализация завершена.
+2016-03-07 12:18:11,955 [DimentionCalculatorImpl] INFO  - Инициализация...
+2016-03-07 12:18:11,955 [DimentionCalculatorImpl] INFO  - Инициализация завершена.
+2016-03-07 12:18:11,955 [Server] INFO  - Инициализация завершена.
+2016-03-07 12:18:11,955 [GCSController] INFO  - Запуск сервиса...
+2016-03-07 12:18:12,275 [GCSController] INFO  - Сервис запущен.
+2016-03-07 12:18:17,845 [GCSController] INFO  - Подключение нового клиента...
+2016-03-07 12:18:17,845 [GCSController] INFO  - Новый клиент подключе. Сессия: 1
+2016-03-07 12:18:17,915 [GCSController] DEBUG - Сессия: 1 Запрос GetDimentions
+2016-03-07 12:18:18,935 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:18:18,935 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:18:18,945 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:18:19,955 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:18:19,955 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:18:19,955 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:18:19,955 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(07.03.2016 0:00:00, 08.03.2016 0:00:00)
+2016-03-07 12:18:20,005 [GCSController] DEBUG - Слитков найдено: 0
+2016-03-07 12:18:20,005 [GCSController] DEBUG - Сессия: 1 Запрос GetStandartSizes
+2016-03-07 12:18:20,015 [GCSController] DEBUG - Сессия: 1 Запрос GetRegulations
+2016-03-07 12:18:20,965 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:18:20,965 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:18:20,965 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:18:21,945 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(07.03.2016 0:00:00, 08.03.2016 0:00:00)
+2016-03-07 12:18:21,955 [GCSController] DEBUG - Слитков найдено: 0
+2016-03-07 12:18:21,985 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:18:21,985 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:18:21,985 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:18:22,995 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:18:22,995 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:18:22,995 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:18:23,965 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(07.03.2016 0:00:00, 08.03.2016 0:00:00)
+2016-03-07 12:18:23,975 [GCSController] DEBUG - Слитков найдено: 0
+2016-03-07 12:18:24,005 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:18:24,005 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:18:24,005 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:18:25,025 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:18:25,025 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:18:25,025 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:18:25,975 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:18:25,985 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:18:26,005 [GCSController] DEBUG - Сессия: 1 Запрос GetDimentionResultsBySlabId(1885)
+2016-03-07 12:18:26,065 [GCSController] DEBUG - Сессия: 1 Запрос GetDimentionResultsBySlabId(1885)
+2016-03-07 12:18:26,065 [GCSController] DEBUG - Сессия: 1 Запрос GetDimentionResultsBySlabId(1885)
+2016-03-07 12:18:26,115 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:18:26,115 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:18:26,115 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:18:26,125 [GCSController] DEBUG - Сессия: 1 Запрос GetDimentionResultsBySlabId(1886)
+2016-03-07 12:18:26,135 [GCSController] DEBUG - Сессия: 1 Запрос GetDimentionResultsBySlabId(1886)
+2016-03-07 12:18:26,155 [GCSController] DEBUG - Сессия: 1 Запрос GetDimentionResultsBySlabId(1887)
+2016-03-07 12:18:26,165 [GCSController] DEBUG - Сессия: 1 Запрос GetDimentionResultsBySlabId(1887)
+2016-03-07 12:18:26,175 [GCSController] DEBUG - Сессия: 1 Запрос GetDimentionResultsBySlabId(1888)
+2016-03-07 12:18:26,195 [GCSController] DEBUG - Сессия: 1 Запрос GetDimentionResultsBySlabId(1888)
+2016-03-07 12:18:26,205 [GCSController] DEBUG - Сессия: 1 Запрос GetDimentionResultsBySlabId(1889)
+2016-03-07 12:18:26,215 [GCSController] DEBUG - Сессия: 1 Запрос GetDimentionResultsBySlabId(1889)
+2016-03-07 12:18:26,235 [GCSController] DEBUG - Сессия: 1 Запрос GetDimentionResultsBySlabId(1890)
+2016-03-07 12:18:26,245 [GCSController] DEBUG - Сессия: 1 Запрос GetDimentionResultsBySlabId(1890)
+2016-03-07 12:18:26,265 [GCSController] DEBUG - Сессия: 1 Запрос GetDimentionResultsBySlabId(1891)
+2016-03-07 12:18:26,275 [GCSController] DEBUG - Сессия: 1 Запрос GetDimentionResultsBySlabId(1891)
+2016-03-07 12:18:27,055 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:18:27,055 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:18:27,055 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:18:27,075 [GCSController] DEBUG - Сессия: 1 Запрос GetDimentionResultsBySlabId(1891)
+2016-03-07 12:18:27,985 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:18:27,995 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:18:28,065 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:18:28,065 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:18:28,065 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:18:29,075 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:18:29,075 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:18:29,076 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:18:29,078 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorInfos
+2016-03-07 12:18:29,085 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorValuesBySlabId(1891, 0)
+2016-03-07 12:18:29,104 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorValuesBySlabId(1891, 1)
+2016-03-07 12:18:29,115 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorValuesBySlabId(1891, 2)
+2016-03-07 12:18:29,125 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorValuesBySlabId(1891, 3)
+2016-03-07 12:18:29,135 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorValuesBySlabId(1891, 4)
+2016-03-07 12:18:29,145 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabPointsBySlabId(1891)
+2016-03-07 12:18:29,190 [SensorValueContainerImpl] INFO  - Удаление накопленных значений из памяти...
+2016-03-07 12:18:29,190 [SensorValueContainerImpl] INFO  - Удаление значений выполнено.
+2016-03-07 12:18:29,198 [GCSController] DEBUG - Сессия: 1 Запрос GetDimentions
+2016-03-07 12:18:29,198 [GCSController] DEBUG - Сессия: 1 Запрос GetDimentionResultsBySlabId(1891)
+2016-03-07 12:18:29,209 [GCSController] DEBUG - Сессия: 1 Запрос GetRegulations
+2016-03-07 12:18:29,997 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:18:30,010 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:18:30,089 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:18:30,090 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:18:30,091 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:18:31,102 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:18:31,102 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:18:31,103 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:18:32,007 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:18:32,020 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:18:32,116 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:18:32,117 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:18:32,118 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:18:33,130 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:18:33,131 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:18:33,132 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:18:34,022 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:18:34,035 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:18:34,144 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:18:34,145 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:18:34,146 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:18:35,158 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:18:35,159 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:18:35,160 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:18:36,033 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:18:36,049 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:18:36,172 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:18:36,172 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:18:36,173 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:18:37,186 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:18:37,187 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:18:37,188 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:18:38,044 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:18:38,058 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:18:38,200 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:18:38,201 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:18:38,202 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:18:39,214 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:18:39,215 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:18:39,216 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:18:40,057 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:18:40,071 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:18:40,228 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:18:40,229 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:18:40,230 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:18:41,243 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:18:41,243 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:18:41,244 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:18:42,072 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:18:42,086 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:18:42,256 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:18:42,257 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:18:42,258 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:18:43,270 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:18:43,271 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:18:43,272 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:18:44,082 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:18:44,096 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:18:44,285 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:18:44,286 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:18:44,287 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:18:45,299 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:18:45,300 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:18:45,301 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:18:46,095 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:18:46,109 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:18:46,313 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:18:46,314 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:18:46,315 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:18:47,327 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:18:47,328 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:18:47,329 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:18:48,109 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:18:48,123 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:18:48,341 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:18:48,342 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:18:48,343 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:18:49,355 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:18:49,356 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:18:49,357 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:18:50,121 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:18:50,135 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:18:50,368 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:18:50,369 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:18:50,370 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:18:51,382 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:18:51,383 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:18:51,384 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:18:52,133 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:18:52,146 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:18:52,396 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:18:52,397 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:18:52,398 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:18:53,410 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:18:53,411 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:18:53,412 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:18:54,145 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:18:54,158 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:18:54,424 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:18:54,425 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:18:54,426 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:18:55,438 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:18:55,439 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:18:55,439 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:18:56,157 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:18:56,171 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:18:56,453 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:18:56,453 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:18:56,454 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:18:57,466 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:18:57,467 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:18:57,468 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:18:58,170 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:18:58,183 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:18:58,480 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:18:58,481 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:18:58,482 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:18:59,494 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:18:59,495 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:18:59,496 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:19:00,181 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:19:00,195 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:19:00,508 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:19:00,509 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:19:00,510 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:19:01,523 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:19:01,524 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:19:01,525 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:19:02,195 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:19:02,368 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:19:02,537 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:19:02,538 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:19:02,539 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:19:03,551 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:19:03,552 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:19:03,553 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:19:04,206 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:19:04,219 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:19:04,565 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:19:04,566 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:19:04,567 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:19:05,579 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:19:05,580 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:19:05,581 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:19:06,218 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:19:06,232 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:19:06,593 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:19:06,594 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:19:06,595 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:19:07,607 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:19:07,608 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:19:07,608 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:19:08,231 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:19:08,244 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:19:08,621 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:19:08,622 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:19:08,622 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:19:09,635 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:19:09,636 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:19:09,637 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:19:10,245 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:19:10,258 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:19:10,648 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:19:10,649 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:19:10,650 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:19:11,663 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:19:11,663 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:19:11,664 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:19:12,256 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:19:12,274 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:19:12,676 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:19:12,677 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:19:12,678 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:19:13,690 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:19:13,691 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:19:13,692 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:19:14,267 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:19:14,281 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:19:14,704 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:19:14,705 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:19:14,706 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:19:15,718 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:19:15,719 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:19:15,720 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:19:16,281 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:19:16,295 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:19:16,732 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:19:16,733 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:19:16,734 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:19:17,746 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:19:17,747 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:19:17,748 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:19:18,294 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:19:18,308 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:19:18,761 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:19:18,762 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:19:18,763 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:19:19,775 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:19:19,776 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:19:19,777 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:19:20,307 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:19:20,320 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:19:20,789 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:19:20,790 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:19:20,791 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:19:21,803 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:19:21,804 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:19:21,805 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:19:22,318 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:19:22,377 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:19:22,817 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:19:22,818 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:19:22,819 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:19:23,831 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:19:23,832 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:19:23,833 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:19:24,332 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:19:24,345 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:19:24,845 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:19:24,846 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:19:24,847 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:19:25,859 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:19:25,860 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:19:25,861 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:19:26,342 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:19:26,355 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:19:26,874 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:19:26,874 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:19:26,875 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:19:27,887 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:19:27,888 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:19:27,889 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:19:28,357 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:19:28,370 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:19:28,901 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:19:28,902 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:19:28,903 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:19:29,915 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:19:29,916 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:19:29,917 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:19:30,368 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:19:30,381 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:19:30,929 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:19:30,930 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:19:30,931 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:19:31,943 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:19:31,944 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:19:31,945 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:19:32,379 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:19:32,392 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:19:32,956 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:19:32,957 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:19:32,958 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:19:33,971 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:19:33,972 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:19:33,973 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:19:34,391 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:19:34,404 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:19:34,985 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:19:34,986 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:19:34,987 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:19:35,999 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:19:36,000 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:19:36,001 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:19:36,407 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:19:36,420 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:19:37,014 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:19:37,015 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:19:37,016 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:19:38,028 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:19:38,029 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:19:38,030 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:19:38,419 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:19:38,432 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:19:39,042 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:19:39,043 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:19:39,044 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:19:40,056 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:19:40,057 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:19:40,057 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:19:40,431 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:19:40,444 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:19:41,069 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:19:41,070 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:19:41,071 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:19:42,183 [GCSController] INFO  - Обрыв связи с клиентом. Сессия: 1...
+2016-03-07 12:27:41,261 [GCSController] INFO  - Подключение нового клиента...
+2016-03-07 12:27:41,261 [GCSController] INFO  - Новый клиент подключе. Сессия: 2
+2016-03-07 12:27:41,301 [GCSController] DEBUG - Сессия: 2 Запрос GetDimentions
+2016-03-07 12:27:42,321 [GCSController] DEBUG - Сессия: 2 Запрос GetConnectionState
+2016-03-07 12:27:42,321 [GCSController] DEBUG - Сессия: 2 Запрос GetSGCSystemState
+2016-03-07 12:27:42,321 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorsCount
+2016-03-07 12:27:43,321 [GCSController] DEBUG - Сессия: 2 Запрос GetSlabInfosByTimeInterval(07.03.2016 0:00:00, 08.03.2016 0:00:00)
+2016-03-07 12:27:43,331 [GCSController] DEBUG - Сессия: 2 Запрос GetConnectionState
+2016-03-07 12:27:43,331 [GCSController] DEBUG - Сессия: 2 Запрос GetSGCSystemState
+2016-03-07 12:27:43,331 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorsCount
+2016-03-07 12:27:43,331 [GCSController] DEBUG - Слитков найдено: 0
+2016-03-07 12:27:43,341 [GCSController] DEBUG - Сессия: 2 Запрос GetStandartSizes
+2016-03-07 12:27:43,361 [GCSController] DEBUG - Сессия: 2 Запрос GetRegulations
+2016-03-07 12:27:44,351 [GCSController] DEBUG - Сессия: 2 Запрос GetConnectionState
+2016-03-07 12:27:44,351 [GCSController] DEBUG - Сессия: 2 Запрос GetSGCSystemState
+2016-03-07 12:27:44,351 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorsCount
+2016-03-07 12:27:45,334 [GCSController] DEBUG - Сессия: 2 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:27:45,344 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:27:45,354 [GCSController] DEBUG - Сессия: 2 Запрос GetDimentionResultsBySlabId(1885)
+2016-03-07 12:27:45,384 [GCSController] DEBUG - Сессия: 2 Запрос GetDimentionResultsBySlabId(1885)
+2016-03-07 12:27:45,384 [GCSController] DEBUG - Сессия: 2 Запрос GetDimentionResultsBySlabId(1885)
+2016-03-07 12:27:45,404 [GCSController] DEBUG - Сессия: 2 Запрос GetConnectionState
+2016-03-07 12:27:45,404 [GCSController] DEBUG - Сессия: 2 Запрос GetSGCSystemState
+2016-03-07 12:27:45,404 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorsCount
+2016-03-07 12:27:45,414 [GCSController] DEBUG - Сессия: 2 Запрос GetDimentionResultsBySlabId(1886)
+2016-03-07 12:27:45,424 [GCSController] DEBUG - Сессия: 2 Запрос GetDimentionResultsBySlabId(1886)
+2016-03-07 12:27:45,434 [GCSController] DEBUG - Сессия: 2 Запрос GetDimentionResultsBySlabId(1887)
+2016-03-07 12:27:45,454 [GCSController] DEBUG - Сессия: 2 Запрос GetDimentionResultsBySlabId(1887)
+2016-03-07 12:27:45,474 [GCSController] DEBUG - Сессия: 2 Запрос GetDimentionResultsBySlabId(1888)
+2016-03-07 12:27:45,498 [GCSController] DEBUG - Сессия: 2 Запрос GetDimentionResultsBySlabId(1888)
+2016-03-07 12:27:45,512 [GCSController] DEBUG - Сессия: 2 Запрос GetDimentionResultsBySlabId(1889)
+2016-03-07 12:27:45,532 [GCSController] DEBUG - Сессия: 2 Запрос GetDimentionResultsBySlabId(1889)
+2016-03-07 12:27:45,550 [GCSController] DEBUG - Сессия: 2 Запрос GetDimentionResultsBySlabId(1890)
+2016-03-07 12:27:45,562 [GCSController] DEBUG - Сессия: 2 Запрос GetDimentionResultsBySlabId(1890)
+2016-03-07 12:27:45,575 [GCSController] DEBUG - Сессия: 2 Запрос GetDimentionResultsBySlabId(1891)
+2016-03-07 12:27:45,585 [GCSController] DEBUG - Сессия: 2 Запрос GetDimentionResultsBySlabId(1891)
+2016-03-07 12:27:46,299 [GCSController] DEBUG - Сессия: 2 Запрос GetDimentionResultsBySlabId(1891)
+2016-03-07 12:27:46,372 [GCSController] DEBUG - Сессия: 2 Запрос GetConnectionState
+2016-03-07 12:27:46,372 [GCSController] DEBUG - Сессия: 2 Запрос GetSGCSystemState
+2016-03-07 12:27:46,372 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorsCount
+2016-03-07 12:27:47,341 [GCSController] DEBUG - Сессия: 2 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:27:47,341 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:27:47,387 [GCSController] DEBUG - Сессия: 2 Запрос GetConnectionState
+2016-03-07 12:27:47,387 [GCSController] DEBUG - Сессия: 2 Запрос GetSGCSystemState
+2016-03-07 12:27:47,387 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorsCount
+2016-03-07 12:27:47,554 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorInfos
+2016-03-07 12:27:47,557 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorValuesBySlabId(1891, 0)
+2016-03-07 12:27:47,568 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorValuesBySlabId(1891, 1)
+2016-03-07 12:27:47,578 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorValuesBySlabId(1891, 2)
+2016-03-07 12:27:47,587 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorValuesBySlabId(1891, 3)
+2016-03-07 12:27:47,595 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorValuesBySlabId(1891, 4)
+2016-03-07 12:27:47,603 [GCSController] DEBUG - Сессия: 2 Запрос GetSlabPointsBySlabId(1891)
+2016-03-07 12:27:47,644 [SensorValueContainerImpl] INFO  - Удаление накопленных значений из памяти...
+2016-03-07 12:27:47,644 [SensorValueContainerImpl] INFO  - Удаление значений выполнено.
+2016-03-07 12:27:47,649 [GCSController] DEBUG - Сессия: 2 Запрос GetDimentions
+2016-03-07 12:27:47,650 [GCSController] DEBUG - Сессия: 2 Запрос GetDimentionResultsBySlabId(1891)
+2016-03-07 12:27:47,661 [GCSController] DEBUG - Сессия: 2 Запрос GetRegulations
+2016-03-07 12:27:48,400 [GCSController] DEBUG - Сессия: 2 Запрос GetConnectionState
+2016-03-07 12:27:48,401 [GCSController] DEBUG - Сессия: 2 Запрос GetSGCSystemState
+2016-03-07 12:27:48,401 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorsCount
+2016-03-07 12:27:49,354 [GCSController] DEBUG - Сессия: 2 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:27:49,368 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:27:49,414 [GCSController] DEBUG - Сессия: 2 Запрос GetConnectionState
+2016-03-07 12:27:49,415 [GCSController] DEBUG - Сессия: 2 Запрос GetSGCSystemState
+2016-03-07 12:27:49,416 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorsCount
+2016-03-07 12:27:50,428 [GCSController] DEBUG - Сессия: 2 Запрос GetConnectionState
+2016-03-07 12:27:50,429 [GCSController] DEBUG - Сессия: 2 Запрос GetSGCSystemState
+2016-03-07 12:27:50,430 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorsCount
+2016-03-07 12:27:51,366 [GCSController] DEBUG - Сессия: 2 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:27:51,380 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:27:51,442 [GCSController] DEBUG - Сессия: 2 Запрос GetConnectionState
+2016-03-07 12:27:51,443 [GCSController] DEBUG - Сессия: 2 Запрос GetSGCSystemState
+2016-03-07 12:27:51,444 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorsCount
+2016-03-07 12:27:52,456 [GCSController] DEBUG - Сессия: 2 Запрос GetConnectionState
+2016-03-07 12:27:52,457 [GCSController] DEBUG - Сессия: 2 Запрос GetSGCSystemState
+2016-03-07 12:27:52,458 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorsCount
+2016-03-07 12:27:53,378 [GCSController] DEBUG - Сессия: 2 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:27:53,388 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:27:53,470 [GCSController] DEBUG - Сессия: 2 Запрос GetConnectionState
+2016-03-07 12:27:53,471 [GCSController] DEBUG - Сессия: 2 Запрос GetSGCSystemState
+2016-03-07 12:27:53,472 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorsCount
+2016-03-07 12:27:54,484 [GCSController] DEBUG - Сессия: 2 Запрос GetConnectionState
+2016-03-07 12:27:54,485 [GCSController] DEBUG - Сессия: 2 Запрос GetSGCSystemState
+2016-03-07 12:27:54,486 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorsCount
+2016-03-07 12:27:55,391 [GCSController] DEBUG - Сессия: 2 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:27:55,405 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:27:55,498 [GCSController] DEBUG - Сессия: 2 Запрос GetConnectionState
+2016-03-07 12:27:55,499 [GCSController] DEBUG - Сессия: 2 Запрос GetSGCSystemState
+2016-03-07 12:27:55,500 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorsCount
+2016-03-07 12:27:56,512 [GCSController] DEBUG - Сессия: 2 Запрос GetConnectionState
+2016-03-07 12:27:56,513 [GCSController] DEBUG - Сессия: 2 Запрос GetSGCSystemState
+2016-03-07 12:27:56,514 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorsCount
+2016-03-07 12:27:57,401 [GCSController] DEBUG - Сессия: 2 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:27:57,414 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:27:57,526 [GCSController] DEBUG - Сессия: 2 Запрос GetConnectionState
+2016-03-07 12:27:57,527 [GCSController] DEBUG - Сессия: 2 Запрос GetSGCSystemState
+2016-03-07 12:27:57,527 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorsCount
+2016-03-07 12:27:58,540 [GCSController] DEBUG - Сессия: 2 Запрос GetConnectionState
+2016-03-07 12:27:58,541 [GCSController] DEBUG - Сессия: 2 Запрос GetSGCSystemState
+2016-03-07 12:27:58,542 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorsCount
+2016-03-07 12:27:59,414 [GCSController] DEBUG - Сессия: 2 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:27:59,427 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:27:59,554 [GCSController] DEBUG - Сессия: 2 Запрос GetConnectionState
+2016-03-07 12:27:59,555 [GCSController] DEBUG - Сессия: 2 Запрос GetSGCSystemState
+2016-03-07 12:27:59,556 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorsCount
+2016-03-07 12:28:00,569 [GCSController] DEBUG - Сессия: 2 Запрос GetConnectionState
+2016-03-07 12:28:00,570 [GCSController] DEBUG - Сессия: 2 Запрос GetSGCSystemState
+2016-03-07 12:28:00,571 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorsCount
+2016-03-07 12:28:01,428 [GCSController] DEBUG - Сессия: 2 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:28:01,442 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:28:01,583 [GCSController] DEBUG - Сессия: 2 Запрос GetConnectionState
+2016-03-07 12:28:01,584 [GCSController] DEBUG - Сессия: 2 Запрос GetSGCSystemState
+2016-03-07 12:28:01,585 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorsCount
+2016-03-07 12:28:02,597 [GCSController] DEBUG - Сессия: 2 Запрос GetConnectionState
+2016-03-07 12:28:02,598 [GCSController] DEBUG - Сессия: 2 Запрос GetSGCSystemState
+2016-03-07 12:28:02,599 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorsCount
+2016-03-07 12:28:03,440 [GCSController] DEBUG - Сессия: 2 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:28:03,454 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:28:03,611 [GCSController] DEBUG - Сессия: 2 Запрос GetConnectionState
+2016-03-07 12:28:03,612 [GCSController] DEBUG - Сессия: 2 Запрос GetSGCSystemState
+2016-03-07 12:28:03,613 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorsCount
+2016-03-07 12:28:04,625 [GCSController] DEBUG - Сессия: 2 Запрос GetConnectionState
+2016-03-07 12:28:04,626 [GCSController] DEBUG - Сессия: 2 Запрос GetSGCSystemState
+2016-03-07 12:28:04,627 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorsCount
+2016-03-07 12:28:05,451 [GCSController] DEBUG - Сессия: 2 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:28:05,465 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:28:05,639 [GCSController] DEBUG - Сессия: 2 Запрос GetConnectionState
+2016-03-07 12:28:05,640 [GCSController] DEBUG - Сессия: 2 Запрос GetSGCSystemState
+2016-03-07 12:28:05,641 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorsCount
+2016-03-07 12:28:06,652 [GCSController] DEBUG - Сессия: 2 Запрос GetConnectionState
+2016-03-07 12:28:06,653 [GCSController] DEBUG - Сессия: 2 Запрос GetSGCSystemState
+2016-03-07 12:28:06,654 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorsCount
+2016-03-07 12:28:07,466 [GCSController] DEBUG - Сессия: 2 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:28:07,480 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:28:07,712 [GCSController] DEBUG - Сессия: 2 Запрос GetConnectionState
+2016-03-07 12:28:07,713 [GCSController] DEBUG - Сессия: 2 Запрос GetSGCSystemState
+2016-03-07 12:28:07,713 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorsCount
+2016-03-07 12:28:08,680 [GCSController] DEBUG - Сессия: 2 Запрос GetConnectionState
+2016-03-07 12:28:08,681 [GCSController] DEBUG - Сессия: 2 Запрос GetSGCSystemState
+2016-03-07 12:28:08,682 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorsCount
+2016-03-07 12:28:09,120 [GCSController] INFO  - Обрыв связи с клиентом. Сессия: 2...
+2016-03-07 12:31:18,712 [GCSController] INFO  - Остановка сервиса...
+2016-03-07 12:31:18,782 [GCSController] INFO  - Сервис остановлен.
+2016-03-07 12:31:18,782 [Server] INFO  - Деинициализация...
+2016-03-07 12:31:18,782 [DimentionCalculatorImpl] INFO  - Деинициализация...
+2016-03-07 12:31:18,782 [DimentionCalculatorImpl] INFO  - Деинициализация завершена.
+2016-03-07 12:31:18,782 [XmlSensorConfigurationImpl] INFO  - Деинициализация...
+2016-03-07 12:31:18,782 [XmlSensorConfigurationImpl] INFO  - Деинициализация завершена.
+2016-03-07 12:31:18,782 [XmlDataProviderConfigurationImpl] INFO  - Деинициализация...
+2016-03-07 12:31:18,782 [XmlDataProviderConfigurationImpl] INFO  - Деинициализация завершена.
+2016-03-07 12:31:18,782 [Server] INFO  - Деинициализация завершена.
+2016-03-07 12:31:26,252 [Server] INFO  - Инициализация...
+2016-03-07 12:31:26,922 [XmlDataProviderConfigurationImpl] INFO  - Инициализация...
+2016-03-07 12:31:26,922 [XmlDataProviderConfigurationImpl] INFO  - Загрузка конфигурации из Xml...
+2016-03-07 12:31:26,932 [XmlDataProviderConfigurationImpl] INFO  - Загрузка конфигурации из Xml завершена.
+2016-03-07 12:31:26,932 [XmlDataProviderConfigurationImpl] INFO  - Инициализация завершена.
+2016-03-07 12:31:26,932 [XmlSensorConfigurationImpl] INFO  - Инициализация...
+2016-03-07 12:31:26,932 [XmlSensorConfigurationImpl] INFO  - Загрузка конфигурации из Xml...
+2016-03-07 12:31:26,932 [XmlSensorConfigurationImpl] INFO  - Загрузка конфигурации из Xml завершена.
+2016-03-07 12:31:26,932 [XmlSensorConfigurationImpl] INFO  - Инциализация завершена.
+2016-03-07 12:31:26,932 [DimentionCalculatorImpl] INFO  - Инициализация...
+2016-03-07 12:31:26,932 [DimentionCalculatorImpl] INFO  - Инициализация завершена.
+2016-03-07 12:31:26,932 [Server] INFO  - Инициализация завершена.
+2016-03-07 12:31:26,932 [GCSController] INFO  - Запуск сервиса...
+2016-03-07 12:31:27,242 [GCSController] INFO  - Сервис запущен.
+2016-03-07 12:31:29,622 [GCSController] INFO  - Подключение нового клиента...
+2016-03-07 12:31:29,622 [GCSController] INFO  - Новый клиент подключе. Сессия: 1
+2016-03-07 12:31:29,692 [GCSController] DEBUG - Сессия: 1 Запрос GetDimentions
+2016-03-07 12:31:30,702 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:31:30,702 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:31:30,712 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:31:31,722 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:31:31,722 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:31:31,722 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:31:31,722 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(07.03.2016 0:00:00, 08.03.2016 0:00:00)
+2016-03-07 12:31:31,792 [GCSController] DEBUG - Слитков найдено: 0
+2016-03-07 12:31:31,802 [GCSController] DEBUG - Сессия: 1 Запрос GetStandartSizes
+2016-03-07 12:31:31,812 [GCSController] DEBUG - Сессия: 1 Запрос GetRegulations
+2016-03-07 12:31:32,732 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:31:32,732 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:31:32,732 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:31:33,712 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(07.03.2016 0:00:00, 08.03.2016 0:00:00)
+2016-03-07 12:31:33,722 [GCSController] DEBUG - Слитков найдено: 0
+2016-03-07 12:31:33,752 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:31:33,752 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:31:33,752 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:31:34,762 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:31:34,762 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:31:34,762 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:31:35,732 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:31:35,742 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:31:35,762 [GCSController] DEBUG - Сессия: 1 Запрос GetDimentionResultsBySlabId(1885)
+2016-03-07 12:31:35,792 [GCSController] DEBUG - Сессия: 1 Запрос GetDimentionResultsBySlabId(1885)
+2016-03-07 12:31:35,792 [GCSController] DEBUG - Сессия: 1 Запрос GetDimentionResultsBySlabId(1885)
+2016-03-07 12:31:35,802 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:31:35,802 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:31:35,802 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:31:35,812 [GCSController] DEBUG - Сессия: 1 Запрос GetDimentionResultsBySlabId(1886)
+2016-03-07 12:31:35,822 [GCSController] DEBUG - Сессия: 1 Запрос GetDimentionResultsBySlabId(1886)
+2016-03-07 12:31:35,832 [GCSController] DEBUG - Сессия: 1 Запрос GetDimentionResultsBySlabId(1887)
+2016-03-07 12:31:35,842 [GCSController] DEBUG - Сессия: 1 Запрос GetDimentionResultsBySlabId(1887)
+2016-03-07 12:31:35,862 [GCSController] DEBUG - Сессия: 1 Запрос GetDimentionResultsBySlabId(1888)
+2016-03-07 12:31:35,872 [GCSController] DEBUG - Сессия: 1 Запрос GetDimentionResultsBySlabId(1888)
+2016-03-07 12:31:35,892 [GCSController] DEBUG - Сессия: 1 Запрос GetDimentionResultsBySlabId(1889)
+2016-03-07 12:31:35,902 [GCSController] DEBUG - Сессия: 1 Запрос GetDimentionResultsBySlabId(1889)
+2016-03-07 12:31:35,922 [GCSController] DEBUG - Сессия: 1 Запрос GetDimentionResultsBySlabId(1890)
+2016-03-07 12:31:35,932 [GCSController] DEBUG - Сессия: 1 Запрос GetDimentionResultsBySlabId(1890)
+2016-03-07 12:31:35,952 [GCSController] DEBUG - Сессия: 1 Запрос GetDimentionResultsBySlabId(1891)
+2016-03-07 12:31:35,962 [GCSController] DEBUG - Сессия: 1 Запрос GetDimentionResultsBySlabId(1891)
+2016-03-07 12:31:36,792 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:31:36,792 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:31:36,792 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:31:36,912 [GCSController] DEBUG - Сессия: 1 Запрос GetDimentionResultsBySlabId(1891)
+2016-03-07 12:31:37,742 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:31:37,752 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:31:37,802 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:31:37,802 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:31:37,802 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:31:38,109 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorInfos
+2016-03-07 12:31:38,117 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorValuesBySlabId(1891, 0)
+2016-03-07 12:31:38,131 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorValuesBySlabId(1891, 1)
+2016-03-07 12:31:38,139 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorValuesBySlabId(1891, 2)
+2016-03-07 12:31:38,146 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorValuesBySlabId(1891, 3)
+2016-03-07 12:31:38,154 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorValuesBySlabId(1891, 4)
+2016-03-07 12:31:38,163 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabPointsBySlabId(1891)
+2016-03-07 12:31:38,207 [SensorValueContainerImpl] INFO  - Удаление накопленных значений из памяти...
+2016-03-07 12:31:38,207 [SensorValueContainerImpl] INFO  - Удаление значений выполнено.
+2016-03-07 12:31:38,220 [GCSController] DEBUG - Сессия: 1 Запрос GetDimentions
+2016-03-07 12:31:38,220 [GCSController] DEBUG - Сессия: 1 Запрос GetDimentionResultsBySlabId(1891)
+2016-03-07 12:31:38,231 [GCSController] DEBUG - Сессия: 1 Запрос GetRegulations
+2016-03-07 12:31:38,814 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:31:38,815 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:31:38,815 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:31:39,752 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:31:39,766 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:31:39,828 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:31:39,829 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:31:39,830 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:31:40,842 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:31:40,843 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:31:40,844 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:31:41,765 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:31:41,778 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:31:41,856 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:31:41,857 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:31:41,858 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:31:42,870 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:31:42,871 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:31:42,872 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:31:43,774 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:31:43,787 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:31:43,883 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:31:43,884 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:31:43,885 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:31:44,899 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:31:44,900 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:31:44,901 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:31:45,789 [GCSController] DEBUG - Сессия: 1 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:31:45,802 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:31:45,913 [GCSController] DEBUG - Сессия: 1 Запрос GetConnectionState
+2016-03-07 12:31:45,914 [GCSController] DEBUG - Сессия: 1 Запрос GetSGCSystemState
+2016-03-07 12:31:45,915 [GCSController] DEBUG - Сессия: 1 Запрос GetSensorsCount
+2016-03-07 12:31:46,162 [GCSController] INFO  - Обрыв связи с клиентом. Сессия: 1...
+2016-03-07 12:32:19,908 [GCSController] INFO  - Подключение нового клиента...
+2016-03-07 12:32:19,909 [GCSController] INFO  - Новый клиент подключе. Сессия: 2
+2016-03-07 12:32:19,950 [GCSController] DEBUG - Сессия: 2 Запрос GetDimentions
+2016-03-07 12:32:20,965 [GCSController] DEBUG - Сессия: 2 Запрос GetConnectionState
+2016-03-07 12:32:20,966 [GCSController] DEBUG - Сессия: 2 Запрос GetSGCSystemState
+2016-03-07 12:32:20,967 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorsCount
+2016-03-07 12:32:21,972 [GCSController] DEBUG - Сессия: 2 Запрос GetSlabInfosByTimeInterval(07.03.2016 0:00:00, 08.03.2016 0:00:00)
+2016-03-07 12:32:21,982 [GCSController] DEBUG - Сессия: 2 Запрос GetConnectionState
+2016-03-07 12:32:21,985 [GCSController] DEBUG - Слитков найдено: 0
+2016-03-07 12:32:21,986 [GCSController] DEBUG - Сессия: 2 Запрос GetSGCSystemState
+2016-03-07 12:32:21,987 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorsCount
+2016-03-07 12:32:21,989 [GCSController] DEBUG - Сессия: 2 Запрос GetStandartSizes
+2016-03-07 12:32:22,003 [GCSController] DEBUG - Сессия: 2 Запрос GetRegulations
+2016-03-07 12:32:22,994 [GCSController] DEBUG - Сессия: 2 Запрос GetConnectionState
+2016-03-07 12:32:22,996 [GCSController] DEBUG - Сессия: 2 Запрос GetSGCSystemState
+2016-03-07 12:32:22,998 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorsCount
+2016-03-07 12:32:23,978 [GCSController] DEBUG - Сессия: 2 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:32:23,984 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:32:23,988 [GCSController] DEBUG - Сессия: 2 Запрос GetDimentionResultsBySlabId(1885)
+2016-03-07 12:32:24,008 [GCSController] DEBUG - Сессия: 2 Запрос GetDimentionResultsBySlabId(1885)
+2016-03-07 12:32:24,008 [GCSController] DEBUG - Сессия: 2 Запрос GetDimentionResultsBySlabId(1885)
+2016-03-07 12:32:24,027 [GCSController] DEBUG - Сессия: 2 Запрос GetConnectionState
+2016-03-07 12:32:24,027 [GCSController] DEBUG - Сессия: 2 Запрос GetDimentionResultsBySlabId(1886)
+2016-03-07 12:32:24,028 [GCSController] DEBUG - Сессия: 2 Запрос GetSGCSystemState
+2016-03-07 12:32:24,028 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorsCount
+2016-03-07 12:32:24,036 [GCSController] DEBUG - Сессия: 2 Запрос GetDimentionResultsBySlabId(1886)
+2016-03-07 12:32:24,057 [GCSController] DEBUG - Сессия: 2 Запрос GetDimentionResultsBySlabId(1887)
+2016-03-07 12:32:24,068 [GCSController] DEBUG - Сессия: 2 Запрос GetDimentionResultsBySlabId(1887)
+2016-03-07 12:32:24,087 [GCSController] DEBUG - Сессия: 2 Запрос GetDimentionResultsBySlabId(1888)
+2016-03-07 12:32:24,100 [GCSController] DEBUG - Сессия: 2 Запрос GetDimentionResultsBySlabId(1888)
+2016-03-07 12:32:24,118 [GCSController] DEBUG - Сессия: 2 Запрос GetDimentionResultsBySlabId(1889)
+2016-03-07 12:32:24,131 [GCSController] DEBUG - Сессия: 2 Запрос GetDimentionResultsBySlabId(1889)
+2016-03-07 12:32:24,151 [GCSController] DEBUG - Сессия: 2 Запрос GetDimentionResultsBySlabId(1890)
+2016-03-07 12:32:24,163 [GCSController] DEBUG - Сессия: 2 Запрос GetDimentionResultsBySlabId(1890)
+2016-03-07 12:32:24,185 [GCSController] DEBUG - Сессия: 2 Запрос GetDimentionResultsBySlabId(1891)
+2016-03-07 12:32:24,196 [GCSController] DEBUG - Сессия: 2 Запрос GetDimentionResultsBySlabId(1891)
+2016-03-07 12:32:25,023 [GCSController] DEBUG - Сессия: 2 Запрос GetConnectionState
+2016-03-07 12:32:25,025 [GCSController] DEBUG - Сессия: 2 Запрос GetSGCSystemState
+2016-03-07 12:32:25,026 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorsCount
+2016-03-07 12:32:25,423 [GCSController] DEBUG - Сессия: 2 Запрос GetDimentionResultsBySlabId(1891)
+2016-03-07 12:32:25,989 [GCSController] DEBUG - Сессия: 2 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:32:26,004 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:32:26,035 [GCSController] DEBUG - Сессия: 2 Запрос GetConnectionState
+2016-03-07 12:32:26,036 [GCSController] DEBUG - Сессия: 2 Запрос GetSGCSystemState
+2016-03-07 12:32:26,037 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorsCount
+2016-03-07 12:32:26,491 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorInfos
+2016-03-07 12:32:26,495 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorValuesBySlabId(1891, 0)
+2016-03-07 12:32:26,506 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorValuesBySlabId(1891, 1)
+2016-03-07 12:32:26,516 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorValuesBySlabId(1891, 2)
+2016-03-07 12:32:26,524 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorValuesBySlabId(1891, 3)
+2016-03-07 12:32:26,532 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorValuesBySlabId(1891, 4)
+2016-03-07 12:32:26,540 [GCSController] DEBUG - Сессия: 2 Запрос GetSlabPointsBySlabId(1891)
+2016-03-07 12:32:26,579 [SensorValueContainerImpl] INFO  - Удаление накопленных значений из памяти...
+2016-03-07 12:32:26,579 [SensorValueContainerImpl] INFO  - Удаление значений выполнено.
+2016-03-07 12:32:26,585 [GCSController] DEBUG - Сессия: 2 Запрос GetDimentions
+2016-03-07 12:32:26,586 [GCSController] DEBUG - Сессия: 2 Запрос GetDimentionResultsBySlabId(1891)
+2016-03-07 12:32:26,597 [GCSController] DEBUG - Сессия: 2 Запрос GetRegulations
+2016-03-07 12:32:27,050 [GCSController] DEBUG - Сессия: 2 Запрос GetConnectionState
+2016-03-07 12:32:27,052 [GCSController] DEBUG - Сессия: 2 Запрос GetSGCSystemState
+2016-03-07 12:32:27,053 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorsCount
+2016-03-07 12:32:28,004 [GCSController] DEBUG - Сессия: 2 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:32:28,015 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:32:28,064 [GCSController] DEBUG - Сессия: 2 Запрос GetConnectionState
+2016-03-07 12:32:28,066 [GCSController] DEBUG - Сессия: 2 Запрос GetSGCSystemState
+2016-03-07 12:32:28,068 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorsCount
+2016-03-07 12:32:29,078 [GCSController] DEBUG - Сессия: 2 Запрос GetConnectionState
+2016-03-07 12:32:29,080 [GCSController] DEBUG - Сессия: 2 Запрос GetSGCSystemState
+2016-03-07 12:32:29,082 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorsCount
+2016-03-07 12:32:30,013 [GCSController] DEBUG - Сессия: 2 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:32:30,019 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:32:30,091 [GCSController] DEBUG - Сессия: 2 Запрос GetConnectionState
+2016-03-07 12:32:30,092 [GCSController] DEBUG - Сессия: 2 Запрос GetSGCSystemState
+2016-03-07 12:32:30,093 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorsCount
+2016-03-07 12:32:31,105 [GCSController] DEBUG - Сессия: 2 Запрос GetConnectionState
+2016-03-07 12:32:31,106 [GCSController] DEBUG - Сессия: 2 Запрос GetSGCSystemState
+2016-03-07 12:32:31,107 [GCSController] DEBUG - Сессия: 2 Запрос GetSensorsCount
+2016-03-07 12:32:31,683 [GCSController] INFO  - Обрыв связи с клиентом. Сессия: 2...
+2016-03-07 12:32:52,439 [GCSController] INFO  - Подключение нового клиента...
+2016-03-07 12:32:52,439 [GCSController] INFO  - Новый клиент подключе. Сессия: 3
+2016-03-07 12:32:52,479 [GCSController] DEBUG - Сессия: 3 Запрос GetDimentions
+2016-03-07 12:32:53,499 [GCSController] DEBUG - Сессия: 3 Запрос GetConnectionState
+2016-03-07 12:32:53,499 [GCSController] DEBUG - Сессия: 3 Запрос GetSGCSystemState
+2016-03-07 12:32:53,499 [GCSController] DEBUG - Сессия: 3 Запрос GetSensorsCount
+2016-03-07 12:32:54,499 [GCSController] DEBUG - Сессия: 3 Запрос GetSlabInfosByTimeInterval(07.03.2016 0:00:00, 08.03.2016 0:00:00)
+2016-03-07 12:32:54,509 [GCSController] DEBUG - Сессия: 3 Запрос GetConnectionState
+2016-03-07 12:32:54,509 [GCSController] DEBUG - Сессия: 3 Запрос GetSGCSystemState
+2016-03-07 12:32:54,509 [GCSController] DEBUG - Сессия: 3 Запрос GetSensorsCount
+2016-03-07 12:32:54,509 [GCSController] DEBUG - Слитков найдено: 0
+2016-03-07 12:32:54,519 [GCSController] DEBUG - Сессия: 3 Запрос GetStandartSizes
+2016-03-07 12:32:54,529 [GCSController] DEBUG - Сессия: 3 Запрос GetRegulations
+2016-03-07 12:32:55,529 [GCSController] DEBUG - Сессия: 3 Запрос GetConnectionState
+2016-03-07 12:32:55,529 [GCSController] DEBUG - Сессия: 3 Запрос GetSGCSystemState
+2016-03-07 12:32:55,529 [GCSController] DEBUG - Сессия: 3 Запрос GetSensorsCount
+2016-03-07 12:32:56,509 [GCSController] DEBUG - Сессия: 3 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:32:56,519 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:32:56,529 [GCSController] DEBUG - Сессия: 3 Запрос GetDimentionResultsBySlabId(1885)
+2016-03-07 12:32:56,559 [GCSController] DEBUG - Сессия: 3 Запрос GetDimentionResultsBySlabId(1885)
+2016-03-07 12:32:56,559 [GCSController] DEBUG - Сессия: 3 Запрос GetDimentionResultsBySlabId(1885)
+2016-03-07 12:32:56,609 [GCSController] DEBUG - Сессия: 3 Запрос GetConnectionState
+2016-03-07 12:32:56,609 [GCSController] DEBUG - Сессия: 3 Запрос GetSGCSystemState
+2016-03-07 12:32:56,609 [GCSController] DEBUG - Сессия: 3 Запрос GetSensorsCount
+2016-03-07 12:32:56,609 [GCSController] DEBUG - Сессия: 3 Запрос GetDimentionResultsBySlabId(1886)
+2016-03-07 12:32:56,619 [GCSController] DEBUG - Сессия: 3 Запрос GetDimentionResultsBySlabId(1886)
+2016-03-07 12:32:56,639 [GCSController] DEBUG - Сессия: 3 Запрос GetDimentionResultsBySlabId(1887)
+2016-03-07 12:32:56,649 [GCSController] DEBUG - Сессия: 3 Запрос GetDimentionResultsBySlabId(1887)
+2016-03-07 12:32:56,669 [GCSController] DEBUG - Сессия: 3 Запрос GetDimentionResultsBySlabId(1888)
+2016-03-07 12:32:56,679 [GCSController] DEBUG - Сессия: 3 Запрос GetDimentionResultsBySlabId(1888)
+2016-03-07 12:32:56,699 [GCSController] DEBUG - Сессия: 3 Запрос GetDimentionResultsBySlabId(1889)
+2016-03-07 12:32:56,709 [GCSController] DEBUG - Сессия: 3 Запрос GetDimentionResultsBySlabId(1889)
+2016-03-07 12:32:56,719 [GCSController] DEBUG - Сессия: 3 Запрос GetDimentionResultsBySlabId(1890)
+2016-03-07 12:32:56,739 [GCSController] DEBUG - Сессия: 3 Запрос GetDimentionResultsBySlabId(1890)
+2016-03-07 12:32:56,749 [GCSController] DEBUG - Сессия: 3 Запрос GetDimentionResultsBySlabId(1891)
+2016-03-07 12:32:56,769 [GCSController] DEBUG - Сессия: 3 Запрос GetDimentionResultsBySlabId(1891)
+2016-03-07 12:32:57,169 [GCSController] DEBUG - Сессия: 3 Запрос GetDimentionResultsBySlabId(1891)
+2016-03-07 12:32:57,549 [GCSController] DEBUG - Сессия: 3 Запрос GetConnectionState
+2016-03-07 12:32:57,549 [GCSController] DEBUG - Сессия: 3 Запрос GetSGCSystemState
+2016-03-07 12:32:57,549 [GCSController] DEBUG - Сессия: 3 Запрос GetSensorsCount
+2016-03-07 12:32:58,063 [GCSController] DEBUG - Сессия: 3 Запрос GetSensorInfos
+2016-03-07 12:32:58,066 [GCSController] DEBUG - Сессия: 3 Запрос GetSensorValuesBySlabId(1891, 0)
+2016-03-07 12:32:58,077 [GCSController] DEBUG - Сессия: 3 Запрос GetSensorValuesBySlabId(1891, 1)
+2016-03-07 12:32:58,086 [GCSController] DEBUG - Сессия: 3 Запрос GetSensorValuesBySlabId(1891, 2)
+2016-03-07 12:32:58,094 [GCSController] DEBUG - Сессия: 3 Запрос GetSensorValuesBySlabId(1891, 3)
+2016-03-07 12:32:58,102 [GCSController] DEBUG - Сессия: 3 Запрос GetSensorValuesBySlabId(1891, 4)
+2016-03-07 12:32:58,110 [GCSController] DEBUG - Сессия: 3 Запрос GetSlabPointsBySlabId(1891)
+2016-03-07 12:32:58,147 [SensorValueContainerImpl] INFO  - Удаление накопленных значений из памяти...
+2016-03-07 12:32:58,147 [SensorValueContainerImpl] INFO  - Удаление значений выполнено.
+2016-03-07 12:32:58,153 [GCSController] DEBUG - Сессия: 3 Запрос GetDimentions
+2016-03-07 12:32:58,153 [GCSController] DEBUG - Сессия: 3 Запрос GetDimentionResultsBySlabId(1891)
+2016-03-07 12:32:58,165 [GCSController] DEBUG - Сессия: 3 Запрос GetRegulations
+2016-03-07 12:32:58,515 [GCSController] DEBUG - Сессия: 3 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:32:58,527 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:32:58,562 [GCSController] DEBUG - Сессия: 3 Запрос GetConnectionState
+2016-03-07 12:32:58,563 [GCSController] DEBUG - Сессия: 3 Запрос GetSGCSystemState
+2016-03-07 12:32:58,564 [GCSController] DEBUG - Сессия: 3 Запрос GetSensorsCount
+2016-03-07 12:32:59,576 [GCSController] DEBUG - Сессия: 3 Запрос GetConnectionState
+2016-03-07 12:32:59,577 [GCSController] DEBUG - Сессия: 3 Запрос GetSGCSystemState
+2016-03-07 12:32:59,578 [GCSController] DEBUG - Сессия: 3 Запрос GetSensorsCount
+2016-03-07 12:33:00,527 [GCSController] DEBUG - Сессия: 3 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:33:00,540 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:33:00,590 [GCSController] DEBUG - Сессия: 3 Запрос GetConnectionState
+2016-03-07 12:33:00,591 [GCSController] DEBUG - Сессия: 3 Запрос GetSGCSystemState
+2016-03-07 12:33:00,591 [GCSController] DEBUG - Сессия: 3 Запрос GetSensorsCount
+2016-03-07 12:33:01,604 [GCSController] DEBUG - Сессия: 3 Запрос GetConnectionState
+2016-03-07 12:33:01,605 [GCSController] DEBUG - Сессия: 3 Запрос GetSGCSystemState
+2016-03-07 12:33:01,606 [GCSController] DEBUG - Сессия: 3 Запрос GetSensorsCount
+2016-03-07 12:33:02,540 [GCSController] DEBUG - Сессия: 3 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:33:02,554 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:33:02,618 [GCSController] DEBUG - Сессия: 3 Запрос GetConnectionState
+2016-03-07 12:33:02,619 [GCSController] DEBUG - Сессия: 3 Запрос GetSGCSystemState
+2016-03-07 12:33:02,620 [GCSController] DEBUG - Сессия: 3 Запрос GetSensorsCount
+2016-03-07 12:33:03,632 [GCSController] DEBUG - Сессия: 3 Запрос GetConnectionState
+2016-03-07 12:33:03,633 [GCSController] DEBUG - Сессия: 3 Запрос GetSGCSystemState
+2016-03-07 12:33:03,634 [GCSController] DEBUG - Сессия: 3 Запрос GetSensorsCount
+2016-03-07 12:33:04,554 [GCSController] DEBUG - Сессия: 3 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:33:04,568 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:33:04,645 [GCSController] DEBUG - Сессия: 3 Запрос GetConnectionState
+2016-03-07 12:33:04,646 [GCSController] DEBUG - Сессия: 3 Запрос GetSGCSystemState
+2016-03-07 12:33:04,647 [GCSController] DEBUG - Сессия: 3 Запрос GetSensorsCount
+2016-03-07 12:33:05,659 [GCSController] DEBUG - Сессия: 3 Запрос GetConnectionState
+2016-03-07 12:33:05,660 [GCSController] DEBUG - Сессия: 3 Запрос GetSGCSystemState
+2016-03-07 12:33:05,661 [GCSController] DEBUG - Сессия: 3 Запрос GetSensorsCount
+2016-03-07 12:33:06,564 [GCSController] DEBUG - Сессия: 3 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:33:06,578 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:33:06,673 [GCSController] DEBUG - Сессия: 3 Запрос GetConnectionState
+2016-03-07 12:33:06,674 [GCSController] DEBUG - Сессия: 3 Запрос GetSGCSystemState
+2016-03-07 12:33:06,675 [GCSController] DEBUG - Сессия: 3 Запрос GetSensorsCount
+2016-03-07 12:33:07,687 [GCSController] DEBUG - Сессия: 3 Запрос GetConnectionState
+2016-03-07 12:33:07,688 [GCSController] DEBUG - Сессия: 3 Запрос GetSGCSystemState
+2016-03-07 12:33:07,689 [GCSController] DEBUG - Сессия: 3 Запрос GetSensorsCount
+2016-03-07 12:33:08,576 [GCSController] DEBUG - Сессия: 3 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:33:08,590 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:33:08,701 [GCSController] DEBUG - Сессия: 3 Запрос GetConnectionState
+2016-03-07 12:33:08,702 [GCSController] DEBUG - Сессия: 3 Запрос GetSGCSystemState
+2016-03-07 12:33:08,703 [GCSController] DEBUG - Сессия: 3 Запрос GetSensorsCount
+2016-03-07 12:33:09,715 [GCSController] DEBUG - Сессия: 3 Запрос GetConnectionState
+2016-03-07 12:33:09,716 [GCSController] DEBUG - Сессия: 3 Запрос GetSGCSystemState
+2016-03-07 12:33:09,717 [GCSController] DEBUG - Сессия: 3 Запрос GetSensorsCount
+2016-03-07 12:33:10,589 [GCSController] DEBUG - Сессия: 3 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:33:10,603 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:33:10,729 [GCSController] DEBUG - Сессия: 3 Запрос GetConnectionState
+2016-03-07 12:33:10,730 [GCSController] DEBUG - Сессия: 3 Запрос GetSGCSystemState
+2016-03-07 12:33:10,731 [GCSController] DEBUG - Сессия: 3 Запрос GetSensorsCount
+2016-03-07 12:33:11,743 [GCSController] DEBUG - Сессия: 3 Запрос GetConnectionState
+2016-03-07 12:33:11,743 [GCSController] DEBUG - Сессия: 3 Запрос GetSGCSystemState
+2016-03-07 12:33:11,743 [GCSController] DEBUG - Сессия: 3 Запрос GetSensorsCount
+2016-03-07 12:33:12,601 [GCSController] DEBUG - Сессия: 3 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:33:12,615 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:33:12,757 [GCSController] DEBUG - Сессия: 3 Запрос GetConnectionState
+2016-03-07 12:33:12,758 [GCSController] DEBUG - Сессия: 3 Запрос GetSGCSystemState
+2016-03-07 12:33:12,759 [GCSController] DEBUG - Сессия: 3 Запрос GetSensorsCount
+2016-03-07 12:33:13,772 [GCSController] DEBUG - Сессия: 3 Запрос GetConnectionState
+2016-03-07 12:33:13,773 [GCSController] DEBUG - Сессия: 3 Запрос GetSGCSystemState
+2016-03-07 12:33:13,774 [GCSController] DEBUG - Сессия: 3 Запрос GetSensorsCount
+2016-03-07 12:33:14,614 [GCSController] DEBUG - Сессия: 3 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:33:14,628 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:33:14,786 [GCSController] DEBUG - Сессия: 3 Запрос GetConnectionState
+2016-03-07 12:33:14,787 [GCSController] DEBUG - Сессия: 3 Запрос GetSGCSystemState
+2016-03-07 12:33:14,788 [GCSController] DEBUG - Сессия: 3 Запрос GetSensorsCount
+2016-03-07 12:33:15,800 [GCSController] DEBUG - Сессия: 3 Запрос GetConnectionState
+2016-03-07 12:33:15,801 [GCSController] DEBUG - Сессия: 3 Запрос GetSGCSystemState
+2016-03-07 12:33:15,802 [GCSController] DEBUG - Сессия: 3 Запрос GetSensorsCount
+2016-03-07 12:33:16,629 [GCSController] DEBUG - Сессия: 3 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:33:16,643 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:33:16,814 [GCSController] DEBUG - Сессия: 3 Запрос GetConnectionState
+2016-03-07 12:33:16,814 [GCSController] DEBUG - Сессия: 3 Запрос GetSGCSystemState
+2016-03-07 12:33:16,814 [GCSController] DEBUG - Сессия: 3 Запрос GetSensorsCount
+2016-03-07 12:33:17,411 [GCSController] INFO  - Обрыв связи с клиентом. Сессия: 3...
+2016-03-07 12:35:04,667 [GCSController] INFO  - Подключение нового клиента...
+2016-03-07 12:35:04,667 [GCSController] INFO  - Новый клиент подключе. Сессия: 4
+2016-03-07 12:35:04,707 [GCSController] DEBUG - Сессия: 4 Запрос GetDimentions
+2016-03-07 12:35:05,727 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:05,727 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:05,727 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:06,717 [GCSController] DEBUG - Сессия: 4 Запрос GetSlabInfosByTimeInterval(07.03.2016 0:00:00, 08.03.2016 0:00:00)
+2016-03-07 12:35:06,727 [GCSController] DEBUG - Слитков найдено: 0
+2016-03-07 12:35:06,737 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:06,737 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:06,737 [GCSController] DEBUG - Сессия: 4 Запрос GetStandartSizes
+2016-03-07 12:35:06,737 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:06,747 [GCSController] DEBUG - Сессия: 4 Запрос GetRegulations
+2016-03-07 12:35:07,747 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:07,747 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:07,747 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:08,737 [GCSController] DEBUG - Сессия: 4 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:35:08,747 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:35:08,757 [GCSController] DEBUG - Сессия: 4 Запрос GetDimentionResultsBySlabId(1885)
+2016-03-07 12:35:08,797 [GCSController] DEBUG - Сессия: 4 Запрос GetDimentionResultsBySlabId(1885)
+2016-03-07 12:35:08,797 [GCSController] DEBUG - Сессия: 4 Запрос GetDimentionResultsBySlabId(1885)
+2016-03-07 12:35:08,817 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:08,817 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:08,817 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:08,827 [GCSController] DEBUG - Сессия: 4 Запрос GetDimentionResultsBySlabId(1886)
+2016-03-07 12:35:08,847 [GCSController] DEBUG - Сессия: 4 Запрос GetDimentionResultsBySlabId(1886)
+2016-03-07 12:35:08,877 [GCSController] DEBUG - Сессия: 4 Запрос GetDimentionResultsBySlabId(1887)
+2016-03-07 12:35:08,887 [GCSController] DEBUG - Сессия: 4 Запрос GetDimentionResultsBySlabId(1887)
+2016-03-07 12:35:08,907 [GCSController] DEBUG - Сессия: 4 Запрос GetDimentionResultsBySlabId(1888)
+2016-03-07 12:35:08,927 [GCSController] DEBUG - Сессия: 4 Запрос GetDimentionResultsBySlabId(1888)
+2016-03-07 12:35:08,937 [GCSController] DEBUG - Сессия: 4 Запрос GetDimentionResultsBySlabId(1889)
+2016-03-07 12:35:08,957 [GCSController] DEBUG - Сессия: 4 Запрос GetDimentionResultsBySlabId(1889)
+2016-03-07 12:35:08,967 [GCSController] DEBUG - Сессия: 4 Запрос GetDimentionResultsBySlabId(1890)
+2016-03-07 12:35:08,987 [GCSController] DEBUG - Сессия: 4 Запрос GetDimentionResultsBySlabId(1890)
+2016-03-07 12:35:08,997 [GCSController] DEBUG - Сессия: 4 Запрос GetDimentionResultsBySlabId(1891)
+2016-03-07 12:35:09,007 [GCSController] DEBUG - Сессия: 4 Запрос GetDimentionResultsBySlabId(1891)
+2016-03-07 12:35:09,757 [GCSController] DEBUG - Сессия: 4 Запрос GetDimentionResultsBySlabId(1891)
+2016-03-07 12:35:09,777 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:09,777 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:09,777 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:10,637 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorInfos
+2016-03-07 12:35:10,641 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorValuesBySlabId(1891, 0)
+2016-03-07 12:35:10,651 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorValuesBySlabId(1891, 1)
+2016-03-07 12:35:10,661 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorValuesBySlabId(1891, 2)
+2016-03-07 12:35:10,668 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorValuesBySlabId(1891, 3)
+2016-03-07 12:35:10,676 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorValuesBySlabId(1891, 4)
+2016-03-07 12:35:10,684 [GCSController] DEBUG - Сессия: 4 Запрос GetSlabPointsBySlabId(1891)
+2016-03-07 12:35:10,721 [SensorValueContainerImpl] INFO  - Удаление накопленных значений из памяти...
+2016-03-07 12:35:10,721 [SensorValueContainerImpl] INFO  - Удаление значений выполнено.
+2016-03-07 12:35:10,727 [GCSController] DEBUG - Сессия: 4 Запрос GetDimentions
+2016-03-07 12:35:10,727 [GCSController] DEBUG - Сессия: 4 Запрос GetDimentionResultsBySlabId(1891)
+2016-03-07 12:35:10,738 [GCSController] DEBUG - Сессия: 4 Запрос GetRegulations
+2016-03-07 12:35:10,744 [GCSController] DEBUG - Сессия: 4 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:35:10,747 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:35:10,788 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:10,788 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:10,788 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:11,802 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:11,803 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:11,803 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:12,753 [GCSController] DEBUG - Сессия: 4 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:35:12,766 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:35:12,816 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:12,817 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:12,818 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:13,830 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:13,831 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:13,832 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:14,766 [GCSController] DEBUG - Сессия: 4 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:35:14,779 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:35:14,844 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:14,845 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:14,846 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:15,858 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:15,859 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:15,860 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:16,779 [GCSController] DEBUG - Сессия: 4 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:35:16,792 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:35:16,872 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:16,873 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:16,874 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:17,886 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:17,887 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:17,888 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:18,790 [GCSController] DEBUG - Сессия: 4 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:35:18,803 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:35:18,900 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:18,901 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:18,902 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:19,914 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:19,915 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:19,916 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:20,805 [GCSController] DEBUG - Сессия: 4 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:35:20,818 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:35:20,929 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:20,930 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:20,931 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:21,943 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:21,944 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:21,945 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:22,816 [GCSController] DEBUG - Сессия: 4 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:35:22,829 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:35:22,957 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:22,958 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:22,959 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:23,971 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:23,972 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:23,973 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:24,831 [GCSController] DEBUG - Сессия: 4 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:35:24,844 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:35:24,985 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:24,986 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:24,987 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:25,999 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:26,000 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:26,001 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:26,840 [GCSController] DEBUG - Сессия: 4 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:35:26,853 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:35:27,012 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:27,013 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:27,014 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:28,026 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:28,027 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:28,028 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:28,855 [GCSController] DEBUG - Сессия: 4 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:35:28,868 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:35:29,040 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:29,041 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:29,042 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:30,054 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:30,055 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:30,056 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:30,865 [GCSController] DEBUG - Сессия: 4 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:35:30,878 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:35:31,068 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:31,069 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:31,070 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:32,082 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:32,083 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:32,084 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:32,879 [GCSController] DEBUG - Сессия: 4 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:35:32,892 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:35:33,096 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:33,097 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:33,098 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:34,110 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:34,111 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:34,112 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:34,892 [GCSController] DEBUG - Сессия: 4 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:35:34,905 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:35:35,124 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:35,125 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:35,126 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:36,138 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:36,139 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:36,140 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:36,902 [GCSController] DEBUG - Сессия: 4 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:35:36,915 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:35:37,152 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:37,153 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:37,154 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:38,167 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:38,168 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:38,168 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:38,917 [GCSController] DEBUG - Сессия: 4 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:35:38,930 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:35:39,181 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:39,182 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:39,183 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:40,196 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:40,196 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:40,197 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:40,930 [GCSController] DEBUG - Сессия: 4 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:35:40,943 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:35:41,209 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:41,210 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:41,211 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:42,223 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:42,224 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:42,225 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:42,940 [GCSController] DEBUG - Сессия: 4 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:35:42,953 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:35:43,237 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:43,238 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:43,238 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:44,250 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:44,251 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:44,252 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:44,953 [GCSController] DEBUG - Сессия: 4 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:35:44,967 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:35:45,264 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:45,265 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:45,266 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:46,278 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:46,279 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:46,280 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:46,965 [GCSController] DEBUG - Сессия: 4 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:35:46,979 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:35:47,292 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:47,293 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:47,294 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:48,306 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:48,307 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:48,308 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:48,978 [GCSController] DEBUG - Сессия: 4 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:35:48,993 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:35:49,320 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:49,321 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:49,322 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:50,334 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:50,335 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:50,336 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:50,990 [GCSController] DEBUG - Сессия: 4 Запрос GetSlabInfosByTimeInterval(03.03.2016 7:00:00, 04.03.2016 7:00:00)
+2016-03-07 12:35:51,003 [GCSController] DEBUG - Слитков найдено: 7
+2016-03-07 12:35:51,348 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:51,349 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:51,350 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:52,363 [GCSController] DEBUG - Сессия: 4 Запрос GetConnectionState
+2016-03-07 12:35:52,363 [GCSController] DEBUG - Сессия: 4 Запрос GetSGCSystemState
+2016-03-07 12:35:52,364 [GCSController] DEBUG - Сессия: 4 Запрос GetSensorsCount
+2016-03-07 12:35:53,117 [GCSController] INFO  - Обрыв связи с клиентом. Сессия: 4...
+2016-03-07 13:36:01,983 [GCSController] INFO  - Остановка сервиса...
+2016-03-07 13:36:02,043 [GCSController] INFO  - Сервис остановлен.
+2016-03-07 13:36:02,043 [Server] INFO  - Деинициализация...
+2016-03-07 13:36:02,043 [DimentionCalculatorImpl] INFO  - Деинициализация...
+2016-03-07 13:36:02,043 [DimentionCalculatorImpl] INFO  - Деинициализация завершена.
+2016-03-07 13:36:02,043 [XmlSensorConfigurationImpl] INFO  - Деинициализация...
+2016-03-07 13:36:02,043 [XmlSensorConfigurationImpl] INFO  - Деинициализация завершена.
+2016-03-07 13:36:02,043 [XmlDataProviderConfigurationImpl] INFO  - Деинициализация...
+2016-03-07 13:36:02,043 [XmlDataProviderConfigurationImpl] INFO  - Деинициализация завершена.
+2016-03-07 13:36:02,043 [Server] INFO  - Деинициализация завершена.

@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sensors>
+  <sensor>
+    <id>0</id>
+    <name>Top_0</name>
+    <type>proximity</type>
+    <side>top</side>
+    <shift>-18,7</shift>
+  </sensor>
+  <sensor>
+    <id>1</id>
+    <name>Bottom_0</name>
+    <type>proximity</type>
+    <side>bottom</side>
+    <shift>-22,4</shift>
+  </sensor>
+  <sensor>
+    <id>2</id>
+    <name>Left_0</name>
+    <type>proximity</type>
+    <side>left</side>
+    <shift>-33,6</shift>
+  </sensor>
+  <sensor>
+    <id>3</id>
+    <name>Right_0</name>
+    <type>proximity</type>
+    <side>right</side>
+    <shift>-63,4</shift>
+  </sensor>
+  <sensor>
+    <id>4</id>
+    <name>Position</name>
+    <type>position</type>
+  </sensor>
+</sensors>

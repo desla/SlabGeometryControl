@@ -1,0 +1,136 @@
+2016-02-25 17:47:02,192 [NHibernate.Util.ReflectHelper] ERROR - Could not load type Alvasoft.DimentionConfiguration.NHibernateImpl.Entity.DimentionInfoEntity, SlabGeometryControl.
+System.IO.FileNotFoundException: Не удалось загрузить файл или сборку "SlabGeometryControl" либо одну из их зависимостей. Не удается найти указанный файл.
+Имя файла: 'SlabGeometryControl'
+   в System.Reflection.RuntimeAssembly._nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, RuntimeAssembly locationHint, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean throwOnFileNotFound, Boolean forIntrospection, Boolean suppressSecurityChecks)
+   в System.Reflection.RuntimeAssembly.nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, RuntimeAssembly locationHint, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean throwOnFileNotFound, Boolean forIntrospection, Boolean suppressSecurityChecks)
+   в System.Reflection.RuntimeAssembly.InternalLoadAssemblyName(AssemblyName assemblyRef, Evidence assemblySecurity, RuntimeAssembly reqAssembly, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean throwOnFileNotFound, Boolean forIntrospection, Boolean suppressSecurityChecks)
+   в System.Reflection.RuntimeAssembly.InternalLoad(String assemblyString, Evidence assemblySecurity, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean forIntrospection)
+   в System.Reflection.RuntimeAssembly.InternalLoad(String assemblyString, Evidence assemblySecurity, StackCrawlMark& stackMark, Boolean forIntrospection)
+   в System.Reflection.Assembly.Load(String assemblyString)
+   в NHibernate.Util.ReflectHelper.TypeFromAssembly(AssemblyQualifiedTypeName name, Boolean throwOnError)
+
+Предупреждение: регистрация привязки сборок выключена.
+Чтобы включить регистрацию ошибок привязки сборок, установите значение параметра реестра [HKLM\Software\Microsoft\Fusion!EnableLog] (DWORD) в 1.
+Примечание. Регистрация ошибок привязки сборок может привести к некоторому снижению производительности.
+Чтобы отключить эту функцию, удалите параметр реестра [HKLM\Software\Microsoft\Fusion!EnableLog].
+
+2016-02-25 17:47:02,192 [NHibernate.Cfg.Configuration] ERROR - Could not compile the mapping document: Alvasoft.DimentionConfiguration.NHibernateImpl.Mappings.DimentionInfo.hbm.xml
+NHibernate.MappingException: Could not compile the mapping document: Alvasoft.DimentionConfiguration.NHibernateImpl.Mappings.DimentionInfo.hbm.xml ---> NHibernate.MappingException: persistent class Alvasoft.DimentionConfiguration.NHibernateImpl.Entity.DimentionInfoEntity, SlabGeometryControl not found ---> System.IO.FileNotFoundException: Не удалось загрузить файл или сборку "SlabGeometryControl" либо одну из их зависимостей. Не удается найти указанный файл.
+   в System.Reflection.RuntimeAssembly._nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, RuntimeAssembly locationHint, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean throwOnFileNotFound, Boolean forIntrospection, Boolean suppressSecurityChecks)
+   в System.Reflection.RuntimeAssembly.nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, RuntimeAssembly locationHint, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean throwOnFileNotFound, Boolean forIntrospection, Boolean suppressSecurityChecks)
+   в System.Reflection.RuntimeAssembly.InternalLoadAssemblyName(AssemblyName assemblyRef, Evidence assemblySecurity, RuntimeAssembly reqAssembly, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean throwOnFileNotFound, Boolean forIntrospection, Boolean suppressSecurityChecks)
+   в System.Reflection.RuntimeAssembly.InternalLoad(String assemblyString, Evidence assemblySecurity, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean forIntrospection)
+   в System.Reflection.RuntimeAssembly.InternalLoad(String assemblyString, Evidence assemblySecurity, StackCrawlMark& stackMark, Boolean forIntrospection)
+   в System.Reflection.Assembly.Load(String assemblyString)
+   в NHibernate.Util.ReflectHelper.TypeFromAssembly(AssemblyQualifiedTypeName name, Boolean throwOnError)
+   в NHibernate.Cfg.XmlHbmBinding.Binder.ClassForFullNameChecked(String fullName, String errorMessage)
+   --- Конец трассировки внутреннего стека исключений ---
+   в NHibernate.Cfg.XmlHbmBinding.Binder.ClassForFullNameChecked(String fullName, String errorMessage)
+   в NHibernate.Cfg.XmlHbmBinding.ClassBinder.BindClass(IEntityMapping classMapping, PersistentClass model, IDictionary`2 inheritedMetas)
+   в NHibernate.Cfg.XmlHbmBinding.RootClassBinder.Bind(HbmClass classSchema, IDictionary`2 inheritedMetas)
+   в NHibernate.Cfg.XmlHbmBinding.MappingRootBinder.AddEntitiesMappings(HbmMapping mappingSchema, IDictionary`2 inheritedMetas)
+   в NHibernate.Cfg.XmlHbmBinding.MappingRootBinder.Bind(HbmMapping mappingSchema)
+   в NHibernate.Cfg.Configuration.AddDeserializedMapping(HbmMapping mappingDocument, String documentFileName)
+   --- Конец трассировки внутреннего стека исключений ---
+2016-02-25 17:49:52,763 [NHibernate.Util.ReflectHelper] ERROR - Could not load type Alvasoft.DimentionConfiguration.NHibernateImpl.Entity.DimentionInfoEntity, SlabGeometryControl.
+System.IO.FileNotFoundException: Не удалось загрузить файл или сборку "SlabGeometryControl" либо одну из их зависимостей. Не удается найти указанный файл.
+Имя файла: 'SlabGeometryControl'
+   в System.Reflection.RuntimeAssembly._nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, RuntimeAssembly locationHint, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean throwOnFileNotFound, Boolean forIntrospection, Boolean suppressSecurityChecks)
+   в System.Reflection.RuntimeAssembly.nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, RuntimeAssembly locationHint, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean throwOnFileNotFound, Boolean forIntrospection, Boolean suppressSecurityChecks)
+   в System.Reflection.RuntimeAssembly.InternalLoadAssemblyName(AssemblyName assemblyRef, Evidence assemblySecurity, RuntimeAssembly reqAssembly, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean throwOnFileNotFound, Boolean forIntrospection, Boolean suppressSecurityChecks)
+   в System.Reflection.RuntimeAssembly.InternalLoad(String assemblyString, Evidence assemblySecurity, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean forIntrospection)
+   в System.Reflection.RuntimeAssembly.InternalLoad(String assemblyString, Evidence assemblySecurity, StackCrawlMark& stackMark, Boolean forIntrospection)
+   в System.Reflection.Assembly.Load(String assemblyString)
+   в NHibernate.Util.ReflectHelper.TypeFromAssembly(AssemblyQualifiedTypeName name, Boolean throwOnError)
+
+Предупреждение: регистрация привязки сборок выключена.
+Чтобы включить регистрацию ошибок привязки сборок, установите значение параметра реестра [HKLM\Software\Microsoft\Fusion!EnableLog] (DWORD) в 1.
+Примечание. Регистрация ошибок привязки сборок может привести к некоторому снижению производительности.
+Чтобы отключить эту функцию, удалите параметр реестра [HKLM\Software\Microsoft\Fusion!EnableLog].
+
+2016-02-25 17:49:52,763 [NHibernate.Cfg.Configuration] ERROR - Could not compile the mapping document: Alvasoft.DimentionConfiguration.NHibernateImpl.Mappings.DimentionInfo.hbm.xml
+NHibernate.MappingException: Could not compile the mapping document: Alvasoft.DimentionConfiguration.NHibernateImpl.Mappings.DimentionInfo.hbm.xml ---> NHibernate.MappingException: persistent class Alvasoft.DimentionConfiguration.NHibernateImpl.Entity.DimentionInfoEntity, SlabGeometryControl not found ---> System.IO.FileNotFoundException: Не удалось загрузить файл или сборку "SlabGeometryControl" либо одну из их зависимостей. Не удается найти указанный файл.
+   в System.Reflection.RuntimeAssembly._nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, RuntimeAssembly locationHint, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean throwOnFileNotFound, Boolean forIntrospection, Boolean suppressSecurityChecks)
+   в System.Reflection.RuntimeAssembly.nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, RuntimeAssembly locationHint, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean throwOnFileNotFound, Boolean forIntrospection, Boolean suppressSecurityChecks)
+   в System.Reflection.RuntimeAssembly.InternalLoadAssemblyName(AssemblyName assemblyRef, Evidence assemblySecurity, RuntimeAssembly reqAssembly, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean throwOnFileNotFound, Boolean forIntrospection, Boolean suppressSecurityChecks)
+   в System.Reflection.RuntimeAssembly.InternalLoad(String assemblyString, Evidence assemblySecurity, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean forIntrospection)
+   в System.Reflection.RuntimeAssembly.InternalLoad(String assemblyString, Evidence assemblySecurity, StackCrawlMark& stackMark, Boolean forIntrospection)
+   в System.Reflection.Assembly.Load(String assemblyString)
+   в NHibernate.Util.ReflectHelper.TypeFromAssembly(AssemblyQualifiedTypeName name, Boolean throwOnError)
+   в NHibernate.Cfg.XmlHbmBinding.Binder.ClassForFullNameChecked(String fullName, String errorMessage)
+   --- Конец трассировки внутреннего стека исключений ---
+   в NHibernate.Cfg.XmlHbmBinding.Binder.ClassForFullNameChecked(String fullName, String errorMessage)
+   в NHibernate.Cfg.XmlHbmBinding.ClassBinder.BindClass(IEntityMapping classMapping, PersistentClass model, IDictionary`2 inheritedMetas)
+   в NHibernate.Cfg.XmlHbmBinding.RootClassBinder.Bind(HbmClass classSchema, IDictionary`2 inheritedMetas)
+   в NHibernate.Cfg.XmlHbmBinding.MappingRootBinder.AddEntitiesMappings(HbmMapping mappingSchema, IDictionary`2 inheritedMetas)
+   в NHibernate.Cfg.XmlHbmBinding.MappingRootBinder.Bind(HbmMapping mappingSchema)
+   в NHibernate.Cfg.Configuration.AddDeserializedMapping(HbmMapping mappingDocument, String documentFileName)
+   --- Конец трассировки внутреннего стека исключений ---
+2016-02-25 17:52:19,683 [NHibernate.Util.ReflectHelper] ERROR - Could not load type Alvasoft.DimentionConfiguration.NHibernateImpl.Entity.DimentionInfoEntity, SlabGeometryControl.
+System.IO.FileNotFoundException: Не удалось загрузить файл или сборку "SlabGeometryControl" либо одну из их зависимостей. Не удается найти указанный файл.
+Имя файла: 'SlabGeometryControl'
+   в System.Reflection.RuntimeAssembly._nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, RuntimeAssembly locationHint, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean throwOnFileNotFound, Boolean forIntrospection, Boolean suppressSecurityChecks)
+   в System.Reflection.RuntimeAssembly.nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, RuntimeAssembly locationHint, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean throwOnFileNotFound, Boolean forIntrospection, Boolean suppressSecurityChecks)
+   в System.Reflection.RuntimeAssembly.InternalLoadAssemblyName(AssemblyName assemblyRef, Evidence assemblySecurity, RuntimeAssembly reqAssembly, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean throwOnFileNotFound, Boolean forIntrospection, Boolean suppressSecurityChecks)
+   в System.Reflection.RuntimeAssembly.InternalLoad(String assemblyString, Evidence assemblySecurity, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean forIntrospection)
+   в System.Reflection.RuntimeAssembly.InternalLoad(String assemblyString, Evidence assemblySecurity, StackCrawlMark& stackMark, Boolean forIntrospection)
+   в System.Reflection.Assembly.Load(String assemblyString)
+   в NHibernate.Util.ReflectHelper.TypeFromAssembly(AssemblyQualifiedTypeName name, Boolean throwOnError)
+
+Предупреждение: регистрация привязки сборок выключена.
+Чтобы включить регистрацию ошибок привязки сборок, установите значение параметра реестра [HKLM\Software\Microsoft\Fusion!EnableLog] (DWORD) в 1.
+Примечание. Регистрация ошибок привязки сборок может привести к некоторому снижению производительности.
+Чтобы отключить эту функцию, удалите параметр реестра [HKLM\Software\Microsoft\Fusion!EnableLog].
+
+2016-02-25 17:52:19,693 [NHibernate.Cfg.Configuration] ERROR - Could not compile the mapping document: Alvasoft.DimentionConfiguration.NHibernateImpl.Mappings.DimentionInfo.hbm.xml
+NHibernate.MappingException: Could not compile the mapping document: Alvasoft.DimentionConfiguration.NHibernateImpl.Mappings.DimentionInfo.hbm.xml ---> NHibernate.MappingException: persistent class Alvasoft.DimentionConfiguration.NHibernateImpl.Entity.DimentionInfoEntity, SlabGeometryControl not found ---> System.IO.FileNotFoundException: Не удалось загрузить файл или сборку "SlabGeometryControl" либо одну из их зависимостей. Не удается найти указанный файл.
+   в System.Reflection.RuntimeAssembly._nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, RuntimeAssembly locationHint, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean throwOnFileNotFound, Boolean forIntrospection, Boolean suppressSecurityChecks)
+   в System.Reflection.RuntimeAssembly.nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, RuntimeAssembly locationHint, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean throwOnFileNotFound, Boolean forIntrospection, Boolean suppressSecurityChecks)
+   в System.Reflection.RuntimeAssembly.InternalLoadAssemblyName(AssemblyName assemblyRef, Evidence assemblySecurity, RuntimeAssembly reqAssembly, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean throwOnFileNotFound, Boolean forIntrospection, Boolean suppressSecurityChecks)
+   в System.Reflection.RuntimeAssembly.InternalLoad(String assemblyString, Evidence assemblySecurity, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean forIntrospection)
+   в System.Reflection.RuntimeAssembly.InternalLoad(String assemblyString, Evidence assemblySecurity, StackCrawlMark& stackMark, Boolean forIntrospection)
+   в System.Reflection.Assembly.Load(String assemblyString)
+   в NHibernate.Util.ReflectHelper.TypeFromAssembly(AssemblyQualifiedTypeName name, Boolean throwOnError)
+   в NHibernate.Cfg.XmlHbmBinding.Binder.ClassForFullNameChecked(String fullName, String errorMessage)
+   --- Конец трассировки внутреннего стека исключений ---
+   в NHibernate.Cfg.XmlHbmBinding.Binder.ClassForFullNameChecked(String fullName, String errorMessage)
+   в NHibernate.Cfg.XmlHbmBinding.ClassBinder.BindClass(IEntityMapping classMapping, PersistentClass model, IDictionary`2 inheritedMetas)
+   в NHibernate.Cfg.XmlHbmBinding.RootClassBinder.Bind(HbmClass classSchema, IDictionary`2 inheritedMetas)
+   в NHibernate.Cfg.XmlHbmBinding.MappingRootBinder.AddEntitiesMappings(HbmMapping mappingSchema, IDictionary`2 inheritedMetas)
+   в NHibernate.Cfg.XmlHbmBinding.MappingRootBinder.Bind(HbmMapping mappingSchema)
+   в NHibernate.Cfg.Configuration.AddDeserializedMapping(HbmMapping mappingDocument, String documentFileName)
+   --- Конец трассировки внутреннего стека исключений ---
+2016-02-25 17:54:40,043 [NHibernate.Util.ReflectHelper] ERROR - Could not load type Alvasoft.DataWriter.NHibernateImpl.Entity.SensorValueEntity, SlabGeometryControl.
+System.IO.FileNotFoundException: Не удалось загрузить файл или сборку "SlabGeometryControl" либо одну из их зависимостей. Не удается найти указанный файл.
+Имя файла: 'SlabGeometryControl'
+   в System.Reflection.RuntimeAssembly._nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, RuntimeAssembly locationHint, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean throwOnFileNotFound, Boolean forIntrospection, Boolean suppressSecurityChecks)
+   в System.Reflection.RuntimeAssembly.nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, RuntimeAssembly locationHint, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean throwOnFileNotFound, Boolean forIntrospection, Boolean suppressSecurityChecks)
+   в System.Reflection.RuntimeAssembly.InternalLoadAssemblyName(AssemblyName assemblyRef, Evidence assemblySecurity, RuntimeAssembly reqAssembly, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean throwOnFileNotFound, Boolean forIntrospection, Boolean suppressSecurityChecks)
+   в System.Reflection.RuntimeAssembly.InternalLoad(String assemblyString, Evidence assemblySecurity, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean forIntrospection)
+   в System.Reflection.RuntimeAssembly.InternalLoad(String assemblyString, Evidence assemblySecurity, StackCrawlMark& stackMark, Boolean forIntrospection)
+   в System.Reflection.Assembly.Load(String assemblyString)
+   в NHibernate.Util.ReflectHelper.TypeFromAssembly(AssemblyQualifiedTypeName name, Boolean throwOnError)
+
+Предупреждение: регистрация привязки сборок выключена.
+Чтобы включить регистрацию ошибок привязки сборок, установите значение параметра реестра [HKLM\Software\Microsoft\Fusion!EnableLog] (DWORD) в 1.
+Примечание. Регистрация ошибок привязки сборок может привести к некоторому снижению производительности.
+Чтобы отключить эту функцию, удалите параметр реестра [HKLM\Software\Microsoft\Fusion!EnableLog].
+
+2016-02-25 17:54:40,043 [NHibernate.Cfg.Configuration] ERROR - Could not compile the mapping document: Alvasoft.DataWriter.NHibernateImpl.Mappings.SensorValue.hbm.xml
+NHibernate.MappingException: Could not compile the mapping document: Alvasoft.DataWriter.NHibernateImpl.Mappings.SensorValue.hbm.xml ---> NHibernate.MappingException: persistent class Alvasoft.DataWriter.NHibernateImpl.Entity.SensorValueEntity, SlabGeometryControl not found ---> System.IO.FileNotFoundException: Не удалось загрузить файл или сборку "SlabGeometryControl" либо одну из их зависимостей. Не удается найти указанный файл.
+   в System.Reflection.RuntimeAssembly._nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, RuntimeAssembly locationHint, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean throwOnFileNotFound, Boolean forIntrospection, Boolean suppressSecurityChecks)
+   в System.Reflection.RuntimeAssembly.nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, RuntimeAssembly locationHint, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean throwOnFileNotFound, Boolean forIntrospection, Boolean suppressSecurityChecks)
+   в System.Reflection.RuntimeAssembly.InternalLoadAssemblyName(AssemblyName assemblyRef, Evidence assemblySecurity, RuntimeAssembly reqAssembly, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean throwOnFileNotFound, Boolean forIntrospection, Boolean suppressSecurityChecks)
+   в System.Reflection.RuntimeAssembly.InternalLoad(String assemblyString, Evidence assemblySecurity, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean forIntrospection)
+   в System.Reflection.RuntimeAssembly.InternalLoad(String assemblyString, Evidence assemblySecurity, StackCrawlMark& stackMark, Boolean forIntrospection)
+   в System.Reflection.Assembly.Load(String assemblyString)
+   в NHibernate.Util.ReflectHelper.TypeFromAssembly(AssemblyQualifiedTypeName name, Boolean throwOnError)
+   в NHibernate.Cfg.XmlHbmBinding.Binder.ClassForFullNameChecked(String fullName, String errorMessage)
+   --- Конец трассировки внутреннего стека исключений ---
+   в NHibernate.Cfg.XmlHbmBinding.Binder.ClassForFullNameChecked(String fullName, String errorMessage)
+   в NHibernate.Cfg.XmlHbmBinding.ClassBinder.BindClass(IEntityMapping classMapping, PersistentClass model, IDictionary`2 inheritedMetas)
+   в NHibernate.Cfg.XmlHbmBinding.RootClassBinder.Bind(HbmClass classSchema, IDictionary`2 inheritedMetas)
+   в NHibernate.Cfg.XmlHbmBinding.MappingRootBinder.AddEntitiesMappings(HbmMapping mappingSchema, IDictionary`2 inheritedMetas)
+   в NHibernate.Cfg.XmlHbmBinding.MappingRootBinder.Bind(HbmMapping mappingSchema)
+   в NHibernate.Cfg.Configuration.AddDeserializedMapping(HbmMapping mappingDocument, String documentFileName)
+   --- Конец трассировки внутреннего стека исключений ---

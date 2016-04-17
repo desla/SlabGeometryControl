@@ -1,0 +1,4 @@
+D:\repositories\SlabGeometryControl\Круглые слитки\Wcf\AlvasoftWcf\AlvasoftWcfClient\bin\Debug\AlvasoftWcfClient.dll
+D:\repositories\SlabGeometryControl\Круглые слитки\Wcf\AlvasoftWcf\AlvasoftWcfClient\bin\Debug\AlvasoftWcfClient.pdb
+D:\repositories\SlabGeometryControl\Круглые слитки\Wcf\AlvasoftWcf\AlvasoftWcfClient\obj\Debug\AlvasoftWcfClient.dll
+D:\repositories\SlabGeometryControl\Круглые слитки\Wcf\AlvasoftWcf\AlvasoftWcfClient\obj\Debug\AlvasoftWcfClient.pdb

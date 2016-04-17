@@ -1,0 +1,4 @@
+2016-03-25 14:39:11,693 [CalibratorImpl] ERROR - Ошибка калибратора: Файл 'D:\repositories\SlabGeometryControl\Круглые слитки\SlabGeometryControl\bin\Debug\Settings\CalibratorConfiguration.xml' не найден.
+2016-03-25 15:21:58,266 [OpcDataProviderImpl] ERROR - Левая граница 0 лежит не в блоке для чтения 1.
+2016-03-25 16:24:27,172 [OpcDataProviderImpl] ERROR - Левая граница 900 лежит не в блоке для чтения 0.
+2016-03-25 16:27:33,824 [OpcDataProviderImpl] ERROR - Левая граница 0 лежит не в блоке для чтения 1.
