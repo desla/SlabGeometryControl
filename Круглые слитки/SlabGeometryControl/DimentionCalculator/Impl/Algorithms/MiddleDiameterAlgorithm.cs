@@ -18,7 +18,7 @@ namespace Alvasoft.DimentionCalculator.Impl.Algorithms {
             var middleDistance = firstPoint.Z + (lastPoint.Z - firstPoint.Z) / 2.0;
             for (var i = 0; i < aSlabModel.CenterLine.Length; ++i) {
                 if (aSlabModel.CenterLine[i].Z >= middleDistance) {
-                    return Math.Round(aSlabModel.Diameters[i], 4);
+                    return Math.Round(aSlabModel.Diameters[i] - 0.2, 4);
                 }
             }
 

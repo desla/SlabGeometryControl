@@ -4,7 +4,7 @@ using Alvasoft.SlabBuilder.Impl;
 
 namespace Alvasoft.DimentionCalculator.Impl.Algorithms {
     public class FrontDiameterAlgorithm : IDimentionAlgorithm {
-        private double frontIndent = 150; // отступ от торца слитка в мм.
+        private double frontIndent = 500; // отступ от торца слитка в мм.
 
         public double CalculateValue(SlabModelImpl aSlabModel) {
             if (aSlabModel == null) {
@@ -17,7 +17,7 @@ namespace Alvasoft.DimentionCalculator.Impl.Algorithms {
 
             for (var i = 0; i < aSlabModel.CenterLine.Length; ++i) {
                 if (aSlabModel.CenterLine[i].Z - aSlabModel.CenterLine[0].Z >= frontIndent) {
-                    return Math.Round(aSlabModel.Diameters[i], 4);
+                    return Math.Round(aSlabModel.Diameters[i] - 0.2, 4);
                 }
             }
 

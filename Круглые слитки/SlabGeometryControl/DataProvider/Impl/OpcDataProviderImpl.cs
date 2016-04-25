@@ -452,7 +452,13 @@ namespace Alvasoft.DataProvider.Impl
             }
 
             var positionSensor = sensors[positionSensorId];
-            var positionValues = positionSensor.DataBlocks[aDataBlock].ReadCurrentValue() as Array;            
+            var positionValues = positionSensor.DataBlocks[aDataBlock].ReadCurrentValue() as Array;
+
+            // Если слиток просто стоял.
+            if (!IsPositionChanged(positionValues)) {
+                Console.WriteLine("Блок " + aDataBlock + " игнорирован.");
+                return;
+            }
 
             foreach (var sensorId in sensors.Keys) {
                 var sensor = sensors[sensorId];                                
@@ -466,6 +472,23 @@ namespace Alvasoft.DataProvider.Impl
                 }
                 Console.WriteLine("Игнорировано: " + ignored);
             }   
+        }
+
+        private bool IsPositionChanged(Array aPositionValues)
+        {
+            var eps = 10;
+            if (aPositionValues == null || aPositionValues.Length == 0) {
+                return false;
+            }
+
+            var first = Convert.ToDouble(aPositionValues.GetValue(0));
+            var last = Convert.ToDouble(aPositionValues.GetValue(aPositionValues.Length - 1));
+
+            if (Math.Abs(first - last) < eps) {
+                return false;
+            }
+
+            return true;
         }
     }
 }

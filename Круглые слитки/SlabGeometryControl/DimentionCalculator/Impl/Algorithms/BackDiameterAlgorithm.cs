@@ -4,7 +4,7 @@ using Alvasoft.SlabBuilder.Impl;
 
 namespace Alvasoft.DimentionCalculator.Impl.Algorithms {
     public class BackDiameterAlgorithm : IDimentionAlgorithm {
-        private double backIndent = 150; // отступ от торца слитка.
+        private double backIndent = 500; // отступ от торца слитка.
 
         public double CalculateValue(SlabModelImpl aSlabModel) {
             if (aSlabModel == null) {
@@ -18,7 +18,7 @@ namespace Alvasoft.DimentionCalculator.Impl.Algorithms {
             var lastPoint = aSlabModel.CenterLine.Last();
             for (var i = aSlabModel.CenterLine.Length - 1; i >= 0; --i) {
                 if (lastPoint.Z - aSlabModel.CenterLine[i].Z >= backIndent) {
-                    return Math.Round(aSlabModel.Diameters[i], 4);
+                    return Math.Round(aSlabModel.Diameters[i] - 0.2, 4);
                 }
             }
 
