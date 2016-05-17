@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using System.Xml;
 using Alvasoft.DataProvider.Impl.Emulator;
 using Alvasoft.Utils.Activity;
@@ -44,7 +45,8 @@ namespace Alvasoft.DataProvider.Impl
         {
             calibratedValues[aSensorId] = aCalibratedValue;
             try {
-                document.Load(XML_FILE_NAME);
+                var appPath = Application.StartupPath + "/";
+                document.Load(appPath + XML_FILE_NAME);
                 var root = document.DocumentElement;
                 var items = root.ChildNodes;
                 for (var i = 0; i < items.Count; ++i) {
@@ -52,7 +54,7 @@ namespace Alvasoft.DataProvider.Impl
                     var sensorId = Convert.ToInt32(item.Attributes[SENSOR_ID].Value);
                     if (aSensorId == sensorId) {
                         item.InnerText = aCalibratedValue.ToString();
-                        document.Save(XML_FILE_NAME);
+                        document.Save(appPath + XML_FILE_NAME);
                         return;
                     }
                 }
@@ -61,7 +63,7 @@ namespace Alvasoft.DataProvider.Impl
                 element.SetAttribute(SENSOR_ID, aSensorId.ToString());
                 element.InnerText = aCalibratedValue.ToString();
                 root.AppendChild(element);
-                document.Save(XML_FILE_NAME);
+                document.Save(appPath + XML_FILE_NAME);
             }
             catch (Exception ex) {
                 logger.Error("Ошибка при сохранении калибровочного значения: " + ex.Message);
@@ -72,8 +74,9 @@ namespace Alvasoft.DataProvider.Impl
         {            
             logger.Info("Инициализация...");
             try {
+                var appPath = Application.StartupPath + "/";
                 document = new XmlDocument();
-                document.Load(XML_FILE_NAME);
+                document.Load(appPath + XML_FILE_NAME);
                 var items = document.DocumentElement.ChildNodes;                
                 for (var i = 0; i < items.Count; ++i) {
                     var item = items[i];
