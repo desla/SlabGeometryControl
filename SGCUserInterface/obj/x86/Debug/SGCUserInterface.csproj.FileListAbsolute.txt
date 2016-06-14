@@ -28,8 +28,6 @@ D:\repositories\SlabGeometryControl\SGCUserInterface\bin\Debug\log4net.dll
 D:\repositories\SlabGeometryControl\SGCUserInterface\bin\Debug\SlabGCApi.pdb
 D:\repositories\SlabGeometryControl\SGCUserInterface\bin\Debug\AlvasoftWcfClient.pdb
 D:\repositories\SlabGeometryControl\SGCUserInterface\bin\Debug\AlvasoftWcfServer.pdb
-D:\repositories\SlabGeometryControl\SGCUserInterface\bin\Debug\Tao.FreeGlut.xml
-D:\repositories\SlabGeometryControl\SGCUserInterface\bin\Debug\Tao.OpenGl.xml
 D:\repositories\SlabGeometryControl\SGCUserInterface\bin\Debug\Tao.Platform.Windows.xml
 D:\repositories\SlabGeometryControl\SGCUserInterface\obj\x86\Debug\SGCUserInterface.exe
 D:\repositories\SlabGeometryControl\SGCUserInterface\obj\x86\Debug\SGCUserInterface.pdb

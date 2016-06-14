@@ -13,12 +13,12 @@ namespace Alvasoft.DataProvider.Impl
 {
     using System.Threading;
 
-    public class OpcDataProviderImpl : 
+    public class OpcDataProviderImpl :
         InitializableImpl,
-        IDataProvider,        
+        IDataProvider,
         IDataProviderConfigurationListener,
         ISensorConfigurationListener,
-        IActivatorListener, 
+        IActivatorListener,
         IOpcValueListener
     {
         private static readonly ILog logger = LogManager.GetLogger("OpcDataProviderImpl");
@@ -26,7 +26,7 @@ namespace Alvasoft.DataProvider.Impl
         private ISensorValueContainer valueContainer;
         private IDataProviderConfiguration opcConfiguration;
         private ISensorConfiguration sensorConfiguration;
-        private List<IDataProviderListener> listeners = new List<IDataProviderListener>();        
+        private List<IDataProviderListener> listeners = new List<IDataProviderListener>();
         private OPCServer server;
         private DataProviderActivatorImpl activator;
         private ControlBlock controlBlock;
@@ -51,7 +51,7 @@ namespace Alvasoft.DataProvider.Impl
 
         public SystemState GetCurrentSystemState()
         {
-            return isScanning ? SystemState.SCANNING : SystemState.WAITING;            
+            return isScanning ? SystemState.SCANNING : SystemState.WAITING;
         }
 
         public void SetSensorValueContainer(ISensorValueContainer aSensorValueContainer)
@@ -97,7 +97,7 @@ namespace Alvasoft.DataProvider.Impl
 
         public bool IsConnected()
         {
-            return server != null && server.ServerState == (int) OPCServerState.OPCRunning;
+            return server != null && server.ServerState == (int)OPCServerState.OPCRunning;
         }
 
         public bool IsSensorActive(int aSensorId)
@@ -143,7 +143,7 @@ namespace Alvasoft.DataProvider.Impl
             opcReadingThread = new Thread(DataBlockReading);
             opcReadingThread.Start();
             logger.Info("Инициализация завершена.");
-        }        
+        }
 
         protected override void DoUninitialize()
         {
@@ -155,7 +155,7 @@ namespace Alvasoft.DataProvider.Impl
             }
             server.Disconnect();
 
-            opcReadingThread.Abort();            
+            opcReadingThread.Abort();
         }
 
         public void OnActivationTagValueChanged(bool aCurrentValue)
@@ -176,7 +176,7 @@ namespace Alvasoft.DataProvider.Impl
             catch (Exception ex) {
                 logger.Info("Ошибка при изменении состояния: " + ex.Message);
             }
-        }        
+        }
 
         public void OnSensorCreated(IDataProviderConfiguration aConfiguration, int aSensorId)
         {
@@ -214,8 +214,8 @@ namespace Alvasoft.DataProvider.Impl
             controlBlock = new ControlBlock();
             controlBlock.MaxSize = new OpcValueImpl(server, controlBlockInfo.DataMaxSizeTag);
             controlBlock.StartIndex = new OpcValueImpl(server, controlBlockInfo.StartIndexTag);
-            controlBlock.EndIndex = new OpcValueImpl(server, controlBlockInfo.EndIndexTag, 
-                OPCDataSource.OPCDevice, 25);            
+            controlBlock.EndIndex = new OpcValueImpl(server, controlBlockInfo.EndIndexTag,
+                OPCDataSource.OPCDevice, 25);
             controlBlock.TimeSyncActivator = new OpcValueImpl(server, controlBlockInfo.DateTimeSyncActivatorTag);
             controlBlock.TimeForSync = new OpcValueImpl(server, controlBlockInfo.DateTimeForSyncTag);
             controlBlock.ResetToZeroItem = new OpcValueImpl(server, controlBlockInfo.ResetToZeroTag);
@@ -223,7 +223,7 @@ namespace Alvasoft.DataProvider.Impl
             controlBlock.DataBlocksCount = controlBlockInfo.DataBlocksCount;
             controlBlock.Times = new OpcValueImpl[controlBlockInfo.DataBlocksCount];
             for (var i = 0; i < controlBlockInfo.DataBlocksCount; ++i) {
-                controlBlock.Times[i] = new OpcValueImpl(server, controlBlockInfo.TimesTags[i], OPCDataSource.OPCDevice);            
+                controlBlock.Times[i] = new OpcValueImpl(server, controlBlockInfo.TimesTags[i], OPCDataSource.OPCDevice);
             }
 
             controlBlock.EndIndex.IsListenValueChanging = true;
@@ -234,7 +234,7 @@ namespace Alvasoft.DataProvider.Impl
                 timeBlock.WriteValue(new int[100]);
             }
             controlBlock.StartIndex.WriteValue(0);
-            controlBlock.EndIndex.WriteValue(0);            
+            controlBlock.EndIndex.WriteValue(0);
             controlBlock.TimeForSync.WriteValue(DateTime.Now);
             controlBlock.TimeSyncActivator.WriteValue(true);
             controlBlock.ResetToZeroItem.WriteValue(true);
@@ -261,13 +261,13 @@ namespace Alvasoft.DataProvider.Impl
 
                 var sensor = new OpcSensor();
                 sensor.dataBlockSize = controlBlock.DataBlockSize;
-                sensor.Enable = new OpcValueImpl(server, sensorInfo.EnableTag);                
+                sensor.Enable = new OpcValueImpl(server, sensorInfo.EnableTag);
                 sensor.CurrentValue = new OpcValueImpl(server, sensorInfo.CurrentValueTag);
                 sensor.DataBlocks = new OpcValueImpl[controlBlock.DataBlocksCount];
                 for (var j = 0; j < controlBlock.DataBlocksCount; ++j) {
-                    sensor.DataBlocks[j] = 
+                    sensor.DataBlocks[j] =
                         new OpcValueImpl(server, sensorInfo.DataBlocksTags[j], OPCDataSource.OPCDevice);
-                }                
+                }
                 sensor.Initialize();
 
                 sensors[sensorId] = sensor;
@@ -276,7 +276,7 @@ namespace Alvasoft.DataProvider.Impl
                 if (sensorConfig.GetSensorType() == SensorType.POSITION) {
                     positionSensorId = sensorId;
                 }
-            }            
+            }
         }
 
         private int GetSensorId(IOpcSensorInfo aSensorInfo)
@@ -295,14 +295,14 @@ namespace Alvasoft.DataProvider.Impl
             isScanning = false;
             logger.Info("Сканирование завершено. Слушатели не оповещены.");
             // Для того, чтобы в очередь попали данные из последнего блока данных.
-            var rightIndex = Convert.ToInt32(controlBlock.EndIndex.ReadCurrentValue());            
+            var rightIndex = Convert.ToInt32(controlBlock.EndIndex.ReadCurrentValue());
             AddPreviosDataBlockToQueue(rightIndex + controlBlock.DataBlockSize);
 
             logger.Info("Ожидаем окончания чтения данных...");
             while (dataBlockQueue.Count > 0) {
                 Thread.Sleep(100);
             }
-            logger.Info("Данные полностью прочитаны.");        
+            logger.Info("Данные полностью прочитаны.");
             try {
                 foreach (var listener in listeners) {
                     listener.OnStateChanged(this);
@@ -312,7 +312,7 @@ namespace Alvasoft.DataProvider.Impl
                 logger.Info("Ошибка в callback'е: " + ex.Message);
             }
 
-            try {                                
+            try {
                 Console.WriteLine("Обнуление данных контроллера.");
                 controlBlock.StartIndex.WriteValue(0);
                 controlBlock.EndIndex.WriteValue(0);
@@ -324,7 +324,7 @@ namespace Alvasoft.DataProvider.Impl
             }
             catch (Exception ex) {
                 logger.Error("Ошибка при обнулении значений после сканирования: " + ex.Message);
-            }            
+            }
         }
 
         private void StartScanning()
@@ -342,7 +342,7 @@ namespace Alvasoft.DataProvider.Impl
         /// <param name="aOpcValue"></param>
         /// <param name="aValueChangedEventArgs"></param>
         public void OnValueChanged(IOpcValue aOpcValue, OpcValueChangedEventArgs aValueChangedEventArgs)
-        {            
+        {
             if (!isScanning) {
                 Console.WriteLine("FAIL " + aValueChangedEventArgs.Value);
                 return;
@@ -396,16 +396,16 @@ namespace Alvasoft.DataProvider.Impl
                     lock (dataBlockQueue) {
                         dataBlock = dataBlockQueue.Peek();
                     }
-                    
+
                     // Если левая граница не в блоке, то это непонятно!
-                    if (leftIndex < dataBlock*controlBlock.DataBlockSize ||
+                    if (leftIndex < dataBlock * controlBlock.DataBlockSize ||
                         leftIndex >= dataBlock * controlBlock.DataBlockSize + controlBlock.DataBlockSize) {
                         logger.Error(string.Format(
                             "Левая граница {0} лежит не в блоке для чтения {1}.", leftIndex, dataBlock));
                     }
 
-                    var fromIndex = Math.Max(leftIndex, dataBlock*controlBlock.DataBlockSize);
-                    var toIndex = Math.Min(rightIndex - 1, (dataBlock + 1)*controlBlock.DataBlockSize - 1);
+                    var fromIndex = Math.Max(leftIndex, dataBlock * controlBlock.DataBlockSize);
+                    var toIndex = Math.Min(rightIndex - 1, (dataBlock + 1) * controlBlock.DataBlockSize - 1);
                     if (toIndex < fromIndex) {
                         toIndex = (dataBlock + 1) * controlBlock.DataBlockSize - 1;
                     }
@@ -414,20 +414,20 @@ namespace Alvasoft.DataProvider.Impl
                     try {
                         logger.Info("Читаем блок " + dataBlock + " от " + fromIndex + " до " + toIndex);
                         ReadDataBlock(
-                            dataBlock, 
-                            fromIndex - dataBlock * controlBlock.DataBlockSize, 
+                            dataBlock,
+                            fromIndex - dataBlock * controlBlock.DataBlockSize,
                             toIndex - dataBlock * controlBlock.DataBlockSize);
                     }
                     catch (Exception ex) {
                         logger.Error("Ошибка при чтении блока данных " + dataBlock + ": " + ex.Message);
                     }
 
-                    try {                        
+                    try {
                         var nextPosition = dataBlock != controlBlock.DataBlocksCount - 1
                             ? toIndex + 1
                             : 0;
                         logger.Info("Сдвигаем границу в позицию " + nextPosition);
-                        controlBlock.StartIndex.WriteValue(nextPosition);                        
+                        controlBlock.StartIndex.WriteValue(nextPosition);
                     }
                     catch (Exception ex) {
                         logger.Error("Ошибка при записи границы.");
@@ -441,9 +441,9 @@ namespace Alvasoft.DataProvider.Impl
         }
 
         private void ReadDataBlock(int aDataBlock, int aFromIndex, int aToIndex)
-        {                        
-            var times = controlBlock.Times[aDataBlock].ReadCurrentValue() as Array;            
-            var longTimes = new long[times.Length];            
+        {
+            var times = controlBlock.Times[aDataBlock].ReadCurrentValue() as Array;
+            var longTimes = new long[times.Length];
             for (var i = 0; i < times.Length; ++i) {
                 var milliseconds = Convert.ToDouble(times.GetValue(i));
                 var timeSpan = TimeSpan.FromMilliseconds(milliseconds);
@@ -452,29 +452,43 @@ namespace Alvasoft.DataProvider.Impl
             }
 
             var positionSensor = sensors[positionSensorId];
-            var positionValues = positionSensor.DataBlocks[aDataBlock].ReadCurrentValue() as Array;            
+            var positionValues = positionSensor.DataBlocks[aDataBlock].ReadCurrentValue() as Array;
+
+            // Если слиток просто стоял.
+            if (!IsPositionChanged(positionValues)) {
+                Console.WriteLine("Блок " + aDataBlock + " игнорирован.");
+                return;
+            }
 
             foreach (var sensorId in sensors.Keys) {
-                var sensor = sensors[sensorId];                                
+                var sensor = sensors[sensorId];
                 var values = sensor.DataBlocks[aDataBlock].ReadCurrentValue() as Array;
                 var currentIndex = aFromIndex;
                 var ignored = 0;
-                //var previousPosition = 0.0;
                 while (currentIndex <= aToIndex) {
-                //    var currentPosition = Convert.ToDouble(positionValues.GetValue(currentIndex));
-                //    if (currentIndex == 0 ||
-                //        Math.Abs(currentPosition - previousPosition) > 0.001) {
-                //        previousPosition = currentPosition;
-                        var value = Convert.ToDouble(values.GetValue(currentIndex));
-                        valueContainer.AddSensorValue(sensorId, value, longTimes[currentIndex]);
-                //    }
-                //    else {
-                //        ignored++;
-                //    }
+                    var value = Convert.ToDouble(values.GetValue(currentIndex));
+                    valueContainer.AddSensorValue(sensorId, value, longTimes[currentIndex]);
                     currentIndex++;
                 }
                 Console.WriteLine("Игнорировано: " + ignored);
-            }   
+            }
+        }
+
+        private bool IsPositionChanged(Array aPositionValues)
+        {
+            var eps = 10;
+            if (aPositionValues == null || aPositionValues.Length == 0) {
+                return false;
+            }
+
+            var first = Convert.ToDouble(aPositionValues.GetValue(0));
+            var last = Convert.ToDouble(aPositionValues.GetValue(aPositionValues.Length - 1));
+
+            if (Math.Abs(first - last) < eps) {
+                return false;
+            }
+
+            return true;
         }
     }
 }

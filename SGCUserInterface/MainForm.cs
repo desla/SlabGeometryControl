@@ -280,8 +280,8 @@ namespace SGCUserInterface
         private void SlabsListLoading(object sender, DoWorkEventArgs e)
         {
             try {
-                var from = dateTimeFrom.Value.ToLocalTime().ToBinary();
-                var to = dateTimeFrom.Value.AddDays(1).ToLocalTime().ToBinary();
+                var from = dateTimeFrom.Value.Date.ToLocalTime().ToBinary();
+                var to = dateTimeFrom.Value.Date.AddHours(24).ToLocalTime().ToBinary();                                              
                 slabsList.Slabs = client.GetSlabInfosByTimeInterval(from, to);                
                 if (slabsList.StandartSizes == null) {
                     slabsList.StandartSizes = client.GetStandartSizes();
@@ -612,6 +612,10 @@ namespace SGCUserInterface
                 ThreadPool.QueueUserWorkItem(state =>
                     new SlabVisualizationForm(slabId, standartSizeId, client, true).ShowDialog());
             }
+        }
+
+        private void dateTimeFrom_ValueChanged(object sender, EventArgs e)
+        {            
         }
     }
 }
