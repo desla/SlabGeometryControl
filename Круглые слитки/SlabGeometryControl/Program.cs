@@ -4,30 +4,45 @@ using System.IO;
 using Alvasoft.Server;
 using Alvasoft.Wcf.NetConfiguration;
 using log4net.Config;
+using System.ServiceProcess;
+using System.Windows.Forms;
 
 namespace Alvasoft
 {
-    class Program
-    {
+    class Program : ServiceBase {
+
+        private static GCSService controller;
+        private static NetConfigurationImpl netConfiguration = new NetConfigurationImpl {
+            ServerHost = "localhost",
+            ServerPort = 9876
+        };
+
         static void Main(string[] args)
-        {            
-            var configLogingFileName = "Settings\\Logging.xml";
+        {
+            var appPath = Application.StartupPath + "/";
+            var configLogingFileName = appPath + "Settings/Logging.xml";
             XmlConfigurator.Configure(new FileInfo(configLogingFileName));
 
-            var netConfiguration = new NetConfigurationImpl {
-                //ServerHost = "192.168.1.66",
-                ServerHost = "localhost",
-                ServerPort = 9876
-            };
+            if (args.Length > 0 && args[0].ToLower().Equals("console")) {                
+                using (controller = new GCSService(netConfiguration)) {
+                    controller.OpenService();
+                    Console.WriteLine("Сервис запущен. Нажмите Enter для остановки.");
+                    Console.ReadLine();
+                    controller.CloseService();
+                }
+            } else {
+                ServiceBase.Run(new Program());
+            }
+        }        
 
-            using (var controller = new GCSService(netConfiguration)) {                
-                controller.OpenService();
+        protected override void OnStart(string[] args) {
+            controller = new GCSService(netConfiguration);
+            controller.OpenService();
+        }
 
-                Console.WriteLine("Сервис запущен. Нажмите Enter для остановки.");
-                Console.ReadLine();
-
-                controller.CloseService();
-            }            
+        protected override void OnStop() {
+            controller.CloseService();
+            controller.Dispose(); 
         }
     }
 }

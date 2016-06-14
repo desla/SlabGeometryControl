@@ -24,6 +24,7 @@ using Alvasoft.SlabGeometryControl;
 using SensorSide = Alvasoft.DataEnums.SensorSide;
 using SensorType = Alvasoft.DataEnums.SensorType;
 using SensorValue = Alvasoft.SlabGeometryControl.SensorValue;
+using System.Windows.Forms;
 
 namespace Alvasoft.Server
 {
@@ -69,10 +70,10 @@ namespace Alvasoft.Server
         protected override void DoInitialize()
         {
             logger.Info("Инициализация...");
-
+            var appPath = Application.StartupPath + "/";
             dimentionConfiguration = new NHibernateDimentionConfigurationImpl();
-            dataProviderConfiguration = new XmlDataProviderConfigurationImpl("Settings/OpcConfiguration.xml");
-            sensorConfiguration = new XmlSensorConfigurationImpl("Settings/SensorConfiguration.xml");
+            dataProviderConfiguration = new XmlDataProviderConfigurationImpl(appPath + "Settings/OpcConfiguration.xml");
+            sensorConfiguration = new XmlSensorConfigurationImpl(appPath + "Settings/SensorConfiguration.xml");
 
             dataProvider = new OpcDataProviderImpl();        
             calibrator = new CalibratorImpl();
