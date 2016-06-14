@@ -5,3 +5,4 @@ D:\repositories\SlabGeometryControl\SlabGCApi\bin\Debug\log4net.dll
 D:\repositories\SlabGeometryControl\SlabGCApi\bin\Debug\AlvasoftWcfClient.pdb
 D:\repositories\SlabGeometryControl\SlabGCApi\obj\Debug\SlabGCApi.dll
 D:\repositories\SlabGeometryControl\SlabGCApi\obj\Debug\SlabGCApi.pdb
+D:\repositories\SlabGeometryControl\SlabGCApi\obj\Debug\SlabGCApi.csprojResolveAssemblyReference.cache

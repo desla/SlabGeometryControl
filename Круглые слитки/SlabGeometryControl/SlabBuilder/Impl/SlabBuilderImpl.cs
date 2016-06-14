@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Forms;
 using Alvasoft.DataEnums;
 using Alvasoft.DataProvider;
 using Alvasoft.SensorConfiguration;
@@ -85,15 +87,158 @@ namespace Alvasoft.SlabBuilder.Impl
                 PickFilter.Filter(slab);                                
             }
 
-            BuildCenters(slab);
+            BuildCenters(slab);            
             BuildLimits(slab);
+
+            var d1 = GetDiameter1(slab);
+            var d2 = GetDiameter2(slab);
+            var d3 = GetDiameter3(slab);
+            var d4 = GetDiameter4(slab);
 
             if (aIsUseFilters) {
                 BumpFilter.Filter(slab);
                 AverageFilter.Filter(slab);
-            }
+            }            
+
+            MessageBox.Show(d1 + " " + d2 + " " + d3 + " " + d4);
 
             return slab;
+        }
+
+        private double GetDiameter1(SlabModelImpl aModel) {
+            var firstPoint = aModel.CenterLine.First();
+            var lastPoint = aModel.CenterLine.Last();
+            var middleDistance = firstPoint.Z + (lastPoint.Z - firstPoint.Z) / 2.0;
+            // теперь по 3-м точкам будем строить описанную окружность и вычислять ее центр и диаметр.            
+
+            var lines = new Point3D[3][];
+            lines[0] = aModel.TopSensorLine;
+            lines[1] = aModel.BottomSensorLine;
+            lines[2] = aModel.LeftSensorLine;
+            var indexes = new int[3] { 0, 0, 0 };
+            MoveToOnePlainZ(ref indexes, lines); // двигает границы массивов до тех пор, пока все точки не станут в одной плоскости.
+            var pointsCount = int.MaxValue;
+            for (var i = 0; i < 3; ++i) {
+                pointsCount = Math.Min(pointsCount, lines[i].Length - indexes[i]);
+            }
+
+            for (var i = 0; i < pointsCount; ++i) {                
+                var a = indexes[0];
+                var b = indexes[1];
+                var c = indexes[2];
+                if (lines[0][a].Z >= middleDistance) {
+                    var diameter = CalcCircleDiameter(lines[0][a], lines[1][b], lines[2][c]);
+                    return diameter;
+                }                 
+
+                indexes[0]++;
+                indexes[1]++;
+                indexes[2]++;
+            }
+
+            return 0;
+        }
+
+        private double GetDiameter2(SlabModelImpl aModel) {
+            var firstPoint = aModel.CenterLine.First();
+            var lastPoint = aModel.CenterLine.Last();
+            var middleDistance = firstPoint.Z + (lastPoint.Z - firstPoint.Z) / 2.0;
+            // теперь по 3-м точкам будем строить описанную окружность и вычислять ее центр и диаметр.            
+
+            var lines = new Point3D[3][];
+            lines[0] = aModel.TopSensorLine;
+            lines[1] = aModel.BottomSensorLine;
+            lines[2] = aModel.RightSensorLine;
+            var indexes = new int[3] { 0, 0, 0 };
+            MoveToOnePlainZ(ref indexes, lines); // двигает границы массивов до тех пор, пока все точки не станут в одной плоскости.
+            var pointsCount = int.MaxValue;
+            for (var i = 0; i < 3; ++i) {
+                pointsCount = Math.Min(pointsCount, lines[i].Length - indexes[i]);
+            }
+
+            for (var i = 0; i < pointsCount; ++i) {
+                var a = indexes[0];
+                var b = indexes[1];
+                var c = indexes[2];
+                if (lines[0][a].Z >= middleDistance) {
+                    var diameter = CalcCircleDiameter(lines[0][a], lines[1][b], lines[2][c]);
+                    return diameter;
+                }
+
+                indexes[0]++;
+                indexes[1]++;
+                indexes[2]++;
+            }
+
+            return 0;
+        }
+
+        private double GetDiameter3(SlabModelImpl aModel) {
+            var firstPoint = aModel.CenterLine.First();
+            var lastPoint = aModel.CenterLine.Last();
+            var middleDistance = firstPoint.Z + (lastPoint.Z - firstPoint.Z) / 2.0;
+            // теперь по 3-м точкам будем строить описанную окружность и вычислять ее центр и диаметр.            
+
+            var lines = new Point3D[3][];
+            lines[0] = aModel.LeftSensorLine;
+            lines[1] = aModel.BottomSensorLine;
+            lines[2] = aModel.RightSensorLine;
+            var indexes = new int[3] { 0, 0, 0 };
+            MoveToOnePlainZ(ref indexes, lines); // двигает границы массивов до тех пор, пока все точки не станут в одной плоскости.
+            var pointsCount = int.MaxValue;
+            for (var i = 0; i < 3; ++i) {
+                pointsCount = Math.Min(pointsCount, lines[i].Length - indexes[i]);
+            }
+
+            for (var i = 0; i < pointsCount; ++i) {
+                var a = indexes[0];
+                var b = indexes[1];
+                var c = indexes[2];
+                if (lines[0][a].Z >= middleDistance) {
+                    var diameter = CalcCircleDiameter(lines[0][a], lines[1][b], lines[2][c]);
+                    return diameter;
+                }
+
+                indexes[0]++;
+                indexes[1]++;
+                indexes[2]++;
+            }
+
+            return 0;
+        }
+
+        private double GetDiameter4(SlabModelImpl aModel) {
+            var firstPoint = aModel.CenterLine.First();
+            var lastPoint = aModel.CenterLine.Last();
+            var middleDistance = firstPoint.Z + (lastPoint.Z - firstPoint.Z) / 2.0;
+            // теперь по 3-м точкам будем строить описанную окружность и вычислять ее центр и диаметр.            
+
+            var lines = new Point3D[3][];
+            lines[0] = aModel.LeftSensorLine;
+            lines[1] = aModel.TopSensorLine;
+            lines[2] = aModel.RightSensorLine;
+            var indexes = new int[3] { 0, 0, 0 };
+            MoveToOnePlainZ(ref indexes, lines); // двигает границы массивов до тех пор, пока все точки не станут в одной плоскости.
+            var pointsCount = int.MaxValue;
+            for (var i = 0; i < 3; ++i) {
+                pointsCount = Math.Min(pointsCount, lines[i].Length - indexes[i]);
+            }
+
+            for (var i = 0; i < pointsCount; ++i) {
+                var a = indexes[0];
+                var b = indexes[1];
+                var c = indexes[2];
+                if (lines[0][a].Z >= middleDistance) {
+                    var diameter = CalcCircleDiameter(lines[0][a], lines[1][b], lines[2][c]);
+                    return diameter;
+                }
+
+                indexes[0]++;
+                indexes[1]++;
+                indexes[2]++;
+            }
+
+            return 0;
         }
 
         private void MakePositionValues() {            

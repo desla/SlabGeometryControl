@@ -6,19 +6,20 @@ using Alvasoft.Wcf.NetConfiguration;
 using log4net.Config;
 using System.ServiceProcess;
 using System.Windows.Forms;
+using System.Threading;
+using log4net;
 
 namespace Alvasoft
 {
-    class Program : ServiceBase {
-
+    class Program : ServiceBase {        
         private static GCSService controller;
         private static NetConfigurationImpl netConfiguration = new NetConfigurationImpl {
             ServerHost = "localhost",
             ServerPort = 9876
-        };
+        };        
 
         static void Main(string[] args)
-        {
+        {            
             var appPath = Application.StartupPath + "/";
             var configLogingFileName = appPath + "Settings/Logging.xml";
             XmlConfigurator.Configure(new FileInfo(configLogingFileName));
@@ -35,14 +36,14 @@ namespace Alvasoft
             }
         }        
 
-        protected override void OnStart(string[] args) {
+        protected override void OnStart(string[] args) {            
             controller = new GCSService(netConfiguration);
-            controller.OpenService();
+            controller.OpenService();            
         }
 
         protected override void OnStop() {
             controller.CloseService();
-            controller.Dispose(); 
+            controller.Dispose();            
         }
     }
 }

@@ -25,6 +25,6 @@ D:\repositories\SlabGeometryControl\Круглые слитки\SlabGeometryCont
 D:\repositories\SlabGeometryControl\Круглые слитки\SlabGeometryControl\bin\Debug\AlvasoftWcfServer.pdb
 D:\repositories\SlabGeometryControl\Круглые слитки\SlabGeometryControl\bin\Debug\OpcTagAccessProvider.pdb
 D:\repositories\SlabGeometryControl\Круглые слитки\SlabGeometryControl\bin\Debug\RoundSlabEmulator.pdb
-D:\repositories\SlabGeometryControl\Круглые слитки\SlabGeometryControl\obj\x86\Debug\RSlabGeometryControl.csprojResolveAssemblyReference.cache
 D:\repositories\SlabGeometryControl\Круглые слитки\SlabGeometryControl\obj\x86\Debug\RSlabGeometryControl.exe
 D:\repositories\SlabGeometryControl\Круглые слитки\SlabGeometryControl\obj\x86\Debug\RSlabGeometryControl.pdb
+D:\repositories\SlabGeometryControl\Круглые слитки\SlabGeometryControl\obj\x86\Debug\RSlabGeometryControl.csprojResolveAssemblyReference.cache

@@ -452,6 +452,7 @@ namespace Alvasoft.Server
                 }
 
                 var slab = userSlabBuilder.BuildSlabModel(aIsUseFilters);
+
                 return slab.ToSlabModel();
             }
             catch (Exception ex) {

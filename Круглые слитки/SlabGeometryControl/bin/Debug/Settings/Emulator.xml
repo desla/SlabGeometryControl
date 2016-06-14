@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <EmulatorConfiguration>
-  <Length>1000</Length>
+  <Length>6000</Length>
   <Diameter>500</Diameter>
   <Speed>15</Speed>
   <RattleLimit>0</RattleLimit>
@@ -14,19 +14,7 @@
       </Direction>
     </BumpConfiguration>
   </Bumps>  
-  <Flexs>
-    <FlexConfiguration>
-      <Position>100</Position>
-      <Maximum>50</Maximum>
-    </FlexConfiguration>
-    <FlexConfiguration>
-      <Position>500</Position>
-      <Maximum>10</Maximum>
-    </FlexConfiguration>
-    <FlexConfiguration>
-      <Position>700</Position>
-      <Maximum>0</Maximum>
-    </FlexConfiguration>
+  <Flexs>    
   </Flexs>
   <Frame>
     <ScanSpeed>2</ScanSpeed>

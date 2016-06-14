@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Timers;
+using System.Windows.Forms;
 using Alvasoft.DataEnums;
 using Alvasoft.DataProviderConfiguration;
 using Alvasoft.SensorConfiguration;
@@ -29,15 +30,15 @@ namespace Alvasoft.DataProvider.Impl.Emulator {
 
         private Timer scanTimer;        
 
-        public EmulatorDataProvider() {            
-            configuration = EmulatorConfiguration.Deserialize("Settings/Emulator.xml");
+        public EmulatorDataProvider() {
+            var appPath = Application.StartupPath + "/";
+            configuration = EmulatorConfiguration.Deserialize(appPath + "Settings/Emulator.xml");
             emulator.setConfiguration(configuration);
 
             scanTimer = new Timer();
             scanTimer.Elapsed += StartScan;
-            scanTimer.Interval = 10000;
-            //scanTimer.Start();
-            //StartScan(null, null);            
+            scanTimer.Interval = 5 * 60 * 1000;            
+            scanTimer.Start();                       
         }        
 
         private void StartScan(object sender, ElapsedEventArgs e) {

@@ -280,8 +280,9 @@ namespace SGCUserInterface
         private void SlabsListLoading(object sender, DoWorkEventArgs e)
         {
             try {
-                var from = dateTimeFrom.Value.Date.ToLocalTime().ToBinary();
-                var to = dateTimeFrom.Value.Date.AddHours(24).ToLocalTime().ToBinary();                                              
+                var currentDate = new DateTime(dateTimeFrom.Value.Date.Ticks, DateTimeKind.Local);
+                var from = currentDate.ToBinary();
+                var to = currentDate.AddDays(1).ToBinary();                                              
                 slabsList.Slabs = client.GetSlabInfosByTimeInterval(from, to);                
                 if (slabsList.StandartSizes == null) {
                     slabsList.StandartSizes = client.GetStandartSizes();
