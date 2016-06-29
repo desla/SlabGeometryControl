@@ -618,5 +618,28 @@ namespace SGCUserInterface
         private void dateTimeFrom_ValueChanged(object sender, EventArgs e)
         {            
         }
+
+        private void ппересчетПараметровToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddLogInfo("GUI", "Пересчет параметров слитка.");
+            var rowIndex = -1;
+            if (dataGridView1.SelectedCells.Count > 0) {
+                rowIndex = dataGridView1.SelectedCells[0].RowIndex;
+            }
+
+            if (rowIndex != -1) {
+                var row = dataGridView1.Rows[rowIndex];
+                var slabId = Convert.ToInt32(row.Cells["Id"].Value);                
+                ThreadPool.QueueUserWorkItem(state => ShowRecalculatedValues(slabId));
+            }
+        }
+
+        private void ShowRecalculatedValues(int aSlabId)
+        {
+            if (client != null) {
+                var valuesString = client.GetRecalculatedValuesString(aSlabId);
+                MessageBox.Show(valuesString);
+            }
+        }
     }
 }

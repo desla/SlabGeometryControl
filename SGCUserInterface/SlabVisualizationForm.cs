@@ -79,9 +79,9 @@ namespace SGCUserInterface
         {
             try {
                 if (!isErrorLoading) {
-                    if (isUseFilter) {
-                        Filtered(slabModel);
-                    }                    
+                    //if (isUseFilter) {
+                    //    Filtered(slabModel);
+                    //}                    
                     // графики показания датчиков.
                     sensorsPlots.DrawPlots(points, sensors);
                     sensorsPlots.ShowAllPlots(isAllPlotShowCheckedBox.Checked);
@@ -183,7 +183,7 @@ namespace SGCUserInterface
                         }
                         loader.ReportProgress((i + 1)*sensorPercens);
                     }
-                    slabModel = client.GetSlabModel3DBySlabId(slabId);
+                    slabModel = client.GetSlabModel3DBySlabId(slabId, isUseFilter);
                     loader.ReportProgress(95);
                     systemDimentions = client.GetDimentions();
                     slabDimentionsResults = client.GetDimentionResultsBySlabId(slabId);

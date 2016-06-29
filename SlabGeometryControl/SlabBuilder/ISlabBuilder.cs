@@ -31,6 +31,6 @@ namespace Alvasoft.SlabBuilder
         /// Выполняет построение модели слитка.
         /// </summary>
         /// <returns>Модель слитка.</returns>
-        ISlabModel BuildSlabModel();
+        ISlabModel BuildSlabModel(bool aIsUseFilters);
     }
 }

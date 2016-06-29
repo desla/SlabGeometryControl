@@ -139,6 +139,7 @@
     <Compile Include="SlabBuilder\Impl\Filters\IncrementOrderConverter.cs" />
     <Compile Include="SlabBuilder\Impl\Filters\PickFilter.cs" />
     <Compile Include="SlabBuilder\Impl\Filters\PickPositionFilter.cs" />
+    <Compile Include="SlabBuilder\Impl\Filters\RotateFilter.cs" />
     <Compile Include="SlabBuilder\Impl\Filters\SplashFilter.cs" />
     <Compile Include="SlabBuilder\Impl\SlabModelImpl.cs" />
     <Compile Include="Tests\NHibernateDimentionConfigurationTest.cs" />

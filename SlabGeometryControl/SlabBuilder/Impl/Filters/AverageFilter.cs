@@ -6,8 +6,8 @@ namespace Alvasoft.SlabBuilder.Impl.Filters
 {
     public class AverageFilter
     {
-        private const int WINDOW_SIZE = 10; // размер окна для вычисления среднего.
-        private const double MIN_SPEED = 0.5; // минимальное значение производной.
+        private const int WINDOW_SIZE = 20; // размер окна для вычисления среднего.
+        private const double MIN_SPEED = 5; // минимальное значение производной.
 
         public static void Filter(SlabModelImpl aSlab)
         {

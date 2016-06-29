@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <calibrator>
-  <sensor sensorId="0">1084,00</sensor>
-  <sensor sensorId="1">1084,00</sensor>
-  <sensor sensorId="2">2803,00</sensor>
-  <sensor sensorId="3">2803,00</sensor>
+  <sensor sensorId="0">1088,61111450195</sensor>
+  <sensor sensorId="1">1088,61111450195</sensor>
+  <sensor sensorId="2">2785,67593383789</sensor>
+  <sensor sensorId="3">2785,67593383789</sensor>
 </calibrator>

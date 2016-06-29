@@ -84,6 +84,7 @@ namespace SGCUserInterface
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.ппересчетПараметровToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -183,28 +184,30 @@ namespace SGCUserInterface
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.просмотрToolStripMenuItem,
             this.просмотрФильтровToolStripMenuItem,
+            this.ппересчетПараметровToolStripMenuItem,
             this.отчетПоСлиткуToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(176, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(186, 114);
             // 
             // просмотрToolStripMenuItem
             // 
             this.просмотрToolStripMenuItem.Name = "просмотрToolStripMenuItem";
-            this.просмотрToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.просмотрToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
             this.просмотрToolStripMenuItem.Text = "Просмотр";
             this.просмотрToolStripMenuItem.Click += new System.EventHandler(this.просмотрToolStripMenuItem_Click);
             // 
             // просмотрФильтровToolStripMenuItem
             // 
             this.просмотрФильтровToolStripMenuItem.Name = "просмотрФильтровToolStripMenuItem";
-            this.просмотрФильтровToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.просмотрФильтровToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
             this.просмотрФильтровToolStripMenuItem.Text = "Просмотр фильтров";
             this.просмотрФильтровToolStripMenuItem.Click += new System.EventHandler(this.просмотрФильтровToolStripMenuItem_Click);
             // 
             // отчетПоСлиткуToolStripMenuItem
             // 
+            this.отчетПоСлиткуToolStripMenuItem.Enabled = false;
             this.отчетПоСлиткуToolStripMenuItem.Name = "отчетПоСлиткуToolStripMenuItem";
-            this.отчетПоСлиткуToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.отчетПоСлиткуToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
             this.отчетПоСлиткуToolStripMenuItem.Text = "Отчет по слитку";
             this.отчетПоСлиткуToolStripMenuItem.Click += new System.EventHandler(this.отчетПоСлиткуToolStripMenuItem_Click);
             // 
@@ -578,6 +581,13 @@ namespace SGCUserInterface
             this.richTextBox1.Text = "";
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
+            // ппересчетПараметровToolStripMenuItem
+            // 
+            this.ппересчетПараметровToolStripMenuItem.Name = "ппересчетПараметровToolStripMenuItem";
+            this.ппересчетПараметровToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.ппересчетПараметровToolStripMenuItem.Text = "Пересчет параметров";
+            this.ппересчетПараметровToolStripMenuItem.Click += new System.EventHandler(this.ппересчетПараметровToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -669,6 +679,7 @@ namespace SGCUserInterface
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.ToolStripMenuItem отчетПоСлиткуToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem просмотрФильтровToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ппересчетПараметровToolStripMenuItem;
     }
 }
 

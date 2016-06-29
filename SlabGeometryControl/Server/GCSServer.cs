@@ -170,7 +170,7 @@ namespace Alvasoft.Server
                         logger.Info("Время сканирования: " + (endSlabScanTime - startSlabScanTime));
                         var slabId = GetNewSlabId();
                         StoreSensorValues(slabId);                        
-                        var slabModel = slabBuilder.BuildSlabModel();
+                        var slabModel = slabBuilder.BuildSlabModel(aIsUseFilters: true);
                         dimentionCalculator.CalculateDimentions(slabModel);
                         var dimentionValues = dimentionValueContainer.GetDimentionValues();
                         dimentionValueWriter.WriteDimentionValues(slabId, dimentionValues);
@@ -456,7 +456,7 @@ namespace Alvasoft.Server
             };
         }
 
-        public SlabModel3D GetSlabModel3DBySlabId(int aSlabId)
+        public SlabModel3D GetSlabModel3DBySlabId(int aSlabId, bool aIsUseFilters)
         {
             try {
                 var sensorsCount = sensorConfiguration.GetSensorInfoCount();
@@ -470,7 +470,7 @@ namespace Alvasoft.Server
                     }
                 }
 
-                var slab = userSlabBuilder.BuildSlabModel();
+                var slab = userSlabBuilder.BuildSlabModel(aIsUseFilters);
                 return slab.ToSlabModel();
             }
             catch (Exception ex) {
@@ -486,12 +486,6 @@ namespace Alvasoft.Server
         {            
             var sensorValues = sensorValueReaderWriter                
                 .ReadSensorValueInfo(aSensorId, aSlabId);
-
-            if (aSensorId == 4) {
-                //IncrementOrderConverter.Convert(ref sensorValues);
-                //PickPositionFilter.Filter(ref sensorValues);
-                //DoublePositionFilter.Filter(ref sensorValues);
-            }
 
             var results = new List<SensorValue>();
             if (sensorValues != null) {
@@ -614,6 +608,46 @@ namespace Alvasoft.Server
         public void SerCalibratedValue(int aSensorId, double aCalibratedValue)
         {
             calibrator.SetCalibratedValue(aSensorId, aCalibratedValue);
+        }
+
+        public string GetRecalculatedValuesString(int aSlabId)
+        {
+            try {
+                var sensorsCount = sensorConfiguration.GetSensorInfoCount();
+                for (var i = 0; i < sensorsCount; ++i) {
+                    var sensor = sensorConfiguration.ReadSensorInfoByIndex(i);
+                    var sensorId = sensor.GetId();
+                    var sensorValues = GetSensorValuesBySlabId(aSlabId, sensorId);
+                    for (var j = 0; j < sensorValues.Length; ++j) {
+                        userSensorValueContainer
+                            .AddSensorValue(sensorId, sensorValues[j].Value, sensorValues[j].Time);
+                    }
+                }
+
+                var slab = userSlabBuilder.BuildSlabModel(aIsUseFilters: true);
+                dimentionCalculator.CalculateDimentions(slab);
+                var dimentionValues = dimentionValueContainer.GetDimentionValues();
+                var result = string.Empty;
+                var dimentions = GetDimentions();
+                foreach (var dimentionValue in dimentionValues) {
+                    foreach (var dimention in dimentions) {
+                        if (dimentionValue.GetDimentionId() == dimention.Id) {
+                            result += dimention.Description + " = " + dimentionValue.GetValue() + "\n";
+                            break;
+                        }
+                    }
+                }
+
+                return result;
+            }
+            catch (Exception ex) {
+                logger.Info("Ошибка при построении модели слитка: " + ex.Message);
+                return "Ошибка при расчете параметров: " + ex.Message;
+            }
+            finally {
+                userSensorValueContainer.Clear();
+                dimentionValueContainer.Clear();
+            }
         }
     }
 }

@@ -117,9 +117,10 @@
         /// </summary>
         /// <param name="aSessionId">Идентификатор сессии клиента.</param>
         /// <param name="aSlabId">Идентификатор слитка.</param>
+        /// <param name="aIsUseFilter">Флаг использования фильтров при построении модели.</param>
         /// <returns>Все точки поверхности слитка.</returns>
         [OperationContract]
-        SlabModel3D GetSlabModel3DBySlabId(long aSessionId, int aSlabId);
+        SlabModel3D GetSlabModel3DBySlabId(long aSessionId, int aSlabId, bool aIsUseFilter);
 
         /// <summary>
         /// Возвращает показания датчика при замере слитка.
@@ -242,5 +243,14 @@
         void SetCalibratedValue(long aSessionId, int aSensorId, double aCalibratedValue);
 
         #endregion
+
+        /// <summary>
+        /// Возвращает пересчитанные параметры слитка.        
+        /// </summary>
+        /// <param name="aSessionId">Идентификатор сессии клиента.</param>
+        /// <param name="aSlabId">Идентификатор слитка.</param>
+        /// <returns>Строка, содержащая описание пересчитанных параметров.</returns>
+        [OperationContract]
+        string GetRecalculatedValuesString(long aSessionId, int aSlabId);
     }
 }
