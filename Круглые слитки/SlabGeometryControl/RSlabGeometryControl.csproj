@@ -81,6 +81,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataWriter\DataCleaner\NHibernateDataCleanerImpl.cs" />
     <Compile Include="DataProviderConfiguration\IDataProviderConfigurationListener.cs" />
     <Compile Include="DataProviderConfiguration\IOpcControlBlock.cs" />
     <Compile Include="DataProviderConfiguration\XmlImpl\OpcControlBlockImpl.cs" />

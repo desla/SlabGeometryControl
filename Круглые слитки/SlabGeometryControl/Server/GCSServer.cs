@@ -28,6 +28,8 @@ using System.Windows.Forms;
 
 namespace Alvasoft.Server
 {
+    using DataWriter.DataCleaner;
+
     public class GCSServer :
         InitializableImpl,
         IDataProviderListener,
@@ -55,6 +57,8 @@ namespace Alvasoft.Server
         private ISlabInfoReader slabReader;
         private NHibernateStandartSizeReaderWriter standartSizeReaderWriter;
         private NHibernateRegulationReaderWriter regulationsReaderWriter;
+
+        private NHibernateDataCleanerImpl dataCleaner;
 
         private SlabBuilderImpl userSlabBuilder;
         private ISensorValueContainer userSensorValueContainer;
@@ -92,6 +96,9 @@ namespace Alvasoft.Server
             slabWriter = new NHibernateSlabInfoWriter();
             slabReader = slabWriter as ISlabInfoReader;
 
+            dataCleaner = new NHibernateDataCleanerImpl();
+            dataCleaner.SetSlabInfoWriter(slabWriter);
+
             sensorValueContainer.SunbscribeContainerListener(this);                       
 
             dataProvider.SetSensorConfiguration(sensorConfiguration);
@@ -119,12 +126,13 @@ namespace Alvasoft.Server
             dataProviderConfiguration.Initialize();
             sensorConfiguration.Initialize();
             sensorValueReaderWriter.Initialize();
-            slabWriter.Initialize();
+            slabWriter.Initialize();            
             dimentionValueWriter.Initialize();
             dimentionCalculator.Initialize();
             calibrator.Initialize();
             slabBuilder.Initialize();            
-            userSlabBuilder.Initialize();            
+            userSlabBuilder.Initialize();
+            dataCleaner.Initialize();            
             dataProvider.Initialize();
 
             logger.Info("Инициализация завершена.");
@@ -138,6 +146,7 @@ namespace Alvasoft.Server
                 regulationsReaderWriter.Uninitialize();
                 dataProvider.UnsubscribeDataProviderListener(this);
                 sensorValueContainer.UnsunbscribeContainerListener(this);
+                dataCleaner.Uninitialize();
                 dataProvider.Uninitialize();
                 slabBuilder.Uninitialize();
                 userSlabBuilder.Uninitialize();
