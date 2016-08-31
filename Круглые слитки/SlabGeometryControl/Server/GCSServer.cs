@@ -28,7 +28,7 @@ using System.Windows.Forms;
 
 namespace Alvasoft.Server
 {
-    using DataWriter.DataCleaner;
+    //using DataWriter.DataCleaner;
 
     public class GCSServer :
         InitializableImpl,
@@ -58,7 +58,7 @@ namespace Alvasoft.Server
         private NHibernateStandartSizeReaderWriter standartSizeReaderWriter;
         private NHibernateRegulationReaderWriter regulationsReaderWriter;
 
-        private NHibernateDataCleanerImpl dataCleaner;
+        //private NHibernateDataCleanerImpl dataCleaner;
 
         private SlabBuilderImpl userSlabBuilder;
         private ISensorValueContainer userSensorValueContainer;
@@ -96,8 +96,8 @@ namespace Alvasoft.Server
             slabWriter = new NHibernateSlabInfoWriter();
             slabReader = slabWriter as ISlabInfoReader;
 
-            dataCleaner = new NHibernateDataCleanerImpl();
-            dataCleaner.SetSlabInfoWriter(slabWriter);
+            //dataCleaner = new NHibernateDataCleanerImpl();
+            //dataCleaner.SetSlabInfoWriter(slabWriter);
 
             sensorValueContainer.SunbscribeContainerListener(this);                       
 
@@ -132,7 +132,7 @@ namespace Alvasoft.Server
             calibrator.Initialize();
             slabBuilder.Initialize();            
             userSlabBuilder.Initialize();
-            dataCleaner.Initialize();            
+            //dataCleaner.Initialize();            
             dataProvider.Initialize();
 
             logger.Info("Инициализация завершена.");
@@ -146,7 +146,7 @@ namespace Alvasoft.Server
                 regulationsReaderWriter.Uninitialize();
                 dataProvider.UnsubscribeDataProviderListener(this);
                 sensorValueContainer.UnsunbscribeContainerListener(this);
-                dataCleaner.Uninitialize();
+                //dataCleaner.Uninitialize();
                 dataProvider.Uninitialize();
                 slabBuilder.Uninitialize();
                 userSlabBuilder.Uninitialize();
@@ -338,7 +338,7 @@ namespace Alvasoft.Server
             }
 
             return results.ToArray();
-        }
+        }        
 
         public StandartSize[] GetStandartSizes()
         {
@@ -596,6 +596,43 @@ namespace Alvasoft.Server
         public void SerCalibratedValue(int aSensorId, double aCalibratedValue)
         {
             calibrator.SetCalibratedValue(aSensorId, aCalibratedValue);
+        }
+
+        public string GetRecalculatedValuesString(int aSlabId) {
+            try {
+                var sensorsCount = sensorConfiguration.GetSensorInfoCount();
+                for (var i = 0; i < sensorsCount; ++i) {
+                    var sensor = sensorConfiguration.ReadSensorInfoByIndex(i);
+                    var sensorId = sensor.GetId();
+                    var sensorValues = GetSensorValuesBySlabId(aSlabId, sensorId);
+                    for (var j = 0; j < sensorValues.Length; ++j) {
+                        userSensorValueContainer
+                            .AddSensorValue(sensorId, sensorValues[j].Value, sensorValues[j].Time);
+                    }
+                }
+
+                var slab = userSlabBuilder.BuildSlabModel(aIsUseFilters: true);
+                dimentionCalculator.CalculateDimentions(slab);
+                var dimentionValues = dimentionValueContainer.GetDimentionValues();
+                var result = string.Empty;
+                var dimentions = GetDimentions();
+                foreach (var dimentionValue in dimentionValues) {
+                    foreach (var dimention in dimentions) {
+                        if (dimentionValue.GetDimentionId() == dimention.Id) {
+                            result += dimention.Description + " = " + dimentionValue.GetValue() + "\n";
+                            break;
+                        }
+                    }
+                }
+
+                return result;
+            } catch (Exception ex) {
+                logger.Info("Ошибка при построении модели слитка: " + ex.Message);
+                return "Ошибка при расчете параметров: " + ex.Message;
+            } finally {
+                userSensorValueContainer.Clear();
+                dimentionValueContainer.Clear();
+            }
         }
     }
 }

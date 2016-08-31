@@ -130,7 +130,16 @@
         /// <param name="aSensorId">Идентификатор датчика.</param>
         /// <returns>Замеренные датчиком показания.</returns>
         [OperationContract]
-        SensorValue[] GetSensorValuesBySlabId(long aSessionId, int aSlabId, int aSensorId);       
+        SensorValue[] GetSensorValuesBySlabId(long aSessionId, int aSlabId, int aSensorId);
+
+        /// <summary>
+        /// Возвращает строковое описание пересчитанных параметров.
+        /// </summary>
+        /// <param name="aSessionId">Идентификатор сессии.</param>
+        /// <param name="aSlabId">Идентификатор слитка.</param>
+        /// <returns>Строковое описание пересчитанных параметров.</returns>
+        [OperationContract]
+        string GetRecalculatedValuesString(long aSessionId, int aSlabId);
 
         #endregion
 

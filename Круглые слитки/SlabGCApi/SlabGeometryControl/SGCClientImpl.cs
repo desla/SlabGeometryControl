@@ -180,5 +180,10 @@ namespace Alvasoft.SlabGeometryControl
         {
             logger.Debug(aDebugMessage);
         }
+
+        public string GetRecalculatedValuesString(int aSlabId) {
+            CheckConnection();
+            return ServerInstance.GetRecalculatedValuesString(GetSessionId(), aSlabId);
+        }
     }
 }

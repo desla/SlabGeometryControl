@@ -64,6 +64,7 @@ namespace Alvasoft.DimentionCalculator.Impl
             algorithms.Add(new MiddleDiameterAlgorithm()); // Диаметр посередине слитка.
             algorithms.Add(new FrontMiddleDiameterAlgorithm()); // Диаметр между серединой и передним торцом с учетом отступа.
             algorithms.Add(new BackMiddleDiameterAlgorithm()); // Диаметр между серединой и задним торцом с учетом отступа.
+            algorithms.Add(new TopCurvatureAlgorithm()); // Максимальная кривизна сверху на всей длине слитка.
             logger.Info("Инициализация завершена.");
         }
 

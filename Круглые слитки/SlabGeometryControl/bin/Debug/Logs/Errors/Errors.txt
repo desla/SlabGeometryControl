@@ -1,3 +1,12 @@
-2016-07-08 16:35:24,016 [OpcDataProviderImpl] ERROR - Ошибка при инициализации: Ошибка при записи значения тега S7:[S7 connection_1]ValueTimesGlobal_1 : Исключение из HRESULT: 0xC0048003
-2016-07-08 16:36:39,185 [OpcDataProviderImpl] ERROR - Ошибка при инициализации: Ошибка при записи значения тега S7:[S7 connection_1]ValueTimesGlobal_1 : Исключение из HRESULT: 0xC0048003
-2016-07-08 16:37:09,185 [OpcDataProviderImpl] ERROR - Ошибка при инициализации: Ошибка при записи значения тега S7:[S7 connection_1]ValueTimesGlobal_1 : Исключение из HRESULT: 0xC0048003
+2016-08-31 12:00:36,838 [OpcDataProviderImpl] ERROR - Ошибка при инициализации: Ошибка при записи значения тега S7:[S7 connection_1]ValueTimesGlobal_1 : Исключение из HRESULT: 0xC0048003
+2016-08-31 12:03:36,939 [OpcDataProviderImpl] ERROR - Ошибка при инициализации: Ошибка при записи значения тега S7:[S7 connection_1]ValueTimesGlobal_1 : Исключение из HRESULT: 0xC0048003
+2016-08-31 12:28:23,439 [OpcDataProviderImpl] ERROR - Ошибка при инициализации: Ошибка при записи значения тега S7:[S7 connection_1]ValueTimesGlobal_1 : Исключение из HRESULT: 0xC0048003
+2016-08-31 12:32:38,738 [OpcDataProviderImpl] ERROR - Ошибка при инициализации: Ошибка при записи значения тега S7:[S7 connection_1]ValueTimesGlobal_1 : Исключение из HRESULT: 0xC0048003
+2016-08-31 13:12:20,938 [OpcDataProviderImpl] ERROR - Ошибка при инициализации: Ошибка при записи значения тега S7:[S7 connection_1]ValueTimesGlobal_1 : Исключение из HRESULT: 0xC0048003
+2016-08-31 13:48:04,637 [OpcDataProviderImpl] ERROR - Ошибка при инициализации: Ошибка при записи значения тега S7:[S7 connection_1]ValueTimesGlobal_1 : Исключение из HRESULT: 0xC0048003
+2016-08-31 14:38:52,737 [OpcDataProviderImpl] ERROR - Ошибка при инициализации: Ошибка при записи значения тега S7:[S7 connection_1]ValueTimesGlobal_1 : Исключение из HRESULT: 0xC0048003
+2016-08-31 14:39:37,738 [OpcDataProviderImpl] ERROR - Ошибка при инициализации: Ошибка при записи значения тега S7:[S7 connection_1]ValueTimesGlobal_1 : Исключение из HRESULT: 0xC0048003
+2016-08-31 14:40:37,837 [OpcDataProviderImpl] ERROR - Ошибка при инициализации: Ошибка при записи значения тега S7:[S7 connection_1]ValueTimesGlobal_1 : Исключение из HRESULT: 0xC0048003
+2016-08-31 14:42:38,037 [OpcDataProviderImpl] ERROR - Ошибка при инициализации: Ошибка при записи значения тега S7:[S7 connection_1]ValueTimesGlobal_1 : Исключение из HRESULT: 0xC0048003
+2016-08-31 14:43:23,038 [OpcDataProviderImpl] ERROR - Ошибка при инициализации: Ошибка при записи значения тега S7:[S7 connection_1]ValueTimesGlobal_1 : Исключение из HRESULT: 0xC0048003
+2016-08-31 14:46:23,238 [OpcDataProviderImpl] ERROR - Ошибка при инициализации: Ошибка при записи значения тега S7:[S7 connection_1]ValueTimesGlobal_1 : Исключение из HRESULT: 0xC0048003

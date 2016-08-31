@@ -356,5 +356,16 @@ namespace Alvasoft.Server
                 gcsServer = null;
             }            
         }
+
+        public string GetRecalculatedValuesString(long aSessionId, int aSlabId) {
+            try {
+                logger.Debug("Сессия: " + aSessionId + " " +
+                             "Запрос GetRecalculatedValuesString(" + aSlabId + ")");
+                return gcsServer.GetRecalculatedValuesString(aSlabId);
+            } catch (Exception ex) {
+                logger.Error("Сессия: " + aSessionId + " Ошибка: " + ex.Message);
+                return "Во время пересчета произошла ошибка: " + ex.Message;
+            }
+        }
     }
 }

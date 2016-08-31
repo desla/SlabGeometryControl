@@ -81,7 +81,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataWriter\DataCleaner\NHibernateDataCleanerImpl.cs" />
     <Compile Include="DataProviderConfiguration\IDataProviderConfigurationListener.cs" />
     <Compile Include="DataProviderConfiguration\IOpcControlBlock.cs" />
     <Compile Include="DataProviderConfiguration\XmlImpl\OpcControlBlockImpl.cs" />
@@ -118,7 +117,9 @@
     <Compile Include="DataWriter\SlabInfoImpl.cs" />
     <Compile Include="DataWriter\StandartSizeImpl.cs" />
     <Compile Include="DimentionCalculator\Impl\Algorithms\BackMiddleDiameterAlgorithm.cs" />
+    <Compile Include="DimentionCalculator\Impl\Algorithms\ConvexHull.cs" />
     <Compile Include="DimentionCalculator\Impl\Algorithms\FrontMiddleDiameterAlgorithm.cs" />
+    <Compile Include="DimentionCalculator\Impl\Algorithms\TopCurvatureAlgorithm.cs" />
     <Compile Include="DimentionCalculator\Impl\Algorithms\MiddleDiameterAlgorithm.cs" />
     <Compile Include="DimentionCalculator\Impl\Algorithms\FrontDiameterAlgorithm.cs" />
     <Compile Include="DimentionCalculator\Impl\Algorithms\BackDiameterAlgorithm.cs" />
@@ -234,7 +235,9 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="DataWriter\DataCleaner\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

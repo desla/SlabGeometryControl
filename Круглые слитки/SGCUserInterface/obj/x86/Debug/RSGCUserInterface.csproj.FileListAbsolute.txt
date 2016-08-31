@@ -24,4 +24,7 @@ D:\repositories\SlabGeometryControl\Круглые слитки\SGCUserInterface
 D:\repositories\SlabGeometryControl\Круглые слитки\SGCUserInterface\obj\x86\Debug\RSGCUserInterface.csproj.GenerateResource.Cache
 D:\repositories\SlabGeometryControl\Круглые слитки\SGCUserInterface\obj\x86\Debug\RSGCUserInterface.exe
 D:\repositories\SlabGeometryControl\Круглые слитки\SGCUserInterface\obj\x86\Debug\RSGCUserInterface.pdb
-D:\repositories\SlabGeometryControl\Круглые слитки\SGCUserInterface\obj\x86\Debug\RSGCUserInterface.csprojResolveAssemblyReference.cache
+D:\repositories\SlabGeometryControl\Круглые слитки\SGCUserInterface\bin\Debug\Tao.FreeGlut.dll
+D:\repositories\SlabGeometryControl\Круглые слитки\SGCUserInterface\bin\Debug\Tao.OpenGl.dll
+D:\repositories\SlabGeometryControl\Круглые слитки\SGCUserInterface\bin\Debug\Tao.Platform.Windows.dll
+D:\repositories\SlabGeometryControl\Круглые слитки\SGCUserInterface\bin\Debug\Tao.Platform.Windows.xml
